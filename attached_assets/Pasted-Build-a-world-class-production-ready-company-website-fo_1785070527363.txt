@@ -1,0 +1,315 @@
+Build a **world-class, production-ready company website** for **Sterova** that looks and behaves like a serious modern startup or agency site. The goal is to attract clients, build trust, convert visitors into inquiries, and scale cleanly over time.
+
+## Current setup
+
+I have already done the following:
+
+* Connected **Supabase** to **Vercel**
+* Created the **Supabase storage buckets**
+* Linked the project between **Supabase** and **Vercel**
+
+I have **not** created:
+
+* Database tables
+* Resend integration
+* Edge Functions
+* RLS policies
+* Triggers
+* Admin tables
+* Blog tables
+
+If any API keys, secrets, emails, URLs, or missing business details are required, ask me clearly before continuing. Do not invent business information.
+
+## Architecture requirement
+
+The frontend must be deployed on **Vercel** and all backend functionality must live in the cloud. Do not build a local backend server.
+
+Use:
+
+* **Vercel** for frontend hosting and deployments
+* **Supabase** for database, authentication, storage, security, and edge logic
+
+## Supabase / Vercel configuration rules
+
+Follow these rules exactly:
+
+* Use one production Supabase project connected to Vercel
+* Sync environment variables only to **Production**
+* Leave **Preview** and **Development** off unless I explicitly ask otherwise
+* Keep the public env prefix as **NEXT_PUBLIC_**
+* Never expose service-role keys in the browser
+* Use secure environment variables for all secrets
+* Protect all sensitive data with RLS
+* Keep storage access controlled based on bucket purpose
+
+## Content system requirement
+
+Put **all constants and page content** inside:
+
+`/data/constants.jsx`
+
+This file must contain all content as clean key-value structures, including:
+
+* Navigation links
+* Hero content
+* CTA text
+* Services
+* Portfolio cards
+* Testimonials
+* FAQs
+* Team members
+* Blog/insights content
+* Footer links
+* Contact details
+* Social links
+* Page metadata
+* Reusable labels and text
+
+The website must render dynamically from this file.
+
+Important:
+
+* If I add only 3 cards, the site should show only 3 cards
+* If I add 10 cards, the site should show 10 cards
+* If I remove an item from constants, it should disappear automatically
+* Repeated sections must be mapped dynamically
+* Do not hardcode repeating content directly inside components
+
+## Pages to include
+
+Create these pages and sections:
+
+* Home
+* About
+* Services
+* Portfolio / Case Studies
+* Process / How We Work
+* Testimonials
+* FAQ
+* Contact
+* Blog / Insights
+* Optional Careers page
+* Privacy Policy
+* Terms of Service
+
+## Features the website must have
+
+* Fully responsive on mobile, tablet, and desktop
+* Fast loading and SEO-friendly
+* Strong conversion-focused layout
+* Clear service presentation
+* Contact form
+* WhatsApp integration
+* Portfolio / case study cards
+* Testimonial section
+* FAQ section
+* Blog / insights section
+* Sticky navigation
+* Reusable components
+* Clean footer
+* Analytics-ready setup
+* Maintainable folder structure
+* Scalable architecture for future expansion
+* Proper meta tags, Open Graph, Twitter Cards, canonical URLs, and structured data
+* Accessibility-conscious UI
+* Loading, error, success, and empty states wherever relevant
+
+## Backend and cloud setup
+
+Since Supabase is already connected in Vercel, create the missing backend code and SQL artifacts needed to support the site.
+
+Create in code:
+
+* Supabase table schemas
+* Foreign keys
+* Indexes
+* RLS policies
+* Storage-related access logic
+* Edge Functions
+* Database triggers where useful
+* Seed data if needed
+* TypeScript types for Supabase
+* Form submission handling
+* Email sending flow through Resend
+* Admin-friendly structure for future dashboard expansion
+
+## Recommended initial tables
+
+Create only the tables actually needed for the current website:
+
+* `contact_messages`
+* `newsletter_subscribers`
+* `job_applications`
+* `blog_categories`
+* `blog_posts` if a database-backed blog is needed
+* `admins`
+* `audit_logs`
+
+Keep the schema minimal, secure, and extensible. Do not create unnecessary tables.
+
+## Storage buckets
+
+Use the existing Supabase storage buckets already created, and wire them properly in the app. Support these bucket types conceptually:
+
+* website-assets
+* portfolio-images
+* team
+* blog
+* documents
+* uploads
+
+Handle bucket visibility and file handling appropriately:
+
+* Public files only where visitors need direct access
+* Private files for sensitive uploads and internal documents
+* Validate file size and MIME type before upload
+* Keep upload handling secure and reusable
+
+## Coding standards
+
+Use:
+
+* Strict TypeScript
+* Absolute imports
+* Async/await
+* Server Components where appropriate
+* Client Components only when necessary
+* React hooks with clean state handling
+* Reusable UI patterns
+* Simple, maintainable code
+
+Avoid:
+
+* Hardcoded repeated content
+* Hardcoded API URLs
+* Secrets in the repository
+* Inline styles unless absolutely necessary
+* Duplicate components
+* Unnecessary dependencies
+* Deprecated packages
+* Ignoring TypeScript or ESLint errors
+* `any` unless truly unavoidable
+* Disabling linting or type checks
+* Overengineering
+* TODO placeholders or fake implementations
+
+## Folder structure
+
+Use a clean, scalable structure such as:
+
+`src/`
+* `app/`
+* `components/`
+  * `ui/`
+  * `layout/`
+  * `sections/`
+  * `shared/`
+* `hooks/`
+* `lib/`
+* `services/`
+* `types/`
+* `utils/`
+* `data/`
+* `styles/`
+* `supabase/`
+* `providers/`
+* `middleware/`
+
+Everything should be componentized. No duplicated UI. Each section should be reusable. Business logic must not live inside UI components.
+
+## Forms
+
+Every form must include:
+
+* Validation
+* Sanitization
+* Loading state
+* Error handling
+* Success notification
+* Rate limiting support
+
+## Images and media
+
+* Use the Next.js Image component
+* Optimize all images
+* Lazy-load non-critical assets
+* Prevent layout shift
+
+## Performance requirements
+
+Implement:
+
+* Dynamic imports
+* Code splitting
+* Tree shaking
+* Route prefetching
+* Font optimization
+* Image optimization
+
+## SEO requirements
+
+Generate:
+
+* `sitemap.xml`
+* `robots.txt`
+* Open Graph tags
+* Twitter Cards
+* Canonical URLs
+* Structured Data (JSON-LD)
+
+## Security requirements
+
+Implement:
+
+* CSP headers
+* Security headers
+* Input validation
+* XSS protection
+* CSRF protection where applicable
+* Secure cookies
+* RLS on every sensitive table
+* Safe handling of secrets and environment variables
+
+## Future-proofing
+
+Every feature should be designed so new pages, services, team members, portfolio items, and integrations can be added without refactoring existing code.
+
+## Documentation
+
+Generate a `README.md` including:
+
+* Installation
+* Environment variables
+* Deployment
+* Folder structure
+* Database setup
+* Supabase setup
+* Vercel deployment
+
+## Suggested stack
+
+Use:
+
+* **Next.js**
+* **TypeScript**
+* **Tailwind CSS**
+* **shadcn/ui**
+* **React**
+* **Framer Motion**
+* **React Hook Form**
+* **Zod**
+* **Supabase**
+* **PostgreSQL**
+* **@supabase/supabase-js**
+* **Resend**
+* Optional **MDX** or CMS support later for blog content
+
+Do not introduce Prisma unless it is truly necessary for the final architecture.
+
+## Quality bar
+
+Build this like the main website for a company that wants to scale beyond early-stage startup quality. The result should be clean, premium, maintainable, secure, and ready to grow into a larger platform later.
+
+## Output expectation
+
+Generate the project code, backend SQL, folder structure, and setup instructions in a production-minded way that is easy to deploy and expand.
