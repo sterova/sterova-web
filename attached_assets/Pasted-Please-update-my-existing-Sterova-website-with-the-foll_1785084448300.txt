@@ -1,0 +1,150 @@
+Please update my existing Sterova website with the following requirements. This is **not a rebuild**; only apply these changes to the current project.
+
+## Single source of truth
+
+I do **not** want editable content stored in frontend constants, local arrays, or a `/data/constants.jsx` file.
+
+All editable website content must live **only in Supabase** and be loaded from the database dynamically.
+
+That means the frontend should fetch from Supabase for:
+
+* Services
+* Projects / Portfolio
+* Blog posts and categories
+* Testimonials
+* Customer reviews
+* FAQs
+* Navigation items
+* Homepage sections
+* Footer content
+* Contact information
+* Site settings
+* Any other content that may be edited later
+
+The frontend should contain only:
+
+* Component structure
+* Layout logic
+* Styling
+* Technical utility constants that are not editable content
+* API / environment configuration
+
+Do **not** duplicate content in frontend constants and Supabase at the same time. Supabase must be the only source of truth for all editable text, cards, links, sections, and site data.
+
+## Admin dashboard
+
+Build a secure admin system with full CRUD for all editable content. The admin panel must allow me to:
+
+* Add, edit, delete, and reorder services
+* Add, edit, delete, and reorder projects
+* Add, edit, delete blog posts and categories
+* Add, edit, delete testimonials and reviews
+* Add, edit, delete FAQs
+* Edit navigation, homepage sections, footer content, contact details, and site settings
+* Manage all website content from one place without changing code
+
+The admin dashboard should be the only place where editable content is changed, and all frontend pages must reflect those changes automatically.
+
+## Security requirements for admin
+
+The admin authentication system must be extremely secure and intended only for me.
+
+Implement:
+
+* Strong authentication and authorization
+* Role-based access control
+* Secure session handling
+* Rate limiting on auth endpoints
+* CSRF and XSS protection
+* Input validation and sanitization
+* Secure password hashing
+* Audit logging for admin actions
+* Protected admin routes
+* `noindex` and `nofollow` for admin pages so search engines cannot index them
+
+## Homepage visuals
+
+Improve the homepage with smooth, modern background animations that feel premium and engaging without hurting performance. Use subtle effects such as animated gradients, floating elements, glowing particles, or soft motion to add depth and visual appeal.
+
+Also improve the color system for both **Light Mode** and **Dark Mode**. The palettes should feel modern, elegant, and consistent across the entire website, with strong contrast, readability, and accessibility. Keep the overall look polished and premium.
+
+## Navbar services hover
+
+The Services link in the top navbar needs a more unique hover style. Add a smooth background-style animation, such as moving lines or subtle motion in the background. Keep all animations smooth, tasteful, and responsive.
+
+## Human-like design and content
+
+Make the styling and copy feel more human, natural, and realistic. Avoid generic AI-style text and overly polished template-like design. The website should feel like it was built by a real premium company.
+
+## Reviews section
+
+The review write section should always remain visible, and submitted reviews should appear in the review cards section.
+
+* Remove default reviews from the live UI
+* Load customer-submitted reviews from Supabase and render them dynamically
+* If sample reviews are needed, keep them only as commented fallback examples in code, not as live content
+
+## Services content
+
+Current services I want to keep:
+
+* Web Development
+* Custom Software Development
+* Mobile App Development
+
+Remove these default services:
+
+* Cybersecurity
+* UI/UX Design
+* Cloud/DevOps
+* AI & Automation
+
+Services must be fully dynamic from Supabase:
+
+* If I add a new service in the database, it should appear automatically
+* The navbar should update dynamically based on the services stored in Supabase
+* The same dynamic behavior should apply to all editable content sections
+
+## Blog error handling
+
+Fix the blog page so it handles Supabase errors gracefully and does not crash the UI.
+
+Use proper:
+
+* Loading states
+* Empty states
+* Error states
+* Fallback rendering when database fetch fails
+
+## Database structure
+
+Generate the Supabase SQL needed to support this architecture.
+
+Create tables for:
+
+* services
+* portfolio_projects
+* testimonials
+* reviews
+* blog_posts
+* blog_categories
+* faq_items
+* site_content
+* navigation_items
+* admins
+* audit_logs
+* contact_messages
+* newsletter_subscribers
+
+## Dynamic content behavior
+
+The website should work dynamically everywhere:
+
+* New content added in Supabase should show automatically on the frontend
+* Navbar items should be database-driven
+* Reviews, services, blog posts, FAQs, testimonials, and all editable sections should come from Supabase
+* No editable section should depend on local frontend constants
+
+## Final goal
+
+Keep the site smooth, responsive, premium, and easy to maintain, while making the design feel more natural and keeping all editable content stored only in Supabase.
