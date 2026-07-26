@@ -114,8 +114,14 @@ export async function loginAction(
       metadata: { ip, role: adminRecord.role },
     });
 
-    // Safe redirect — only allow internal paths
-    if (redirectTo && redirectTo.startsWith("/") && !redirectTo.startsWith("//")) {
+    // Safe redirect — only allow internal paths and ignore setup/login loop routes
+    if (
+      redirectTo &&
+      redirectTo.startsWith("/") &&
+      !redirectTo.startsWith("//") &&
+      !redirectTo.startsWith("/admin/setup") &&
+      !redirectTo.startsWith("/admin/login")
+    ) {
       destination = redirectTo;
     }
   } catch (err) {
