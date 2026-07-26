@@ -50,6 +50,14 @@ Run `supabase/migrations/001_initial_schema.sql` against your Supabase project t
 - Supabase client in `src/lib/supabase/` (separate browser and server clients)
 - Email via Resend in `src/lib/email.ts` — gracefully disabled when `RESEND_API_KEY` is not set
 
+## Replit setup status (as of 2026-07-26)
+
+- Dependencies installed (`npm install` — node_modules present)
+- All required secrets configured: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`
+- Optional secrets not yet added: `RESEND_API_KEY` (email notifications)
+- **Start application** workflow running on port 5000 — app verified working
+- Database migrations not yet applied — run `supabase/migrations/` SQL files against the Supabase project before contact forms and blog will persist data
+
 ## User preferences
 
 - Contact email: hello@sterova.tech
