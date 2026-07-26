@@ -45,7 +45,7 @@ const config: Config = {
           foreground: "hsl(var(--card-foreground))",
         },
         sterova: {
-          50: "#eef2ff",
+          50:  "#eef2ff",
           100: "#e0e7ff",
           200: "#c7d2fe",
           300: "#a5b4fc",
@@ -71,9 +71,15 @@ const config: Config = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.5s ease-out",
-        "slide-up": "slide-up 0.5s ease-out",
-        "float": "float 6s ease-in-out infinite",
+        "slide-up": "slide-up 0.55s cubic-bezier(0.22, 1, 0.36, 1)",
+        "float": "float 7s ease-in-out infinite",
         "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "spin-slow": "spin 30s linear infinite",
+        "spin-slower": "spin 50s linear infinite",
+        "spin-reverse-slow": "spin-reverse 40s linear infinite",
+        "gradient-x": "gradient-x 8s ease infinite",
+        "aurora": "aurora 12s ease-in-out infinite alternate",
+        "glow-pulse": "glow-pulse 4s ease-in-out infinite",
       },
       keyframes: {
         "accordion-down": {
@@ -94,7 +100,24 @@ const config: Config = {
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-12px)" },
+          "50%": { transform: "translateY(-14px)" },
+        },
+        "spin-reverse": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(-360deg)" },
+        },
+        "gradient-x": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        aurora: {
+          "0%": { opacity: "0.25", transform: "translateY(0) scale(1)" },
+          "50%": { opacity: "0.45", transform: "translateY(-18px) scale(1.04)" },
+          "100%": { opacity: "0.3", transform: "translateY(0) scale(1)" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.5", transform: "scale(1)" },
+          "50%": { opacity: "1", transform: "scale(1.08)" },
         },
       },
       backgroundImage: {
@@ -102,7 +125,9 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-grid":
-          "linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px)",
+          "linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px)",
+        "hero-grid-dark":
+          "linear-gradient(rgba(139,92,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(139,92,246,0.1) 1px, transparent 1px)",
       },
       backgroundSize: {
         "hero-grid": "60px 60px",

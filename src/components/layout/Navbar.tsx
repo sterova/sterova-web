@@ -9,23 +9,68 @@ import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SITE } from "@/data/constants";
-import type { DbService } from "@/types";
+import type { DbService, DbNavigationItem } from "@/types";
 
+// ── Fallback nav structure (used when DB returns no items) ────────────────
+const FALLBACK_LEFT: { label: string; href: string }[] = [
+  { label: "Home",  href: "/" },
+  { label: "About", href: "/about" },
+];
+const FALLBACK_RIGHT: { label: string; href: string }[] = [
+  { label: "Products",  href: "/#portfolio" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Process",   href: "/process" },
+  { label: "Blog",      href: "/blog" },
+  { label: "Contact",   href: "/contact" },
+];
+const SERVICES_FALLBACK = [
+  { label: "Custom Software", href: "/services#custom-software" },
+  { label: "Web Development", href: "/services#web-development" },
+  { label: "Mobile Apps",     href: "/services#mobile-apps" },
+];
 
-interface Props {
-  dbServices?: DbService[];
+// ─────────────────────────────────────────────────────────────────────────────
+// Helpers
+// ─────────────────────────────────────────────────────────────────────────────
+
+/**
+ * Renders a plain <a> for hash/anchor links (e.g. /#portfolio, /services#web)
+ * so the browser handles scroll natively, even when already on the same page.
+ * Uses Next.js <Link> for all other hrefs.
+ */
+function NavLink({
+  href,
+  className,
+  children,
+  onClick,
+}: {
+  href: string;
+  className?: string;
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
+  const isHash = href.includes("#");
+  if (isHash) {
+    return (
+      <a href={href} className={className} onClick={onClick}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
 }
 
 function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-
   useEffect(() => setMounted(true), []);
 
   if (!mounted) {
-    return (
-      <div className="w-9 h-9 rounded-lg border border-border/50 bg-secondary/50" />
-    );
+    return <div className="w-9 h-9 rounded-lg border border-border/50 bg-secondary/50" />;
   }
 
   return (
@@ -40,23 +85,11 @@ function ThemeToggle() {
     >
       <AnimatePresence mode="wait" initial={false}>
         {theme === "dark" ? (
-          <motion.span
-            key="sun"
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
+          <motion.span key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
             <Sun className="h-4 w-4" />
           </motion.span>
         ) : (
-          <motion.span
-            key="moon"
-            initial={{ rotate: 90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: -90, opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
+          <motion.span key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
             <Moon className="h-4 w-4" />
           </motion.span>
         )}
@@ -65,7 +98,6 @@ function ThemeToggle() {
   );
 }
 
-/** Animated moving-lines background for the Services dropdown trigger */
 function ServicesButtonBg({ visible }: { visible: boolean }) {
   return (
     <AnimatePresence>
@@ -79,7 +111,6 @@ function ServicesButtonBg({ visible }: { visible: boolean }) {
           transition={{ duration: 0.2 }}
           aria-hidden="true"
         >
-          {/* Subtle animated diagonal stripes */}
           <motion.span
             className="absolute inset-0"
             style={{
@@ -96,11 +127,52 @@ function ServicesButtonBg({ visible }: { visible: boolean }) {
   );
 }
 
-export default function Navbar({ dbServices = [] }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+// ─────────────────────────────────────────────────────────────────────────────
+// Build nav groups from DB items
+// ─────────────────────────────────────────────────────────────────────────────
+
+function buildNavGroups(items: DbNavigationItem[]) {
+  if (!items.length) {
+    return { left: FALLBACK_LEFT, right: FALLBACK_RIGHT };
+  }
+
+  // Filter to active, top-level items, sort by display_order
+  const topLevel = items
+    .filter((i) => i.is_active && !i.parent_id)
+    .sort((a, b) => a.display_order - b.display_order);
+
+  const servicesIdx = topLevel.findIndex(
+    (i) => i.href === "/services" || i.label.toLowerCase() === "services"
+  );
+
+  if (servicesIdx === -1) {
+    // No Services item — render everything as a flat list on the right
+    return { left: [], right: topLevel.map((i) => ({ label: i.label, href: i.href })) };
+  }
+
+  const left  = topLevel.slice(0, servicesIdx).map((i) => ({ label: i.label, href: i.href }));
+  const right = topLevel.slice(servicesIdx + 1).map((i) => ({ label: i.label, href: i.href }));
+  return { left, right };
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Props
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface Props {
+  dbServices?:  DbService[];
+  dbNavItems?:  DbNavigationItem[];
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Navbar
+// ─────────────────────────────────────────────────────────────────────────────
+
+export default function Navbar({ dbServices = [], dbNavItems = [] }: Props) {
+  const [isOpen,       setIsOpen]       = useState(false);
+  const [scrolled,     setScrolled]     = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const pathname = usePathname();
+  const pathname  = usePathname();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -114,75 +186,61 @@ export default function Navbar({ dbServices = [] }: Props) {
     setServicesOpen(false);
   }, [pathname]);
 
-  function openServices() {
-    if (closeTimer.current) clearTimeout(closeTimer.current);
-    setServicesOpen(true);
-  }
+  function openServices()   { if (closeTimer.current) clearTimeout(closeTimer.current); setServicesOpen(true); }
+  function scheduleClose()  { closeTimer.current = setTimeout(() => setServicesOpen(false), 120); }
 
-  function scheduleClose() {
-    closeTimer.current = setTimeout(() => setServicesOpen(false), 120);
-  }
+  const { left: leftLinks, right: rightLinks } = buildNavGroups(dbNavItems);
+  const allFlatLinks = [...leftLinks, ...rightLinks];
 
-  // Build nav links — inject Services between About and Products
-  const leftLinks = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-  ];
-  const rightLinks = [
-    { label: "Products", href: "/#portfolio" },
-    { label: "Portfolio", href: "/portfolio" },
-    { label: "Process", href: "/process" },
-    { label: "Blog", href: "/blog" },
-    { label: "Contact", href: "/contact" },
-  ];
+  // Services dropdown children — DB services if available, else fallback static list
+  const serviceChildren =
+    dbServices.length > 0
+      ? dbServices.map((s) => ({ label: s.title, href: `/services#${s.slug}`, description: s.short_description }))
+      : SERVICES_FALLBACK.map((s) => ({ ...s, description: "" }));
+
+  const linkClass = (href: string) =>
+    cn(
+      "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
+      pathname === href
+        ? "text-primary bg-primary/10"
+        : "text-muted-foreground hover:text-foreground hover:bg-accent"
+    );
 
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         scrolled
-          ? "bg-background/90 backdrop-blur-xl border-b border-border/40 shadow-sm shadow-black/5"
+          ? "bg-background/92 backdrop-blur-xl border-b border-border/40 shadow-sm shadow-black/5"
           : "bg-transparent"
       )}
     >
       <nav className="container-custom" aria-label="Main navigation">
         <div className="flex h-16 items-center justify-between">
+
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-2 font-display font-bold text-xl tracking-tight"
             aria-label="Sterova home"
           >
-            <span className="gradient-text text-2xl font-extrabold">
-              {SITE.name}
-            </span>
+            <span className="gradient-text text-2xl font-extrabold">{SITE.name}</span>
           </Link>
 
           {/* Desktop nav */}
           <div className="hidden lg:flex items-center gap-0.5">
             {leftLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                )}
-              >
+              <NavLink key={link.href} href={link.href} className={linkClass(link.href)}>
                 {link.label}
-              </Link>
+              </NavLink>
             ))}
 
-            {/* Services dropdown with animated hover */}
+            {/* Services dropdown */}
             <div className="relative">
               <button
                 className={cn(
                   "relative flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-colors overflow-hidden",
-                  servicesOpen
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  servicesOpen ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 )}
                 onMouseEnter={openServices}
                 onMouseLeave={scheduleClose}
@@ -206,7 +264,7 @@ export default function Navbar({ dbServices = [] }: Props) {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 6, scale: 0.97 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 mt-1.5 w-64 rounded-xl border border-border/60 bg-background/97 backdrop-blur-xl shadow-xl shadow-black/10 p-2 z-50 overflow-hidden"
+                    className="absolute top-full left-0 mt-1.5 w-72 rounded-xl border border-border/60 bg-background/97 backdrop-blur-xl shadow-xl shadow-black/10 p-2 z-50 overflow-hidden"
                     onMouseEnter={openServices}
                     onMouseLeave={scheduleClose}
                   >
@@ -216,69 +274,45 @@ export default function Navbar({ dbServices = [] }: Props) {
                         className="h-full"
                         style={{
                           background:
-                            "linear-gradient(90deg, transparent 0%, rgba(139,92,246,0.8) 40%, rgba(167,139,250,1) 60%, transparent 100%)",
+                            "linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.8) 40%, rgba(167,139,250,1) 60%, transparent 100%)",
                         }}
                         animate={{ x: ["-100%", "100%"] }}
                         transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
                       />
                     </div>
 
-                    <Link
+                    <NavLink
                       href="/services"
                       className="block px-3 py-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground/70 hover:text-primary transition-colors mb-1"
                     >
                       All Services →
-                    </Link>
+                    </NavLink>
 
-                    {dbServices.length > 0 ? (
-                      dbServices.map((svc) => (
-                        <Link
-                          key={svc.id}
-                          href={`/services#${svc.slug}`}
-                          className="block px-3 py-2.5 text-sm rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors group"
-                        >
-                          <span className="font-medium text-foreground/80 group-hover:text-foreground">
-                            {svc.title}
-                          </span>
+                    {serviceChildren.map((svc) => (
+                      <NavLink
+                        key={svc.href}
+                        href={svc.href}
+                        className="block px-3 py-2.5 text-sm rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors group"
+                      >
+                        <span className="font-medium text-foreground/80 group-hover:text-foreground">
+                          {svc.label}
+                        </span>
+                        {svc.description && (
                           <span className="block text-xs text-muted-foreground/60 mt-0.5 leading-snug line-clamp-1">
-                            {svc.short_description}
+                            {svc.description}
                           </span>
-                        </Link>
-                      ))
-                    ) : (
-                      // Fallback static links
-                      [
-                        { label: "Custom Software", href: "/services#custom-software" },
-                        { label: "Web Development", href: "/services#web-development" },
-                        { label: "Mobile Apps", href: "/services#mobile-apps" },
-                      ].map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-3 py-2 text-sm rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))
-                    )}
+                        )}
+                      </NavLink>
+                    ))}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
             {rightLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  "px-3 py-2 text-sm font-medium rounded-lg transition-colors",
-                  pathname === link.href
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                )}
-              >
+              <NavLink key={link.href} href={link.href} className={linkClass(link.href)}>
                 {link.label}
-              </Link>
+              </NavLink>
             ))}
           </div>
 
@@ -316,10 +350,11 @@ export default function Navbar({ dbServices = [] }: Props) {
             className="lg:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl overflow-hidden"
           >
             <div className="container-custom py-4 flex flex-col gap-1">
-              {[...leftLinks, ...rightLinks].map((link) => (
-                <Link
+              {allFlatLinks.map((link) => (
+                <NavLink
                   key={link.href}
                   href={link.href}
+                  onClick={() => setIsOpen(false)}
                   className={cn(
                     "block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
                     pathname === link.href
@@ -328,39 +363,28 @@ export default function Navbar({ dbServices = [] }: Props) {
                   )}
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               ))}
-              {/* Services sub-links on mobile */}
+
+              {/* Services sub-links */}
               <div className="px-3 py-1">
                 <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/50 mb-1">
                   Services
                 </p>
                 <div className="ml-2 flex flex-col gap-0.5">
-                  {dbServices.length > 0
-                    ? dbServices.map((svc) => (
-                        <Link
-                          key={svc.id}
-                          href={`/services#${svc.slug}`}
-                          className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
-                        >
-                          {svc.title}
-                        </Link>
-                      ))
-                    : [
-                        { label: "Custom Software", href: "/services#custom-software" },
-                        { label: "Web Development", href: "/services#web-development" },
-                        { label: "Mobile Apps", href: "/services#mobile-apps" },
-                      ].map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                  {serviceChildren.map((svc) => (
+                    <NavLink
+                      key={svc.href}
+                      href={svc.href}
+                      onClick={() => setIsOpen(false)}
+                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
+                    >
+                      {svc.label}
+                    </NavLink>
+                  ))}
                 </div>
               </div>
+
               <div className="pt-3 border-t border-border/40 mt-2">
                 <Button asChild className="w-full" variant="gradient">
                   <Link href="/contact">Start a Project</Link>

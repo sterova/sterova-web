@@ -10,22 +10,26 @@ import { HERO, SITE } from "@/data/constants";
 
 // Pre-seeded particles — fixed positions avoid hydration mismatch
 const PARTICLES = [
-  { x: 8, y: 12, size: 2.5, delay: 0, duration: 5.5 },
-  { x: 92, y: 8, size: 2, delay: 0.8, duration: 7 },
-  { x: 18, y: 75, size: 3, delay: 1.5, duration: 6 },
-  { x: 85, y: 65, size: 2, delay: 0.3, duration: 8 },
-  { x: 55, y: 88, size: 2.5, delay: 2, duration: 5 },
-  { x: 35, y: 18, size: 2, delay: 1.1, duration: 6.5 },
-  { x: 72, y: 30, size: 3, delay: 0.6, duration: 7.5 },
+  { x: 8,  y: 12, size: 2.5, delay: 0,   duration: 5.5 },
+  { x: 92, y: 8,  size: 2,   delay: 0.8, duration: 7   },
+  { x: 18, y: 75, size: 3,   delay: 1.5, duration: 6   },
+  { x: 85, y: 65, size: 2,   delay: 0.3, duration: 8   },
+  { x: 55, y: 88, size: 2.5, delay: 2,   duration: 5   },
+  { x: 35, y: 18, size: 2,   delay: 1.1, duration: 6.5 },
+  { x: 72, y: 30, size: 3,   delay: 0.6, duration: 7.5 },
   { x: 25, y: 50, size: 1.5, delay: 2.3, duration: 5.8 },
-  { x: 80, y: 82, size: 2, delay: 1.7, duration: 6.2 },
-  { x: 48, y: 5, size: 2.5, delay: 0.4, duration: 7.2 },
-  { x: 12, y: 40, size: 2, delay: 3, duration: 5.5 },
+  { x: 80, y: 82, size: 2,   delay: 1.7, duration: 6.2 },
+  { x: 48, y: 5,  size: 2.5, delay: 0.4, duration: 7.2 },
+  { x: 12, y: 40, size: 2,   delay: 3,   duration: 5.5 },
   { x: 65, y: 55, size: 1.5, delay: 1.9, duration: 8.5 },
-  { x: 42, y: 68, size: 2, delay: 0.9, duration: 6.8 },
+  { x: 42, y: 68, size: 2,   delay: 0.9, duration: 6.8 },
   { x: 78, y: 20, size: 1.5, delay: 2.5, duration: 7.3 },
-  { x: 5, y: 58, size: 2.5, delay: 1.3, duration: 5.2 },
-  { x: 58, y: 35, size: 1.5, delay: 3.2, duration: 9 },
+  { x: 5,  y: 58, size: 2.5, delay: 1.3, duration: 5.2 },
+  { x: 58, y: 35, size: 1.5, delay: 3.2, duration: 9   },
+  { x: 30, y: 90, size: 2,   delay: 0.7, duration: 6.4 },
+  { x: 68, y: 78, size: 1.5, delay: 2.1, duration: 7.8 },
+  { x: 90, y: 42, size: 2,   delay: 1.4, duration: 5.9 },
+  { x: 22, y: 28, size: 2.5, delay: 2.8, duration: 6.1 },
 ];
 
 interface HeroStat {
@@ -38,21 +42,17 @@ interface Props {
 }
 
 export default function HeroSection({ settings = {} }: Props) {
-  const badge = settings.hero_badge || HERO.badge;
-  const headline = settings.hero_headline || SITE.tagline;
-  const subheadline = settings.hero_subheadline || HERO.subheadline;
-  const ctaPrimaryLabel = settings.hero_cta_primary_label || HERO.cta.primary.label;
-  const ctaPrimaryHref = settings.hero_cta_primary_href || HERO.cta.primary.href;
+  const badge            = settings.hero_badge            || HERO.badge;
+  const headline         = settings.hero_headline         || SITE.tagline;
+  const subheadline      = settings.hero_subheadline      || HERO.subheadline;
+  const ctaPrimaryLabel  = settings.hero_cta_primary_label  || HERO.cta.primary.label;
+  const ctaPrimaryHref   = settings.hero_cta_primary_href   || HERO.cta.primary.href;
   const ctaSecondaryLabel = settings.hero_cta_secondary_label || HERO.cta.secondary.label;
-  const ctaSecondaryHref = settings.hero_cta_secondary_href || HERO.cta.secondary.href;
+  const ctaSecondaryHref  = settings.hero_cta_secondary_href  || HERO.cta.secondary.href;
 
   const stats = useMemo<HeroStat[]>(() => {
     if (settings.hero_stats) {
-      try {
-        return JSON.parse(settings.hero_stats) as HeroStat[];
-      } catch {
-        // fall through to default
-      }
+      try { return JSON.parse(settings.hero_stats) as HeroStat[]; } catch { /* fall through */ }
     }
     return HERO.stats;
   }, [settings.hero_stats]);
@@ -62,97 +62,148 @@ export default function HeroSection({ settings = {} }: Props) {
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
       aria-label="Hero"
     >
-      {/* Grid background */}
+
+      {/* ── Layer 0: Grid ──────────────────────────────────────────────── */}
       <div
-        className="absolute inset-0 bg-hero-grid bg-hero-grid opacity-50 dark:opacity-20"
+        className="absolute inset-0 bg-hero-grid bg-hero-grid opacity-60 dark:opacity-30"
         aria-hidden="true"
       />
 
-      {/* Premium animated gradient — layered orbs */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(139,92,246,0.12) 0%, rgba(167,139,250,0.06) 40%, transparent 70%)",
-        }}
-        animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+      {/* ── Layer 1: Aurora mesh — CSS-only, GPU-accelerated ─────────── */}
+      {/* Primary aurora — blue-violet */}
+      <div
+        className="absolute inset-0 pointer-events-none overflow-hidden"
         aria-hidden="true"
-      />
+      >
+        <div
+          className="absolute -top-1/4 -left-1/4 w-[150%] h-[100%] animate-aurora opacity-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 55% at 30% 40%, rgba(99,102,241,0.22) 0%, rgba(139,92,246,0.12) 45%, transparent 72%)",
+          }}
+        />
+        {/* Secondary aurora — violet-purple, offset */}
+        <div
+          className="absolute -bottom-1/4 -right-1/4 w-[150%] h-[100%] animate-aurora-2 opacity-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 65% 50% at 70% 60%, rgba(167,139,250,0.18) 0%, rgba(109,40,217,0.1) 40%, transparent 70%)",
+          }}
+        />
+        {/* Accent warmth streak — subtle indigo-rose hint at top right */}
+        <div
+          className="absolute top-0 right-0 w-[60%] h-[50%] pointer-events-none opacity-0 animate-aurora"
+          style={{
+            animationDelay: "4s",
+            background:
+              "radial-gradient(ellipse 60% 50% at 85% 15%, rgba(196,181,253,0.1) 0%, transparent 65%)",
+          }}
+        />
+      </div>
+
+      {/* ── Layer 2: Animated orbs (Framer Motion) ────────────────────── */}
+      {/* Central depth orb */}
       <motion.div
-        className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[950px] h-[950px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 65%)",
+            "radial-gradient(ellipse at center, rgba(99,102,241,0.11) 0%, rgba(139,92,246,0.06) 45%, transparent 70%)",
         }}
-        animate={{
-          scale: [1.1, 1, 1.1],
-          x: [-30, 30, -30],
-          opacity: [0.4, 0.8, 0.4],
-        }}
-        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(109,40,217,0.12) 0%, transparent 65%)",
-        }}
-        animate={{ scale: [1, 1.15, 1], y: [-20, 20, -20], opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute top-2/3 right-1/6 w-[280px] h-[280px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at center, rgba(196,181,253,0.1) 0%, transparent 65%)",
-        }}
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.6, 0.3] }}
-        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        animate={{ scale: [1, 1.05, 1], opacity: [0.6, 1, 0.6] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
 
-      {/* Glowing ring accent */}
+      {/* Top-left drifting orb */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-sterova-500/10 dark:border-sterova-400/15 pointer-events-none"
+        className="absolute -top-20 -left-20 w-[600px] h-[600px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(124,58,237,0.12) 0%, transparent 65%)",
+        }}
+        animate={{ scale: [1.1, 1, 1.1], x: [-20, 40, -20], y: [0, 25, 0], opacity: [0.4, 0.75, 0.4] }}
+        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        aria-hidden="true"
+      />
+
+      {/* Bottom-right drifting orb */}
+      <motion.div
+        className="absolute -bottom-20 -right-20 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(109,40,217,0.14) 0%, transparent 65%)",
+        }}
+        animate={{ scale: [1, 1.18, 1], y: [-20, 20, -20], opacity: [0.45, 0.9, 0.45] }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        aria-hidden="true"
+      />
+
+      {/* Accent orb — violet */}
+      <motion.div
+        className="absolute top-1/4 right-1/5 w-[320px] h-[320px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(196,181,253,0.13) 0%, transparent 65%)",
+        }}
+        animate={{ scale: [1.15, 1, 1.15], x: [0, -30, 0], opacity: [0.3, 0.65, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        aria-hidden="true"
+      />
+
+      {/* ── Layer 3: Glowing rings ────────────────────────────────────── */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[620px] h-[620px] rounded-full border pointer-events-none"
+        style={{ borderColor: "rgba(99,102,241,0.12)" }}
+        animate={{ rotate: 360, scale: [1, 1.02, 1] }}
+        transition={{ rotate: { duration: 45, repeat: Infinity, ease: "linear" }, scale: { duration: 6, repeat: Infinity, ease: "easeInOut" } }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[820px] h-[820px] rounded-full border pointer-events-none"
+        style={{ borderColor: "rgba(139,92,246,0.08)" }}
+        animate={{ rotate: -360, scale: [1.02, 1, 1.02] }}
+        transition={{ rotate: { duration: 65, repeat: Infinity, ease: "linear" }, scale: { duration: 8, repeat: Infinity, ease: "easeInOut" } }}
+        aria-hidden="true"
+      />
+      {/* Outer faint ring */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1050px] h-[1050px] rounded-full border pointer-events-none"
+        style={{ borderColor: "rgba(167,139,250,0.04)" }}
         animate={{ rotate: 360 }}
-        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        aria-hidden="true"
-      />
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-violet-500/6 dark:border-violet-400/10 pointer-events-none"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        transition={{ duration: 90, repeat: Infinity, ease: "linear" }}
         aria-hidden="true"
       />
 
-      {/* Floating particles */}
+      {/* ── Layer 4: Floating particles ───────────────────────────────── */}
       {PARTICLES.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-sterova-500/40 dark:bg-sterova-400/55 pointer-events-none"
+          className="absolute rounded-full pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
             width: p.size,
             height: p.size,
+            background:
+              i % 3 === 0
+                ? "rgba(99,102,241,0.6)"
+                : i % 3 === 1
+                ? "rgba(139,92,246,0.55)"
+                : "rgba(167,139,250,0.5)",
+            boxShadow:
+              i % 3 === 0
+                ? `0 0 ${p.size * 3}px rgba(99,102,241,0.4)`
+                : i % 3 === 1
+                ? `0 0 ${p.size * 3}px rgba(139,92,246,0.35)`
+                : `0 0 ${p.size * 3}px rgba(167,139,250,0.3)`,
           }}
-          animate={{
-            y: [-14, 14, -14],
-            opacity: [0.15, 0.65, 0.15],
-          }}
-          transition={{
-            duration: p.duration,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: p.delay,
-          }}
+          animate={{ y: [-14, 14, -14], opacity: [0.12, 0.6, 0.12] }}
+          transition={{ duration: p.duration, repeat: Infinity, ease: "easeInOut", delay: p.delay }}
           aria-hidden="true"
         />
       ))}
 
+      {/* ── Content ───────────────────────────────────────────────────── */}
       <div className="container-custom relative z-10 py-24 text-center">
         {/* Badge */}
         <div className="flex justify-center mb-6 animate-fade-in-up" style={{ animationDelay: "0ms" }}>
@@ -170,7 +221,15 @@ export default function HeroSection({ settings = {} }: Props) {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight mb-6 animate-fade-in-up"
           style={{ animationDelay: "80ms" }}
         >
-          <span className="bg-gradient-to-r from-sterova-600 via-violet-500 to-purple-500 dark:from-sterova-300 dark:via-violet-300 dark:to-purple-300 bg-clip-text text-transparent">
+          <span
+            className="inline-block bg-clip-text text-transparent"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, hsl(243,82%,52%) 0%, hsl(262,83%,58%) 35%, hsl(280,70%,62%) 65%, hsl(243,82%,60%) 100%)",
+              backgroundSize: "200% auto",
+              animation: "gradient-x 6s ease infinite",
+            }}
+          >
             {headline}
           </span>
         </h1>
@@ -193,7 +252,7 @@ export default function HeroSection({ settings = {} }: Props) {
               asChild
               size="xl"
               variant="gradient"
-              className="group w-full sm:w-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:shadow-xl transition-shadow"
+              className="group w-full sm:w-auto shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:shadow-xl transition-shadow duration-300"
             >
               <Link href={ctaPrimaryHref}>
                 {ctaPrimaryLabel}
@@ -204,7 +263,7 @@ export default function HeroSection({ settings = {} }: Props) {
               asChild
               size="xl"
               variant="outline"
-              className="group w-full sm:w-auto border-border/60 hover:border-primary/40 hover:bg-primary/5"
+              className="group w-full sm:w-auto border-border/60 hover:border-primary/40 hover:bg-primary/5 transition-all duration-200"
             >
               <Link href={ctaSecondaryHref}>
                 {ctaSecondaryLabel}
@@ -231,7 +290,13 @@ export default function HeroSection({ settings = {} }: Props) {
         >
           {stats.map((stat) => (
             <div key={stat.label} className="text-center group">
-              <div className="text-3xl sm:text-4xl font-display font-bold bg-gradient-to-r from-sterova-600 via-violet-500 to-purple-500 dark:from-sterova-300 dark:via-violet-300 dark:to-purple-300 bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-200">
+              <div
+                className="text-3xl sm:text-4xl font-display font-bold bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-200"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, hsl(243,82%,52%) 0%, hsl(262,83%,58%) 50%, hsl(280,70%,62%) 100%)",
+                }}
+              >
                 {stat.value}
               </div>
               <div className="text-xs text-muted-foreground">{stat.label}</div>
@@ -240,9 +305,9 @@ export default function HeroSection({ settings = {} }: Props) {
         </div>
       </div>
 
-      {/* Bottom fade */}
+      {/* ── Bottom fade ───────────────────────────────────────────────── */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-background to-transparent pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </section>

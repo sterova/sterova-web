@@ -2,8 +2,9 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-// Admin paths that do NOT require authentication
-const ADMIN_PUBLIC = ["/admin/login", "/admin/setup"];
+// Only the login page is publicly reachable under /admin.
+// /admin/setup is intentionally removed — self-registration is disabled.
+const ADMIN_PUBLIC = ["/admin/login"];
 
 export async function middleware(request: NextRequest) {
   // Clone request headers and inject x-pathname so server components can
@@ -25,7 +26,11 @@ export async function middleware(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(
-          cookiesToSet: Array<{ name: string; value: string; options?: Record<string, unknown> }>
+          cookiesToSet: Array<{
+            name: string;
+            value: string;
+            options?: Record<string, unknown>;
+          }>
         ) {
           cookiesToSet.forEach(({ name, value }) =>
             request.cookies.set(name, value)
@@ -34,7 +39,11 @@ export async function middleware(request: NextRequest) {
             request: { headers: requestHeaders },
           });
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options as Parameters<typeof supabaseResponse.cookies.set>[2])
+            supabaseResponse.cookies.set(
+              name,
+              value,
+              options as Parameters<typeof supabaseResponse.cookies.set>[2]
+            )
           );
         },
       },
@@ -54,13 +63,17 @@ export async function middleware(request: NextRequest) {
   // Redirect unauthenticated users away from protected admin routes
   if (isAdminPath && !isPublicAdminPath && !user) {
     const loginUrl = new URL("/admin/login", request.url);
-    loginUrl.searchParams.set("from", path);
+    // Only preserve internal redirects — prevents open-redirect
+    if (path !== "/admin/login") {
+      loginUrl.searchParams.set("from", path);
+    }
     return NextResponse.redirect(loginUrl);
   }
 
-  // Add noindex / nofollow for all admin paths
+  // Security headers for all admin paths
   if (isAdminPath) {
     supabaseResponse.headers.set("X-Robots-Tag", "noindex, nofollow");
+    supabaseResponse.headers.set("Cache-Control", "no-store, private");
   }
 
   return supabaseResponse;

@@ -4,48 +4,66 @@
 
 @layer base {
   :root {
+    /* ── Backgrounds ──────────────────────────────── */
     --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --foreground: 224 80% 5%;
+    --card: 220 35% 98.5%;
+    --card-foreground: 224 80% 5%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 243 80% 58%;
+    --popover-foreground: 224 80% 5%;
+
+    /* ── Brand ────────────────────────────────────── */
+    --primary: 243 82% 55%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 6% 96%;
-    --secondary-foreground: 224 71% 10%;
-    --muted: 240 6% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 243 60% 96%;
-    --accent-foreground: 243 80% 40%;
-    --destructive: 0 84% 60%;
+
+    /* ── UI states ────────────────────────────────── */
+    --secondary: 240 12% 95%;
+    --secondary-foreground: 224 40% 15%;
+    --muted: 220 15% 93%;
+    --muted-foreground: 215 18% 48%;
+
+    /* ── Accents ──────────────────────────────────── */
+    --accent: 245 70% 95%;
+    --accent-foreground: 243 82% 40%;
+
+    /* ── System ───────────────────────────────────── */
+    --destructive: 0 84% 58%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 243 80% 58%;
+    --border: 220 18% 88%;
+    --input: 220 18% 88%;
+    --ring: 243 82% 55%;
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 40% 98%;
-    --card: 222 60% 6%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 60% 6%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 245 85% 70%;
+    /* ── Backgrounds ──────────────────────────────── */
+    --background: 225 80% 3.5%;
+    --foreground: 210 38% 97%;
+    --card: 225 65% 6.5%;
+    --card-foreground: 210 38% 97%;
+    --popover: 225 65% 6%;
+    --popover-foreground: 210 38% 97%;
+
+    /* ── Brand ────────────────────────────────────── */
+    --primary: 248 90% 70%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 50% 10%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 220 50% 10%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 220 50% 12%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 63% 50%;
+
+    /* ── UI states ────────────────────────────────── */
+    --secondary: 222 55% 11%;
+    --secondary-foreground: 210 38% 97%;
+    --muted: 222 50% 10%;
+    --muted-foreground: 215 22% 60%;
+
+    /* ── Accents ──────────────────────────────────── */
+    --accent: 222 55% 13%;
+    --accent-foreground: 210 38% 97%;
+
+    /* ── System ───────────────────────────────────── */
+    --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 220 40% 9%;
-    --input: 220 40% 9%;
-    --ring: 245 85% 70%;
+    --border: 225 50% 9%;
+    --input: 225 50% 9%;
+    --ring: 248 90% 70%;
   }
 }
 
@@ -85,7 +103,7 @@
     text-wrap: pretty;
   }
 
-  /* ── Admin utility classes ─────────────────── */
+  /* ── Admin utility classes ─────────────────────── */
   .admin-input {
     @apply w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm
            placeholder:text-muted-foreground/60
@@ -110,7 +128,7 @@
   .label-sm {
     @apply block text-sm font-medium mb-1.5;
   }
-  /* ────────────────────────────────────────────── */
+  /* ─────────────────────────────────────────────── */
 
   .gradient-text {
     @apply bg-gradient-to-r from-sterova-600 via-violet-500 to-purple-500 bg-clip-text text-transparent;
@@ -171,18 +189,97 @@
 
   /* Hero entrance — CSS animation so content is visible before JS hydrates */
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out both;
+    animation: fadeInUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(24px);
     }
     to {
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  /* ── Hero background animations (CSS-only, GPU-accelerated) ─────── */
+
+  /* Slowly drifting aurora gradient mesh */
+  .animate-aurora {
+    animation: aurora 12s ease-in-out infinite alternate;
+    will-change: opacity, transform;
+  }
+
+  @keyframes aurora {
+    0% {
+      opacity: 0.25;
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      opacity: 0.45;
+      transform: translateY(-18px) scale(1.04);
+    }
+    100% {
+      opacity: 0.3;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  /* Secondary aurora layer (offset phase) */
+  .animate-aurora-2 {
+    animation: aurora2 15s ease-in-out infinite alternate;
+    will-change: opacity, transform;
+  }
+
+  @keyframes aurora2 {
+    0% {
+      opacity: 0.2;
+      transform: translateY(0) scale(1.05);
+    }
+    60% {
+      opacity: 0.38;
+      transform: translateY(14px) scale(1);
+    }
+    100% {
+      opacity: 0.22;
+      transform: translateY(0) scale(1.03);
+    }
+  }
+
+  /* Slow-drift for individual orbs (CSS fallback) */
+  .animate-orb-drift {
+    animation: orbDrift 9s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @keyframes orbDrift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(20px, -12px) scale(1.04); }
+    66% { transform: translate(-14px, 8px) scale(0.97); }
+  }
+
+  /* Pulsing glow ring */
+  .animate-glow-ring {
+    animation: glowRing 6s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  @keyframes glowRing {
+    0%, 100% { opacity: 0.08; transform: scale(1); }
+    50% { opacity: 0.18; transform: scale(1.03); }
+  }
+
+  /* Floating particle rise */
+  .animate-particle {
+    animation: particleFloat var(--duration, 6s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    will-change: transform, opacity;
+  }
+
+  @keyframes particleFloat {
+    0%, 100% { transform: translateY(0); opacity: 0.12; }
+    50% { transform: translateY(-16px); opacity: 0.55; }
   }
 }
 
@@ -206,7 +303,7 @@
   }
 }
 
-/* Theme transition */
+/* Theme transition (exclude animation properties to avoid jitter) */
 *, *::before, *::after {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);

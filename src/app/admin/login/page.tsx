@@ -1,132 +1,127 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import React, { useActionState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Loader2, Lock, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Loader2, Lock } from "lucide-react";
+import { loginAction, type LoginState } from "./actions";
+
+const initialState: LoginState = {};
 
 export default function AdminLoginPage() {
-  const router = useRouter();
   const params = useSearchParams();
   const redirectTo = params.get("from") ?? "/admin";
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      const supabase = createClient();
-      const { error: authError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-      if (authError) {
-        setError("Invalid email or password.");
-        return;
-      }
-      router.push(redirectTo);
-      router.refresh();
-    } catch {
-      setError("An unexpected error occurred.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const [state, formAction, isPending] = useActionState(loginAction, initialState);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary/30 p-4">
+    <div className="min-h-screen flex items-center justify-center bg-secondary/30 dark:bg-background p-4">
       <div className="w-full max-w-md">
+        {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 mb-4 ring-1 ring-primary/20">
             <Lock className="h-7 w-7 text-primary" />
           </div>
-          <h1 className="text-2xl font-bold font-display">Admin Login</h1>
+          <h1 className="text-2xl font-bold font-display">Admin Portal</h1>
           <p className="text-sm text-muted-foreground mt-1">
-            Sign in to manage your Sterova website
+            Restricted access — authorized personnel only
           </p>
         </div>
 
-        <div className="bg-background rounded-2xl border p-6 shadow-sm">
-          <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Form card */}
+        <div className="bg-background rounded-2xl border border-border/60 p-6 shadow-sm">
+          <form action={formAction} className="space-y-4">
+            {/* Hidden redirect field */}
+            <input type="hidden" name="redirectTo" value={redirectTo} />
+
             <div>
-              <label htmlFor="email" className="text-sm font-medium block mb-1.5">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium block mb-1.5"
+              >
                 Email address
               </label>
               <input
                 id="email"
+                name="email"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 required
                 autoComplete="email"
+                autoFocus
                 placeholder="you@sterova.tech"
                 className={cn(
                   "w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm",
-                  "placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-ring",
-                  "transition-all"
+                  "placeholder:text-muted-foreground/60",
+                  "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
+                  "transition-all duration-150"
                 )}
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="text-sm font-medium block mb-1.5">
+              <label
+                htmlFor="password"
+                className="text-sm font-medium block mb-1.5"
+              >
                 Password
               </label>
               <input
                 id="password"
+                name="password"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 required
                 autoComplete="current-password"
                 placeholder="••••••••"
                 className={cn(
                   "w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm",
-                  "placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-ring",
-                  "transition-all"
+                  "placeholder:text-muted-foreground/60",
+                  "focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent",
+                  "transition-all duration-150"
                 )}
               />
             </div>
 
-            {error && (
-              <p className="text-sm text-destructive bg-destructive/10 rounded-lg px-4 py-2.5">
-                {error}
-              </p>
+            {/* Error message */}
+            {state.error && (
+              <div
+                role="alert"
+                className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-4 py-2.5"
+              >
+                {state.error}
+              </div>
             )}
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={isPending}
               className={cn(
-                "w-full flex items-center justify-center gap-2 rounded-xl bg-primary text-primary-foreground",
-                "px-4 py-2.5 text-sm font-medium shadow-sm shadow-primary/20",
-                "hover:bg-primary/90 transition-colors",
+                "w-full flex items-center justify-center gap-2 rounded-xl",
+                "bg-primary text-primary-foreground",
+                "px-4 py-2.5 text-sm font-medium",
+                "shadow-sm shadow-primary/20 hover:bg-primary/90",
+                "transition-colors duration-150",
                 "disabled:opacity-60 disabled:cursor-not-allowed"
               )}
             >
-              {loading ? (
+              {isPending ? (
                 <>
-                  <Loader2 className="h-4 w-4 animate-spin" /> Signing in…
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Authenticating…
                 </>
               ) : (
-                "Sign in"
+                <>
+                  <ShieldCheck className="h-4 w-4" />
+                  Sign in securely
+                </>
               )}
             </button>
           </form>
-
-          <p className="text-center text-xs text-muted-foreground mt-4">
-            First time?{" "}
-            <a href="/admin/setup" className="text-primary hover:underline">
-              Set up admin account
-            </a>
-          </p>
         </div>
+
+        {/* Security notice */}
+        <p className="text-center text-xs text-muted-foreground/60 mt-5">
+          All access attempts are logged and monitored.
+        </p>
       </div>
     </div>
   );
