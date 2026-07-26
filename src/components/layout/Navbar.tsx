@@ -11,16 +11,6 @@ import { cn } from "@/lib/utils";
 import { SITE } from "@/data/constants";
 import type { DbService } from "@/types";
 
-// Static nav items (non-service links)
-const STATIC_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Products", href: "/#portfolio" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Process", href: "/process" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
 
 interface Props {
   dbServices?: DbService[];
