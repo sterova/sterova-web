@@ -64,6 +64,35 @@ export interface BlogCategory {
   description: string | null;
 }
 
+export interface Review {
+  id: string;
+  created_at: string;
+  name: string;
+  content: string;
+  rating: number;
+  approved: boolean;
+  ip_address: string | null;
+}
+
+export interface AdminUser {
+  id: string;
+  created_at: string;
+  user_id: string;
+  email: string;
+  role: "admin" | "super_admin";
+}
+
+export interface AuditLog {
+  id: string;
+  created_at: string;
+  actor_id: string | null;
+  actor_email: string | null;
+  action: string;
+  resource: string | null;
+  resource_id: string | null;
+  metadata: Record<string, unknown> | null;
+}
+
 // ─────────────────────────────────────────────
 // Form types
 // ─────────────────────────────────────────────
