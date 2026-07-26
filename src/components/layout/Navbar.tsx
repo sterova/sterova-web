@@ -8,34 +8,15 @@ import { Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { SITE } from "@/data/constants";
+import { NAV_LINKS, SERVICES, SITE } from "@/data/constants";
 import type { DbService, DbNavigationItem } from "@/types";
 
-// ── Fallback nav structure (used when DB returns no items) ────────────────
-const FALLBACK_LEFT: { label: string; href: string }[] = [
-  { label: "Home",  href: "/" },
-  { label: "About", href: "/about" },
-];
-const FALLBACK_RIGHT: { label: string; href: string }[] = [
-  { label: "Products",  href: "/#portfolio" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Process",   href: "/process" },
-  { label: "Blog",      href: "/blog" },
-  { label: "Contact",   href: "/contact" },
-];
-const SERVICES_FALLBACK = [
-  { label: "Custom Software",      href: "/services#custom-software" },
-  { label: "Web Development",      href: "/services#web-development" },
-  { label: "Mobile Apps",          href: "/services#mobile-apps" },
-  { label: "SaaS Products",        href: "/services#saas" },
-  { label: "UI/UX Design",         href: "/services#design" },
-  { label: "AI & Automation",      href: "/services#ai-automation" },
-  { label: "Cloud & DevOps",       href: "/services#cloud-devops" },
-  { label: "Cybersecurity",        href: "/services#cybersecurity" },
-  { label: "API Integration",      href: "/services#api-integration" },
-  { label: "Software Maintenance", href: "/services#maintenance" },
-  { label: "IT Consulting",        href: "/services#it-consulting" },
-];
+const FALLBACK_LEFT = NAV_LINKS.slice(0, 2).map(({ label, href }) => ({ label, href }));
+const FALLBACK_RIGHT = NAV_LINKS.slice(3).map(({ label, href }) => ({ label, href }));
+const SERVICES_FALLBACK = SERVICES.map((service) => ({
+  label: service.title.replace(" Development", ""),
+  href: `/services#${service.id}`,
+}));
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helpers

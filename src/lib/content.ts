@@ -6,6 +6,7 @@
  */
 
 import { createServiceClient } from "@/lib/supabase/server";
+import { PORTFOLIO_ITEMS, TESTIMONIALS, FAQS } from "@/data/constants";
 import type {
   DbService,
   DbPortfolioItem,
@@ -57,10 +58,15 @@ export async function getPortfolioItems(
       .order("display_order");
     if (featuredOnly) query = query.eq("is_featured", true);
     const { data } = await query;
-    return data ?? [];
+    if (data?.length) return data;
   } catch {
-    return [];
+    // Fall through to local fallback.
   }
+  return PORTFOLIO_ITEMS.filter((item) => !featuredOnly || item.featured).map((item, index) => ({
+    id: item.id, created_at: "", updated_at: "", title: item.title, category: item.category,
+    description: item.description, tags: item.tags, image_url: item.image, live_url: null, github_url: null,
+    is_featured: item.featured, is_active: true, display_order: index + 1,
+  }));
 }
 
 export async function getAllPortfolioItems(): Promise<DbPortfolioItem[]> {
@@ -84,10 +90,14 @@ export async function getTestimonials(): Promise<DbTestimonial[]> {
       .select("*")
       .eq("is_active", true)
       .order("display_order");
-    return data ?? [];
+    if (data?.length) return data;
   } catch {
-    return [];
+    // Fall through to local fallback.
   }
+  return TESTIMONIALS.map((item, index) => ({
+    id: item.id, created_at: "", name: item.name, role: item.role, company: null, content: item.content,
+    rating: item.rating, avatar_url: item.avatar, is_active: true, display_order: index + 1,
+  }));
 }
 
 export async function getAllTestimonials(): Promise<DbTestimonial[]> {
@@ -113,10 +123,14 @@ export async function getFaqs(limit?: number): Promise<DbFaq[]> {
       .order("display_order");
     if (limit) query = query.limit(limit);
     const { data } = await query;
-    return data ?? [];
+    if (data?.length) return data;
   } catch {
-    return [];
+    // Fall through to local fallback.
   }
+  return FAQS.slice(0, limit).map((item, index) => ({
+    id: `fallback-faq-${index + 1}`, created_at: "", question: item.question, answer: item.answer,
+    category: null, display_order: index + 1, is_active: true,
+  }));
 }
 
 export async function getAllFaqs(): Promise<DbFaq[]> {

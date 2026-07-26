@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
       name: safeName,
       content: safeContent,
       rating,
-      approved: true,
+      approved: false,
     })
     .select("id, created_at, name, content, rating")
     .single();

@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Send, CheckCircle2, Quote, Loader2 } from "lucide-react";
+import { Star, Send, Quote, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { cn } from "@/lib/utils";
 import { formatDate } from "@/lib/utils";
+import { TESTIMONIALS } from "@/data/constants";
 
 interface Review {
   id: string;
@@ -99,7 +100,7 @@ function ReviewCard({ review, index }: { review: Review; index: number }) {
   );
 }
 
-function WriteReviewForm({ onSubmitted }: { onSubmitted: (review: Review) => void }) {
+function WriteReviewForm() {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [rating, setRating] = useState(5);
@@ -130,31 +131,14 @@ function WriteReviewForm({ onSubmitted }: { onSubmitted: (review: Review) => voi
         setError(data.error ?? "Something went wrong. Please try again.");
       } else {
         setSuccess(true);
-        onSubmitted(data as Review);
+        setName("");
+        setContent("");
       }
     } catch {
       setError("Network error. Please check your connection and try again.");
     } finally {
       setSubmitting(false);
     }
-  }
-
-  if (success) {
-    return (
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="flex flex-col items-center justify-center py-8 text-center gap-3"
-      >
-        <div className="w-14 h-14 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center">
-          <CheckCircle2 className="h-7 w-7 text-green-600 dark:text-green-400" />
-        </div>
-        <h3 className="font-semibold text-lg">Thanks for your review!</h3>
-        <p className="text-sm text-muted-foreground">
-          Your feedback is now visible below.
-        </p>
-      </motion.div>
-    );
   }
 
   return (
@@ -210,6 +194,16 @@ function WriteReviewForm({ onSubmitted }: { onSubmitted: (review: Review) => voi
         </p>
       </div>
 
+      {success && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-sm text-green-700 bg-green-500/10 rounded-lg px-4 py-2.5"
+        >
+          Thanks for your review. It will appear after approval.
+        </motion.p>
+      )}
+
       {error && (
         <motion.p
           initial={{ opacity: 0 }}
@@ -242,30 +236,48 @@ function WriteReviewForm({ onSubmitted }: { onSubmitted: (review: Review) => voi
   );
 }
 
+const FALLBACK_REVIEWS: Review[] = TESTIMONIALS.slice(0, 4).map((item) => ({
+  id: `fallback-${item.id}`,
+  created_at: new Date(0).toISOString(),
+  name: item.name,
+  content: item.content,
+  rating: item.rating,
+}));
+const REVIEWS_CACHE_KEY = "sterova:reviews:v1";
+
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState<Review[]>(FALLBACK_REVIEWS);
+  const [loading, setLoading] = useState(false);
   const fetchReviews = useCallback(async () => {
     try {
       const res = await fetch("/api/reviews");
       if (res.ok) {
         const data = await res.json();
-        setReviews(Array.isArray(data) ? data : []);
+        if (Array.isArray(data) && data.length > 0) {
+          setReviews(data);
+          localStorage.setItem(REVIEWS_CACHE_KEY, JSON.stringify(data));
+        }
       }
     } catch {
-      // silently ignore — empty state handles it
+      // Keep cached or fallback reviews visible on network/database failure.
     } finally {
       setLoading(false);
     }
   }, []);
 
   useEffect(() => {
+    const cached = localStorage.getItem(REVIEWS_CACHE_KEY);
+    if (cached) {
+      try {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) setReviews(parsed);
+      } catch {
+        localStorage.removeItem(REVIEWS_CACHE_KEY);
+      }
+    }
     fetchReviews();
   }, [fetchReviews]);
 
-  function handleNewReview(review: Review) {
-    setReviews((prev) => [review, ...prev]);
-  }
 
   return (
     <section id="reviews" className="py-24 bg-secondary/30 dark:bg-secondary/20">
@@ -337,7 +349,7 @@ export default function ReviewsSection() {
                 </div>
                 <h3 className="font-semibold text-base">Write a Review</h3>
               </div>
-              <WriteReviewForm onSubmitted={handleNewReview} />
+              <WriteReviewForm />
             </div>
           </div>
         </div>

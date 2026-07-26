@@ -9,14 +9,9 @@ import CTASection from "@/components/sections/CTASection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
-import {
-  getServices,
-  getPortfolioItems,
-  getTestimonials,
-  getFaqs,
-  getSiteSettings,
-} from "@/lib/content";
-import { SITE } from "@/data/constants";
+import { getPortfolioItems, getTestimonials, getFaqs, getSiteSettings } from "@/lib/content";
+import { SERVICES, SITE } from "@/data/constants";
+import { toDbService } from "@/lib/static-content";
 
 export const metadata: Metadata = {
   title: `${SITE.name} — ${SITE.tagline}`,
@@ -25,9 +20,9 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [services, portfolioItems, testimonials, faqs, settings] =
+  const services = SERVICES.map(toDbService);
+  const [portfolioItems, testimonials, faqs, settings] =
     await Promise.all([
-      getServices(),
       getPortfolioItems(),
       getTestimonials(),
       getFaqs(6),

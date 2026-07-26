@@ -9,8 +9,8 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import CTASection from "@/components/sections/CTASection";
 import { Button } from "@/components/ui/button";
-import { getServices } from "@/lib/content";
-import { SITE } from "@/data/constants";
+import { SERVICES, SITE } from "@/data/constants";
+import { toDbService } from "@/lib/static-content";
 import type { DbService } from "@/types";
 
 export const metadata: Metadata = {
@@ -98,7 +98,7 @@ function ServiceDetail({ service, index, total }: { service: DbService; index: n
 }
 
 export default async function ServicesPage() {
-  const services = await getServices();
+  const services = SERVICES.map(toDbService);
 
   return (
     <>

@@ -1,17 +1,3 @@
-import {
-  Code2,
-  Globe,
-  Smartphone,
-  Layers,
-  Palette,
-  Plug,
-  Cloud,
-  Bot,
-  Shield,
-  MessageSquare,
-  Wrench,
-} from "lucide-react";
-import type { ReactNode } from "react";
 
 // ─────────────────────────────────────────────
 // Site metadata
@@ -35,36 +21,6 @@ export const SITE = {
   },
   ogImage: "/og-image.png",
 };
-
-// ─────────────────────────────────────────────
-// Navigation
-// ─────────────────────────────────────────────
-export const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Custom Software", href: "/services#custom-software" },
-      { label: "Web Development", href: "/services#web-development" },
-      { label: "Mobile Apps", href: "/services#mobile-apps" },
-      { label: "SaaS Products", href: "/services#saas" },
-      { label: "UI/UX Design", href: "/services#design" },
-      { label: "AI & Automation", href: "/services#ai-automation" },
-      { label: "Cloud & DevOps", href: "/services#cloud-devops" },
-      { label: "Cybersecurity", href: "/services#cybersecurity" },
-      { label: "API Integration", href: "/services#api-integration" },
-      { label: "Software Maintenance", href: "/services#maintenance" },
-      { label: "IT Consulting", href: "/services#it-consulting" },
-    ],
-  },
-  { label: "Products", href: "/#portfolio" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Process", href: "/process" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-] as const;
 
 // ─────────────────────────────────────────────
 // Hero
@@ -91,7 +47,7 @@ export const HERO = {
 // ─────────────────────────────────────────────
 export interface Service {
   id: string;
-  icon: ReactNode;
+  iconName: "Code2" | "Globe" | "Smartphone";
   title: string;
   shortDescription: string;
   description: string;
@@ -102,7 +58,7 @@ export interface Service {
 export const SERVICES: Service[] = [
   {
     id: "custom-software",
-    icon: <Code2 className="h-6 w-6" />,
+    iconName: "Code2",
     title: "Custom Software Development",
     shortDescription:
       "Tailor-made software built around your exact business requirements.",
@@ -120,7 +76,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "web-development",
-    icon: <Globe className="h-6 w-6" />,
+    iconName: "Globe",
     title: "Web Application Development",
     shortDescription:
       "Fast, accessible, SEO-optimized web apps that convert and scale.",
@@ -138,7 +94,7 @@ export const SERVICES: Service[] = [
   },
   {
     id: "mobile-apps",
-    icon: <Smartphone className="h-6 w-6" />,
+    iconName: "Smartphone",
     title: "Mobile App Development",
     shortDescription:
       "Native-quality iOS and Android apps from a single codebase.",
@@ -154,151 +110,28 @@ export const SERVICES: Service[] = [
     ],
     technologies: ["React Native", "Flutter", "TypeScript", "Expo"],
   },
-  {
-    id: "saas",
-    icon: <Layers className="h-6 w-6" />,
-    title: "SaaS Product Development",
-    shortDescription:
-      "End-to-end product engineering for scalable SaaS platforms.",
-    description:
-      "We partner with founders and product teams to design, build, and launch SaaS products — from MVP to enterprise scale.",
-    features: [
-      "Product architecture and technical strategy",
-      "Multi-tenant data isolation",
-      "Subscription billing integrations",
-      "Role-based access control",
-      "Admin dashboard and analytics",
-      "Feature flagging and gradual rollouts",
-    ],
-    technologies: ["Next.js", "Supabase", "PostgreSQL", "Stripe", "Vercel"],
-  },
-  {
-    id: "design",
-    icon: <Palette className="h-6 w-6" />,
-    title: "UI/UX Design",
-    shortDescription:
-      "User-centered design that balances beauty with usability.",
-    description:
-      "Our design process is research-driven and conversion-focused — creating interfaces that are intuitive, accessible, and on-brand.",
-    features: [
-      "User research and persona development",
-      "Information architecture and wireframing",
-      "High-fidelity UI design in Figma",
-      "Design system creation",
-      "Usability testing and iteration",
-      "Handoff-ready developer specifications",
-    ],
-    technologies: ["Figma", "Tailwind CSS", "shadcn/ui", "Framer Motion"],
-  },
-  {
-    id: "ai-automation",
-    icon: <Bot className="h-6 w-6" />,
-    title: "AI & Automation Solutions",
-    shortDescription:
-      "Intelligent systems that reduce manual work and surface insights.",
-    description:
-      "We integrate AI and automation into your products and workflows — from LLM-powered features to intelligent process automation.",
-    features: [
-      "LLM integration and prompt engineering",
-      "AI-powered search and recommendations",
-      "Workflow automation pipelines",
-      "Data processing and enrichment",
-      "Custom ML model integration",
-      "Monitoring and cost control",
-    ],
-    technologies: ["Python", "OpenAI", "LangChain", "PostgreSQL", "Node.js"],
-  },
-  {
-    id: "cloud-devops",
-    icon: <Cloud className="h-6 w-6" />,
-    title: "Cloud & DevOps",
-    shortDescription:
-      "Infrastructure that is secure, cost-efficient, and production-ready.",
-    description:
-      "We design and manage cloud infrastructure that scales with your product — reliable, observable, and built for zero-downtime deployments.",
-    features: [
-      "Cloud architecture design on Vercel, Supabase, Cloudflare",
-      "CI/CD pipeline setup with GitHub Actions",
-      "Containerization and orchestration",
-      "Infrastructure-as-code",
-      "Monitoring, alerting, and observability",
-      "Cost optimization reviews",
-    ],
-    technologies: ["Vercel", "Supabase", "Cloudflare", "GitHub Actions", "Docker"],
-  },
-  {
-    id: "cybersecurity",
-    icon: <Shield className="h-6 w-6" />,
-    title: "Cybersecurity Consulting",
-    shortDescription:
-      "Security built in from day one, not bolted on at the end.",
-    description:
-      "We help businesses identify vulnerabilities, implement security best practices, and build defensible systems from the ground up.",
-    features: [
-      "Security architecture review",
-      "Penetration testing",
-      "Row Level Security and access control design",
-      "Compliance readiness (GDPR, SOC 2 basics)",
-      "Threat modeling",
-      "Security code review",
-    ],
-    technologies: ["Supabase RLS", "OWASP", "CSP", "JWT", "PostgreSQL"],
-  },
-  {
-    id: "api-integration",
-    icon: <Plug className="h-6 w-6" />,
-    title: "API Development & Integration",
-    shortDescription:
-      "Seamless integrations that connect your systems and unlock data flow.",
-    description:
-      "From REST APIs to event-driven architectures, we design robust integrations that connect your stack and power your product.",
-    features: [
-      "RESTful and GraphQL API design",
-      "Third-party API integrations",
-      "Webhook systems",
-      "API documentation with OpenAPI",
-      "Rate limiting and caching",
-      "SDK and client library development",
-    ],
-    technologies: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Redis"],
-  },
-  {
-    id: "maintenance",
-    icon: <Wrench className="h-6 w-6" />,
-    title: "Software Maintenance & Support",
-    shortDescription:
-      "Ongoing engineering support to keep your product running at its best.",
-    description:
-      "We provide retainer-based engineering support — bug fixes, performance tuning, dependency updates, and feature additions on your schedule.",
-    features: [
-      "Bug tracking and resolution SLAs",
-      "Dependency and security updates",
-      "Performance monitoring and optimization",
-      "Feature development on retainer",
-      "Documentation and knowledge transfer",
-      "Emergency on-call support",
-    ],
-    technologies: ["TypeScript", "Node.js", "React", "PostgreSQL", "Next.js"],
-  },
-  {
-    id: "it-consulting",
-    icon: <MessageSquare className="h-6 w-6" />,
-    title: "IT Consulting",
-    shortDescription:
-      "Strategic technology advice from engineers who build for a living.",
-    description:
-      "We help leadership teams make better technology decisions — from vendor selection to architecture reviews to build-vs-buy analysis.",
-    features: [
-      "Technology stack assessment",
-      "Build vs. buy analysis",
-      "Vendor evaluation",
-      "Technical roadmap planning",
-      "CTO-as-a-service for early-stage startups",
-      "Engineering team structure and hiring guidance",
-    ],
-    technologies: ["Strategy", "Architecture", "Cloud", "AI", "Security"],
-  },
 ];
+
+// ─────────────────────────────────────────────
+// Navigation
+// ─────────────────────────────────────────────
+export const NAV_LINKS = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  {
+    label: "Services",
+    href: "/services",
+    children: SERVICES.map((service) => ({
+      label: service.title.replace(" Development", ""),
+      href: `/services#${service.id}`,
+    })),
+  },
+  { label: "Products", href: "/#portfolio" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Process", href: "/process" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+] as const;
 
 // ─────────────────────────────────────────────
 // Process steps
@@ -349,7 +182,7 @@ export const PROCESS_STEPS = [
 ];
 
 // ─────────────────────────────────────────────
-// Portfolio / case studies
+// Dynamic fallback: Portfolio / case studies
 // ─────────────────────────────────────────────
 export const PORTFOLIO_ITEMS = [
   {
@@ -415,7 +248,7 @@ export const PORTFOLIO_ITEMS = [
 ];
 
 // ─────────────────────────────────────────────
-// Testimonials
+// Dynamic fallback: Testimonials
 // ─────────────────────────────────────────────
 export const TESTIMONIALS = [
   {
