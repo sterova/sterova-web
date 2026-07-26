@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Only the login page is publicly reachable under /admin.
-// /admin/setup is intentionally removed — self-registration is disabled.
 const ADMIN_PUBLIC = ["/admin/login"];
 
 export async function middleware(request: NextRequest) {

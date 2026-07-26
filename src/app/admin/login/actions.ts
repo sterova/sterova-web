@@ -63,49 +63,57 @@ export async function loginAction(
   let destination = "/admin";
 
   try {
-    const supabase = await createClient();
+    const { createClient: createSupabaseJSClient } = await import("@supabase/supabase-js");
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
+    const jsClient = createSupabaseJSClient(supabaseUrl, supabaseAnonKey);
+    const { data: authData, error: authError } = await jsClient.auth.signInWithPassword({
       email,
       password,
     });
 
-    if (authError) {
+    if (authError || !authData.user || !authData.session) {
+      console.error("[Login Auth Error]", authError);
+      const msg = authError?.message || "Invalid email or password.";
       await writeAuditLog({
         action: "admin.login.failed",
         actor_email: email,
-        metadata: { ip, reason: "invalid_credentials" },
+        metadata: { ip, reason: msg },
       });
-      // Generic message — never reveal whether the email exists
-      return { error: "Invalid email or password." };
+      return { error: msg };
     }
 
-    // ── Admin table check ─────────────────────────────────────────────
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
+    // Sync session to cookies for SSR
+    const supabase = await createClient();
+    await supabase.auth.setSession({
+      access_token: authData.session.access_token,
+      refresh_token: authData.session.refresh_token,
+    });
 
-    if (!user) {
-      return { error: "Authentication failed. Please try again." };
-    }
+    const user = authData.user;
 
     const service = createServiceClient();
-    const { data: adminRecord } = await service
+    const { data: adminRecord, error: adminErr } = await service
       .from("admins")
       .select("id, role, is_active")
       .eq("user_id", user.id)
       .eq("is_active", true)
       .maybeSingle();
 
+    if (adminErr) {
+      console.error("[Admin Check Error]", adminErr.message);
+    }
+
     if (!adminRecord) {
-      // Authenticated with Supabase but not an admin — sign out immediately
+      console.error("[Login Error] User authenticated but not found in admins table. User ID:", user.id);
       await supabase.auth.signOut();
       await writeAuditLog({
         action: "admin.login.unauthorized",
         actor_email: email,
         metadata: { ip, reason: "not_in_admins_table" },
       });
-      return { error: "Access denied." };
+      return { error: `Access denied: User (${email}) is not in the admins table.` };
     }
 
     await writeAuditLog({
@@ -114,12 +122,11 @@ export async function loginAction(
       metadata: { ip, role: adminRecord.role },
     });
 
-    // Safe redirect — only allow internal paths and ignore setup/login loop routes
+    // Safe redirect — only allow internal paths
     if (
       redirectTo &&
       redirectTo.startsWith("/") &&
       !redirectTo.startsWith("//") &&
-      !redirectTo.startsWith("/admin/setup") &&
       !redirectTo.startsWith("/admin/login")
     ) {
       destination = redirectTo;

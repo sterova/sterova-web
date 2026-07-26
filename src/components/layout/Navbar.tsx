@@ -24,9 +24,17 @@ const FALLBACK_RIGHT: { label: string; href: string }[] = [
   { label: "Contact",   href: "/contact" },
 ];
 const SERVICES_FALLBACK = [
-  { label: "Custom Software", href: "/services#custom-software" },
-  { label: "Web Development", href: "/services#web-development" },
-  { label: "Mobile Apps",     href: "/services#mobile-apps" },
+  { label: "Custom Software",      href: "/services#custom-software" },
+  { label: "Web Development",      href: "/services#web-development" },
+  { label: "Mobile Apps",          href: "/services#mobile-apps" },
+  { label: "SaaS Products",        href: "/services#saas" },
+  { label: "UI/UX Design",         href: "/services#design" },
+  { label: "AI & Automation",      href: "/services#ai-automation" },
+  { label: "Cloud & DevOps",       href: "/services#cloud-devops" },
+  { label: "Cybersecurity",        href: "/services#cybersecurity" },
+  { label: "API Integration",      href: "/services#api-integration" },
+  { label: "Software Maintenance", href: "/services#maintenance" },
+  { label: "IT Consulting",        href: "/services#it-consulting" },
 ];
 
 // ─────────────────────────────────────────────────────────────────────────────

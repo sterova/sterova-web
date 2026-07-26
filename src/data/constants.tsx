@@ -6,12 +6,10 @@ import {
   Palette,
   Plug,
   Cloud,
-  GitBranch,
   Bot,
   Shield,
   MessageSquare,
   Wrench,
-  ChevronRight,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -56,6 +54,9 @@ export const NAV_LINKS = [
       { label: "AI & Automation", href: "/services#ai-automation" },
       { label: "Cloud & DevOps", href: "/services#cloud-devops" },
       { label: "Cybersecurity", href: "/services#cybersecurity" },
+      { label: "API Integration", href: "/services#api-integration" },
+      { label: "Software Maintenance", href: "/services#maintenance" },
+      { label: "IT Consulting", href: "/services#it-consulting" },
     ],
   },
   { label: "Products", href: "/#portfolio" },

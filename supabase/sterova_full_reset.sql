@@ -669,12 +669,22 @@ create index blog_posts_category_idx
   on public.blog_posts (category);
 
 
+-- ─────────────────────────────────────────────────────────────────────────────
+-- Table Grants (Required for Supabase Service Role and Auth API access)
+-- ─────────────────────────────────────────────────────────────────────────────
+grant usage on schema public to postgres, anon, authenticated, service_role;
+grant all on all tables in schema public to postgres, service_role;
+grant all on all sequences in schema public to postgres, service_role;
+grant all on all functions in schema public to postgres, service_role;
+
+grant select, insert, update, delete on all tables in schema public to anon, authenticated;
+grant usage, select on all sequences in schema public to anon, authenticated;
+
+
 -- =============================================================================
 -- DONE. All tables created and seed data loaded.
 --
--- Next step — create your admin account:
---   Option A (recommended): visit /admin/setup in your browser.
---   Option B (manual SQL):
+-- Next step — set up your admin account:
 --     1. Supabase → Authentication → Users → Add user (email + password)
 --     2. Copy the new user's UUID, then run:
 --
@@ -682,3 +692,4 @@ create index blog_posts_category_idx
 --        VALUES ('PASTE-UUID-HERE'::uuid, 'you@example.com', 'super_admin')
 --        ON CONFLICT (user_id) DO NOTHING;
 -- =============================================================================
+

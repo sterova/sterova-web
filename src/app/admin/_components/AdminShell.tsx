@@ -55,8 +55,8 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Don't render the shell on login/setup pages
-  const isPublic = pathname === "/admin/login" || pathname === "/admin/setup";
+  // Don't render the shell on login page
+  const isPublic = pathname === "/admin/login";
   if (isPublic) return <>{children}</>;
 
   async function handleSignOut() {
