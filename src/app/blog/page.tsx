@@ -34,7 +34,12 @@ async function getPosts(): Promise<FetchResult> {
     if (error) {
       // blog_posts table may not exist yet — treat as empty, not an error
       if (error.code === "42P01") return { ok: true, posts: [] };
-      console.error("[Blog] Supabase error:", error.message);
+      console.error({
+  code: error.code,
+  message: error.message,
+  details: error.details,
+  hint: error.hint,
+});
       return { ok: false, error: "Failed to load posts. Please try again later." };
     }
     return { ok: true, posts: (data as BlogPost[]) ?? [] };
