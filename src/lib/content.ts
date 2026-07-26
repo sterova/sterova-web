@@ -1,65 +1,22 @@
 /**
  * Server-side content fetching utilities.
  * Use these in Server Components and page.tsx to fetch DB-driven content.
- * All functions return empty arrays on error — the UI handles empty states.
+ * All functions return empty arrays / empty objects on error.
+ * Tables come from migration 002_content_schema.sql.
  */
 
 import { createServiceClient } from "@/lib/supabase/server";
+import type {
+  DbService,
+  DbPortfolioItem,
+  DbTestimonial,
+  DbFaq,
+  DbSiteSetting,
+  DbNavigationItem,
+} from "@/types";
 
-export interface DbService {
-  id: string;
-  title: string;
-  short_description: string;
-  description: string;
-  icon_name: string;
-  features: string[];
-  technologies: string[];
-  display_order: number;
-  is_active: boolean;
-}
-
-export interface DbPortfolioItem {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  tags: string[];
-  image_url: string | null;
-  live_url: string | null;
-  github_url: string | null;
-  is_featured: boolean;
-  is_active: boolean;
-  display_order: number;
-}
-
-export interface DbTestimonial {
-  id: string;
-  name: string;
-  role: string;
-  company: string | null;
-  content: string;
-  rating: number;
-  avatar_url: string | null;
-  is_active: boolean;
-  display_order: number;
-}
-
-export interface DbFaq {
-  id: string;
-  question: string;
-  answer: string;
-  category: string | null;
-  display_order: number;
-  is_active: boolean;
-}
-
-export interface DbSiteSetting {
-  id: string;
-  key: string;
-  value: string;
-  type: string;
-  description: string | null;
-}
+// Re-export types for consumers
+export type { DbService, DbPortfolioItem, DbTestimonial, DbFaq, DbSiteSetting, DbNavigationItem };
 
 export async function getServices(): Promise<DbService[]> {
   try {
@@ -68,6 +25,19 @@ export async function getServices(): Promise<DbService[]> {
       .from("services")
       .select("*")
       .eq("is_active", true)
+      .order("display_order");
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getAllServices(): Promise<DbService[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("services")
+      .select("*")
       .order("display_order");
     return data ?? [];
   } catch {
@@ -93,6 +63,19 @@ export async function getPortfolioItems(
   }
 }
 
+export async function getAllPortfolioItems(): Promise<DbPortfolioItem[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("portfolio_items")
+      .select("*")
+      .order("display_order");
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export async function getTestimonials(): Promise<DbTestimonial[]> {
   try {
     const supabase = createServiceClient();
@@ -100,6 +83,19 @@ export async function getTestimonials(): Promise<DbTestimonial[]> {
       .from("testimonials")
       .select("*")
       .eq("is_active", true)
+      .order("display_order");
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getAllTestimonials(): Promise<DbTestimonial[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("testimonials")
+      .select("*")
       .order("display_order");
     return data ?? [];
   } catch {
@@ -123,6 +119,19 @@ export async function getFaqs(limit?: number): Promise<DbFaq[]> {
   }
 }
 
+export async function getAllFaqs(): Promise<DbFaq[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("faqs")
+      .select("*")
+      .order("display_order");
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
 export async function getSiteSettings(): Promise<Record<string, string>> {
   try {
     const supabase = createServiceClient();
@@ -131,5 +140,33 @@ export async function getSiteSettings(): Promise<Record<string, string>> {
     return Object.fromEntries(data.map((s) => [s.key, s.value]));
   } catch {
     return {};
+  }
+}
+
+export async function getAllSiteSettings(): Promise<DbSiteSetting[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("site_settings")
+      .select("*")
+      .order("group_name")
+      .order("key");
+    return data ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export async function getNavItems(): Promise<DbNavigationItem[]> {
+  try {
+    const supabase = createServiceClient();
+    const { data } = await supabase
+      .from("navigation_items")
+      .select("*")
+      .eq("is_active", true)
+      .order("display_order");
+    return data ?? [];
+  } catch {
+    return [];
   }
 }

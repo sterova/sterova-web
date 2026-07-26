@@ -4,22 +4,28 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { TESTIMONIALS } from "@/data/constants";
+import type { DbTestimonial } from "@/types";
 
-export default function TestimonialsSection() {
+interface Props {
+  testimonials: DbTestimonial[];
+}
+
+export default function TestimonialsSection({ testimonials }: Props) {
+  if (testimonials.length === 0) return null;
+
   return (
     <section id="testimonials" className="py-24 bg-secondary/30">
       <div className="container-custom">
         <SectionHeader
           badge="Client Stories"
-          title="Trusted by builders worldwide"
-          description="Real results from real clients. Here's what they say about working with Sterova."
+          title="What our clients say"
+          description="Real results from real clients. Here's what they say about working with us."
           centered
           className="mb-16"
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TESTIMONIALS.map((t, i) => (
+          {testimonials.map((t, i) => (
             <motion.div
               key={t.id}
               initial={{ opacity: 0, y: 24 }}
@@ -51,12 +57,23 @@ export default function TestimonialsSection() {
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sterova-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
-                  {t.name.charAt(0)}
-                </div>
+                {t.avatar_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={t.avatar_url}
+                    alt={t.name}
+                    className="w-10 h-10 rounded-full object-cover shrink-0"
+                  />
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sterova-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold shrink-0">
+                    {t.name.charAt(0)}
+                  </div>
+                )}
                 <div>
                   <p className="text-sm font-semibold">{t.name}</p>
-                  <p className="text-xs text-muted-foreground">{t.role}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {t.role}{t.company ? `, ${t.company}` : ""}
+                  </p>
                 </div>
               </div>
             </motion.div>

@@ -1,87 +1,80 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/server";
-import { rateLimit } from "@/lib/rate-limit";
-import { z } from "zod";
 
-const ReviewSchema = z.object({
-  name: z.string().max(100).optional().default("Anonymous"),
-  content: z.string().min(10, "Review must be at least 10 characters").max(2000),
-  rating: z.number().int().min(1).max(5).default(5),
-});
+// Simple in-memory rate limit per IP
+const ipSubmissions = new Map<string, number[]>();
+const WINDOW_MS = 10 * 60 * 1000; // 10 min
+const MAX_PER_WINDOW = 3;
 
-// GET — fetch approved reviews, newest first
-export async function GET() {
-  try {
-    const supabase = createServiceClient();
-    const { data, error } = await supabase
-      .from("reviews")
-      .select("id, created_at, name, content, rating")
-      .eq("approved", true)
-      .order("created_at", { ascending: false })
-      .limit(50);
-
-    if (error) {
-      // Table may not exist yet — return empty list gracefully
-      console.error("[Reviews GET]", error.message);
-      return NextResponse.json([]);
-    }
-
-    return NextResponse.json(data ?? []);
-  } catch (err) {
-    console.error("[Reviews GET] unexpected error:", err);
-    return NextResponse.json([]);
-  }
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const times = (ipSubmissions.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  if (times.length >= MAX_PER_WINDOW) return true;
+  times.push(now);
+  ipSubmissions.set(ip, times);
+  return false;
 }
 
-// POST — submit a new review
+export async function GET() {
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("reviews")
+    .select("id, created_at, name, content, rating")
+    .eq("approved", true)
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) return NextResponse.json([], { status: 200 });
+  return NextResponse.json(data ?? []);
+}
+
 export async function POST(req: NextRequest) {
   const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    req.headers.get("x-real-ip") ??
-    "unknown";
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
 
-  const { allowed } = rateLimit(`reviews:${ip}`, { maxRequests: 3, windowMs: 60 * 60 * 1000 });
-  if (!allowed) {
+  if (isRateLimited(ip)) {
     return NextResponse.json(
-      { error: "Too many reviews submitted. Please try again later." },
+      { error: "Too many reviews submitted. Please wait 10 minutes." },
       { status: 429 }
     );
   }
 
-  let body: unknown;
+  let name: string, content: string, rating: number;
   try {
-    body = await req.json();
+    ({ name, content, rating } = await req.json());
   } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
-  const parsed = ReviewSchema.safeParse(body);
-  if (!parsed.success) {
+  if (!content || content.trim().length < 10) {
     return NextResponse.json(
-      { error: parsed.error.errors[0]?.message ?? "Invalid input" },
-      { status: 422 }
+      { error: "Review must be at least 10 characters." },
+      { status: 400 }
     );
   }
-
-  const { name, content, rating } = parsed.data;
-  const displayName = name?.trim() || "Anonymous";
-
-  try {
-    const supabase = createServiceClient();
-    const { data, error } = await supabase
-      .from("reviews")
-      .insert({ name: displayName, content: content.trim(), rating, ip_address: ip })
-      .select("id, created_at, name, content, rating")
-      .single();
-
-    if (error) {
-      console.error("[Reviews POST]", error.message);
-      return NextResponse.json({ error: "Failed to save review. Please try again." }, { status: 500 });
-    }
-
-    return NextResponse.json(data, { status: 201 });
-  } catch (err) {
-    console.error("[Reviews POST] unexpected:", err);
-    return NextResponse.json({ error: "Unexpected error" }, { status: 500 });
+  if (!rating || rating < 1 || rating > 5) {
+    return NextResponse.json({ error: "Rating must be 1–5." }, { status: 400 });
   }
+
+  const safeContent = content.trim().slice(0, 2000);
+  const safeName = (name?.trim() || "Anonymous").slice(0, 100);
+
+  const supabase = createServiceClient();
+  const { data, error } = await supabase
+    .from("reviews")
+    .insert({
+      name: safeName,
+      content: safeContent,
+      rating,
+      approved: true,
+    })
+    .select("id, created_at, name, content, rating")
+    .single();
+
+  if (error) {
+    console.error("[Reviews] insert error:", error.message);
+    return NextResponse.json({ error: "Failed to submit review." }, { status: 500 });
+  }
+
+  return NextResponse.json(data, { status: 201 });
 }

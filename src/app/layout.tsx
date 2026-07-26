@@ -1,12 +1,13 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
+import NavbarWrapper from "@/components/layout/NavbarWrapper";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import { Toaster } from "@/components/ui/toaster";
 import { Providers } from "@/components/providers";
 import { SITE } from "@/data/constants";
+import { headers } from "next/headers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,9 +33,6 @@ export const metadata: Metadata = {
     "web development",
     "mobile app development",
     "SaaS development",
-    "UI/UX design",
-    "cloud solutions",
-    "AI automation",
     "custom software",
     "Next.js",
     "TypeScript",
@@ -63,7 +61,6 @@ export const metadata: Metadata = {
     title: `${SITE.name} — ${SITE.tagline}`,
     description: SITE.description,
     images: [SITE.ogImage],
-    creator: "@sterova",
   },
   robots: {
     index: true,
@@ -90,11 +87,15 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const isAdmin = pathname.startsWith("/admin");
+
   return (
     <html
       lang="en"
@@ -123,10 +124,10 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col">
         <Providers>
-          <Navbar />
+          {!isAdmin && <NavbarWrapper />}
           <main className="flex-1">{children}</main>
-          <Footer />
-          <WhatsAppButton />
+          {!isAdmin && <Footer />}
+          {!isAdmin && <WhatsAppButton />}
           <Toaster />
         </Providers>
       </body>

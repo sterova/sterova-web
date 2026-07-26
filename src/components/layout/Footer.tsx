@@ -1,11 +1,52 @@
 import React from "react";
 import Link from "next/link";
 import { Mail, Phone, MessageCircle, ArrowUpRight } from "lucide-react";
-import { SITE, FOOTER_LINKS } from "@/data/constants";
+import { SITE } from "@/data/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
+import { getSiteSettings } from "@/lib/content";
 import NewsletterForm from "@/components/shared/NewsletterForm";
 
-export default function Footer() {
+const FOOTER_LINKS = [
+  {
+    heading: "Company",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Process", href: "/process" },
+      { label: "Careers", href: "/careers" },
+      { label: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    heading: "Services",
+    links: [
+      { label: "Web Development", href: "/services#web-development" },
+      { label: "Mobile Apps", href: "/services#mobile-apps" },
+      { label: "Custom Software", href: "/services#custom-software" },
+    ],
+  },
+  {
+    heading: "Work",
+    links: [
+      { label: "Portfolio", href: "/portfolio" },
+      { label: "Testimonials", href: "/#testimonials" },
+    ],
+  },
+  {
+    heading: "Legal",
+    links: [
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
+
+export default async function Footer() {
+  const settings = await getSiteSettings();
+
+  const email = settings.site_email || SITE.email;
+  const phone = settings.site_phone || SITE.phone;
+  const whatsapp = settings.site_whatsapp || SITE.whatsapp;
+  const whatsappDisplay = settings.site_whatsapp_display || SITE.whatsappDisplay;
   const year = new Date().getFullYear();
 
   return (
@@ -28,29 +69,29 @@ export default function Footer() {
             {/* Contact */}
             <div className="space-y-2 mb-6">
               <a
-                href={`mailto:${SITE.email}`}
+                href={`mailto:${email}`}
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Mail className="h-4 w-4 shrink-0" />
-                {SITE.email}
+                {email}
               </a>
-              {SITE.phone !== "[PHONE_PLACEHOLDER]" && (
+              {phone && phone !== "[PHONE_PLACEHOLDER]" && (
                 <a
-                  href={`tel:${SITE.phone}`}
+                  href={`tel:${phone}`}
                   className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   <Phone className="h-4 w-4 shrink-0" />
-                  {SITE.phone}
+                  {phone}
                 </a>
               )}
               <a
-                href={getWhatsAppUrl(SITE.whatsapp, "Hi Sterova, I'd like to discuss a project.")}
+                href={getWhatsAppUrl(whatsapp, "Hi Sterova, I'd like to discuss a project.")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-green-600 transition-colors"
               >
                 <MessageCircle className="h-4 w-4 shrink-0" />
-                WhatsApp: {SITE.whatsappDisplay}
+                WhatsApp: {whatsappDisplay}
               </a>
             </div>
 
@@ -100,7 +141,7 @@ export default function Footer() {
               Terms
             </Link>
             <a
-              href={`mailto:${SITE.email}`}
+              href={`mailto:${email}`}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
             >
               Contact <ArrowUpRight className="h-3 w-3" />

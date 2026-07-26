@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronRight, Package } from "lucide-react";
@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { HERO, SITE } from "@/data/constants";
 
-// Pre-defined particles to avoid hydration mismatch
+// Pre-seeded particles — fixed positions avoid hydration mismatch
 const PARTICLES = [
   { x: 8, y: 12, size: 2.5, delay: 0, duration: 5.5 },
   { x: 92, y: 8, size: 2, delay: 0.8, duration: 7 },
@@ -22,9 +22,41 @@ const PARTICLES = [
   { x: 48, y: 5, size: 2.5, delay: 0.4, duration: 7.2 },
   { x: 12, y: 40, size: 2, delay: 3, duration: 5.5 },
   { x: 65, y: 55, size: 1.5, delay: 1.9, duration: 8.5 },
+  { x: 42, y: 68, size: 2, delay: 0.9, duration: 6.8 },
+  { x: 78, y: 20, size: 1.5, delay: 2.5, duration: 7.3 },
+  { x: 5, y: 58, size: 2.5, delay: 1.3, duration: 5.2 },
+  { x: 58, y: 35, size: 1.5, delay: 3.2, duration: 9 },
 ];
 
-export default function HeroSection() {
+interface HeroStat {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  settings?: Record<string, string>;
+}
+
+export default function HeroSection({ settings = {} }: Props) {
+  const badge = settings.hero_badge || HERO.badge;
+  const headline = settings.hero_headline || SITE.tagline;
+  const subheadline = settings.hero_subheadline || HERO.subheadline;
+  const ctaPrimaryLabel = settings.hero_cta_primary_label || HERO.cta.primary.label;
+  const ctaPrimaryHref = settings.hero_cta_primary_href || HERO.cta.primary.href;
+  const ctaSecondaryLabel = settings.hero_cta_secondary_label || HERO.cta.secondary.label;
+  const ctaSecondaryHref = settings.hero_cta_secondary_href || HERO.cta.secondary.href;
+
+  const stats = useMemo<HeroStat[]>(() => {
+    if (settings.hero_stats) {
+      try {
+        return JSON.parse(settings.hero_stats) as HeroStat[];
+      } catch {
+        // fall through to default
+      }
+    }
+    return HERO.stats;
+  }, [settings.hero_stats]);
+
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
@@ -36,29 +68,63 @@ export default function HeroSection() {
         aria-hidden="true"
       />
 
-      {/* Animated gradient orbs */}
+      {/* Premium animated gradient — layered orbs */}
       <motion.div
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-sterova-500/10 dark:bg-sterova-500/15 blur-3xl pointer-events-none"
-        animate={{ scale: [1, 1.1, 1], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(139,92,246,0.12) 0%, rgba(167,139,250,0.06) 40%, transparent 70%)",
+        }}
+        animate={{ scale: [1, 1.06, 1], opacity: [0.7, 1, 0.7] }}
+        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         aria-hidden="true"
       />
       <motion.div
-        className="absolute top-1/3 left-1/4 w-[450px] h-[450px] rounded-full bg-violet-500/8 dark:bg-violet-500/12 blur-3xl pointer-events-none"
-        animate={{ scale: [1.1, 1, 1.1], x: [-20, 20, -20], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+        className="absolute top-1/3 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(124,58,237,0.1) 0%, transparent 65%)",
+        }}
+        animate={{
+          scale: [1.1, 1, 1.1],
+          x: [-30, 30, -30],
+          opacity: [0.4, 0.8, 0.4],
+        }}
+        transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
         aria-hidden="true"
       />
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-[350px] h-[350px] rounded-full bg-purple-500/10 dark:bg-purple-500/15 blur-3xl pointer-events-none"
-        animate={{ scale: [1, 1.15, 1], y: [-15, 15, -15], opacity: [0.5, 0.9, 0.5] }}
-        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(109,40,217,0.12) 0%, transparent 65%)",
+        }}
+        animate={{ scale: [1, 1.15, 1], y: [-20, 20, -20], opacity: [0.5, 0.9, 0.5] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
         aria-hidden="true"
       />
       <motion.div
-        className="absolute top-2/3 right-1/6 w-[250px] h-[250px] rounded-full bg-sterova-400/8 dark:bg-sterova-400/10 blur-2xl pointer-events-none"
-        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.7, 0.3] }}
+        className="absolute top-2/3 right-1/6 w-[280px] h-[280px] rounded-full pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(196,181,253,0.1) 0%, transparent 65%)",
+        }}
+        animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.6, 0.3] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+        aria-hidden="true"
+      />
+
+      {/* Glowing ring accent */}
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-sterova-500/10 dark:border-sterova-400/15 pointer-events-none"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+        aria-hidden="true"
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-violet-500/6 dark:border-violet-400/10 pointer-events-none"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
         aria-hidden="true"
       />
 
@@ -66,7 +132,7 @@ export default function HeroSection() {
       {PARTICLES.map((p, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full bg-sterova-500/50 dark:bg-sterova-400/60 pointer-events-none"
+          className="absolute rounded-full bg-sterova-500/40 dark:bg-sterova-400/55 pointer-events-none"
           style={{
             left: `${p.x}%`,
             top: `${p.y}%`,
@@ -74,8 +140,8 @@ export default function HeroSection() {
             height: p.size,
           }}
           animate={{
-            y: [-12, 12, -12],
-            opacity: [0.2, 0.7, 0.2],
+            y: [-14, 14, -14],
+            opacity: [0.15, 0.65, 0.15],
           }}
           transition={{
             duration: p.duration,
@@ -89,54 +155,48 @@ export default function HeroSection() {
 
       <div className="container-custom relative z-10 py-24 text-center">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.05 }}
-          className="flex justify-center mb-6"
-        >
+        <div className="flex justify-center mb-6 animate-fade-in-up" style={{ animationDelay: "0ms" }}>
           <Badge variant="sterova" className="gap-1.5 py-1.5 px-4 text-xs font-medium">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sterova-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-sterova-600 dark:bg-sterova-400" />
             </span>
-            {HERO.badge}
+            {badge}
           </Badge>
-        </motion.div>
+        </div>
 
         {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight mb-6"
+        <h1
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-extrabold tracking-tight mb-6 animate-fade-in-up"
+          style={{ animationDelay: "80ms" }}
         >
           <span className="bg-gradient-to-r from-sterova-600 via-violet-500 to-purple-500 dark:from-sterova-300 dark:via-violet-300 dark:to-purple-300 bg-clip-text text-transparent">
-            {SITE.tagline}
+            {headline}
           </span>
-        </motion.h1>
+        </h1>
 
         {/* Sub-headline */}
-        <motion.p
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty leading-relaxed"
+        <p
+          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 text-pretty leading-relaxed animate-fade-in-up"
+          style={{ animationDelay: "160ms" }}
         >
-          {HERO.subheadline}
-        </motion.p>
+          {subheadline}
+        </p>
 
         {/* CTAs */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-col items-center gap-4 mb-16"
+        <div
+          className="flex flex-col items-center gap-4 mb-16 animate-fade-in-up"
+          style={{ animationDelay: "240ms" }}
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full">
-            <Button asChild size="xl" variant="gradient" className="group w-full sm:w-auto shadow-lg shadow-primary/20">
-              <Link href={HERO.cta.primary.href}>
-                {HERO.cta.primary.label}
+            <Button
+              asChild
+              size="xl"
+              variant="gradient"
+              className="group w-full sm:w-auto shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:shadow-xl transition-shadow"
+            >
+              <Link href={ctaPrimaryHref}>
+                {ctaPrimaryLabel}
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -144,10 +204,10 @@ export default function HeroSection() {
               asChild
               size="xl"
               variant="outline"
-              className="group w-full sm:w-auto border-border/60 hover:border-primary/40"
+              className="group w-full sm:w-auto border-border/60 hover:border-primary/40 hover:bg-primary/5"
             >
-              <Link href={HERO.cta.secondary.href}>
-                {HERO.cta.secondary.label}
+              <Link href={ctaSecondaryHref}>
+                {ctaSecondaryLabel}
                 <ChevronRight className="ml-1 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>
@@ -162,30 +222,22 @@ export default function HeroSection() {
             See products we&apos;ve shipped
             <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
-        </motion.div>
+        </div>
 
         {/* Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.45 }}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto"
+        <div
+          className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto animate-fade-in-up"
+          style={{ animationDelay: "360ms" }}
         >
-          {HERO.stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 + i * 0.08 }}
-              className="text-center group"
-            >
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center group">
               <div className="text-3xl sm:text-4xl font-display font-bold bg-gradient-to-r from-sterova-600 via-violet-500 to-purple-500 dark:from-sterova-300 dark:via-violet-300 dark:to-purple-300 bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-200">
                 {stat.value}
               </div>
               <div className="text-xs text-muted-foreground">{stat.label}</div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
 
       {/* Bottom fade */}

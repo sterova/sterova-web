@@ -8,14 +8,17 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { FAQS } from "@/data/constants";
+import type { DbFaq } from "@/types";
 
 interface Props {
+  faqs: DbFaq[];
   limit?: number;
 }
 
-export default function FAQSection({ limit }: Props) {
-  const displayed = limit ? FAQS.slice(0, limit) : FAQS;
+export default function FAQSection({ faqs, limit }: Props) {
+  const displayed = limit ? faqs.slice(0, limit) : faqs;
+
+  if (displayed.length === 0) return null;
 
   return (
     <section id="faq" className="py-24">
@@ -33,7 +36,7 @@ export default function FAQSection({ limit }: Props) {
             <Accordion type="single" collapsible className="space-y-2">
               {displayed.map((faq, i) => (
                 <AccordionItem
-                  key={i}
+                  key={faq.id}
                   value={`item-${i}`}
                   className="rounded-xl border px-5 bg-background data-[state=open]:border-primary/40"
                 >

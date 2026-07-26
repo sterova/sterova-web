@@ -7,7 +7,7 @@ import { SITE } from "@/data/constants";
 import { formatDate } from "@/lib/utils";
 import type { BlogPost } from "@/types";
 import Link from "next/link";
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock, ArrowRight, BookOpen } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -15,7 +15,11 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
 };
 
-async function getPosts(): Promise<BlogPost[]> {
+type FetchResult =
+  | { ok: true; posts: BlogPost[] }
+  | { ok: false; error: string };
+
+async function getPosts(): Promise<FetchResult> {
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -28,17 +32,20 @@ async function getPosts(): Promise<BlogPost[]> {
       .limit(20);
 
     if (error) {
+      // blog_posts table may not exist yet — treat as empty, not an error
+      if (error.code === "42P01") return { ok: true, posts: [] };
       console.error("[Blog] Supabase error:", error.message);
-      return [];
+      return { ok: false, error: "Failed to load posts. Please try again later." };
     }
-    return (data as BlogPost[]) ?? [];
-  } catch {
-    return [];
+    return { ok: true, posts: (data as BlogPost[]) ?? [] };
+  } catch (err) {
+    console.error("[Blog] unexpected error:", err);
+    return { ok: false, error: "An unexpected error occurred." };
   }
 }
 
 export default async function BlogPage() {
-  const posts = await getPosts();
+  const result = await getPosts();
 
   return (
     <>
@@ -57,25 +64,49 @@ export default async function BlogPage() {
 
       <section className="py-24">
         <div className="container-custom">
-          {posts.length === 0 ? (
+          {!result.ok ? (
+            /* Error state */
             <AnimatedSection className="text-center py-20">
-              <p className="text-muted-foreground text-lg">
-                Articles coming soon — check back later.
+              <div className="w-14 h-14 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-6 w-6 text-destructive/60" />
+              </div>
+              <p className="text-base font-medium mb-2">Couldn&apos;t load posts</p>
+              <p className="text-sm text-muted-foreground">{result.error}</p>
+            </AnimatedSection>
+          ) : result.posts.length === 0 ? (
+            /* Empty state */
+            <AnimatedSection className="text-center py-20">
+              <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                <BookOpen className="h-6 w-6 text-primary/50" />
+              </div>
+              <p className="text-base font-medium mb-2">Articles coming soon</p>
+              <p className="text-sm text-muted-foreground">
+                We&apos;re writing something good — check back soon.
               </p>
             </AnimatedSection>
           ) : (
+            /* Posts grid */
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post, i) => (
+              {result.posts.map((post, i) => (
                 <AnimatedSection key={post.id} delay={i * 0.06}>
                   <Link
                     href={`/blog/${post.slug}`}
                     className="group flex flex-col h-full rounded-2xl border bg-background hover:border-primary/50 hover:shadow-lg transition-all overflow-hidden"
                   >
-                    <div className="h-44 bg-gradient-to-br from-sterova-50 to-purple-50 dark:from-sterova-950/30 dark:to-purple-950/30 flex items-center justify-center">
-                      <span className="text-5xl font-display font-bold text-sterova-200 dark:text-sterova-800 select-none">
-                        {post.title.charAt(0)}
-                      </span>
-                    </div>
+                    {post.cover_image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.cover_image_url}
+                        alt={post.title}
+                        className="h-44 w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="h-44 bg-gradient-to-br from-sterova-50 to-purple-50 dark:from-sterova-950/30 dark:to-purple-950/30 flex items-center justify-center">
+                        <span className="text-5xl font-display font-bold text-sterova-200 dark:text-sterova-800 select-none">
+                          {post.title.charAt(0)}
+                        </span>
+                      </div>
+                    )}
                     <div className="p-6 flex flex-col flex-1">
                       <div className="flex items-center gap-3 mb-3">
                         <span className="text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium">
@@ -96,9 +127,7 @@ export default async function BlogPage() {
                       </p>
                       <div className="flex items-center justify-between">
                         <span className="text-xs text-muted-foreground">
-                          {post.published_at
-                            ? formatDate(post.published_at)
-                            : ""}
+                          {post.published_at ? formatDate(post.published_at) : ""}
                         </span>
                         <span className="text-xs text-primary font-medium inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                           Read more <ArrowRight className="h-3 w-3" />

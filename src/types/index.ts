@@ -94,6 +94,83 @@ export interface AuditLog {
 }
 
 // ─────────────────────────────────────────────
+// Content table types (migration 002)
+// ─────────────────────────────────────────────
+
+export interface DbService {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  slug: string;
+  title: string;
+  short_description: string;
+  description: string;
+  icon_name: string;
+  features: string[];
+  technologies: string[];
+  display_order: number;
+  is_active: boolean;
+}
+
+export interface DbPortfolioItem {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  title: string;
+  category: string;
+  description: string;
+  tags: string[];
+  image_url: string | null;
+  live_url: string | null;
+  github_url: string | null;
+  is_featured: boolean;
+  is_active: boolean;
+  display_order: number;
+}
+
+export interface DbTestimonial {
+  id: string;
+  created_at: string;
+  name: string;
+  role: string;
+  company: string | null;
+  content: string;
+  rating: number;
+  avatar_url: string | null;
+  is_active: boolean;
+  display_order: number;
+}
+
+export interface DbFaq {
+  id: string;
+  created_at: string;
+  question: string;
+  answer: string;
+  category: string | null;
+  display_order: number;
+  is_active: boolean;
+}
+
+export interface DbSiteSetting {
+  id: string;
+  key: string;
+  value: string;
+  type: "text" | "textarea" | "json" | "url" | "email" | "boolean" | "number";
+  label: string | null;
+  description: string | null;
+  group_name: string | null;
+}
+
+export interface DbNavigationItem {
+  id: string;
+  label: string;
+  href: string;
+  parent_id: string | null;
+  display_order: number;
+  is_active: boolean;
+}
+
+// ─────────────────────────────────────────────
 // Form types
 // ─────────────────────────────────────────────
 

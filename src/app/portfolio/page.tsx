@@ -3,6 +3,7 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
+import { getPortfolioItems } from "@/lib/content";
 import { SITE } from "@/data/constants";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/portfolio" },
 };
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const items = await getPortfolioItems();
+
   return (
     <>
       <section className="pt-32 pb-8 bg-secondary/30">
@@ -26,7 +29,7 @@ export default function PortfolioPage() {
           </AnimatedSection>
         </div>
       </section>
-      <PortfolioSection showCta={false} />
+      <PortfolioSection items={items} showCta={false} />
       <CTASection title="Your product could be next" />
     </>
   );

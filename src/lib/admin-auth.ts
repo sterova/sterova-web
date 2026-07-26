@@ -1,77 +1,61 @@
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/server";
-import { NextResponse } from "next/server";
 
 export interface AdminSession {
-  userId: string;   // Supabase Auth user ID
-  adminId: string;  // Row ID in public.admins
+  userId: string;
   email: string;
-  role: "admin" | "super_admin";
 }
 
 /**
- * Verify the current request has a valid admin session.
- * Uses cookies from next/headers — safe in Server Components and Route Handlers.
+ * Verify the current request is from a logged-in admin.
+ * Returns the session object, or null if not authenticated / not an admin.
  */
 export async function verifyAdminRequest(): Promise<AdminSession | null> {
   try {
     const supabase = await createClient();
     const {
       data: { user },
-      error,
     } = await supabase.auth.getUser();
-    if (error || !user) return null;
 
-    const { data: admin } = await supabase
+    if (!user) return null;
+
+    // Check admins table (service client bypasses RLS)
+    const service = createServiceClient();
+    const { data, error } = await service
       .from("admins")
-      .select("id, email, role")
+      .select("id")
       .eq("user_id", user.id)
-      .single();
+      .eq("is_active", true)
+      .maybeSingle();
 
-    if (!admin) return null;
+    if (error || !data) return null;
 
-    return {
-      userId: user.id,
-      adminId: admin.id,
-      email: admin.email,
-      role: admin.role as "admin" | "super_admin",
-    };
+    return { userId: user.id, email: user.email ?? "" };
   } catch {
     return null;
   }
 }
 
 /**
- * Log an admin action to the audit_logs table.
- * Never throws — audit failures must not interrupt admin operations.
+ * Write an audit log entry. Fails silently.
  */
-export async function logAdminAction(
-  userId: string,
-  action: string,
-  resource?: string,
-  resourceId?: string,
-  metadata?: Record<string, unknown>
-) {
+export async function writeAuditLog(opts: {
+  action: string;
+  resource?: string;
+  resource_id?: string;
+  actor_email?: string;
+  metadata?: Record<string, unknown>;
+}) {
   try {
-    const supabase = createServiceClient();
-    await supabase.from("audit_logs").insert({
-      actor_id: userId,
-      action,
-      resource: resource ?? null,
-      resource_id: resourceId ?? null,
-      metadata: metadata ?? null,
+    const service = createServiceClient();
+    await service.from("audit_logs").insert({
+      action: opts.action,
+      resource: opts.resource ?? null,
+      resource_id: opts.resource_id ?? null,
+      actor_email: opts.actor_email ?? null,
+      metadata: opts.metadata ?? null,
     });
   } catch {
-    // silent — audit logging must never break admin operations
+    // silent
   }
-}
-
-/** Standard 401 response for unauthorized API requests. */
-export function unauthorizedResponse(message = "Unauthorized") {
-  return NextResponse.json({ error: message }, { status: 401 });
-}
-
-/** Standard 400 response for bad requests. */
-export function badRequestResponse(message: string) {
-  return NextResponse.json({ error: message }, { status: 400 });
 }

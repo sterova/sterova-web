@@ -9,6 +9,13 @@ import CTASection from "@/components/sections/CTASection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
+import {
+  getServices,
+  getPortfolioItems,
+  getTestimonials,
+  getFaqs,
+  getSiteSettings,
+} from "@/lib/content";
 import { SITE } from "@/data/constants";
 
 export const metadata: Metadata = {
@@ -17,18 +24,27 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [services, portfolioItems, testimonials, faqs, settings] =
+    await Promise.all([
+      getServices(),
+      getPortfolioItems(),
+      getTestimonials(),
+      getFaqs(6),
+      getSiteSettings(),
+    ]);
+
   return (
     <>
-      <HeroSection />
-      <ServicesSection limit={6} showCta />
-      <PortfolioSection featuredOnly showCta />
+      <HeroSection settings={settings} />
+      <ServicesSection services={services} limit={6} showCta />
+      <PortfolioSection items={portfolioItems} featuredOnly showCta />
       <TechStackSection />
       <ProcessSection />
       <IndustriesSection />
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
       <ReviewsSection />
-      <FAQSection limit={6} />
+      <FAQSection faqs={faqs} limit={6} />
       <CTASection />
     </>
   );

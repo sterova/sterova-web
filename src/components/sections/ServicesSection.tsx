@@ -3,19 +3,45 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import {
+  Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield,
+  MessageSquare, Wrench, Bot, LayoutDashboard, Zap, Server, Database,
+} from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { SERVICES } from "@/data/constants";
 import { cn } from "@/lib/utils";
+import type { DbService } from "@/types";
+
+// Map icon_name strings (stored in DB) → Lucide components
+const ICON_MAP: Record<string, React.ElementType> = {
+  Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield,
+  MessageSquare, Wrench, Bot, LayoutDashboard, Zap, Server, Database,
+};
+
+function ServiceIcon({ name }: { name: string }) {
+  const Icon = ICON_MAP[name] ?? Code2;
+  return <Icon className="h-6 w-6" />;
+}
 
 interface Props {
+  services: DbService[];
   limit?: number;
   showCta?: boolean;
 }
 
-export default function ServicesSection({ limit, showCta = true }: Props) {
-  const displayed = limit ? SERVICES.slice(0, limit) : SERVICES;
+export default function ServicesSection({ services, limit, showCta = true }: Props) {
+  const displayed = limit ? services.slice(0, limit) : services;
+
+  if (services.length === 0) {
+    return (
+      <section id="services" className="py-24 bg-secondary/30">
+        <div className="container-custom text-center">
+          <p className="text-muted-foreground">Services coming soon.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="services" className="py-24 bg-secondary/30">
@@ -23,7 +49,7 @@ export default function ServicesSection({ limit, showCta = true }: Props) {
         <SectionHeader
           badge="What We Build"
           title="Services that move businesses forward"
-          description="From custom software to AI-powered automation, we deliver end-to-end technology solutions for the full product lifecycle."
+          description="From custom software to mobile apps, we deliver end-to-end technology solutions for the full product lifecycle."
           centered
           className="mb-16"
         />
@@ -38,7 +64,7 @@ export default function ServicesSection({ limit, showCta = true }: Props) {
               transition={{ duration: 0.45, delay: i * 0.06 }}
             >
               <Link
-                href={`/services#${service.id}`}
+                href={`/services#${service.slug}`}
                 className={cn(
                   "group flex flex-col h-full rounded-2xl border bg-background p-6",
                   "hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5",
@@ -46,13 +72,13 @@ export default function ServicesSection({ limit, showCta = true }: Props) {
                 )}
               >
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                  {service.icon}
+                  <ServiceIcon name={service.icon_name} />
                 </div>
                 <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed flex-1">
-                  {service.shortDescription}
+                  {service.short_description}
                 </p>
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {service.technologies.slice(0, 3).map((tech) => (
@@ -69,7 +95,7 @@ export default function ServicesSection({ limit, showCta = true }: Props) {
           ))}
         </div>
 
-        {showCta && limit && SERVICES.length > limit && (
+        {showCta && limit && services.length > limit && (
           <div className="text-center mt-12">
             <Button asChild variant="outline" size="lg" className="group">
               <Link href="/services">

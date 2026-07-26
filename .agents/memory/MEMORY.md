@@ -1,0 +1,5 @@
+- [Admin auth pattern](admin-auth.md) — admins table + Supabase Auth; service client bypasses RLS; verifyAdminRequest() in lib/admin-auth.ts gates all /api/admin/* routes and admin server pages.
+- [Hero SSR animation fix](hero-animation.md) — framer-motion initial={{opacity:0}} renders invisible in SSR; use CSS @keyframes (animate-fade-in-up in globals.css) for hero content so it is visible before JS hydrates.
+- [DB migration split](db-migrations.md) — 002_content_schema.sql (reviews, services, portfolio, testimonials, faqs, site_settings, nav); 003_admin_blog_schema.sql (admins, audit_logs, blog_posts). Both must be run before admin or blog works.
+- [Admin route isolation](admin-isolation.md) — middleware injects x-pathname header; layout.tsx reads it to skip Navbar/Footer/WhatsApp on /admin paths. No route groups needed.
+- [Service client pattern](service-client.md) — createServiceClient() in lib/supabase/server.ts uses SUPABASE_SERVICE_ROLE_KEY; required for admin ops (bypasses RLS). createClient() uses anon key for public/user-session ops.

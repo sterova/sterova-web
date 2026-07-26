@@ -6,21 +6,31 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { PORTFOLIO_ITEMS } from "@/data/constants";
 import { cn } from "@/lib/utils";
+import type { DbPortfolioItem } from "@/types";
 
 interface Props {
+  items: DbPortfolioItem[];
   featuredOnly?: boolean;
   showCta?: boolean;
 }
 
 export default function PortfolioSection({
+  items,
   featuredOnly = false,
   showCta = true,
 }: Props) {
-  const items = featuredOnly
-    ? PORTFOLIO_ITEMS.filter((p) => p.featured)
-    : PORTFOLIO_ITEMS;
+  const displayed = featuredOnly ? items.filter((p) => p.is_featured) : items;
+
+  if (displayed.length === 0) {
+    return (
+      <section id="portfolio" className="py-24">
+        <div className="container-custom text-center">
+          <p className="text-muted-foreground">Portfolio coming soon.</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="portfolio" className="py-24">
@@ -34,7 +44,7 @@ export default function PortfolioSection({
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {items.map((item, i) => (
+          {displayed.map((item, i) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 24 }}
@@ -46,13 +56,22 @@ export default function PortfolioSection({
                 "hover:border-primary/50 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
               )}
             >
-              {/* Image placeholder */}
+              {/* Image / placeholder */}
               <div className="relative h-48 bg-gradient-to-br from-sterova-50 to-purple-50 dark:from-sterova-950/50 dark:to-purple-950/50 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-4xl font-display font-bold text-sterova-200 dark:text-sterova-800 select-none">
-                    {item.title.charAt(0)}
-                  </span>
-                </div>
+                {item.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={item.image_url}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-4xl font-display font-bold text-sterova-200 dark:text-sterova-800 select-none">
+                      {item.title.charAt(0)}
+                    </span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/30 to-transparent" />
               </div>
 
@@ -77,6 +96,30 @@ export default function PortfolioSection({
                     </span>
                   ))}
                 </div>
+                {(item.live_url || item.github_url) && (
+                  <div className="flex gap-3 mt-4">
+                    {item.live_url && (
+                      <a
+                        href={item.live_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-primary hover:underline"
+                      >
+                        Live →
+                      </a>
+                    )}
+                    {item.github_url && (
+                      <a
+                        href={item.github_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-muted-foreground hover:text-foreground hover:underline"
+                      >
+                        GitHub →
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
