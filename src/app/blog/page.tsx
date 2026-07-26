@@ -21,7 +21,7 @@ type FetchResult =
 
 async function getPosts(): Promise<FetchResult> {
   try {
-    const supabase = await createClient();
+    const supabase = createServiceClient();
     const { data, error } = await supabase
       .from("blog_posts")
       .select(
