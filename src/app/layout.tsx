@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
 import { Toaster } from "@/components/ui/toaster";
+import { Providers } from "@/components/providers";
 import { SITE } from "@/data/constants";
 
 const inter = Inter({
@@ -83,7 +84,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0916" },
+    { media: "(prefers-color-scheme: dark)", color: "#060d1f" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -121,11 +122,13 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <Toaster />
+        <Providers>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

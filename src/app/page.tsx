@@ -8,6 +8,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
+import ReviewsSection from "@/components/sections/ReviewsSection";
 import { SITE } from "@/data/constants";
 
 export const metadata: Metadata = {
@@ -26,6 +27,7 @@ export default function HomePage() {
       <ProcessSection />
       <IndustriesSection />
       <TestimonialsSection />
+      <ReviewsSection />
       <FAQSection limit={6} />
       <CTASection />
     </>

@@ -58,6 +58,7 @@ export const NAV_LINKS = [
       { label: "Cybersecurity", href: "/services#cybersecurity" },
     ],
   },
+  { label: "Products", href: "/#portfolio" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Process", href: "/process" },
   { label: "Blog", href: "/blog" },
@@ -569,7 +570,7 @@ export const INDUSTRIES = [
 export const TECH_STACK = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
   backend: ["Node.js", "Express", "Supabase", "PostgreSQL"],
-  cloud: ["Vercel", "Supabase", "Cloudflare"],
+  cloud: ["Vercel", "Supabase", "Cloudflare", "Firebase"],
   mobile: ["React Native", "Flutter"],
   languages: ["TypeScript", "JavaScript", "Python"],
   design: ["Figma"],
