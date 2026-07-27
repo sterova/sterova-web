@@ -5,10 +5,17 @@ import { defineConfig } from 'vite';
 import Sitemap from 'vite-plugin-sitemap';
 
 export default defineConfig({
+  // The Supabase integration provisions its keys with a NEXT_PUBLIC_ prefix, so
+  // allow that prefix through alongside Vite's own.
+  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
   plugins: [
     react(),
     tailwindcss(),
-    Sitemap({ hostname: 'https://sterova.tech' }),
+    Sitemap({
+      hostname: 'https://sterova.tech',
+      // The CMS must never be advertised to crawlers.
+      exclude: ['/sterova-admin'],
+    }),
   ],
   resolve: {
     alias: {
