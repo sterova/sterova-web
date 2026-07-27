@@ -83,10 +83,6 @@ export interface ContactFormData {
   message: string;
 }
 
-export interface NewsletterFormData {
-  email: string;
-}
-
 export interface ReviewFormData {
   name: string;
   content: string;

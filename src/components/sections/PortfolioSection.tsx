@@ -1,29 +1,32 @@
 import { Link } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FaGithub as Github } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/shared/SectionHeader";
-import type { PortfolioItem } from "@/types";
+import {
+  CardGridSkeleton,
+  EmptyState,
+  ErrorState,
+} from "@/components/shared/DataStates";
+import { fetchActiveProjects } from "@/lib/api";
 
 interface Props {
-  items: PortfolioItem[];
   featuredOnly?: boolean;
   showCta?: boolean;
 }
 
-export default function PortfolioSection({ items, featuredOnly = false, showCta = true }: Props) {
-  const displayed = featuredOnly ? items.filter((i) => i.is_featured) : items;
+export default function PortfolioSection({ featuredOnly = false, showCta = true }: Props) {
+  // Shared cache key: the homepage and the portfolio page both read the same
+  // active-projects list, so navigating between them doesn't refetch.
+  const { data, isPending, isError, refetch } = useQuery({
+    queryKey: ["active-projects"],
+    queryFn: fetchActiveProjects,
+  });
 
-  if (displayed.length === 0) {
-    return (
-      <section id="portfolio" className="py-24">
-        <div className="container-custom text-center">
-          <p className="text-muted-foreground">Portfolio coming soon.</p>
-        </div>
-      </section>
-    );
-  }
+  const items = data ?? [];
+  const displayed = featuredOnly ? items.filter((i) => i.is_featured) : items;
 
   return (
     <section id="portfolio" className="py-24">
@@ -48,6 +51,19 @@ export default function PortfolioSection({ items, featuredOnly = false, showCta 
           />
         )}
 
+        {isPending ? (
+          <CardGridSkeleton count={featuredOnly ? 3 : 6} />
+        ) : isError ? (
+          <ErrorState
+            message="Our project examples couldn't be loaded. Please try again in a moment."
+            onRetry={() => refetch()}
+          />
+        ) : displayed.length === 0 ? (
+          <EmptyState
+            title="Portfolio coming soon"
+            description="We're preparing examples of the systems we build. Check back shortly."
+          />
+        ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayed.map((item, i) => (
             <motion.div
@@ -135,8 +151,9 @@ export default function PortfolioSection({ items, featuredOnly = false, showCta 
             </motion.div>
           ))}
         </div>
+        )}
 
-        {showCta && featuredOnly && (
+        {showCta && featuredOnly && displayed.length > 0 && (
           <div className="text-center mt-12">
             <Button asChild variant="outline" size="lg" className="group">
               <Link href="/portfolio">

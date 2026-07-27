@@ -2,11 +2,16 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { PORTFOLIO_ITEMS } from "@/data/constants";
+import SEO from "@/components/shared/SEO";
 
 export default function PortfolioPage() {
   return (
     <>
+      <SEO
+        title="Portfolio — Platforms & Integrations We Build"
+        description="Illustrative examples of the platforms, integrations, and architectures the Sterova team engineers for startups and enterprises."
+        canonical="/portfolio"
+      />
       <section className="pt-32 pb-8 bg-secondary/30">
         <div className="container-custom text-center">
           <AnimatedSection>
@@ -20,7 +25,7 @@ export default function PortfolioPage() {
           </AnimatedSection>
         </div>
       </section>
-      <PortfolioSection items={PORTFOLIO_ITEMS} showCta={false} />
+      <PortfolioSection showCta={false} />
       <CTASection title="Your product could be next" />
     </>
   );
