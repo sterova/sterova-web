@@ -12,8 +12,8 @@ export default function PortfolioPage() {
           <AnimatedSection>
             <SectionHeader
               badge="Portfolio"
-              title="Work we're proud to put our name on"
-              description="A selection of client projects across industries. Every project is a partnership — we stay engaged from concept to post-launch."
+              title="What we can build for you"
+              description="Illustrative examples of the platforms and integrations we engineer. Every engagement is a partnership — we stay involved from concept through post-launch support."
               centered
               size="page"
             />

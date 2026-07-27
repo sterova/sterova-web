@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Check } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import { PROCESS_STEPS } from "@/data/constants";
 
@@ -49,9 +50,10 @@ export default function ProcessSection() {
                       {step.deliverables.map((d) => (
                         <span
                           key={d}
-                          className="inline-flex items-center gap-1 text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium"
+                          className="inline-flex items-center gap-1.5 text-xs bg-primary/10 text-primary px-2.5 py-1 rounded-full font-medium"
                         >
-                          ✓ {d}
+                          <Check className="h-3 w-3 shrink-0" aria-hidden="true" />
+                          {d}
                         </span>
                       ))}
                     </div>

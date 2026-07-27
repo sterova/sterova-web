@@ -28,11 +28,21 @@ export default function PortfolioSection({ items, featuredOnly = false, showCta 
   return (
     <section id="portfolio" className="py-24">
       <div className="container-custom">
-        {!featuredOnly && (
+        {/* The homepage passes featuredOnly, which previously rendered the grid
+            with no heading at all. Both variants now get a header. */}
+        {featuredOnly ? (
+          <SectionHeader
+            badge="Capabilities"
+            title="The kind of systems we build"
+            description="Illustrative examples of the platforms, integrations, and architectures we engineer — shown to convey scope and technical depth."
+            centered
+            className="mb-16"
+          />
+        ) : (
           <SectionHeader
             badge="Portfolio"
-            title="Products we've built"
-            description="A selection of client projects across industries. Every project is a partnership — we stay engaged from concept to post-launch."
+            title="The kind of systems we build"
+            description="Illustrative examples across industries, shown to convey the scope and technical depth of our work rather than to name specific clients."
             centered
             className="mb-16"
           />
@@ -70,7 +80,7 @@ export default function PortfolioSection({ items, featuredOnly = false, showCta 
                 {item.is_featured && (
                   <div className="absolute top-3 left-3">
                     <span className="text-xs bg-primary text-primary-foreground px-2.5 py-1 rounded-full font-medium">
-                      Featured
+                      Example
                     </span>
                   </div>
                 )}
@@ -130,7 +140,7 @@ export default function PortfolioSection({ items, featuredOnly = false, showCta 
           <div className="text-center mt-12">
             <Button asChild variant="outline" size="lg" className="group">
               <Link href="/portfolio">
-                View all case studies
+                View all examples
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </Button>

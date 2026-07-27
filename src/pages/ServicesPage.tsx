@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Code2, Globe, Smartphone, Layers, Palette, Plug, Wrench } from "lucide-react";
+import { ArrowRight, Check, Code2, Globe, Smartphone, Layers, Palette, Plug, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
@@ -74,7 +74,10 @@ export default function ServicesPage() {
                     <ul className="space-y-2.5">
                       {service.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-2.5 text-sm">
-                          <span className="text-primary mt-0.5">✓</span>
+                          <Check
+                            className="h-4 w-4 mt-0.5 shrink-0 text-primary"
+                            aria-hidden="true"
+                          />
                           <span>{feature}</span>
                         </li>
                       ))}

@@ -4,12 +4,11 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import SEO from "@/components/shared/SEO";
-import { SERVICES, PORTFOLIO_ITEMS, TESTIMONIALS, FAQS } from "@/data/constants";
+import { SERVICES, PORTFOLIO_ITEMS, FAQS } from "@/data/constants";
 
 export default function HomePage() {
   return (
@@ -25,7 +24,6 @@ export default function HomePage() {
       <TechStackSection />
       <ProcessSection />
       <IndustriesSection />
-      <TestimonialsSection testimonials={TESTIMONIALS} />
       <ReviewsSection />
       <FAQSection faqs={FAQS} limit={6} />
       <CTASection />
