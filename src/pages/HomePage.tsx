@@ -8,7 +8,7 @@ import ReviewsSection from "@/components/sections/ReviewsSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import SEO from "@/components/shared/SEO";
-import { SERVICES, PORTFOLIO_ITEMS, FAQS } from "@/data/constants";
+import { SERVICES, FAQS } from "@/data/constants";
 
 export default function HomePage() {
   return (
@@ -20,7 +20,7 @@ export default function HomePage() {
       />
       <HeroSection />
       <ServicesSection services={SERVICES} showCta={false} />
-      <PortfolioSection items={PORTFOLIO_ITEMS} featuredOnly showCta />
+      <PortfolioSection featuredOnly showCta />
       <TechStackSection />
       <ProcessSection />
       <IndustriesSection />

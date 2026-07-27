@@ -2,7 +2,6 @@ import { Link } from "wouter";
 import { Mail, MessageCircle, ArrowUpRight } from "lucide-react";
 import { SITE, FOOTER_LINKS } from "@/data/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
-import NewsletterForm from "@/components/shared/NewsletterForm";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -50,10 +49,6 @@ export default function Footer() {
               </a>
             </div>
 
-            <div>
-              <p className="text-sm font-medium mb-2">Stay in the loop</p>
-              <NewsletterForm compact />
-            </div>
           </div>
 
           {/* Links */}

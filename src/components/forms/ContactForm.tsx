@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { CONTACT } from "@/data/constants";
-import { cn, sleep } from "@/lib/utils";
+import { submitContactMessage } from "@/lib/api";
+import { cn } from "@/lib/utils";
 import type { ContactFormData } from "@/types";
 
 const schema = z.object({
@@ -33,17 +34,14 @@ export default function ContactForm() {
 
   const onSubmit = async (data: ContactFormData) => {
     setStatus("loading");
-    // Simulate sending — replace with your email API (Resend, EmailJS, etc.)
-    await sleep(1200);
-    // Open a mailto fallback as a secondary channel
-    const subject = encodeURIComponent(`Project inquiry from ${data.name}`);
-    const body = encodeURIComponent(
-      `Name: ${data.name}\nEmail: ${data.email}\nSubject: ${data.subject || "N/A"}\n\n${data.message}`
-    );
-    // Silently open mailto in background
-    window.location.href = `mailto:hello@sterova.tech?subject=${subject}&body=${body}`;
-    setStatus("success");
-    reset();
+    try {
+      await submitContactMessage(data);
+      setStatus("success");
+      reset();
+    } catch (err) {
+      console.error("[v0] contact submit failed:", err);
+      setStatus("error");
+    }
   };
 
   if (status === "success") {
