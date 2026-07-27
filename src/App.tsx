@@ -183,49 +183,65 @@ function AdminBoot() {
   );
 }
 
+import AdminLayout from "@/components/admin/AdminLayout";
+
 function AdminRoutes() {
   return (
-    <Suspense fallback={<AdminBoot />}>
-      <Switch>
-        <Route path={ADMIN_ROUTES.login}>
+    <Switch>
+      <Route path={ADMIN_ROUTES.login}>
+        <Suspense fallback={<AdminBoot />}>
           <AdminLoginPage />
-        </Route>
+        </Suspense>
+      </Route>
 
-        <Route path={ADMIN_ROUTES.dashboard}>
-          <RequireAdmin><AdminDashboardPage /></RequireAdmin>
-        </Route>
+      <Route>
+        <AdminLayout>
+          <Suspense
+            fallback={
+              <div className="flex-1 flex items-center justify-center p-12">
+                <Loader2 className="h-6 w-6 animate-spin text-primary" />
+              </div>
+            }
+          >
+            <Switch>
+              <Route path={ADMIN_ROUTES.dashboard}>
+                <RequireAdmin><AdminDashboardPage /></RequireAdmin>
+              </Route>
 
-        {/* Static /posts/new must be declared before the /posts/:id pattern. */}
-        <Route path={ADMIN_ROUTES.postNew}>
-          <RequireAdmin><AdminPostEditorPage /></RequireAdmin>
-        </Route>
-        <Route path={`${ADMIN_BASE}/posts/:id`}>
-          {(params: { id: string }) => (
-            <RequireAdmin><AdminPostEditorPage id={params.id} /></RequireAdmin>
-          )}
-        </Route>
-        <Route path={ADMIN_ROUTES.posts}>
-          <RequireAdmin><AdminPostsPage /></RequireAdmin>
-        </Route>
+              {/* Static /posts/new must be declared before the /posts/:id pattern. */}
+              <Route path={ADMIN_ROUTES.postNew}>
+                <RequireAdmin><AdminPostEditorPage /></RequireAdmin>
+              </Route>
+              <Route path={`${ADMIN_BASE}/posts/:id`}>
+                {(params: { id: string }) => (
+                  <RequireAdmin><AdminPostEditorPage id={params.id} /></RequireAdmin>
+                )}
+              </Route>
+              <Route path={ADMIN_ROUTES.posts}>
+                <RequireAdmin><AdminPostsPage /></RequireAdmin>
+              </Route>
 
-        <Route path={ADMIN_ROUTES.categories}>
-          <RequireAdmin><AdminCategoriesPage /></RequireAdmin>
-        </Route>
-        <Route path={ADMIN_ROUTES.projects}>
-          <RequireAdmin><AdminProjectsPage /></RequireAdmin>
-        </Route>
-        <Route path={ADMIN_ROUTES.reviews}>
-          <RequireAdmin><AdminReviewsPage /></RequireAdmin>
-        </Route>
-        <Route path={ADMIN_ROUTES.messages}>
-          <RequireAdmin><AdminMessagesPage /></RequireAdmin>
-        </Route>
+              <Route path={ADMIN_ROUTES.categories}>
+                <RequireAdmin><AdminCategoriesPage /></RequireAdmin>
+              </Route>
+              <Route path={ADMIN_ROUTES.projects}>
+                <RequireAdmin><AdminProjectsPage /></RequireAdmin>
+              </Route>
+              <Route path={ADMIN_ROUTES.reviews}>
+                <RequireAdmin><AdminReviewsPage /></RequireAdmin>
+              </Route>
+              <Route path={ADMIN_ROUTES.messages}>
+                <RequireAdmin><AdminMessagesPage /></RequireAdmin>
+              </Route>
 
-        <Route>
-          <RequireAdmin><AdminDashboardPage /></RequireAdmin>
-        </Route>
-      </Switch>
-    </Suspense>
+              <Route>
+                <RequireAdmin><AdminDashboardPage /></RequireAdmin>
+              </Route>
+            </Switch>
+          </Suspense>
+        </AdminLayout>
+      </Route>
+    </Switch>
   );
 }
 

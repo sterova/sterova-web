@@ -79,6 +79,7 @@ export default function BlogPage() {
           ) : postsQuery.isError ? (
             <ErrorState
               message="The blog couldn't be loaded. Please try again in a moment."
+              error={postsQuery.error as Error}
               onRetry={() => postsQuery.refetch()}
             />
           ) : posts.length === 0 ? (

@@ -7,39 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/data/constants";
 
-function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted) {
-    return <div className="w-9 h-9 rounded-lg border border-border/50 bg-secondary/50" />;
-  }
-
-  return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className={cn(
-        "w-9 h-9 rounded-lg border border-border/50 flex items-center justify-center",
-        "bg-secondary/50 hover:bg-secondary text-muted-foreground hover:text-foreground",
-        "transition-all duration-200"
-      )}
-      aria-label="Toggle theme"
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        {theme === "dark" ? (
-          <motion.span key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}>
-            <Sun className="h-4 w-4" />
-          </motion.span>
-        ) : (
-          <motion.span key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-            <Moon className="h-4 w-4" />
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </button>
-  );
-}
+import ThemeToggle from "@/components/shared/ThemeToggle";
 
 // Nav link that handles hash links natively
 function NavLink({
@@ -258,17 +226,17 @@ export default function Navbar() {
             transition={{ duration: 0.22, ease: "easeInOut" }}
             className="lg:hidden border-t border-border/40 bg-background/95 backdrop-blur-xl overflow-hidden"
           >
-            <div className="container-custom py-4 flex flex-col gap-1">
+            <div className="w-full py-2 flex flex-col max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-8">
               {allFlatLinks.map((link) => (
                 <NavLink
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "block px-3 py-2.5 text-sm font-medium rounded-lg transition-colors",
+                    "block px-6 py-3.5 text-base font-medium transition-colors border-l-2",
                     location === link.href
-                      ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                      ? "text-primary bg-primary/10 border-primary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50 border-transparent"
                   )}
                 >
                   {link.label}
@@ -276,17 +244,17 @@ export default function Navbar() {
               ))}
 
               {/* Services sub-links */}
-              <div className="px-3 py-1">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/50 mb-1">
+              <div className="px-6 py-4 mt-2 bg-secondary/30">
+                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
                   Services
                 </p>
-                <div className="ml-2 flex flex-col gap-0.5">
+                <div className="flex flex-col gap-1">
                   {SERVICE_CHILDREN.map((svc) => (
                     <NavLink
                       key={svc.href}
                       href={svc.href}
                       onClick={() => setIsOpen(false)}
-                      className="block px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
+                      className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
                     >
                       {svc.label}
                     </NavLink>
@@ -294,8 +262,8 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-border/40 mt-2">
-                <Button asChild variant="gradient" className="w-full">
+              <div className="px-6 pt-6 mt-2">
+                <Button asChild variant="gradient" className="w-full h-12 text-base">
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
                     Contact Us
                   </Link>

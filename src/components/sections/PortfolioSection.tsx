@@ -20,7 +20,7 @@ interface Props {
 export default function PortfolioSection({ featuredOnly = false, showCta = true }: Props) {
   // Shared cache key: the homepage and the portfolio page both read the same
   // active-projects list, so navigating between them doesn't refetch.
-  const { data, isPending, isError, refetch } = useQuery({
+  const { data, error, isPending, isError, refetch } = useQuery({
     queryKey: ["active-projects"],
     queryFn: fetchActiveProjects,
   });
@@ -56,6 +56,7 @@ export default function PortfolioSection({ featuredOnly = false, showCta = true 
         ) : isError ? (
           <ErrorState
             message="Our project examples couldn't be loaded. Please try again in a moment."
+            error={error as Error}
             onRetry={() => refetch()}
           />
         ) : displayed.length === 0 ? (

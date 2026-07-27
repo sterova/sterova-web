@@ -10,7 +10,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import { AdminHeader, useMobileMenu } from "@/components/admin/AdminLayout";
 import {
   AdminCard,
   AdminEmpty,
@@ -38,6 +38,7 @@ import type { BlogPostWithCategory } from "@/types/database";
 type Filter = "all" | "published" | "draft";
 
 export default function AdminPostsPage() {
+  const setMobileMenuOpen = useMobileMenu();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<Filter>("all");
@@ -96,23 +97,27 @@ export default function AdminPostsPage() {
   );
 
   return (
-    <AdminLayout
-      title="Blog Posts"
-      description={`${counts.all} total · ${counts.published} published · ${counts.draft} draft`}
-      actions={
-        <Button asChild variant="gradient" size="sm">
-          <Link href={ADMIN_ROUTES.postNew}>
-            <Plus className="h-4 w-4 mr-1.5" />
-            New post
-          </Link>
-        </Button>
-      }
-    >
-      {error ? (
-        <AdminError message={(error as Error).message} />
-      ) : isLoading ? (
-        <AdminLoading />
-      ) : (
+    <>
+      <AdminHeader
+        title="Blog Posts"
+        description={`${counts.all} total · ${counts.published} published · ${counts.draft} draft`}
+        onMenuClick={setMobileMenuOpen}
+        actions={
+          <Button asChild variant="gradient" size="sm">
+            <Link href={ADMIN_ROUTES.postNew}>
+              <Plus className="h-4 w-4 mr-1.5" />
+              New post
+            </Link>
+          </Button>
+        }
+      />
+      
+      <div className="flex-1 p-4 sm:p-6 overflow-x-hidden flex flex-col">
+        {error ? (
+          <AdminError message={(error as Error).message} />
+        ) : isLoading ? (
+          <AdminLoading />
+        ) : (
         <div className="flex flex-col gap-4">
           {/* Filters */}
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
@@ -305,6 +310,7 @@ export default function AdminPostsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminLayout>
+      </div>
+    </>
   );
 }

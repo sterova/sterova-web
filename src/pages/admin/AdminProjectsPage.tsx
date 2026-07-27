@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 // lucide dropped brand marks; the public portfolio uses react-icons for this too.
 import { FaGithub as Github } from "react-icons/fa";
-import AdminLayout from "@/components/admin/AdminLayout";
+import { AdminHeader, useMobileMenu } from "@/components/admin/AdminLayout";
 import {
   AdminCard,
   AdminEmpty,
@@ -99,6 +99,7 @@ function toForm(project: ProjectRow): FormState {
 }
 
 export default function AdminProjectsPage() {
+  const setMobileMenuOpen = useMobileMenu();
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -221,21 +222,25 @@ export default function AdminProjectsPage() {
     form.title.trim().length >= 2 && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(form.slug);
 
   return (
-    <AdminLayout
-      title="Projects"
-      description={`${data?.length ?? 0} total · ${activeCount} visible on the site`}
-      actions={
-        <Button type="button" variant="gradient" size="sm" onClick={openNew}>
-          <Plus className="h-4 w-4 mr-1.5" />
-          New project
-        </Button>
-      }
-    >
-      {error ? (
-        <AdminError message={(error as Error).message} />
-      ) : isLoading ? (
-        <AdminLoading />
-      ) : (
+    <>
+      <AdminHeader
+        title="Projects"
+        description={`${data?.length ?? 0} total · ${activeCount} visible on the site`}
+        onMenuClick={setMobileMenuOpen}
+        actions={
+          <Button type="button" variant="gradient" size="sm" onClick={openNew}>
+            <Plus className="h-4 w-4 mr-1.5" />
+            New project
+          </Button>
+        }
+      />
+      
+      <div className="flex-1 p-4 sm:p-6 overflow-x-hidden flex flex-col">
+        {error ? (
+          <AdminError message={(error as Error).message} />
+        ) : isLoading ? (
+          <AdminLoading />
+        ) : (
         <div className="flex flex-col gap-4">
           <div className="relative flex-1 max-w-sm">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
@@ -584,6 +589,7 @@ export default function AdminProjectsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminLayout>
+      </div>
+    </>
   );
 }

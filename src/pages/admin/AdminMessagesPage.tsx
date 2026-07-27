@@ -10,7 +10,7 @@ import {
   Search,
   Trash2,
 } from "lucide-react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import { AdminHeader, useMobileMenu } from "@/components/admin/AdminLayout";
 import {
   AdminCard,
   AdminEmpty,
@@ -45,6 +45,7 @@ import type { ContactMessageRow, ContactStatus } from "@/types/database";
 type Filter = "all" | "new" | "read" | "replied" | "archived";
 
 export default function AdminMessagesPage() {
+  const setMobileMenuOpen = useMobileMenu();
   const queryClient = useQueryClient();
   const { toast } = useToast();
   const [search, setSearch] = useState("");
@@ -149,15 +150,19 @@ export default function AdminMessagesPage() {
   };
 
   return (
-    <AdminLayout
-      title="Messages"
-      description={`${counts.new} unread · ${counts.all} total`}
-    >
-      {error ? (
-        <AdminError message={(error as Error).message} />
-      ) : isLoading ? (
-        <AdminLoading />
-      ) : (
+    <>
+      <AdminHeader
+        title="Messages"
+        description={`${counts.new} unread · ${counts.all} total`}
+        onMenuClick={setMobileMenuOpen}
+      />
+      
+      <div className="flex-1 p-4 sm:p-6 overflow-x-hidden flex flex-col">
+        {error ? (
+          <AdminError message={(error as Error).message} />
+        ) : isLoading ? (
+          <AdminLoading />
+        ) : (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
             <div className="relative flex-1 max-w-sm">
@@ -442,6 +447,7 @@ export default function AdminMessagesPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </AdminLayout>
+      </div>
+    </>
   );
 }

@@ -48,9 +48,11 @@ export function CardGridSkeleton({
 
 export function ErrorState({
   message = "We couldn't load this content right now.",
+  error,
   onRetry,
 }: {
   message?: string;
+  error?: Error | null;
   onRetry?: () => void;
 }) {
   return (
@@ -64,6 +66,11 @@ export function ErrorState({
       />
       <p className="font-medium mb-1">Something went wrong</p>
       <p className="text-sm text-muted-foreground max-w-sm">{message}</p>
+      {error && (
+        <div className="mt-4 text-xs font-mono text-destructive/80 bg-destructive/10 p-3 rounded-md max-w-md text-left overflow-auto border border-destructive/20">
+          {error.message}
+        </div>
+      )}
       {onRetry && (
         <Button variant="outline" size="sm" className="mt-6" onClick={onRetry}>
           <RefreshCw className="mr-2 h-4 w-4" aria-hidden="true" />

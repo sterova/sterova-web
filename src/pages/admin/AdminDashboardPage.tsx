@@ -8,7 +8,7 @@ import {
   Mail,
   Star,
 } from "lucide-react";
-import AdminLayout from "@/components/admin/AdminLayout";
+import { AdminHeader, useMobileMenu } from "@/components/admin/AdminLayout";
 import {
   AdminCard,
   AdminError,
@@ -26,6 +26,7 @@ import { ADMIN_ROUTES } from "@/data/admin-constants";
 import { formatDate } from "@/lib/utils";
 
 export default function AdminDashboardPage() {
+  const setMobileMenuOpen = useMobileMenu();
   const posts = useQuery({ queryKey: ["admin", "posts"], queryFn: adminFetchPosts });
   const reviews = useQuery({ queryKey: ["admin", "reviews"], queryFn: adminFetchReviews });
   const projects = useQuery({ queryKey: ["admin", "projects"], queryFn: adminFetchProjects });
@@ -46,16 +47,18 @@ export default function AdminDashboardPage() {
   const recentPosts = posts.data?.slice(0, 5) ?? [];
 
   return (
-    <AdminLayout
-      title="Dashboard"
-      description="Overview of your content and inbox"
-    >
+    <>
+      <AdminHeader
+        title="Dashboard"
+        description="Overview of your content and inbox"
+        onMenuClick={setMobileMenuOpen}
+      />
       {error ? (
         <AdminError message={(error as Error).message} />
       ) : isLoading ? (
         <AdminLoading />
       ) : (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 p-4 sm:p-6">
           {/* Stats */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
             <StatTile
@@ -194,6 +197,6 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       )}
-    </AdminLayout>
+    </>
   );
 }

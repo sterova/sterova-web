@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ArrowLeft, ExternalLink, Loader2, Save } from "lucide-react";
+import { ArrowLeft, ExternalLink, Loader2, Menu, Save } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { AdminCard, AdminError, AdminLoading } from "@/components/admin/AdminUI";
+import { useMobileMenu } from "@/components/admin/AdminLayout";
 import RichTextEditor from "@/components/admin/RichTextEditor";
 import ImageUploadField from "@/components/admin/ImageUploadField";
 import {
@@ -82,6 +83,7 @@ export default function AdminPostEditorPage({ id }: { id?: string }) {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const setMobileMenuOpen = useMobileMenu();
 
   const [form, setForm] = useState<FormState>(EMPTY);
   // Once the title has produced a slug the user may hand-edit it; after that we
@@ -182,9 +184,17 @@ export default function AdminPostEditorPage({ id }: { id?: string }) {
   const categories = categoriesQuery.data ?? [];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 p-4 sm:p-6 overflow-x-hidden">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
+          <button
+            type="button"
+            className="lg:hidden text-muted-foreground hover:text-foreground"
+            onClick={setMobileMenuOpen}
+            aria-label="Open menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
           <Button
             variant="ghost"
             size="icon"
