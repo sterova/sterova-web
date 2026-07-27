@@ -8,7 +8,16 @@ interface SectionHeaderProps {
   description?: string;
   centered?: boolean;
   className?: string;
+  /** Heading element to render. Use "h1" for page heroes. */
+  as?: "h1" | "h2";
+  /** "page" for page hero titles, "section" for in-page section titles. */
+  size?: "page" | "section";
 }
+
+const TITLE_SIZES = {
+  page: "text-4xl sm:text-5xl lg:text-6xl leading-[1.1]",
+  section: "text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.15]",
+};
 
 export default function SectionHeader({
   badge,
@@ -16,7 +25,11 @@ export default function SectionHeader({
   description,
   centered = false,
   className,
+  as,
+  size = "section",
 }: SectionHeaderProps) {
+  const Heading = as ?? (size === "page" ? "h1" : "h2");
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -30,13 +43,18 @@ export default function SectionHeader({
           {badge}
         </Badge>
       )}
-      <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-balance">
+      <Heading
+        className={cn(
+          "font-display font-bold tracking-tight mb-5 text-balance",
+          TITLE_SIZES[size]
+        )}
+      >
         {title}
-      </h2>
+      </Heading>
       {description && (
         <p
           className={cn(
-            "text-muted-foreground text-lg leading-relaxed text-pretty",
+            "text-muted-foreground text-lg sm:text-xl leading-relaxed text-pretty",
             centered ? "mx-auto max-w-2xl" : "max-w-2xl"
           )}
         >

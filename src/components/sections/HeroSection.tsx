@@ -1,173 +1,228 @@
-import { useMemo } from "react";
 import { Link } from "wouter";
-import { ArrowRight, ChevronRight, Package } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronRight,
+  Code2,
+  Globe,
+  Smartphone,
+  Layers,
+  Palette,
+  Plug,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { HERO, HERO_PARTICLES } from "@/data/constants";
+import { HERO, SITE } from "@/data/constants";
+
+const ECOSYSTEM_ICONS: Record<string, React.ElementType> = {
+  Code2,
+  Globe,
+  Smartphone,
+  Layers,
+  Palette,
+  Plug,
+};
+
+/**
+ * Satellite card positions expressed as percentages of the widget container.
+ * Each entry pairs with HERO.ecosystem by index.
+ */
+const NODE_POSITIONS = [
+  { x: 24, y: 9 },   // top-left
+  { x: 79, y: 15 },  // top-right
+  { x: 7, y: 48 },   // left
+  { x: 93, y: 55 },  // right
+  { x: 22, y: 89 },  // bottom-left
+  { x: 74, y: 92 },  // bottom-right
+];
+
+function EcosystemWidget() {
+  return (
+    <div
+      className="relative w-full max-w-[560px] mx-auto aspect-square select-none"
+      aria-label="Sterova capability ecosystem"
+      role="img"
+    >
+      {/* Dashed connector lines */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {NODE_POSITIONS.map((pos, i) => (
+          <line
+            key={i}
+            x1="50"
+            y1="50"
+            x2={pos.x}
+            y2={pos.y}
+            stroke="hsl(var(--primary))"
+            strokeOpacity="0.28"
+            strokeWidth="1.5"
+            strokeDasharray="4 5"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+      </svg>
+
+      {/* Soft glow behind the center card */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-56 h-56 rounded-full bg-primary/15 blur-3xl pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Central branded card */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-primary/20 bg-card/95 backdrop-blur-sm px-8 py-7 shadow-xl shadow-primary/10">
+          <div
+            className="flex items-center justify-center w-14 h-14 rounded-2xl text-white font-display font-black text-2xl shadow-lg shadow-primary/30"
+            style={{
+              backgroundImage:
+                "linear-gradient(135deg, #4f46e5 0%, #6366f1 60%, #8b5cf6 100%)",
+            }}
+            aria-hidden="true"
+          >
+            S
+          </div>
+          <div className="text-center">
+            <p className="font-display font-bold text-lg leading-none">{SITE.name}</p>
+            <p className="text-[11px] text-muted-foreground mt-1.5 tracking-wide uppercase">
+              Product Engineering
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Satellite capability cards */}
+      {HERO.ecosystem.map((node, i) => {
+        const Icon = ECOSYSTEM_ICONS[node.icon_name] ?? Code2;
+        const pos = NODE_POSITIONS[i];
+        if (!pos) return null;
+        return (
+          <div
+            key={node.label}
+            className="absolute z-10 -translate-x-1/2 -translate-y-1/2 animate-node-float"
+            style={{
+              left: `${pos.x}%`,
+              top: `${pos.y}%`,
+              animationDelay: `${i * -1.3}s`,
+            }}
+          >
+            <div className="flex items-center gap-2.5 rounded-xl border border-border/70 bg-card/95 backdrop-blur-sm pl-2.5 pr-3.5 py-2.5 shadow-md shadow-black/5 hover:border-primary/40 hover:shadow-lg transition-all duration-300">
+              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-primary/10 text-primary shrink-0">
+                <Icon className="h-4 w-4" />
+              </span>
+              <span className="text-xs sm:text-[13px] font-semibold whitespace-nowrap">
+                {node.label}
+              </span>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
 export default function HeroSection() {
-  const stats = useMemo(() => HERO.stats, []);
-
   return (
     <section
-      className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16"
+      className="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24 min-h-[calc(100svh-0px)] flex items-center"
       aria-label="Hero"
     >
-      {/* Grid */}
+      {/* Grid background */}
       <div
         className="absolute inset-0 bg-hero-grid opacity-60 dark:opacity-30"
         aria-hidden="true"
       />
 
-      {/* Aurora — primary */}
+      {/* Soft ambient glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         <div
           className="absolute -top-1/4 -left-1/4 w-[150%] h-[100%] animate-aurora opacity-0"
           style={{
             background:
-              "radial-gradient(ellipse 70% 55% at 30% 40%, rgba(99,102,241,0.22) 0%, rgba(139,92,246,0.12) 45%, transparent 72%)",
-          }}
-        />
-        {/* Aurora — secondary */}
-        <div
-          className="absolute -bottom-1/4 -right-1/4 w-[150%] h-[100%] animate-aurora-2 opacity-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 65% 50% at 70% 60%, rgba(167,139,250,0.18) 0%, rgba(109,40,217,0.1) 40%, transparent 70%)",
+              "radial-gradient(ellipse 70% 55% at 30% 40%, rgba(99,102,241,0.18) 0%, rgba(139,92,246,0.08) 45%, transparent 72%)",
           }}
         />
       </div>
 
-      {/* Floating orbs */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div
-          className="absolute top-1/4 left-[15%] w-72 h-72 rounded-full bg-primary/8 blur-3xl animate-orb-drift"
-        />
-        <div
-          className="absolute bottom-1/4 right-[15%] w-80 h-80 rounded-full bg-purple-500/6 blur-3xl animate-orb-drift"
-          style={{ animationDelay: "-3s" }}
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-sterova-500/3 blur-3xl"
-        />
-      </div>
-
-      {/* Glow ring */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-primary/10 animate-glow-ring"
-        />
-        <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full border border-primary/5 animate-glow-ring"
-          style={{ animationDelay: "-2s" }}
-        />
-      </div>
-
-      {/* Particles */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {HERO_PARTICLES.map((p, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-primary/40 animate-particle"
-            style={{
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              "--delay": `${p.delay}s`,
-              "--duration": `${p.duration}s`,
-            } as React.CSSProperties}
-          />
-        ))}
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 container-custom text-center space-y-10 py-20">
-        {/* Badge */}
-        <div className="animate-fade-in-up">
-          <Badge variant="sterova" className="text-xs py-1 px-3">
-            ✦ {HERO.badge}
-          </Badge>
-        </div>
-
-        {/* Headline */}
-        <div
-          className="animate-fade-in-up"
-          style={{ animationDelay: "80ms" }}
-        >
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-balance leading-[1.05]">
-            <span className="gradient-text">{HERO.headline}</span>
-          </h1>
-        </div>
-
-        {/* Subheadline */}
-        <p
-          className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed text-pretty animate-fade-in-up"
-          style={{ animationDelay: "180ms" }}
-        >
-          {HERO.subheadline}
-        </p>
-
-        {/* CTAs */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up"
-          style={{ animationDelay: "270ms" }}
-        >
-          <Button asChild variant="gradient" size="xl" className="group w-full sm:w-auto">
-            <Link href={HERO.cta.primary.href}>
-              {HERO.cta.primary.label}
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            size="xl"
-            className="group w-full sm:w-auto border-border/60 hover:border-primary/40 hover:bg-primary/5"
-          >
-            <Link href={HERO.cta.secondary.href}>
-              {HERO.cta.secondary.label}
-              <ChevronRight className="ml-1 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-        </div>
-
-        {/* Products shortcut */}
-        <Link
-          href="/#portfolio"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors group animate-fade-in-up"
-          style={{ animationDelay: "340ms" } as React.CSSProperties}
-        >
-          <Package className="h-3.5 w-3.5" />
-          See products we&apos;ve shipped
-          <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-        </Link>
-
-        {/* Stats */}
-        <div
-          className="grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-2xl mx-auto animate-fade-in-up"
-          style={{ animationDelay: "360ms" }}
-        >
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center group">
-              <div
-                className="text-3xl sm:text-4xl font-display font-bold bg-clip-text text-transparent mb-1 group-hover:scale-110 transition-transform duration-200"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(135deg, hsl(243,82%,52%) 0%, hsl(262,83%,58%) 50%, hsl(280,70%,62%) 100%)",
-                }}
-              >
-                {stat.value}
-              </div>
-              <div className="text-xs text-muted-foreground">{stat.label}</div>
+      <div className="relative z-10 container-custom">
+        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-14 lg:gap-10">
+          {/* Left — copy */}
+          <div className="text-center lg:text-left space-y-8 max-w-xl mx-auto lg:mx-0">
+            <div className="animate-fade-in-up">
+              <Badge variant="sterova" className="text-xs py-1 px-3">
+                {HERO.badge}
+              </Badge>
             </div>
-          ))}
+
+            <h1
+              className="font-display text-4xl sm:text-5xl md:text-6xl xl:text-[4.25rem] font-bold tracking-tight text-balance leading-[1.08] animate-fade-in-up"
+              style={{ animationDelay: "80ms" }}
+            >
+              Software your business can <span className="gradient-text">build on</span>
+            </h1>
+
+            <p
+              className="text-lg sm:text-xl text-muted-foreground leading-relaxed text-pretty animate-fade-in-up"
+              style={{ animationDelay: "160ms" }}
+            >
+              {HERO.subheadline}
+            </p>
+
+            <div
+              className="flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-4 animate-fade-in-up"
+              style={{ animationDelay: "240ms" }}
+            >
+              <Button asChild variant="gradient" size="xl" className="group w-full sm:w-auto">
+                <Link href={HERO.cta.primary.href}>
+                  {HERO.cta.primary.label}
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="xl"
+                className="group w-full sm:w-auto border-border/60 hover:border-primary/40 hover:bg-primary/5"
+              >
+                <Link href={HERO.cta.secondary.href}>
+                  {HERO.cta.secondary.label}
+                  <ChevronRight className="ml-1 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
+
+            {/* Stats */}
+            <div
+              className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 pt-4 border-t border-border/60 animate-fade-in-up"
+              style={{ animationDelay: "320ms" }}
+            >
+              {HERO.stats.map((stat) => (
+                <div key={stat.label} className="text-center lg:text-left">
+                  <div className="text-2xl sm:text-3xl font-display font-bold text-foreground">
+                    {stat.value}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — ecosystem widget */}
+          <div
+            className="animate-fade-in-up px-2 sm:px-6 lg:px-0"
+            style={{ animationDelay: "200ms" }}
+          >
+            <EcosystemWidget />
+          </div>
         </div>
       </div>
 
       {/* Bottom fade */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none"
         aria-hidden="true"
       />
     </section>

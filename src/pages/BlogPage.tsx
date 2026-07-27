@@ -28,6 +28,7 @@ export default function BlogPage() {
               title="Engineering knowledge, openly shared"
               description="Deep dives, product thinking, and practical guides from our engineering team."
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>

@@ -21,9 +21,10 @@ export default function CareersPage() {
           <AnimatedSection>
             <SectionHeader
               badge="Careers"
-              title="Build the future with us"
+              title="Do the best work of your career"
               description="We're a remote-first team of engineers, designers, and product thinkers. If you care about quality, you'll fit right in."
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>
