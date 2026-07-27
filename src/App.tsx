@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { Loader2 } from "lucide-react";
 import { Route, Switch, Router as WouterRouter, useLocation } from "wouter";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ThemeProvider } from "next-themes";
@@ -8,6 +9,10 @@ import { HelmetProvider } from "react-helmet-async";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
+import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/lib/auth-context";
+import RequireAdmin from "@/components/admin/RequireAdmin";
+import { ADMIN_BASE, ADMIN_ROUTES } from "@/data/admin-constants";
 
 // ── Lazy-loaded pages ────────────────────────────────────────────────────────
 const HomePage      = lazy(() => import("@/pages/HomePage"));
@@ -22,6 +27,16 @@ const CareersPage   = lazy(() => import("@/pages/CareersPage"));
 const PrivacyPage   = lazy(() => import("@/pages/PrivacyPage"));
 const TermsPage     = lazy(() => import("@/pages/TermsPage"));
 const NotFoundPage  = lazy(() => import("@/pages/NotFoundPage"));
+
+// ── Lazy-loaded CMS pages (never bundled with the public site) ───────────────
+const AdminLoginPage      = lazy(() => import("@/pages/admin/AdminLoginPage"));
+const AdminDashboardPage  = lazy(() => import("@/pages/admin/AdminDashboardPage"));
+const AdminPostsPage      = lazy(() => import("@/pages/admin/AdminPostsPage"));
+const AdminPostEditorPage = lazy(() => import("@/pages/admin/AdminPostEditorPage"));
+const AdminCategoriesPage = lazy(() => import("@/pages/admin/AdminCategoriesPage"));
+const AdminProjectsPage   = lazy(() => import("@/pages/admin/AdminProjectsPage"));
+const AdminReviewsPage    = lazy(() => import("@/pages/admin/AdminReviewsPage"));
+const AdminMessagesPage   = lazy(() => import("@/pages/admin/AdminMessagesPage"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -153,27 +168,104 @@ function AppRoutes() {
   );
 }
 
+// ── CMS routes ───────────────────────────────────────────────────────────────
+/**
+ * Every route except the login screen is wrapped in RequireAdmin. That is the
+ * UX gate; the real boundary is the RLS policies in Postgres, which reject
+ * reads and writes for any user missing from the admin_users allowlist.
+ */
+function AdminBoot() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      <span className="sr-only">Loading the content management system</span>
+    </div>
+  );
+}
+
+function AdminRoutes() {
+  return (
+    <Suspense fallback={<AdminBoot />}>
+      <Switch>
+        <Route path={ADMIN_ROUTES.login}>
+          <AdminLoginPage />
+        </Route>
+
+        <Route path={ADMIN_ROUTES.dashboard}>
+          <RequireAdmin><AdminDashboardPage /></RequireAdmin>
+        </Route>
+
+        {/* Static /posts/new must be declared before the /posts/:id pattern. */}
+        <Route path={ADMIN_ROUTES.postNew}>
+          <RequireAdmin><AdminPostEditorPage /></RequireAdmin>
+        </Route>
+        <Route path={`${ADMIN_BASE}/posts/:id`}>
+          {(params: { id: string }) => (
+            <RequireAdmin><AdminPostEditorPage id={params.id} /></RequireAdmin>
+          )}
+        </Route>
+        <Route path={ADMIN_ROUTES.posts}>
+          <RequireAdmin><AdminPostsPage /></RequireAdmin>
+        </Route>
+
+        <Route path={ADMIN_ROUTES.categories}>
+          <RequireAdmin><AdminCategoriesPage /></RequireAdmin>
+        </Route>
+        <Route path={ADMIN_ROUTES.projects}>
+          <RequireAdmin><AdminProjectsPage /></RequireAdmin>
+        </Route>
+        <Route path={ADMIN_ROUTES.reviews}>
+          <RequireAdmin><AdminReviewsPage /></RequireAdmin>
+        </Route>
+        <Route path={ADMIN_ROUTES.messages}>
+          <RequireAdmin><AdminMessagesPage /></RequireAdmin>
+        </Route>
+
+        <Route>
+          <RequireAdmin><AdminDashboardPage /></RequireAdmin>
+        </Route>
+      </Switch>
+    </Suspense>
+  );
+}
+
+// ── Shell switch: the CMS renders without the marketing navbar/footer ────────
+function AppShell() {
+  const [location] = useLocation();
+  const isAdminRoute =
+    location === ADMIN_BASE || location.startsWith(`${ADMIN_BASE}/`);
+
+  if (isAdminRoute) return <AdminRoutes />;
+
+  return (
+    <div className="min-h-screen flex flex-col bg-background text-foreground">
+      <Navbar />
+      <main className="flex-1">
+        <AppRoutes />
+      </main>
+      <Footer />
+      <WhatsAppButton />
+    </div>
+  );
+}
+
 // ── Root ─────────────────────────────────────────────────────────────────────
 function App() {
   return (
     <HelmetProvider>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
         <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <div className="min-h-screen flex flex-col bg-background text-foreground">
-              <Navbar />
-              <main className="flex-1">
-                <AppRoutes />
-              </main>
-              <Footer />
-              <WhatsAppButton />
-            </div>
-          </WouterRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </ThemeProvider>
-  </HelmetProvider>
+          <AuthProvider>
+            <TooltipProvider>
+              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+                <AppShell />
+                <Toaster />
+              </WouterRouter>
+            </TooltipProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
