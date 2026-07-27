@@ -154,8 +154,8 @@ export default function ReviewsSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Reviews"
-          title="What our clients say"
-          description="Real feedback from real clients."
+          title="Share your experience"
+          description="Worked with us? Leave a review. We publish client feedback here as we collect it."
           centered
           className="mb-12"
         />

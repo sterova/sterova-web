@@ -59,11 +59,13 @@ export const HERO = {
     primary: { label: "Start a Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
   },
-  stats: [
-    { value: "50+", label: "Projects Delivered" },
-    { value: "98%", label: "Client Satisfaction" },
-    { value: "12+", label: "Industries Served" },
-    { value: "5★", label: "Average Rating" },
+  // Commitments we can stand behind — no unverifiable metrics or invented
+  // social proof. Swap in real numbers only once they can be substantiated.
+  assurances: [
+    "Fixed-scope quotes before we start",
+    "Direct access to your engineers",
+    "You own the code and infrastructure",
+    "Support continues after launch",
   ],
   ecosystem: [
     { icon_name: "Code2", label: "Custom Software" },
@@ -368,6 +370,10 @@ export const PORTFOLIO_ITEMS = [
 // ─────────────────────────────────────────────
 // Testimonials
 // ─────────────────────────────────────────────
+// WARNING: Placeholder data only. These people, companies, and quotes are
+// fictional and are NOT rendered anywhere on the site. Do not publish them —
+// attributing invented quotes to named companies is a credibility and legal
+// risk. Replace with real, written-permission testimonials before use.
 export const TESTIMONIALS = [
   {
     id: "1",

@@ -19,6 +19,16 @@ import {
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
 import { TbBrandReactNative } from "react-icons/tb";
+import {
+  Bot,
+  Cloud,
+  Code2,
+  Monitor,
+  Palette,
+  Server,
+  Smartphone,
+  Wrench,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -34,14 +44,14 @@ interface Tech {
 
 interface TechCategory {
   label: string;
-  emoji: string;
+  icon: React.ElementType;
   techs: Tech[];
 }
 
 const TECH_CATEGORIES: TechCategory[] = [
   {
     label: "Frontend",
-    emoji: "🖥️",
+    icon: Monitor,
     techs: [
       { name: "React",        icon: SiReact,       color: "#61DAFB" },
       { name: "Next.js",      icon: SiNextdotjs,   color: "#888", darkColor: "#fff" },
@@ -53,7 +63,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "Backend",
-    emoji: "⚙️",
+    icon: Server,
     techs: [
       { name: "Node.js",    icon: SiNodedotjs,  color: "#339933" },
       { name: "Express",    icon: SiExpress,    color: "#888", darkColor: "#fff" },
@@ -68,7 +78,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "Cloud & Infra",
-    emoji: "☁️",
+    icon: Cloud,
     techs: [
       { name: "Vercel",      icon: SiVercel,     color: "#888", darkColor: "#fff" },
       { name: "Cloudflare",  icon: SiCloudflare, color: "#F38020" },
@@ -82,7 +92,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "Mobile",
-    emoji: "📱",
+    icon: Smartphone,
     techs: [
       { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
       { name: "Expo",         icon: SiExpo,             color: "#888", darkColor: "#fff" },
@@ -91,7 +101,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "Languages",
-    emoji: "💻",
+    icon: Code2,
     techs: [
       { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
       { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
@@ -101,7 +111,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "Design & Payments",
-    emoji: "🎨",
+    icon: Palette,
     techs: [
       { name: "Figma",  icon: SiFigma,  color: "#F24E1E" },
       { name: "Stripe", icon: SiStripe, color: "#635BFF" },
@@ -109,7 +119,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "DevOps & CI/CD",
-    emoji: "🔧",
+    icon: Wrench,
     techs: [
       { name: "Git",            icon: SiGit,           color: "#F05032" },
       { name: "GitHub",         icon: SiGithub,        color: "#888", darkColor: "#fff" },
@@ -119,7 +129,7 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
   {
     label: "AI & LLMs",
-    emoji: "🤖",
+    icon: Bot,
     techs: [
       { name: "OpenAI",    icon: SiOpenaigym, color: "#412991", darkColor: "#fff" },
       { name: "LangChain", icon: SiLangchain, color: "#1C3C3C", darkColor: "#3ECF8E" },
@@ -189,7 +199,12 @@ function CategoryBlock({
     >
       {/* Category header */}
       <div className="flex items-center gap-2 mb-3">
-        <span className="text-base" aria-hidden="true">{category.emoji}</span>
+        <span
+          className="flex items-center justify-center w-6 h-6 rounded-md bg-primary/10 text-primary shrink-0"
+          aria-hidden="true"
+        >
+          <category.icon className="h-3.5 w-3.5" />
+        </span>
         <p className="text-xs font-bold text-muted-foreground/70 uppercase tracking-widest">
           {category.label}
         </p>

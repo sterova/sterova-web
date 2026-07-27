@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import {
   ArrowRight,
+  Check,
   ChevronRight,
   Code2,
   Globe,
@@ -194,20 +195,23 @@ export default function HeroSection() {
               </Button>
             </div>
 
-            {/* Stats */}
-            <div
-              className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 pt-4 border-t border-border/60 animate-fade-in-up"
+            {/* How we work — verifiable commitments rather than invented metrics */}
+            <ul
+              className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 pt-6 border-t border-border/60 animate-fade-in-up text-left"
               style={{ animationDelay: "320ms" }}
             >
-              {HERO.stats.map((stat) => (
-                <div key={stat.label} className="text-center lg:text-left">
-                  <div className="text-2xl sm:text-3xl font-display font-bold text-foreground">
-                    {stat.value}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">{stat.label}</div>
-                </div>
+              {HERO.assurances.map((item) => (
+                <li key={item} className="flex items-start gap-2.5">
+                  <Check
+                    className="h-4 w-4 mt-0.5 shrink-0 text-primary"
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    {item}
+                  </span>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
 
           {/* Right — ecosystem widget */}

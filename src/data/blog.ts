@@ -65,7 +65,7 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "startup-scope-mistake",
     excerpt:
       "The most common mistake early-stage founders make when scoping their MVP — and the simple framework we use to avoid it.",
-    content: `<p>We've scoped hundreds of MVPs. The single most expensive mistake — in time, money, and morale — is conflating the MVP with the vision product.</p>
+    content: `<p>When scoping an MVP, the single most expensive mistake — in time, money, and morale — is conflating the MVP with the vision product.</p>
 
 <h2>Vision product vs. MVP</h2>
 <p>The vision product is what you want to build. The MVP is the smallest thing that answers your riskiest assumption. These are almost never the same thing, and confusing them leads to 6-month builds of features nobody uses.</p>
