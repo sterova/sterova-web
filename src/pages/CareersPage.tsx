@@ -1,5 +1,4 @@
 import { Mail } from "lucide-react";
-import { Link } from "wouter";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";

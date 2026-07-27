@@ -2,8 +2,9 @@ import { lazy, Suspense, useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Route, Switch, Router as WouterRouter, useLocation } from "wouter";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import { ThemeProvider } from "next-themes";
+import { HelmetProvider } from "react-helmet-async";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
@@ -50,7 +51,7 @@ function PageSkeleton() {
 }
 
 // ── Smooth page transition wrapper ───────────────────────────────────────────
-const pageVariants = {
+const pageVariants: Variants = {
   initial: { opacity: 0, y: 18 },
   animate: {
     opacity: 1,
@@ -155,9 +156,10 @@ function AppRoutes() {
 // ── Root ─────────────────────────────────────────────────────────────────────
 function App() {
   return (
-    <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
+    <HelmetProvider>
+      <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <QueryClientProvider client={queryClient}>
+          <TooltipProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
             <div className="min-h-screen flex flex-col bg-background text-foreground">
               <Navbar />
@@ -171,6 +173,7 @@ function App() {
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>
+  </HelmetProvider>
   );
 }
 

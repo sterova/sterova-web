@@ -2,6 +2,7 @@ import { Mail, MessageCircle, MapPin } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import ContactForm from "@/components/forms/ContactForm";
+import SEO from "@/components/shared/SEO";
 import { SITE, CONTACT } from "@/data/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
 
@@ -29,7 +30,13 @@ const contactDetails = [
 
 export default function ContactPage() {
   return (
-    <section className="pt-32 pb-24">
+    <>
+      <SEO 
+        title="Contact Us | Best Website Service Company" 
+        description="Get in touch with Sterova to discuss your next project. We are a top software service provider offering web services and custom applications."
+        canonical="/contact" 
+      />
+      <section className="pt-32 pb-24">
       <div className="container-custom">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Left */}
@@ -90,5 +97,6 @@ export default function ContactPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

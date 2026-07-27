@@ -3,9 +3,9 @@
 // ─────────────────────────────────────────────
 export const SITE = {
   name: "Sterova",
-  tagline: "Build. Scale. Innovate.",
+  tagline: "Best Website Service Company & Custom Software Services.",
   description:
-    "Sterova is a software development company that helps startups, businesses, and enterprises build high-quality digital products — from web apps and mobile apps to scalable cloud-based systems.",
+    "Sterova is the best website service company and top software service provider. We deliver high-quality web services, website service, and scalable digital products for startups, businesses, and enterprises.",
   url: "https://sterova.tech",
   email: "hello@sterova.tech",
   phone: "",

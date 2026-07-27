@@ -1,11 +1,18 @@
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
+import SEO from "@/components/shared/SEO";
 import { ABOUT } from "@/data/constants";
 
 export default function AboutPage() {
   return (
     <>
+      <SEO 
+        title="About Us | Best Website Service Company" 
+        description="Learn about Sterova, a top software service company dedicated to building reliable digital products and web services."
+        canonical="/about" 
+      />
+
       {/* Hero */}
       <section className="pt-32 pb-16 bg-secondary/30">
         <div className="container-custom text-center">

@@ -4,7 +4,6 @@ import { ArrowRight, ExternalLink } from "lucide-react";
 import { FaGithub as Github } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { cn } from "@/lib/utils";
 import type { PortfolioItem } from "@/types";
 
 interface Props {

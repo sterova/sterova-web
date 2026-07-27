@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
+import SEO from "@/components/shared/SEO";
 import { SERVICES } from "@/data/constants";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +15,12 @@ const ICON_MAP: Record<string, React.ElementType> = {
 export default function ServicesPage() {
   return (
     <>
+      <SEO 
+        title="Web Services & Custom Software" 
+        description="Top-tier web services, software service, and app development. We build what you need to scale your business."
+        canonical="/services" 
+      />
+
       <section className="pt-32 pb-16 bg-secondary/30">
         <div className="container-custom text-center">
           <AnimatedSection>

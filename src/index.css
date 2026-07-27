@@ -6,39 +6,115 @@
 
 /* ── Keyframe animations ─────────────────────────────────────────────────── */
 @keyframes aurora {
-  0% { opacity: 0.25; transform: translateY(0) scale(1); }
-  50% { opacity: 0.45; transform: translateY(-18px) scale(1.04); }
-  100% { opacity: 0.3; transform: translateY(0) scale(1); }
+  0% {
+    opacity: 0.25;
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: translateY(-18px) scale(1.04);
+  }
+
+  100% {
+    opacity: 0.3;
+    transform: translateY(0) scale(1);
+  }
 }
+
 @keyframes aurora2 {
-  0% { opacity: 0.2; transform: translateY(0) scale(1.05); }
-  60% { opacity: 0.38; transform: translateY(14px) scale(1); }
-  100% { opacity: 0.22; transform: translateY(0) scale(1.03); }
+  0% {
+    opacity: 0.2;
+    transform: translateY(0) scale(1.05);
+  }
+
+  60% {
+    opacity: 0.38;
+    transform: translateY(14px) scale(1);
+  }
+
+  100% {
+    opacity: 0.22;
+    transform: translateY(0) scale(1.03);
+  }
 }
+
 @keyframes orbDrift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(20px, -12px) scale(1.04); }
-  66% { transform: translate(-14px, 8px) scale(0.97); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(20px, -12px) scale(1.04);
+  }
+
+  66% {
+    transform: translate(-14px, 8px) scale(0.97);
+  }
 }
+
 @keyframes glowRing {
-  0%, 100% { opacity: 0.08; transform: scale(1); }
-  50% { opacity: 0.18; transform: scale(1.03); }
+
+  0%,
+  100% {
+    opacity: 0.08;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.18;
+    transform: scale(1.03);
+  }
 }
+
 @keyframes particleFloat {
-  0%, 100% { transform: translateY(0); opacity: 0.12; }
-  50% { transform: translateY(-16px); opacity: 0.55; }
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.12;
+  }
+
+  50% {
+    transform: translateY(-16px);
+    opacity: 0.55;
+  }
 }
+
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
+
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-14px);
+  }
 }
 
 /* ── Theme tokens ─────────────────────────────────────────────────────────── */
@@ -237,7 +313,12 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
     @apply tracking-tight;
   }
@@ -253,6 +334,7 @@
 
 /* ── Utilities ────────────────────────────────────────────────────────────── */
 @layer utilities {
+
   /* Hero grid background */
   .bg-hero-grid {
     background-image: linear-gradient(var(--hero-grid-color) 1px, transparent 1px),
@@ -325,27 +407,19 @@
 
   /* Admin utilities */
   .admin-input {
-    @apply w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm
-           placeholder:text-muted-foreground/60
-           focus:outline-none focus:ring-2 focus:ring-ring
-           transition-all duration-150;
+    @apply w-full rounded-xl border border-input bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-ring transition-all duration-150;
   }
 
   .admin-btn-primary {
-    @apply inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground
-           px-4 py-2.5 text-sm font-medium shadow-sm shadow-primary/20
-           hover:bg-primary/90 transition-colors
-           disabled:opacity-60 disabled:cursor-not-allowed;
+    @apply inline-flex items-center justify-center rounded-xl bg-primary text-primary-foreground px-4 py-2.5 text-sm font-medium shadow-sm shadow-primary/20 hover:bg-primary/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed;
   }
 
   /* Shimmer skeleton */
   .shimmer {
-    background: linear-gradient(
-      90deg,
-      hsl(var(--muted)) 25%,
-      hsl(var(--accent)) 50%,
-      hsl(var(--muted)) 75%
-    );
+    background: linear-gradient(90deg,
+        hsl(var(--muted)) 25%,
+        hsl(var(--accent)) 50%,
+        hsl(var(--muted)) 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -430,7 +504,9 @@
 }
 
 /* Theme transition */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   transition-property: background-color, border-color, color, fill, stroke;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
@@ -438,8 +514,20 @@
 
 /* Scrollbar */
 @media (prefers-reduced-motion: no-preference) {
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { @apply bg-muted-foreground/20 rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-muted-foreground/40; }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
 }
