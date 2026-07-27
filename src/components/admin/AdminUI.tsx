@@ -84,6 +84,8 @@ const STATUS_STYLES: Record<string, string> = {
   // Project statuses
   active: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20 dark:text-emerald-400",
   hidden: "bg-muted text-muted-foreground border-border",
+  // Shared highlight for pinned reviews / projects
+  featured: "bg-amber-500/10 text-amber-600 border-amber-500/20 dark:text-amber-400",
 };
 
 export function StatusBadge({
