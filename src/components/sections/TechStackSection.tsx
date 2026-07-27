@@ -135,35 +135,35 @@ function TechCard({ tech, delay, isDark }: { tech: Tech; delay: number; isDark?:
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.85, y: 10 }}
+      initial={{ opacity: 0, scale: 0.95, y: 10 }}
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.35, delay, ease: "easeOut" }}
-      whileHover={{ y: -4, scale: 1.06, transition: { duration: 0.18 } }}
+      transition={{ duration: 0.4, delay, ease: "easeOut" }}
+      whileHover={{ y: -3, scale: 1.03, transition: { duration: 0.2 } }}
       className={cn(
-        "group flex flex-col items-center gap-2.5 p-3.5 rounded-xl",
-        "border border-border/50 bg-background",
-        "hover:border-primary/40 hover:shadow-lg hover:shadow-primary/8",
-        "transition-colors duration-200 cursor-default"
+        "group flex items-center gap-3 p-1.5 pr-4 rounded-full",
+        "border border-border/40 bg-secondary/30 backdrop-blur-md",
+        "hover:border-primary/30 hover:bg-secondary/50 hover:shadow-lg hover:shadow-primary/5",
+        "transition-all duration-300 cursor-default"
       )}
     >
       {/* Icon wrapper with glow on hover */}
       <div
-        className="relative flex items-center justify-center w-11 h-11 rounded-xl"
-        style={{ backgroundColor: `${color}18` }}
+        className="relative flex items-center justify-center w-9 h-9 rounded-full shadow-sm"
+        style={{ backgroundColor: `${color}15` }}
       >
         <tech.icon
-          className="h-6 w-6 transition-transform duration-200 group-hover:scale-110"
+          className="h-4 w-4 transition-transform duration-300 group-hover:scale-110"
           style={{ color }}
         />
         {/* Glow effect on hover */}
         <div
-          className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 blur-sm"
-          style={{ backgroundColor: `${color}30` }}
+          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"
+          style={{ backgroundColor: `${color}25` }}
           aria-hidden="true"
         />
       </div>
-      <span className="text-[10.5px] font-medium text-muted-foreground group-hover:text-foreground transition-colors leading-tight text-center">
+      <span className="text-xs font-semibold text-foreground/80 group-hover:text-foreground transition-colors">
         {tech.name}
       </span>
     </motion.div>
@@ -218,16 +218,16 @@ function TechMarqueeStrip() {
   const items = [...ALL_TECHS_FLAT, ...ALL_TECHS_FLAT];
 
   return (
-    <div className="relative overflow-hidden py-2" aria-hidden="true">
+    <div className="relative overflow-hidden py-8" aria-hidden="true">
       {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
       <motion.div
-        className="flex gap-3 w-max"
+        className="flex flex-nowrap gap-4 min-w-max items-center will-change-transform"
         animate={{ x: ["0%", "-50%"] }}
         transition={{
-          duration: 40,
+          duration: 35,
           repeat: Infinity,
           ease: "linear",
           repeatType: "loop",
@@ -238,10 +238,10 @@ function TechMarqueeStrip() {
           return (
             <div
               key={`${tech.name}-${i}`}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border/40 bg-background text-xs text-muted-foreground shrink-0"
+              className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-border/20 bg-secondary/10 backdrop-blur-sm text-sm text-muted-foreground shrink-0 shadow-sm transition-colors hover:bg-secondary/30"
             >
-              <tech.icon className="h-3.5 w-3.5 shrink-0" style={{ color }} />
-              <span className="font-medium">{tech.name}</span>
+              <tech.icon className="h-4 w-4 shrink-0" style={{ color }} />
+              <span className="font-semibold">{tech.name}</span>
             </div>
           );
         })}
@@ -259,8 +259,8 @@ export default function TechStackSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Tech Stack"
-          title="The tools behind every build"
-          description="We pick technologies for the job, not the hype. Here's what powers the products we deliver."
+          title="Powered by modern engineering"
+          description="We leverage industry-leading frameworks and robust architectures to engineer secure, scalable, and high-performance digital products."
           centered
           className="mb-4"
         />
