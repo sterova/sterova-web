@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield, MessageSquare, Wrench, Bot } from "lucide-react";
+import { ArrowRight, Code2, Globe, Smartphone, Layers, Palette, Plug, Wrench } from "lucide-react";
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
@@ -8,7 +8,7 @@ import { SERVICES } from "@/data/constants";
 import { cn } from "@/lib/utils";
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield, MessageSquare, Wrench, Bot,
+  Code2, Globe, Smartphone, Layers, Palette, Plug, Wrench,
 };
 
 export default function ServicesPage() {

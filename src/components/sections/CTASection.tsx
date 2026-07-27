@@ -12,7 +12,7 @@ interface Props {
 
 export default function CTASection({
   title = "Ready to build something great?",
-  description = "Start a conversation — describe your project and we'll get back to you within 24 hours with a clear plan.",
+  description = "Tell us what you're working on. We'll get back to you within a day with honest feedback and a clear next step.",
 }: Props) {
   const waUrl = getWhatsAppUrl(SITE.whatsapp, "Hi Sterova, I'd like to discuss a project.");
 

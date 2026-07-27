@@ -16,7 +16,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
         <SectionHeader
           badge="Client Stories"
           title="What our clients say"
-          description="Real results from real clients. Here's what they say about working with us."
+          description="Don't take our word for it — hear from the teams we've worked with."
           centered
           className="mb-16"
         />

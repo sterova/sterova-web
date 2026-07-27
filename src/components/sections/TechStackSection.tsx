@@ -259,8 +259,8 @@ export default function TechStackSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Tech Stack"
-          title="Modern tools, proven results"
-          description="We work with a curated set of battle-tested technologies chosen for performance, scalability, and developer experience."
+          title="The tools behind every build"
+          description="We pick technologies for the job, not the hype. Here's what powers the products we deliver."
           centered
           className="mb-4"
         />

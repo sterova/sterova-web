@@ -137,7 +137,7 @@ export const BLOG_POSTS: BlogPost[] = [
 <h2>Hallucination mitigation</h2>
 <p>For factual domains (legal, medical, financial), always pair LLM output with retrieval-augmented generation (RAG). Don't ask the model to make things up — ask it to summarize documents you provide. The quality improvement is dramatic.</p>`,
     cover_image_url: null,
-    category: "AI & Automation",
+    category: "Engineering",
     tags: ["OpenAI", "AI", "Production", "Engineering"],
     author_name: "Sterova Team",
     author_avatar_url: null,

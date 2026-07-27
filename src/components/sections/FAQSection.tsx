@@ -24,7 +24,7 @@ export default function FAQSection({ faqs, limit }: Props) {
             <SectionHeader
               badge="FAQ"
               title="Questions we hear a lot"
-              description="If you don't find your answer here, reach out — we're happy to talk through your specific situation."
+              description="If your question isn't here, just ask. We'd rather talk than make you guess."
             />
           </div>
 

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, CheckCircle2, Loader2, Quote } from "lucide-react";
+import { Star, CheckCircle2, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -9,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import SectionHeader from "@/components/shared/SectionHeader";
-import { cn, sleep, formatDate } from "@/lib/utils";
-import { STATIC_REVIEWS } from "@/data/reviews";
+import { cn, sleep } from "@/lib/utils";
 import type { Review, ReviewFormData } from "@/types";
 
 const schema = z.object({
@@ -50,30 +48,6 @@ function StarRating({
         />
       ))}
     </div>
-  );
-}
-
-function ReviewCard({ review, index }: { review: Review; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.06 }}
-      className="relative rounded-2xl border bg-background p-5 shadow-sm hover:shadow-md hover:border-primary/30 transition-all"
-    >
-      <Quote className="absolute top-4 right-4 h-6 w-6 text-primary/10" aria-hidden="true" />
-      <StarRating value={review.rating} readonly />
-      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">&ldquo;{review.content}&rdquo;</p>
-      <div className="flex items-center gap-2.5 mt-4">
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4f46e5] to-[#a855f7] flex items-center justify-center text-white text-xs font-bold shrink-0">
-          {review.name.charAt(0)}
-        </div>
-        <div>
-          <p className="text-sm font-medium">{review.name}</p>
-          <p className="text-xs text-muted-foreground">{formatDate(review.created_at)}</p>
-        </div>
-      </div>
-    </motion.div>
   );
 }
 
@@ -169,10 +143,10 @@ function WriteReviewForm({ onSubmitted }: { onSubmitted: (r: Review) => void }) 
 }
 
 export default function ReviewsSection() {
-  const [reviews, setReviews] = useState<Review[]>(STATIC_REVIEWS);
-
-  const handleNewReview = (r: Review) => {
-    setReviews((prev) => [r, ...prev]);
+  // Reviews will be fetched from the backend in the future.
+  // For now, only the review form is shown.
+  const handleNewReview = (_r: Review) => {
+    // Future: submit to backend
   };
 
   return (
@@ -180,35 +154,21 @@ export default function ReviewsSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Reviews"
-          title="Real feedback from real clients"
-          description="Honest reviews from the teams we've worked with."
+          title="What our clients say"
+          description="Real feedback from real clients."
           centered
-          className="mb-16"
+          className="mb-12"
         />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Review grid */}
-          <div className="lg:col-span-2">
-            <AnimatePresence mode="popLayout">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                {reviews.map((review, i) => (
-                  <ReviewCard key={review.id} review={review} index={i} />
-                ))}
+        <div className="max-w-md mx-auto">
+          <div className="rounded-2xl border border-border/60 bg-background p-6 shadow-sm">
+            <div className="flex items-center gap-2 mb-5">
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Star className="h-4 w-4 text-primary" />
               </div>
-            </AnimatePresence>
-          </div>
-
-          {/* Write a review */}
-          <div className="lg:col-span-1">
-            <div className="rounded-2xl border border-border/60 bg-background p-6 shadow-sm sticky top-24">
-              <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <Star className="h-4 w-4 text-primary" />
-                </div>
-                <h3 className="font-semibold text-base">Write a Review</h3>
-              </div>
-              <WriteReviewForm onSubmitted={handleNewReview} />
+              <h3 className="font-semibold text-base">Write a Review</h3>
             </div>
+            <WriteReviewForm onSubmitted={handleNewReview} />
           </div>
         </div>
       </div>

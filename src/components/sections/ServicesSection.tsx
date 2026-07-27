@@ -1,8 +1,8 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import {
-  Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield,
-  MessageSquare, Wrench, Bot, LayoutDashboard, Zap, Server, Database,
+  Code2, Globe, Smartphone, Layers, Palette, Plug,
+  Wrench, LayoutDashboard, Zap, Server, Database,
 } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
 import type { Service } from "@/types";
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  Code2, Globe, Smartphone, Layers, Palette, Plug, Cloud, Shield,
-  MessageSquare, Wrench, Bot, LayoutDashboard, Zap, Server, Database,
+  Code2, Globe, Smartphone, Layers, Palette, Plug,
+  Wrench, LayoutDashboard, Zap, Server, Database,
 };
 
 function ServiceIcon({ name }: { name: string }) {
@@ -45,7 +45,7 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
         <SectionHeader
           badge="What We Build"
           title="Services that move businesses forward"
-          description="From custom software to mobile apps, we deliver end-to-end technology solutions for the full product lifecycle."
+          description="Here's what we're good at. Each service is backed by real project experience — not a capabilities deck."
           centered
           className="mb-16"
         />

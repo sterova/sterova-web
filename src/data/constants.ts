@@ -5,7 +5,7 @@ export const SITE = {
   name: "Sterova",
   tagline: "Build. Scale. Innovate.",
   description:
-    "Sterova is a modern software development company that helps startups, businesses, and enterprises build high-quality digital products — from web apps and mobile apps to cloud solutions and AI-powered systems.",
+    "Sterova is a software development company that helps startups, businesses, and enterprises build high-quality digital products — from web apps and mobile apps to scalable cloud-based systems.",
   url: "https://sterova.tech",
   email: "hello@sterova.tech",
   phone: "",
@@ -36,12 +36,8 @@ export const NAV_LINKS = [
       { label: "Mobile Apps", href: "/services#mobile-apps" },
       { label: "SaaS Products", href: "/services#saas" },
       { label: "UI/UX Design", href: "/services#design" },
-      { label: "AI & Automation", href: "/services#ai-automation" },
-      { label: "Cloud & DevOps", href: "/services#cloud-devops" },
-      { label: "Cybersecurity", href: "/services#cybersecurity" },
       { label: "API Integration", href: "/services#api-integration" },
       { label: "Software Maintenance", href: "/services#maintenance" },
-      { label: "IT Consulting", href: "/services#it-consulting" },
     ],
   },
   { label: "Portfolio", href: "/portfolio" },
@@ -57,7 +53,7 @@ export const HERO = {
   badge: "Trusted Engineering Partner",
   headline: "Build. Scale. Innovate.",
   subheadline:
-    "We help startups, businesses, and enterprises design, develop, and deploy high-quality digital products — fast.",
+    "We work with startups, growing businesses, and enterprise teams to build software that actually ships — on time, on budget.",
   cta: {
     primary: { label: "Start a Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
@@ -175,73 +171,13 @@ export const SERVICES = [
     is_active: true,
   },
   {
-    id: "ai-automation",
-    slug: "ai-automation",
-    icon_name: "Bot",
-    title: "AI & Automation Solutions",
-    short_description: "Intelligent systems that reduce manual work and surface insights.",
-    description:
-      "We integrate AI and automation into your products and workflows — from LLM-powered features to intelligent process automation.",
-    features: [
-      "LLM integration and prompt engineering",
-      "AI-powered search and recommendations",
-      "Workflow automation pipelines",
-      "Data processing and enrichment",
-      "Custom ML model integration",
-      "Monitoring and cost control",
-    ],
-    technologies: ["Python", "OpenAI", "LangChain", "PostgreSQL", "Node.js"],
-    display_order: 5,
-    is_active: true,
-  },
-  {
-    id: "cloud-devops",
-    slug: "cloud-devops",
-    icon_name: "Cloud",
-    title: "Cloud & DevOps",
-    short_description: "Infrastructure that is secure, cost-efficient, and production-ready.",
-    description:
-      "We design and manage cloud infrastructure that scales with your product — reliable, observable, and built for zero-downtime deployments.",
-    features: [
-      "Cloud architecture design",
-      "CI/CD pipeline setup with GitHub Actions",
-      "Containerization and orchestration",
-      "Infrastructure-as-code",
-      "Monitoring, alerting, and observability",
-      "Cost optimization reviews",
-    ],
-    technologies: ["Vercel", "Supabase", "Cloudflare", "GitHub Actions", "Docker"],
-    display_order: 6,
-    is_active: true,
-  },
-  {
-    id: "cybersecurity",
-    slug: "cybersecurity",
-    icon_name: "Shield",
-    title: "Cybersecurity Consulting",
-    short_description: "Security built in from day one, not bolted on at the end.",
-    description:
-      "We help businesses identify vulnerabilities, implement security best practices, and build defensible systems from the ground up.",
-    features: [
-      "Security architecture review",
-      "Penetration testing",
-      "Row Level Security and access control design",
-      "Compliance readiness (GDPR, SOC 2 basics)",
-      "Threat modeling",
-      "Security code review",
-    ],
-    technologies: ["OWASP", "CSP", "JWT", "PostgreSQL RLS"],
-    display_order: 7,
-    is_active: true,
-  },
-  {
     id: "api-integration",
     slug: "api-integration",
     icon_name: "Plug",
     title: "API Development & Integration",
-    short_description: "Seamless integrations that connect your systems and unlock data flow.",
+    short_description: "Clean integrations that connect your systems and keep data flowing.",
     description:
-      "From REST APIs to event-driven architectures, we design robust integrations that connect your stack and power your product.",
+      "From REST APIs to event-driven architectures, we build integrations that connect your stack and keep everything talking to each other.",
     features: [
       "RESTful and GraphQL API design",
       "Third-party API integrations",
@@ -251,7 +187,7 @@ export const SERVICES = [
       "SDK and client library development",
     ],
     technologies: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Redis"],
-    display_order: 8,
+    display_order: 5,
     is_active: true,
   },
   {
@@ -259,9 +195,9 @@ export const SERVICES = [
     slug: "maintenance",
     icon_name: "Wrench",
     title: "Software Maintenance & Support",
-    short_description: "Ongoing engineering support to keep your product running at its best.",
+    short_description: "Ongoing engineering support so your product keeps running smoothly.",
     description:
-      "We provide retainer-based engineering support — bug fixes, performance tuning, dependency updates, and feature additions on your schedule.",
+      "We offer retainer-based engineering support — bug fixes, performance tuning, dependency updates, and feature work on your schedule.",
     features: [
       "Bug tracking and resolution SLAs",
       "Dependency and security updates",
@@ -271,27 +207,7 @@ export const SERVICES = [
       "Emergency on-call support",
     ],
     technologies: ["TypeScript", "Node.js", "React", "PostgreSQL"],
-    display_order: 9,
-    is_active: true,
-  },
-  {
-    id: "it-consulting",
-    slug: "it-consulting",
-    icon_name: "MessageSquare",
-    title: "IT Consulting",
-    short_description: "Strategic technology advice from engineers who build for a living.",
-    description:
-      "We help leadership teams make better technology decisions — from vendor selection to architecture reviews to build-vs-buy analysis.",
-    features: [
-      "Technology stack assessment",
-      "Build vs. buy analysis",
-      "Vendor evaluation",
-      "Technical roadmap planning",
-      "CTO-as-a-service for early-stage startups",
-      "Engineering team structure and hiring guidance",
-    ],
-    technologies: ["Strategy", "Architecture", "Cloud", "AI", "Security"],
-    display_order: 10,
+    display_order: 6,
     is_active: true,
   },
 ];
@@ -599,27 +515,23 @@ export const BLOG_CATEGORIES = [
   "All",
   "Engineering",
   "Product",
-  "AI & Automation",
   "Design",
   "Startup",
-  "Security",
 ];
 
 // ─────────────────────────────────────────────
 // Industries
 // ─────────────────────────────────────────────
 export const INDUSTRIES = [
-  "FinTech",
-  "Healthcare",
-  "EdTech",
-  "E-commerce",
-  "Logistics",
-  "Real Estate",
-  "Manufacturing",
-  "Hospitality",
-  "Artificial Intelligence",
-  "Cybersecurity",
-  "Government & Non-Profit",
+  { name: "FinTech", icon_name: "Landmark", description: "Payment platforms, banking tools, and financial dashboards" },
+  { name: "Healthcare", icon_name: "HeartPulse", description: "Patient portals, clinic systems, and health data platforms" },
+  { name: "EdTech", icon_name: "GraduationCap", description: "Learning management systems and course platforms" },
+  { name: "E-commerce", icon_name: "ShoppingCart", description: "Online stores, marketplaces, and inventory systems" },
+  { name: "Logistics", icon_name: "Truck", description: "Fleet tracking, route planning, and supply chain tools" },
+  { name: "Real Estate", icon_name: "Building2", description: "Property listings, CRM tools, and tenant management" },
+  { name: "Manufacturing", icon_name: "Factory", description: "Production tracking, quality control, and ERP integrations" },
+  { name: "Hospitality", icon_name: "UtensilsCrossed", description: "Booking engines, POS systems, and guest management" },
+  { name: "Non-Profit & Government", icon_name: "Users", description: "Grant tracking, case management, and public service portals" },
 ];
 
 // ─────────────────────────────────────────────
@@ -651,12 +563,12 @@ export const FOOTER_LINKS = [
   {
     heading: "Services",
     links: [
+      { label: "Custom Software", href: "/services#custom-software" },
       { label: "Web Development", href: "/services#web-development" },
       { label: "Mobile Apps", href: "/services#mobile-apps" },
       { label: "SaaS Products", href: "/services#saas" },
-      { label: "AI & Automation", href: "/services#ai-automation" },
       { label: "UI/UX Design", href: "/services#design" },
-      { label: "Cloud & DevOps", href: "/services#cloud-devops" },
+      { label: "API Integration", href: "/services#api-integration" },
     ],
   },
   {
@@ -680,9 +592,9 @@ export const FOOTER_LINKS = [
 // ─────────────────────────────────────────────
 export const ABOUT = {
   mission:
-    "Build reliable, scalable, and future-ready software that empowers businesses through innovation, quality engineering, and long-term partnerships.",
+    "Build reliable software that actually works for the people using it — and keeps working as their business grows.",
   vision:
-    "Become a globally recognized technology company known for delivering exceptional digital products, trusted engineering, and innovative software solutions.",
+    "Be the engineering partner people recommend by name — because the work speaks for itself.",
   values: [
     {
       title: "Innovation",
@@ -732,14 +644,12 @@ export const CONTACT = {
   },
   budgetOptions: [],
   serviceOptions: [
+    "Custom Software Development",
+    "Web Application Development",
     "Mobile App Development",
     "SaaS Product Development",
     "UI/UX Design",
     "API Development & Integration",
-    "Cloud & DevOps",
-    "AI & Automation",
-    "Cybersecurity Consulting",
-    "IT Consulting",
     "Software Maintenance & Support",
     "Other",
   ],

@@ -14,7 +14,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServicesSection services={SERVICES} limit={6} showCta />
+      <ServicesSection services={SERVICES} showCta={false} />
       <PortfolioSection items={PORTFOLIO_ITEMS} featuredOnly showCta />
       <TechStackSection />
       <ProcessSection />

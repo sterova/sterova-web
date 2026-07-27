@@ -9,7 +9,7 @@ export default function ProcessSection() {
         <SectionHeader
           badge="Our Process"
           title="How we turn ideas into products"
-          description="A transparent, low-risk process designed to keep you informed and in control at every stage."
+          description="No surprises. You'll know what's happening, what's next, and what it costs at every step."
           centered
           className="mb-16"
         />
