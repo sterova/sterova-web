@@ -22,7 +22,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-4">
-              <span className="gradient-text font-display font-extrabold text-2xl">
+              <span className="gradient-text font-display font-black text-2xl md:text-3xl tracking-tighter drop-shadow-md">
                 {SITE.name}
               </span>
             </Link>

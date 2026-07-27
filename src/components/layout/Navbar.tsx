@@ -126,7 +126,7 @@ export default function Navbar() {
       <div className="container-custom flex h-16 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <span className="gradient-text font-display font-extrabold text-xl tracking-tight">
+          <span className="gradient-text font-display font-black text-xl md:text-2xl tracking-tighter drop-shadow-sm">
             {SITE.name}
           </span>
         </Link>

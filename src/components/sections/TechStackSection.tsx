@@ -223,16 +223,17 @@ function TechMarqueeStrip() {
       <div className="absolute left-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-background to-transparent pointer-events-none" />
 
-      <motion.div
-        className="flex flex-nowrap gap-4 min-w-max items-center will-change-transform"
-        animate={{ x: ["0%", "-50%"] }}
-        transition={{
-          duration: 35,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        }}
-      >
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee-scroll {
+          animation: marquee-scroll 35s linear infinite;
+        }
+      `}</style>
+
+      <div className="flex flex-nowrap gap-4 min-w-max items-center animate-marquee-scroll will-change-transform">
         {items.map((tech, i) => {
           const color = tech.color;
           return (
@@ -245,7 +246,7 @@ function TechMarqueeStrip() {
             </div>
           );
         })}
-      </motion.div>
+      </div>
     </div>
   );
 }
