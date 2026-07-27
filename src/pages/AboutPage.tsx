@@ -1,3 +1,4 @@
+import { Target, Telescope } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
@@ -8,8 +9,8 @@ export default function AboutPage() {
   return (
     <>
       <SEO 
-        title="About Us | Best Website Service Company" 
-        description="Learn about Sterova, a top software service company dedicated to building reliable digital products and web services."
+        title="About Us" 
+        description="Sterova is an engineering-first software company. Learn about the team, values, and standards behind the products we build."
         canonical="/about" 
       />
 
@@ -22,6 +23,7 @@ export default function AboutPage() {
               title="Engineering-first software development"
               description={ABOUT.mission}
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>
@@ -33,8 +35,8 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <AnimatedSection delay={0.1}>
               <div className="rounded-2xl border bg-background p-8 h-full">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-5">
-                  <span className="text-2xl" aria-hidden="true">🎯</span>
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
+                  <Target className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <h2 className="text-2xl font-semibold mb-3">Our Mission</h2>
                 <p className="text-muted-foreground leading-relaxed">{ABOUT.mission}</p>
@@ -42,8 +44,8 @@ export default function AboutPage() {
             </AnimatedSection>
             <AnimatedSection delay={0.15}>
               <div className="rounded-2xl border bg-background p-8 h-full">
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 mb-5">
-                  <span className="text-2xl" aria-hidden="true">🌍</span>
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary mb-5">
+                  <Telescope className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <h2 className="text-2xl font-semibold mb-3">Our Vision</h2>
                 <p className="text-muted-foreground leading-relaxed">{ABOUT.vision}</p>

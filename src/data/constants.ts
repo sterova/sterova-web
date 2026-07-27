@@ -3,9 +3,9 @@
 // ─────────────────────────────────────────────
 export const SITE = {
   name: "Sterova",
-  tagline: "Best Website Service Company & Custom Software Services.",
+  tagline: "Custom software, engineered to last.",
   description:
-    "Sterova is the best website service company and top software service provider. We deliver high-quality web services, website service, and scalable digital products for startups, businesses, and enterprises.",
+    "Sterova is a software engineering partner for startups and enterprises. We design, build, and maintain web platforms, mobile apps, and SaaS products that ship on time and scale with your business.",
   url: "https://sterova.tech",
   email: "hello@sterova.tech",
   phone: "",
@@ -50,10 +50,11 @@ export const NAV_LINKS = [
 // Hero
 // ─────────────────────────────────────────────
 export const HERO = {
-  badge: "Trusted Engineering Partner",
-  headline: "Build. Scale. Innovate.",
+  badge: "Software Engineering Partner",
+  headline: "Software your business can build on",
+  headlineHighlight: "build on",
   subheadline:
-    "We work with startups, growing businesses, and enterprise teams to build software that actually ships — on time, on budget.",
+    "We design and engineer web platforms, mobile apps, and SaaS products for startups and enterprise teams — delivered on time, built to scale, and supported long after launch.",
   cta: {
     primary: { label: "Start a Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
@@ -63,6 +64,14 @@ export const HERO = {
     { value: "98%", label: "Client Satisfaction" },
     { value: "12+", label: "Industries Served" },
     { value: "5★", label: "Average Rating" },
+  ],
+  ecosystem: [
+    { icon_name: "Code2", label: "Custom Software" },
+    { icon_name: "Globe", label: "Web Platforms" },
+    { icon_name: "Smartphone", label: "Mobile Apps" },
+    { icon_name: "Layers", label: "SaaS Products" },
+    { icon_name: "Palette", label: "UI/UX Design" },
+    { icon_name: "Plug", label: "API Integration" },
   ],
 };
 

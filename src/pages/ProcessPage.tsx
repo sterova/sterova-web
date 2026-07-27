@@ -11,9 +11,10 @@ export default function ProcessPage() {
           <AnimatedSection>
             <SectionHeader
               badge="How We Work"
-              title="A process that minimizes risk"
+              title="A process built to remove risk"
               description="We follow a structured, transparent six-stage process so you always know what's happening, what comes next, and why."
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>

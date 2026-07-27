@@ -12,9 +12,10 @@ export default function PortfolioPage() {
           <AnimatedSection>
             <SectionHeader
               badge="Portfolio"
-              title="Products we've built"
+              title="Work we're proud to put our name on"
               description="A selection of client projects across industries. Every project is a partnership — we stay engaged from concept to post-launch."
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>

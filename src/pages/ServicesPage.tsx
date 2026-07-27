@@ -16,8 +16,8 @@ export default function ServicesPage() {
   return (
     <>
       <SEO 
-        title="Web Services & Custom Software" 
-        description="Top-tier web services, software service, and app development. We build what you need to scale your business."
+        title="Services" 
+        description="Custom software, web platforms, mobile apps, SaaS products, and design — full-lifecycle product engineering from Sterova."
         canonical="/services" 
       />
 
@@ -29,6 +29,7 @@ export default function ServicesPage() {
               title="Everything you need to ship great software"
               description="From early-stage MVPs to enterprise platforms — we cover the full product engineering lifecycle."
               centered
+              size="page"
             />
           </AnimatedSection>
         </div>
