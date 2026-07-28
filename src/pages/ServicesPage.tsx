@@ -5,6 +5,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 import { SERVICES } from "@/data/constants";
 import { cn } from "@/lib/utils";
 
@@ -16,9 +17,16 @@ export default function ServicesPage() {
   return (
     <>
       <SEO 
-        title="Services" 
+        title="Custom software development services" 
         description="Custom software, web platforms, mobile apps, SaaS products, and design — full-lifecycle product engineering from Sterova."
         canonical="/services" 
+      />
+      <JsonLd 
+        type={['website', 'specificService', 'organization', 'breadcrumb']} 
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'Services', item: '/services' }
+        ]}
       />
 
       <section className="pt-32 pb-16 bg-secondary/30">

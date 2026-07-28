@@ -1,0 +1,14 @@
+# Sterova
+
+Sterova is a custom software development company based in Chennai, India. We build high-performance web applications, mobile apps, and scalable digital products for modern enterprises and ambitious startups.
+
+## Services
+- Custom Software Development (Web, Mobile, Cloud)
+- Web App Development (React, Node.js, Supabase, Postgres)
+- Mobile App Development (React Native, iOS, Android)
+- UI/UX Design
+
+## Contact
+- Website: https://sterova.tech
+- Email: support@sterova.tech
+- Phone: +918124949176

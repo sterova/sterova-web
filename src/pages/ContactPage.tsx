@@ -3,6 +3,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import ContactForm from "@/components/forms/ContactForm";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 import { SITE, CONTACT } from "@/data/constants";
 import { getWhatsAppUrl } from "@/lib/utils";
 
@@ -31,10 +32,17 @@ const contactDetails = [
 export default function ContactPage() {
   return (
     <>
-      <SEO 
-        title="Contact Us | Best Website Service Company" 
-        description="Get in touch with Sterova to discuss your next project. We are a top software service provider offering web services and custom applications."
-        canonical="/contact" 
+      <SEO
+        title="Hire software developers"
+        description="Get in touch with Sterova to discuss your next project. We are an engineering-first software company offering custom applications."
+        canonical="/contact"
+      />
+      <JsonLd 
+        type={['website', 'organization', 'breadcrumb']} 
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'Contact', item: '/contact' }
+        ]}
       />
       <section className="pt-32 pb-24">
       <div className="container-custom">

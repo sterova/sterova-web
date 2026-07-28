@@ -13,6 +13,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/lib/auth-context";
 import RequireAdmin from "@/components/admin/RequireAdmin";
 import { ADMIN_BASE, ADMIN_ROUTES } from "@/data/admin-constants";
+import { Analytics } from "@vercel/analytics/react";
 
 // ── Lazy-loaded pages ────────────────────────────────────────────────────────
 const HomePage      = lazy(() => import("@/pages/HomePage"));
@@ -98,6 +99,8 @@ function ScrollManager() {
   const [location] = useLocation();
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    
     const hash = window.location.hash;
     if (hash) {
       const id = hash.slice(1);
@@ -245,13 +248,22 @@ function AdminRoutes() {
   );
 }
 
+import { SpeedInsights } from "@vercel/speed-insights/react";
+import { initAnalytics } from "@/lib/analytics";
+
 // ── Shell switch: the CMS renders without the marketing navbar/footer ────────
 function AppShell() {
   const [location] = useLocation();
   const isAdminRoute =
     location === ADMIN_BASE || location.startsWith(`${ADMIN_BASE}/`);
 
+  useEffect(() => {
+    initAnalytics();
+  }, []);
+
   if (isAdminRoute) return <AdminRoutes />;
+
+  const isServer = typeof window === "undefined";
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground">
@@ -260,29 +272,53 @@ function AppShell() {
         <AppRoutes />
       </main>
       <Footer />
-      <WhatsAppButton />
+      {!isServer && <WhatsAppButton />}
+      {!isServer && <Analytics />}
+      {!isServer && <SpeedInsights />}
     </div>
   );
 }
 
 // ── Root ─────────────────────────────────────────────────────────────────────
-function App() {
+export default function App({
+  ssrPath,
+  helmetContext = {},
+  preSeededQueryClient,
+}: {
+  ssrPath?: string;
+  helmetContext?: any;
+  preSeededQueryClient?: QueryClient;
+}) {
+  const activeQueryClient = preSeededQueryClient || queryClient;
+  const isServer = typeof window === "undefined";
+  
+  // Safe base URL extraction (import.meta.env might not be fully available in some SSR setups)
+  const baseUrl = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) 
+    ? import.meta.env.BASE_URL.replace(/\/$/, "") 
+    : "";
+
+  const content = (
+    <QueryClientProvider client={activeQueryClient}>
+      <AuthProvider>
+        <TooltipProvider>
+          <WouterRouter base={baseUrl} ssrPath={ssrPath}>
+            <AppShell />
+            <Toaster />
+          </WouterRouter>
+        </TooltipProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+
   return (
-    <HelmetProvider>
-      <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <TooltipProvider>
-              <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-                <AppShell />
-                <Toaster />
-              </WouterRouter>
-            </TooltipProvider>
-          </AuthProvider>
-        </QueryClientProvider>
-      </ThemeProvider>
+    <HelmetProvider context={helmetContext}>
+      {isServer ? (
+        content
+      ) : (
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          {content}
+        </ThemeProvider>
+      )}
     </HelmetProvider>
   );
 }
-
-export default App;

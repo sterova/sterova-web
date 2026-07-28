@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Clock, Calendar, ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 import { ErrorState } from "@/components/shared/DataStates";
 import { fetchPostBySlug, incrementPostViews } from "@/lib/api";
 import { SITE } from "@/data/constants";
@@ -85,6 +86,7 @@ export default function BlogPostPage() {
         canonical={`/blog/${post.slug}`}
         type="article"
       />
+      <JsonLd type="article" post={post} url={`${SITE.url}/blog/${post.slug}`} />
 
       <article className="pt-28 pb-16">
         <div className="container-custom max-w-3xl">

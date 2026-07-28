@@ -1,8 +1,17 @@
 import { SITE } from "@/data/constants";
+import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 
 export default function PrivacyPage() {
   return (
-    <section className="pt-32 pb-24">
+    <>
+      <SEO 
+        title="Privacy Policy" 
+        description="Privacy policy for Sterova. Learn how we handle and protect your data."
+        canonical="/privacy"
+      />
+      <JsonLd type="website" />
+      <section className="pt-32 pb-24">
       <div className="container-custom max-w-3xl">
         <h1 className="font-display text-3xl sm:text-4xl font-bold mb-2">Privacy Policy</h1>
         <p className="text-muted-foreground mb-12">
@@ -101,5 +110,6 @@ export default function PrivacyPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

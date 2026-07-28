@@ -2,50 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Sterova — Best Website Service Company & Custom Software Services</title>
-    <meta name="description" content="Sterova is the best website service company and top software service provider. We deliver high-quality web services, website service, and scalable digital products." />
-    <meta name="robots" content="index, follow" />
-    <meta property="og:title" content="Sterova — Best Website Service Company & Custom Software Services" />
-    <meta property="og:description" content="Sterova is the best website service company and top software service provider. We deliver high-quality web services, website service, and scalable digital products." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Sterova — Best Website Service Company & Custom Software Services" />
-    <meta name="twitter:description" content="Sterova is the best website service company and top software service provider. We deliver high-quality web services, website service, and scalable digital products." />
+    <!--ssr-head-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Structured Data (JSON-LD) for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Sterova Software Services",
-      "applicationCategory": "BusinessApplication",
-      "operatingSystem": "All",
-      "description": "The best website service company offering custom software service, web services, and scalable digital products."
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Sterova",
-      "image": "https://sterova.tech/favicon.svg",
-      "url": "https://sterova.tech",
-      "description": "Top software service provider and best website service company specializing in custom software, mobile apps, and web services.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Global",
-        "addressCountry": "US"
-      }
-    }
-    </script>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload fonts to improve LCP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet" />
+    
+    <!-- Default Open Graph tags (per-page tags injected via react-helmet-async) -->
+    <meta property="og:site_name" content="Sterova" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--ssr-body--></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

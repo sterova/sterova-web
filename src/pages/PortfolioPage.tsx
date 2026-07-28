@@ -3,14 +3,24 @@ import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 
 export default function PortfolioPage() {
   return (
     <>
       <SEO
-        title="Portfolio — Platforms & Integrations We Build"
+        title="Software development case studies"
         description="Illustrative examples of the platforms, integrations, and architectures the Sterova team engineers for startups and enterprises."
         canonical="/portfolio"
+      />
+      <JsonLd 
+        type={['website', 'collection', 'breadcrumb']} 
+        collectionName="Software development case studies"
+        collectionDescription="Illustrative examples of the platforms, integrations, and architectures the Sterova team engineers for startups and enterprises."
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'Portfolio', item: '/portfolio' }
+        ]}
       />
       <section className="pt-32 pb-8 bg-secondary/30">
         <div className="container-custom text-center">

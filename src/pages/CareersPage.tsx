@@ -3,6 +3,8 @@ import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import { OPEN_POSITIONS, SITE } from "@/data/constants";
+import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 
 const WHY = [
   { title: "Remote-first", description: "Work from wherever you do your best work. We're async-friendly and outcome-focused." },
@@ -16,6 +18,18 @@ const WHY = [
 export default function CareersPage() {
   return (
     <>
+      <SEO
+        title="Software engineering jobs"
+        description="We're a remote-first team of engineers and product thinkers building high-quality custom software. Join us."
+        canonical="/careers"
+      />
+      <JsonLd 
+        type={['website', 'breadcrumb']} 
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'Careers', item: '/careers' }
+        ]}
+      />
       <section className="pt-32 pb-16 bg-secondary/30">
         <div className="container-custom text-center">
           <AnimatedSection>

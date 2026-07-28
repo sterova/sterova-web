@@ -6,6 +6,7 @@ import { Clock, ArrowRight, BookOpen } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 import CTASection from "@/components/sections/CTASection";
 import {
   CardGridSkeleton,
@@ -53,9 +54,18 @@ export default function BlogPage() {
   return (
     <>
       <SEO
-        title="Blog — Engineering Insights & Guides"
+        title="Software engineering insights"
         description="Deep dives, product thinking, and practical engineering guides from the Sterova team."
         canonical="/blog"
+      />
+      <JsonLd 
+        type={['website', 'collection', 'breadcrumb']} 
+        collectionName="Software engineering insights"
+        collectionDescription="Deep dives, product thinking, and practical engineering guides from the Sterova team."
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'Blog', item: '/blog' }
+        ]}
       />
 
       <section className="pt-32 pb-16 bg-secondary/30">

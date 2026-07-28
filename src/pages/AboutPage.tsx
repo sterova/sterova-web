@@ -3,15 +3,23 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 import { ABOUT } from "@/data/constants";
 
 export default function AboutPage() {
   return (
     <>
-      <SEO 
-        title="About Us" 
+      <SEO
+        title="Software engineering team"
         description="Sterova is an engineering-first software company. Learn about the team, values, and standards behind the products we build."
-        canonical="/about" 
+        canonical="/about"
+      />
+      <JsonLd 
+        type={['website', 'organization', 'breadcrumb']} 
+        breadcrumbs={[
+          { name: 'Home', item: '/' },
+          { name: 'About', item: '/about' }
+        ]}
       />
 
       {/* Hero */}

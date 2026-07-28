@@ -1,8 +1,17 @@
 import { SITE } from "@/data/constants";
+import SEO from "@/components/shared/SEO";
+import JsonLd from "@/components/shared/JsonLd";
 
 export default function TermsPage() {
   return (
-    <section className="pt-32 pb-24">
+    <>
+      <SEO 
+        title="Terms of Service" 
+        description="Terms of service for Sterova software development services and website usage."
+        canonical="/terms"
+      />
+      <JsonLd type="website" />
+      <section className="pt-32 pb-24">
       <div className="container-custom max-w-3xl">
         <h1 className="font-display text-3xl sm:text-4xl font-bold mb-2">Terms of Service</h1>
         <p className="text-muted-foreground mb-12">
@@ -97,5 +106,6 @@ export default function TermsPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }
