@@ -8,28 +8,16 @@ import { cn } from "@/lib/utils";
  * consistent while they resolve.
  */
 
-export function CardGridSkeleton({
-  count = 6,
-  className,
-}: {
-  count?: number;
-  className?: string;
-}) {
+export function CardGridSkeleton({ count = 6, className }: { count?: number; className?: string }) {
   return (
     <div
-      className={cn(
-        "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6",
-        className,
-      )}
+      className={cn("grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6", className)}
       aria-busy="true"
       aria-live="polite"
     >
       <span className="sr-only">Loading content…</span>
       {Array.from({ length: count }).map((_, i) => (
-        <div
-          key={i}
-          className="flex flex-col rounded-2xl border bg-background overflow-hidden"
-        >
+        <div key={i} className="flex flex-col rounded-2xl border bg-background overflow-hidden">
           <div className="h-44 bg-muted animate-pulse" />
           <div className="p-5 flex flex-col gap-3">
             <div className="flex gap-3">
@@ -56,14 +44,8 @@ export function ErrorState({
   onRetry?: () => void;
 }) {
   return (
-    <div
-      role="alert"
-      className="flex flex-col items-center text-center py-20 px-6"
-    >
-      <AlertCircle
-        className="h-10 w-10 text-destructive mb-4"
-        aria-hidden="true"
-      />
+    <div role="alert" className="flex flex-col items-center text-center py-20 px-6">
+      <AlertCircle className="h-10 w-10 text-destructive mb-4" aria-hidden="true" />
       <p className="font-medium mb-1">Something went wrong</p>
       <p className="text-sm text-muted-foreground max-w-sm">{message}</p>
       {error && (
@@ -89,14 +71,13 @@ export function EmptyState({
   description?: string;
 }) {
   return (
-    <div className="flex flex-col items-center text-center py-20 px-6">
-      <Inbox
-        className="h-10 w-10 text-muted-foreground/40 mb-4"
-        aria-hidden="true"
-      />
-      <p className="font-medium mb-1">{title}</p>
+    <div className="dot-grid mx-auto flex max-w-xl flex-col items-center rounded-3xl border border-dashed border-border-strong bg-surface px-8 py-16 text-center">
+      <span className="mb-5 grid h-14 w-14 place-items-center rounded-2xl border border-border bg-background">
+        <Inbox className="h-6 w-6 text-muted-foreground" aria-hidden="true" />
+      </span>
+      <p className="font-display text-lg font-semibold tracking-tight">{title}</p>
       {description && (
-        <p className="text-sm text-muted-foreground max-w-sm">{description}</p>
+        <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted-foreground">{description}</p>
       )}
     </div>
   );

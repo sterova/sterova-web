@@ -38,13 +38,7 @@ interface ToolbarButtonProps {
   icon: React.ComponentType<{ className?: string }>;
 }
 
-function ToolbarButton({
-  onClick,
-  active,
-  disabled,
-  label,
-  icon: Icon,
-}: ToolbarButtonProps) {
+function ToolbarButton({ onClick, active, disabled, label, icon: Icon }: ToolbarButtonProps) {
   return (
     <button
       type="button"
@@ -139,17 +133,13 @@ function Toolbar({ editor }: { editor: Editor }) {
           label="Heading 2"
           icon={Heading2}
           active={editor.isActive("heading", { level: 2 })}
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 2 }).run()
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         />
         <ToolbarButton
           label="Heading 3"
           icon={Heading3}
           active={editor.isActive("heading", { level: 3 })}
-          onClick={() =>
-            editor.chain().focus().toggleHeading({ level: 3 }).run()
-          }
+          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         />
 
         <Divider />
@@ -249,10 +239,7 @@ function Toolbar({ editor }: { editor: Editor }) {
       </div>
 
       {uploadError && (
-        <p
-          role="alert"
-          className="px-3 pb-2 text-xs text-destructive"
-        >
+        <p role="alert" className="px-3 pb-2 text-xs text-destructive">
           {uploadError}
         </p>
       )}

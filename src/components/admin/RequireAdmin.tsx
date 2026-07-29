@@ -1,35 +1,28 @@
 import { useEffect } from "react";
-import { useLocation } from "wouter";
+import { useNavigate } from "@tanstack/react-router";
 import { Loader2, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth-context";
 import { ADMIN_BASE } from "@/data/admin-constants";
+import AdminShell from "./AdminShell";
 
 /**
- * Client-side gate for CMS routes.
- *
- * This is a UX layer, not the security boundary. Actual enforcement lives in
- * Postgres: every CMS table has RLS policies requiring is_admin(), so even a
- * user who bypassed this component in devtools would receive empty result sets
- * and rejected writes.
+ * Client-side gate for CMS routes. This is a UX layer, not the security
+ * boundary — every CMS table enforces is_admin() through RLS in Postgres.
  */
-export default function RequireAdmin({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RequireAdmin({ children }: { children: React.ReactNode }) {
   const { session, isAdmin, loading, signOut } = useAuth();
-  const [, navigate] = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!loading && !session) {
-      navigate(ADMIN_BASE, { replace: true });
+      navigate({ to: ADMIN_BASE, replace: true });
     }
   }, [loading, session, navigate]);
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-3">
+      <div className="flex min-h-screen flex-col items-center justify-center gap-3">
         <Loader2 className="h-6 w-6 animate-spin text-primary" />
         <p className="text-sm text-muted-foreground">Verifying access…</p>
       </div>
@@ -38,18 +31,16 @@ export default function RequireAdmin({
 
   if (!session) return null;
 
-  // Authenticated with Supabase but not on the admin allowlist.
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center px-6">
+      <div className="flex min-h-screen items-center justify-center px-6">
         <div className="max-w-sm text-center">
-          <div className="w-12 h-12 rounded-xl bg-destructive/10 flex items-center justify-center mx-auto mb-4">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-destructive/10">
             <ShieldAlert className="h-6 w-6 text-destructive" />
           </div>
-          <h1 className="text-lg font-semibold mb-2">Access denied</h1>
-          <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-            Your account is signed in but is not authorised to use the content
-            management system.
+          <h1 className="font-display mb-2 text-lg font-semibold">Access denied</h1>
+          <p className="mb-6 text-sm leading-relaxed text-muted-foreground">
+            Your account is signed in but is not authorised to use the content management system.
           </p>
           <Button variant="outline" size="sm" onClick={() => void signOut()}>
             Sign out
@@ -59,5 +50,5 @@ export default function RequireAdmin({
     );
   }
 
-  return <>{children}</>;
+  return <AdminShell>{children}</AdminShell>;
 }

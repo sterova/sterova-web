@@ -1,44 +1,86 @@
-import path from 'path';
-import react from '@vitejs/plugin-react';
-import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'vite';
-import Sitemap from 'vite-plugin-sitemap';
+import { defineConfig, loadEnv } from "vite";
+import react from "@vitejs/plugin-react";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
 
-export default defineConfig({
-  // The Supabase integration provisions its keys with a NEXT_PUBLIC_ prefix, so
-  // allow that prefix through alongside Vite's own.
-  envPrefix: ['VITE_', 'NEXT_PUBLIC_'],
-  plugins: [
-    react(),
-    tailwindcss(),
-    Sitemap({
-      hostname: 'https://sterova.tech',
-      // The CMS must never be advertised to crawlers.
-      exclude: ['/sterova-admin'],
-    }),
-  ],
-  resolve: {
-    alias: {
-      '@': path.resolve(import.meta.dirname, 'src'),
-    },
-    dedupe: ['react', 'react-dom'],
-  },
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-    chunkSizeWarningLimit: 1000,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('lucide-react')) return 'lucide';
-            if (id.includes('@radix-ui')) return 'radix';
-            if (id.includes('framer-motion')) return 'framer';
-            if (id.includes('react') || id.includes('react-dom')) return 'react';
-            return 'vendor';
-          }
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
+// Pre-import nitro so the defineConfig callback stays synchronous
+const { nitro } = await import("nitro/vite");
+
+export default defineConfig(({ command, mode }) => {
+  // Load VITE_* env vars so they are available via import.meta.env
+  const env = loadEnv(mode, process.cwd(), "VITE_");
+  const envDefine: Record<string, string> = {};
+  for (const [key, value] of Object.entries(env)) {
+    envDefine[`import.meta.env.${key}`] = JSON.stringify(value);
+  }
+
+  const plugins = [
+    // TanStack Start (SSR, file-based routing, server functions)
+    tanstackStart({
+      importProtection: {
+        behavior: "error",
+        client: {
+          files: ["**/server/**"],
+          specifiers: ["server-only"],
         },
       },
+      // Use src/server.ts as the SSR entry (our error wrapper)
+      server: { entry: "server" },
+    }),
+
+    // React (JSX transform, fast refresh)
+    react(),
+
+    // Tailwind CSS v4
+    tailwindcss(),
+  ];
+
+  // Nitro (Cloudflare Workers build) — only during production builds
+  if (command === "build") {
+    plugins.push(
+      nitro({
+        defaultPreset: "cloudflare-module",
+      }),
+    );
+  }
+
+  return {
+    define: envDefine,
+
+    css: { transformer: "lightningcss" },
+
+    resolve: {
+      alias: { "@": resolve(__dirname, "src") },
+      tsconfigPaths: true,
+      dedupe: [
+        "react",
+        "react-dom",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+        "@tanstack/react-query",
+        "@tanstack/query-core",
+      ],
     },
-  },
+
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react-dom/client",
+        "react/jsx-runtime",
+        "react/jsx-dev-runtime",
+      ],
+    },
+
+    server: {
+      host: "::",
+      port: 8080,
+    },
+
+    plugins,
+  };
 });

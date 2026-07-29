@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────
 
 export type ContactStatus = "new" | "read" | "replied" | "archived";
+export type MessageSource = "contact" | "service";
 export type ReviewStatus = "pending" | "approved" | "rejected";
 
 export interface ContactMessageRow {
@@ -15,6 +16,12 @@ export interface ContactMessageRow {
   admin_note: string | null;
   created_at: string;
   updated_at: string;
+  /** "contact" = normal contact page, "service" = service enquiry form. */
+  source?: MessageSource | null;
+  service_slug?: string | null;
+  service_title?: string | null;
+  company?: string | null;
+  phone?: string | null;
 }
 
 export interface ReviewRow {
@@ -87,6 +94,36 @@ export interface AdminUserRow {
   created_at: string;
 }
 
+/** A single "Results that speak for themselves" metric. */
+export interface SiteStatRow {
+  id: string;
+  title: string;
+  value: string;
+  description: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TeamMemberLinks {
+  [key: string]: string | { label: string; url: string }[] | undefined;
+  custom?: { label: string; url: string }[];
+}
+
+export interface TeamMemberRow {
+  id: string;
+  full_name: string;
+  position: string;
+  bio: string | null;
+  photo_url: string | null;
+  links: TeamMemberLinks;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 /** A blog post joined with its category record. */
 export type BlogPostWithCategory = BlogPostRow & {
   blog_categories: Pick<BlogCategoryRow, "id" | "name" | "slug"> | null;
@@ -127,6 +164,16 @@ export interface Database {
         Insert: Insertable<BlogPostRow, "title" | "slug">;
         Update: Partial<BlogPostRow>;
       };
+      site_stats: {
+        Row: SiteStatRow;
+        Insert: Insertable<SiteStatRow, "title" | "value">;
+        Update: Partial<SiteStatRow>;
+      };
+      team_members: {
+        Row: TeamMemberRow;
+        Insert: Insertable<TeamMemberRow, "full_name" | "position">;
+        Update: Partial<TeamMemberRow>;
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -142,4 +189,16 @@ export interface Database {
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };
+}
+
+/** One Supabase auth session belonging to a CMS administrator. */
+export interface AdminSessionRow {
+  session_id: string;
+  user_id: string;
+  email: string;
+  user_agent: string | null;
+  created_at: string;
+  last_seen_at: string;
+  revoked_at: string | null;
+  revoked_by: string | null;
 }

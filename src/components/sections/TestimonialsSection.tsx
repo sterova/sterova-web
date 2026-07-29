@@ -11,7 +11,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
   if (testimonials.length === 0) return null;
 
   return (
-    <section id="testimonials" className="py-24 bg-secondary/30">
+    <section id="testimonials" className="section-y bg-surface">
       <div className="container-custom">
         <SectionHeader
           badge="Client Stories"
@@ -39,7 +39,7 @@ export default function TestimonialsSection({ testimonials }: Props) {
               {/* Stars */}
               <div className="flex gap-1 mb-4" aria-label={`${t.rating} out of 5 stars`}>
                 {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="h-4 w-4 fill-amber-400 text-amber-400" aria-hidden="true" />
+                  <Star key={j} className="h-4 w-4 fill-warning text-warning" aria-hidden="true" />
                 ))}
               </div>
 
@@ -55,14 +55,15 @@ export default function TestimonialsSection({ testimonials }: Props) {
                     className="w-10 h-10 rounded-full object-cover shrink-0"
                   />
                 ) : (
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#4f46e5] to-[#a855f7] flex items-center justify-center text-white text-sm font-bold shrink-0">
+                  <div className="w-10 h-10 rounded-full [background-image:var(--gradient-brand)] flex items-center justify-center text-primary-foreground text-sm font-bold shrink-0">
                     {t.name.charAt(0)}
                   </div>
                 )}
                 <div>
                   <p className="text-sm font-semibold">{t.name}</p>
                   <p className="text-xs text-muted-foreground">
-                    {t.role}{t.company ? `, ${t.company}` : ""}
+                    {t.role}
+                    {t.company ? `, ${t.company}` : ""}
                   </p>
                 </div>
               </div>

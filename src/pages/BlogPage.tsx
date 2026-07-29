@@ -1,18 +1,12 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link } from "@/lib/router-compat";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Clock, ArrowRight, BookOpen } from "lucide-react";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
-import SEO from "@/components/shared/SEO";
-import JsonLd from "@/components/shared/JsonLd";
 import CTASection from "@/components/sections/CTASection";
-import {
-  CardGridSkeleton,
-  EmptyState,
-  ErrorState,
-} from "@/components/shared/DataStates";
+import { CardGridSkeleton, EmptyState, ErrorState } from "@/components/shared/DataStates";
 import { fetchCategories, fetchPublishedPosts } from "@/lib/api";
 import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -53,23 +47,16 @@ export default function BlogPage() {
 
   return (
     <>
-      <SEO
-        title="Software engineering insights"
-        description="Deep dives, product thinking, and practical engineering guides from the Sterova team."
-        canonical="/blog"
-      />
-      <JsonLd 
-        type={['website', 'collection', 'breadcrumb']} 
-        collectionName="Software engineering insights"
-        collectionDescription="Deep dives, product thinking, and practical engineering guides from the Sterova team."
-        breadcrumbs={[
-          { name: 'Home', item: '/' },
-          { name: 'Blog', item: '/blog' }
-        ]}
-      />
-
-      <section className="pt-32 pb-16 bg-secondary/30">
-        <div className="container-custom text-center">
+      <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+          aria-hidden="true"
+        />
+        <div className="container-custom relative text-center">
           <AnimatedSection>
             <SectionHeader
               badge="Insights"
@@ -82,7 +69,7 @@ export default function BlogPage() {
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="section-y">
         <div className="container-custom">
           {postsQuery.isPending ? (
             <CardGridSkeleton count={6} />
@@ -132,7 +119,7 @@ export default function BlogPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: i * 0.07 }}
-                      className="group flex flex-col rounded-2xl border bg-background overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                      className="group card-premium flex flex-col overflow-hidden p-0"
                     >
                       {/* Cover */}
                       {post.cover_image_url ? (
@@ -143,11 +130,8 @@ export default function BlogPage() {
                           className="h-44 w-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (
-                        <div className="h-44 bg-gradient-to-br from-primary/10 via-primary/5 to-background flex items-center justify-center">
-                          <BookOpen
-                            className="h-10 w-10 text-primary/30"
-                            aria-hidden="true"
-                          />
+                        <div className="h-44 bg-linear-to-br from-primary/15 via-surface-2 to-background flex items-center justify-center">
+                          <BookOpen className="h-10 w-10 text-primary/30" aria-hidden="true" />
                         </div>
                       )}
 
@@ -171,19 +155,14 @@ export default function BlogPage() {
                         </p>
                         <div className="flex items-center justify-between mt-auto pt-4 border-t border-border/50">
                           <span className="text-xs text-muted-foreground">
-                            {post.published_at
-                              ? formatDate(post.published_at)
-                              : ""}
+                            {post.published_at ? formatDate(post.published_at) : ""}
                           </span>
                           <Link
                             href={`/blog/${post.slug}`}
                             className="inline-flex items-center gap-1 text-xs text-primary font-medium hover:gap-2 transition-all"
                           >
                             Read more
-                            <ArrowRight
-                              className="h-3 w-3"
-                              aria-hidden="true"
-                            />
+                            <ArrowRight className="h-3 w-3" aria-hidden="true" />
                           </Link>
                         </div>
                       </div>

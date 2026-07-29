@@ -2,28 +2,20 @@ import PortfolioSection from "@/components/sections/PortfolioSection";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
-import SEO from "@/components/shared/SEO";
-import JsonLd from "@/components/shared/JsonLd";
 
 export default function PortfolioPage() {
   return (
     <>
-      <SEO
-        title="Software development case studies"
-        description="Illustrative examples of the platforms, integrations, and architectures the Sterova team engineers for startups and enterprises."
-        canonical="/portfolio"
-      />
-      <JsonLd 
-        type={['website', 'collection', 'breadcrumb']} 
-        collectionName="Software development case studies"
-        collectionDescription="Illustrative examples of the platforms, integrations, and architectures the Sterova team engineers for startups and enterprises."
-        breadcrumbs={[
-          { name: 'Home', item: '/' },
-          { name: 'Portfolio', item: '/portfolio' }
-        ]}
-      />
-      <section className="pt-32 pb-8 bg-secondary/30">
-        <div className="container-custom text-center">
+      <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-16">
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
+          aria-hidden="true"
+        />
+        <div className="container-custom relative text-center">
           <AnimatedSection>
             <SectionHeader
               badge="Portfolio"
@@ -35,7 +27,7 @@ export default function PortfolioPage() {
           </AnimatedSection>
         </div>
       </section>
-      <PortfolioSection showCta={false} />
+      <PortfolioSection showCta={false} showHeader={false} />
       <CTASection title="Your product could be next" />
     </>
   );

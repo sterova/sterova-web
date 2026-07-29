@@ -45,11 +45,7 @@ export default function ImageUploadField({
 
       {value ? (
         <div className="relative rounded-xl border overflow-hidden bg-secondary/30">
-          <img
-            src={value}
-            alt="Selected preview"
-            className="w-full h-44 object-cover"
-          />
+          <img src={value} alt="Selected preview" className="w-full h-44 object-cover" />
           <Button
             type="button"
             variant="destructive"
@@ -89,9 +85,7 @@ export default function ImageUploadField({
         onChange={(e) => onChange(e.target.value.trim() || null)}
       />
 
-      {hint && !error && (
-        <p className="text-xs text-muted-foreground">{hint}</p>
-      )}
+      {hint && !error && <p className="text-xs text-muted-foreground">{hint}</p>}
       {error && (
         <p className="text-xs text-destructive" role="alert">
           {error}

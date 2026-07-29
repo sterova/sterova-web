@@ -14,12 +14,16 @@ export const ADMIN_ROUTES = {
   categories: `${ADMIN_BASE}/categories`,
   reviews: `${ADMIN_BASE}/reviews`,
   projects: `${ADMIN_BASE}/projects`,
+  results: `${ADMIN_BASE}/results`,
+  team: `${ADMIN_BASE}/team`,
   messages: `${ADMIN_BASE}/messages`,
+  sessions: `${ADMIN_BASE}/sessions`,
 } as const;
 
 export const STORAGE_BUCKETS = {
   blog: "blog-media",
   project: "project-media",
+  team: "team-media",
 } as const;
 
 /** Max upload size for images, in bytes. */

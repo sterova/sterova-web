@@ -5,28 +5,26 @@ import TechStackSection from "@/components/sections/TechStackSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import IndustriesSection from "@/components/sections/IndustriesSection";
 import ReviewsSection from "@/components/sections/ReviewsSection";
+import ReviewFormSection from "@/components/sections/ReviewFormSection";
 import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
-import SEO from "@/components/shared/SEO";
-import JsonLd from "@/components/shared/JsonLd";
+import BlogPreviewSection from "@/components/sections/BlogPreviewSection";
+import StatsSection from "@/components/sections/StatsSection";
 import { SERVICES, FAQS } from "@/data/constants";
 
 export default function HomePage() {
   return (
     <>
-      <SEO 
-        title="Custom software development company" 
-        description="Sterova is a custom software development company building high-performance web applications, mobile apps, and scalable digital products for modern enterprises."
-        canonical="/" 
-      />
-      <JsonLd type={['website', 'organization', 'faqs']} faqs={FAQS} />
       <HeroSection />
       <ServicesSection services={SERVICES} showCta={false} />
       <PortfolioSection featuredOnly showCta />
+      <StatsSection />
       <TechStackSection />
       <ProcessSection />
       <IndustriesSection />
       <ReviewsSection />
+      <ReviewFormSection />
+      <BlogPreviewSection />
       <FAQSection faqs={FAQS} limit={6} />
       <CTASection />
     </>

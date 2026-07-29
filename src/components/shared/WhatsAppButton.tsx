@@ -22,14 +22,12 @@ export default function WhatsAppButton() {
             className="w-72 rounded-2xl border bg-background shadow-xl p-5"
           >
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-green-500 flex items-center justify-center shrink-0">
-                <MessageCircle className="h-5 w-5 text-white" />
+              <div className="w-10 h-10 rounded-full bg-brand-whatsapp flex items-center justify-center shrink-0">
+                <MessageCircle className="h-5 w-5 text-brand-whatsapp-foreground" />
               </div>
               <div>
                 <p className="font-semibold text-sm">{SITE.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  Typically replies in minutes
-                </p>
+                <p className="text-xs text-muted-foreground">Typically replies in minutes</p>
               </div>
             </div>
             <div className="bg-secondary rounded-xl p-3 mb-4 text-sm text-muted-foreground">
@@ -39,7 +37,7 @@ export default function WhatsAppButton() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full bg-green-500 hover:bg-green-600 text-white rounded-xl py-2.5 text-sm font-medium transition-colors"
+              className="flex items-center justify-center gap-2 w-full bg-brand-whatsapp hover:bg-brand-whatsapp-hover text-brand-whatsapp-foreground rounded-xl py-2.5 text-sm font-medium transition-colors"
             >
               Open WhatsApp
               <ArrowRight className="h-4 w-4" />
@@ -50,7 +48,7 @@ export default function WhatsAppButton() {
 
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-green-500 hover:bg-green-600 text-white shadow-lg hover:shadow-xl flex items-center justify-center transition-colors"
+        className="w-14 h-14 rounded-full bg-brand-whatsapp hover:bg-brand-whatsapp-hover text-brand-whatsapp-foreground shadow-lg hover:shadow-xl flex items-center justify-center transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Chat on WhatsApp"

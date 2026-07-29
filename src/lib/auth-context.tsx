@@ -1,13 +1,28 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/lib/supabase";
+import { recordAdminSession } from "@/lib/api";
+
+/** How often the CMS re-checks that its session has not been revoked. */
+const HEARTBEAT_MS = 60_000;
+
+/**
+ * Reads the `session_id` claim out of the access token. Supabase mints one per
+ * login, which is what the CMS session list is keyed on.
+ */
+export function readSessionId(session: Session | null): string | null {
+  const token = session?.access_token;
+  if (!token) return null;
+  try {
+    const payload = token.split(".")[1];
+    if (!payload) return null;
+    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    const claims = JSON.parse(json) as { session_id?: string };
+    return claims.session_id ?? null;
+  } catch {
+    return null;
+  }
+}
 
 interface AuthState {
   session: Session | null;
@@ -20,10 +35,9 @@ interface AuthState {
   isAdmin: boolean;
   /** True until the initial session lookup and admin check have settled. */
   loading: boolean;
-  signIn: (
-    email: string,
-    password: string,
-  ) => Promise<{ error: string | null }>;
+  /** Supabase session_id claim for this browser — highlights "this device". */
+  sessionId: string | null;
+  signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -118,16 +132,50 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setIsAdmin(false);
   }, []);
 
+  const sessionId = useMemo(() => readSessionId(session), [session]);
+
+  // Register this session and keep it alive. When the row comes back revoked,
+  // another admin has remotely logged this browser out — sign out immediately.
+  useEffect(() => {
+    if (!session || !isAdmin) return;
+    let cancelled = false;
+
+    const beat = async () => {
+      try {
+        const active = await recordAdminSession();
+        if (!cancelled && !active) {
+          await supabase.auth.signOut();
+          setSession(null);
+          setIsAdmin(false);
+        }
+      } catch {
+        // Offline or a transient error: keep the session and retry next tick.
+      }
+    };
+
+    void beat();
+    const timer = window.setInterval(() => void beat(), HEARTBEAT_MS);
+    const onFocus = () => void beat();
+    window.addEventListener("focus", onFocus);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+      window.removeEventListener("focus", onFocus);
+    };
+  }, [session, isAdmin]);
+
   const value = useMemo<AuthState>(
     () => ({
       session,
       user: session?.user ?? null,
       isAdmin,
       loading,
+      sessionId,
       signIn,
       signOut,
     }),
-    [session, isAdmin, loading, signIn, signOut],
+    [session, isAdmin, loading, sessionId, signIn, signOut],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -5,18 +5,19 @@ export const SITE = {
   name: "Sterova",
   tagline: "Custom software, engineered to last.",
   description:
-    "Sterova is a software engineering partner for startups and enterprises. We design, build, and maintain web platforms, mobile apps, and SaaS products that ship on time and scale with your business.",
+    "Sterova designs, builds, and maintains web platforms, mobile apps, and SaaS products for startups and enterprises — shipped on time, built to scale.",
   url: "https://sterova.tech",
   email: "hello@sterova.tech",
-  phone: "TODO: Add phone number",
-  address: "TODO: Add physical address",
+  phone: "+91 97864 75035",
+  /** Empty until a public office address is published — hidden from the contact page. */
+  address: "",
   whatsapp: "+919786475035",
   whatsappDisplay: "+91 97864 75035",
   social: {
-    twitter: "TODO: Add Twitter URL",
-    linkedin: "TODO: Add LinkedIn URL",
-    github: "TODO: Add GitHub URL",
-    instagram: "TODO: Add Instagram URL",
+    twitter: "",
+    linkedin: "",
+    github: "",
+    instagram: "",
   },
   ogImage: "/og-image.png",
 };
@@ -37,7 +38,6 @@ export const NAV_LINKS = [
       { label: "SaaS Products", href: "/services#saas" },
       { label: "UI/UX Design", href: "/services#design" },
       { label: "API Integration", href: "/services#api-integration" },
-      { label: "Software Maintenance", href: "/services#maintenance" },
     ],
   },
   { label: "Portfolio", href: "/portfolio" },
@@ -201,26 +201,6 @@ export const SERVICES = [
     display_order: 5,
     is_active: true,
   },
-  {
-    id: "maintenance",
-    slug: "maintenance",
-    icon_name: "Wrench",
-    title: "Software Maintenance & Support",
-    short_description: "Ongoing engineering support so your product keeps running smoothly.",
-    description:
-      "We offer retainer-based engineering support — bug fixes, performance tuning, dependency updates, and feature work on your schedule.",
-    features: [
-      "Bug tracking and resolution SLAs",
-      "Dependency and security updates",
-      "Performance monitoring and optimization",
-      "Feature development on retainer",
-      "Documentation and knowledge transfer",
-      "Emergency on-call support",
-    ],
-    technologies: ["TypeScript", "Node.js", "React", "PostgreSQL"],
-    display_order: 6,
-    is_active: true,
-  },
 ];
 
 // ─────────────────────────────────────────────
@@ -232,138 +212,72 @@ export const PROCESS_STEPS = [
     title: "Discovery & Scoping",
     description:
       "We start by understanding your goals, constraints, and users. We map requirements, identify risks, and define a clear technical scope before writing a single line of code.",
-    deliverables: ["Requirements document", "Technical scope", "Project timeline", "Fixed-price or milestone quote"],
+    deliverables: [
+      "Requirements document",
+      "Technical scope",
+      "Project timeline",
+      "Fixed-price or milestone quote",
+    ],
   },
   {
     number: "02",
     title: "Architecture & Design",
     description:
       "Our engineers design the system architecture while our designers create user flows, wireframes, and high-fidelity UI. You review and approve before development begins.",
-    deliverables: ["System architecture diagram", "Database schema", "UI/UX wireframes", "Design system"],
+    deliverables: [
+      "System architecture diagram",
+      "Database schema",
+      "UI/UX wireframes",
+      "Design system",
+    ],
   },
   {
     number: "03",
     title: "Development Sprints",
     description:
       "We work in focused two-week sprints with regular demos and progress updates. You have full visibility into what we're building at every stage.",
-    deliverables: ["Working software each sprint", "Sprint demo sessions", "Code repository access", "Progress reports"],
+    deliverables: [
+      "Working software each sprint",
+      "Sprint demo sessions",
+      "Code repository access",
+      "Progress reports",
+    ],
   },
   {
     number: "04",
     title: "QA & Testing",
     description:
       "Every feature is tested thoroughly — unit tests, integration tests, end-to-end tests, and manual QA. Nothing ships without meeting our quality bar.",
-    deliverables: ["Test suite", "Bug reports and fixes", "Performance benchmarks", "Accessibility audit"],
+    deliverables: [
+      "Test suite",
+      "Bug reports and fixes",
+      "Performance benchmarks",
+      "Accessibility audit",
+    ],
   },
   {
     number: "05",
     title: "Launch & Deployment",
     description:
       "We handle the full production deployment — infrastructure setup, environment configuration, monitoring, and a smooth go-live with zero-downtime deployment.",
-    deliverables: ["Production deployment", "CI/CD pipeline", "Monitoring setup", "Launch checklist"],
+    deliverables: [
+      "Production deployment",
+      "CI/CD pipeline",
+      "Monitoring setup",
+      "Launch checklist",
+    ],
   },
   {
     number: "06",
     title: "Post-Launch Support",
     description:
       "We stay with you after launch. Bug fixes, performance monitoring, and feature iterations keep your product improving beyond day one.",
-    deliverables: ["30-day support window", "Bug fix SLA", "Performance monitoring", "Knowledge transfer"],
-  },
-];
-
-// ─────────────────────────────────────────────
-// Portfolio
-// ─────────────────────────────────────────────
-export const PORTFOLIO_ITEMS = [
-  {
-    id: "fintech-dashboard",
-    title: "FinTech Analytics Dashboard",
-    slug: "fintech-dashboard",
-    category: "SaaS · FinTech",
-    description:
-      "A real-time financial analytics platform processing millions of transactions with sub-second query performance and role-based access for enterprise teams.",
-    tags: ["Next.js", "Supabase", "TypeScript", "PostgreSQL"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: true,
-    is_active: true,
-    display_order: 0,
-  },
-  {
-    id: "healthcare-portal",
-    title: "Healthcare Patient Portal",
-    slug: "healthcare-portal",
-    category: "Web App · Healthcare",
-    description:
-      "A HIPAA-aligned patient management system with appointment booking, secure messaging, and EHR integration for a regional clinic network.",
-    tags: ["React", "Node.js", "PostgreSQL", "Cloudflare"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: true,
-    is_active: true,
-    display_order: 1,
-  },
-  {
-    id: "ecommerce-platform",
-    title: "Multi-Vendor E-commerce Platform",
-    slug: "ecommerce-platform",
-    category: "SaaS · E-commerce",
-    description:
-      "A scalable marketplace platform supporting 200+ vendors with automated payouts, inventory management, and a mobile-first storefront.",
-    tags: ["Next.js", "Stripe", "Supabase", "React Native"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: true,
-    is_active: true,
-    display_order: 2,
-  },
-  {
-    id: "logistics-tracker",
-    title: "Logistics Tracking System",
-    slug: "logistics-tracker",
-    category: "Web App · Logistics",
-    description:
-      "End-to-end shipment tracking with real-time driver location, automated notifications, and a carrier partner integration layer.",
-    tags: ["React", "Node.js", "WebSockets", "PostgreSQL"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: false,
-    is_active: true,
-    display_order: 3,
-  },
-  {
-    id: "edtech-lms",
-    title: "EdTech Learning Management System",
-    slug: "edtech-lms",
-    category: "SaaS · Education",
-    description:
-      "A feature-complete LMS with video streaming, progress tracking, quiz engine, and certificate generation for 10,000+ learners.",
-    tags: ["Next.js", "Supabase", "Cloudflare", "TypeScript"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: false,
-    is_active: true,
-    display_order: 4,
-  },
-  {
-    id: "ai-saas",
-    title: "AI-Powered Content Platform",
-    slug: "ai-saas",
-    category: "SaaS · AI",
-    description:
-      "A content generation SaaS with LLM integrations, usage-based billing, and a multi-tenant architecture serving B2B customers.",
-    tags: ["Next.js", "OpenAI", "Stripe", "Supabase"],
-    image_url: null,
-    live_url: null,
-    github_url: null,
-    is_featured: false,
-    is_active: true,
-    display_order: 5,
+    deliverables: [
+      "30-day support window",
+      "Bug fix SLA",
+      "Performance monitoring",
+      "Knowledge transfer",
+    ],
   },
 ];
 
@@ -524,43 +438,55 @@ export const FAQS = [
 ];
 
 // ─────────────────────────────────────────────
-// Blog categories
-// ─────────────────────────────────────────────
-export const BLOG_CATEGORIES = [
-  "All",
-  "Engineering",
-  "Product",
-  "Design",
-  "Startup",
-];
-
-// ─────────────────────────────────────────────
 // Industries
 // ─────────────────────────────────────────────
 export const INDUSTRIES = [
-  { name: "FinTech", icon_name: "Landmark", description: "Payment platforms, banking tools, and financial dashboards" },
-  { name: "Healthcare", icon_name: "HeartPulse", description: "Patient portals, clinic systems, and health data platforms" },
-  { name: "EdTech", icon_name: "GraduationCap", description: "Learning management systems and course platforms" },
-  { name: "E-commerce", icon_name: "ShoppingCart", description: "Online stores, marketplaces, and inventory systems" },
-  { name: "Logistics", icon_name: "Truck", description: "Fleet tracking, route planning, and supply chain tools" },
-  { name: "Real Estate", icon_name: "Building2", description: "Property listings, CRM tools, and tenant management" },
-  { name: "Manufacturing", icon_name: "Factory", description: "Production tracking, quality control, and ERP integrations" },
-  { name: "Hospitality", icon_name: "UtensilsCrossed", description: "Booking engines, POS systems, and guest management" },
-  { name: "Non-Profit & Government", icon_name: "Users", description: "Grant tracking, case management, and public service portals" },
+  {
+    name: "FinTech",
+    icon_name: "Landmark",
+    description: "Payment platforms, banking tools, and financial dashboards",
+  },
+  {
+    name: "Healthcare",
+    icon_name: "HeartPulse",
+    description: "Patient portals, clinic systems, and health data platforms",
+  },
+  {
+    name: "EdTech",
+    icon_name: "GraduationCap",
+    description: "Learning management systems and course platforms",
+  },
+  {
+    name: "E-commerce",
+    icon_name: "ShoppingCart",
+    description: "Online stores, marketplaces, and inventory systems",
+  },
+  {
+    name: "Logistics",
+    icon_name: "Truck",
+    description: "Fleet tracking, route planning, and supply chain tools",
+  },
+  {
+    name: "Real Estate",
+    icon_name: "Building2",
+    description: "Property listings, CRM tools, and tenant management",
+  },
+  {
+    name: "Manufacturing",
+    icon_name: "Factory",
+    description: "Production tracking, quality control, and ERP integrations",
+  },
+  {
+    name: "Hospitality",
+    icon_name: "UtensilsCrossed",
+    description: "Booking engines, POS systems, and guest management",
+  },
+  {
+    name: "Non-Profit & Government",
+    icon_name: "Users",
+    description: "Grant tracking, case management, and public service portals",
+  },
 ];
-
-// ─────────────────────────────────────────────
-// Tech stack
-// ─────────────────────────────────────────────
-export const TECH_STACK = {
-  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-  backend: ["Node.js", "Express", "Supabase", "PostgreSQL"],
-  cloud: ["Vercel", "Supabase", "Cloudflare", "Firebase"],
-  mobile: ["React Native", "Flutter"],
-  languages: ["TypeScript", "JavaScript", "Python"],
-  design: ["Figma"],
-  devops: ["Git", "GitHub", "GitHub Actions"],
-};
 
 // ─────────────────────────────────────────────
 // Footer links
@@ -665,10 +591,40 @@ export const CONTACT = {
     "SaaS Product Development",
     "UI/UX Design",
     "API Development & Integration",
-    "Software Maintenance & Support",
     "Other",
   ],
 };
+
+// ─────────────────────────────────────────────
+// Social + professional links (shared by every contact surface)
+// ─────────────────────────────────────────────
+export const SOCIAL_LINKS = [
+  {
+    key: "linkedin",
+    label: "LinkedIn",
+    handle: "/company/sterova",
+    href: "https://www.linkedin.com/company/sterova",
+  },
+  { key: "github", label: "GitHub", handle: "@sterova", href: "https://github.com/sterova" },
+  { key: "x", label: "X (Twitter)", handle: "@sterova", href: "https://x.com/sterova" },
+  {
+    key: "instagram",
+    label: "Instagram",
+    handle: "@sterova",
+    href: "https://instagram.com/sterova",
+  },
+  { key: "dribbble", label: "Dribbble", handle: "@sterova", href: "https://dribbble.com/sterova" },
+  { key: "behance", label: "Behance", handle: "@sterova", href: "https://www.behance.net/sterova" },
+] as const;
+
+/** Internal “professional” destinations surfaced next to the enquiry forms. */
+export const PROFESSIONAL_LINKS = [
+  { label: "Our work", description: "Case studies and shipped products", href: "/portfolio" },
+  { label: "How we work", description: "Our delivery process, step by step", href: "/process" },
+  { label: "Services", description: "Six engineering disciplines", href: "/services" },
+  { label: "Engineering blog", description: "Notes from the delivery team", href: "/blog" },
+  { label: "Careers", description: "Join the team", href: "/careers" },
+] as const;
 
 // ─────────────────────────────────────────────
 // Careers
@@ -681,29 +637,3 @@ export const OPEN_POSITIONS: {
   type: string;
 }[] = [];
 // Add open positions here when available
-
-// ─────────────────────────────────────────────
-// Pre-seeded particles for hero (fixed to avoid hydration mismatch)
-// ─────────────────────────────────────────────
-export const HERO_PARTICLES = [
-  { x: 8,  y: 12, size: 2.5, delay: 0,   duration: 5.5 },
-  { x: 92, y: 8,  size: 2,   delay: 0.8, duration: 7   },
-  { x: 18, y: 75, size: 3,   delay: 1.5, duration: 6   },
-  { x: 85, y: 65, size: 2,   delay: 0.3, duration: 8   },
-  { x: 55, y: 88, size: 2.5, delay: 2,   duration: 5   },
-  { x: 35, y: 18, size: 2,   delay: 1.1, duration: 6.5 },
-  { x: 72, y: 30, size: 3,   delay: 0.6, duration: 7.5 },
-  { x: 25, y: 50, size: 1.5, delay: 2.3, duration: 5.8 },
-  { x: 80, y: 82, size: 2,   delay: 1.7, duration: 6.2 },
-  { x: 48, y: 5,  size: 2.5, delay: 0.4, duration: 7.2 },
-  { x: 12, y: 40, size: 2,   delay: 3,   duration: 5.5 },
-  { x: 65, y: 55, size: 1.5, delay: 1.9, duration: 8.5 },
-  { x: 42, y: 68, size: 2,   delay: 0.9, duration: 6.8 },
-  { x: 78, y: 20, size: 1.5, delay: 2.5, duration: 7.3 },
-  { x: 5,  y: 58, size: 2.5, delay: 1.3, duration: 5.2 },
-  { x: 58, y: 35, size: 1.5, delay: 3.2, duration: 9   },
-  { x: 30, y: 90, size: 2,   delay: 0.7, duration: 6.4 },
-  { x: 68, y: 78, size: 1.5, delay: 2.1, duration: 7.8 },
-  { x: 90, y: 42, size: 2,   delay: 1.4, duration: 5.9 },
-  { x: 22, y: 28, size: 2.5, delay: 2.8, duration: 6.1 },
-];

@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
@@ -14,9 +13,10 @@ interface SectionHeaderProps {
   size?: "page" | "section";
 }
 
+/* Typographic roles from the shared design system (src/styles.css). */
 const TITLE_SIZES = {
-  page: "text-4xl sm:text-5xl lg:text-6xl leading-[1.1]",
-  section: "text-3xl sm:text-4xl lg:text-[2.75rem] leading-[1.15]",
+  page: "heading-1",
+  section: "heading-2",
 };
 
 export default function SectionHeader({
@@ -29,34 +29,26 @@ export default function SectionHeader({
   size = "section",
 }: SectionHeaderProps) {
   const Heading = as ?? (size === "page" ? "h1" : "h2");
+  const reduce = useReducedMotion();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={reduce ? false : { opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0, margin: "0px 0px -10px 0px" }}
-      transition={{ duration: 0.5 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
       className={cn(centered ? "text-center" : "", className)}
     >
       {badge && (
-        <Badge variant="sterova" className="mb-4">
+        <span className={cn("eyebrow mb-5", centered && "mx-auto")}>
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
           {badge}
-        </Badge>
+        </span>
       )}
-      <Heading
-        className={cn(
-          "font-display font-bold tracking-tight mb-5 text-balance",
-          TITLE_SIZES[size]
-        )}
-      >
-        {title}
-      </Heading>
+      <Heading className={cn("font-semibold text-balance", TITLE_SIZES[size])}>{title}</Heading>
       {description && (
         <p
-          className={cn(
-            "text-muted-foreground text-lg sm:text-xl leading-relaxed text-pretty",
-            centered ? "mx-auto max-w-2xl" : "max-w-2xl"
-          )}
+          className={cn("body-lead mt-5 text-pretty", centered ? "mx-auto max-w-2xl" : "max-w-2xl")}
         >
           {description}
         </p>

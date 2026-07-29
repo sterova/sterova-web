@@ -1,10 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Link, useRoute } from "wouter";
+import { Link, useRoute } from "@/lib/router-compat";
 import { useQuery } from "@tanstack/react-query";
 import { Clock, Calendar, ArrowLeft, BookOpen, Loader2 } from "lucide-react";
 import CTASection from "@/components/sections/CTASection";
-import SEO from "@/components/shared/SEO";
-import JsonLd from "@/components/shared/JsonLd";
 import { ErrorState } from "@/components/shared/DataStates";
 import { fetchPostBySlug, incrementPostViews } from "@/lib/api";
 import { SITE } from "@/data/constants";
@@ -37,10 +35,7 @@ export default function BlogPostPage() {
   if (isPending) {
     return (
       <div className="pt-32 pb-24 container-custom flex justify-center">
-        <Loader2
-          className="h-6 w-6 animate-spin text-primary"
-          aria-hidden="true"
-        />
+        <Loader2 className="h-6 w-6 animate-spin text-primary" aria-hidden="true" />
         <span className="sr-only">Loading post…</span>
       </div>
     );
@@ -60,7 +55,6 @@ export default function BlogPostPage() {
   if (!post) {
     return (
       <>
-        <SEO title="Post not found" canonical={`/blog/${slug}`} />
         <div className="pt-32 pb-24 container-custom text-center">
           <BookOpen
             className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4"
@@ -80,14 +74,6 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <SEO
-        title={post.seo_title || post.title}
-        description={post.seo_description || post.excerpt}
-        canonical={`/blog/${post.slug}`}
-        type="article"
-      />
-      <JsonLd type="article" post={post} url={`${SITE.url}/blog/${post.slug}`} />
-
       <article className="pt-28 pb-16">
         <div className="container-custom max-w-3xl">
           {/* Back */}
@@ -125,9 +111,7 @@ export default function BlogPostPage() {
             {post.title}
           </h1>
 
-          <p className="text-lg text-muted-foreground mb-10 leading-relaxed">
-            {post.excerpt}
-          </p>
+          <p className="text-lg text-muted-foreground mb-10 leading-relaxed">{post.excerpt}</p>
 
           {/* Cover */}
           {post.cover_image_url && (
@@ -162,7 +146,7 @@ export default function BlogPostPage() {
 
           {/* Content */}
           <div
-            className="prose prose-slate dark:prose-invert max-w-none"
+            className="prose prose-invert prose-headings:font-display max-w-none"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
