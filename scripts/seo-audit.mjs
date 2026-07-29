@@ -6,7 +6,7 @@
  * when metadata regresses. Also enforces a client bundle size budget when a
  * production build output is present.
  *
- * Usage:  node scripts/seo-audit.mjs [--base http://localhost:8080]
+ * Usage:  node scripts/seo-audit.mjs [--base https://sterova.tech]
  */
 import { readdirSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
@@ -14,7 +14,7 @@ import { join } from "node:path";
 const args = process.argv.slice(2);
 const baseArg = args.indexOf("--base");
 const BASE =
-  (baseArg !== -1 && args[baseArg + 1]) || process.env.AUDIT_BASE_URL || "http://localhost:8080";
+  (baseArg !== -1 && args[baseArg + 1]) || process.env.AUDIT_BASE_URL || "https://sterova.tech";
 
 const ROUTES = [
   "/",
