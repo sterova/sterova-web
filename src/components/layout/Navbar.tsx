@@ -222,10 +222,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
-            className={cn("group flex items-center rounded-lg", FOCUS_RING)}
+            className={cn("group flex items-center gap-2 rounded-lg", FOCUS_RING)}
             aria-label={`${SITE.name} — home`}
             aria-current={location === "/" ? "page" : undefined}
           >
+            <img src="/logo.png" alt={`${SITE.name} logo`} className="h-7 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80" />
             <span className="gradient-text font-display font-black text-[1.35rem] md:text-[1.5rem] tracking-tighter transition-opacity duration-300 group-hover:opacity-80">
               {SITE.name}
             </span>
@@ -233,7 +234,7 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav
-            className="hidden lg:flex items-center gap-0.5 rounded-full border border-border/70 bg-surface/70 p-1.5 shadow-[inset_0_1px_0_0_color-mix(in_oklab,var(--card)_80%,transparent),0_8px_24px_-16px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
+            className="hidden lg:flex items-center gap-8"
             aria-label="Main navigation"
           >
             {LEFT_LINKS.map((link) => (
@@ -243,14 +244,20 @@ export default function Navbar() {
                 aria-current={location === link.href ? "page" : undefined}
                 aria-busy={location === link.href && isNavigating ? true : undefined}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-[0.8125rem] font-medium tracking-tight transition-all duration-200 motion-reduce:transition-none",
-                  FOCUS_RING,
+                  "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
                   location === link.href
-                    ? "bg-card text-foreground shadow-sm [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground hover:text-foreground hover:bg-card/70",
+                    ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {link.label}
+                {location === link.href && (
+                  <motion.span
+                    layoutId="desktopNavIndicator"
+                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
               </NavLink>
             ))}
 
@@ -268,11 +275,10 @@ export default function Navbar() {
                   }
                 }}
                 className={cn(
-                  "flex items-center gap-1 rounded-full px-4 py-2 text-[0.8125rem] font-medium tracking-tight transition-all duration-200 motion-reduce:transition-none",
-                  FOCUS_RING,
+                  "relative flex items-center gap-1 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
                   location.startsWith("/services")
-                    ? "bg-card text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground hover:bg-card/70",
+                    ? "text-primary font-semibold"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
                 aria-current={location.startsWith("/services") ? "page" : undefined}
                 aria-haspopup="menu"
@@ -286,6 +292,13 @@ export default function Navbar() {
                     servicesOpen && "rotate-180",
                   )}
                 />
+                {location.startsWith("/services") && (
+                  <motion.span
+                    layoutId="desktopNavIndicator"
+                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
               </button>
 
               <AnimatePresence>
@@ -300,7 +313,7 @@ export default function Navbar() {
                     role="menu"
                     aria-label="Services"
                     onKeyDown={onMenuKeyDown}
-                    className="absolute left-0 top-full mt-3 w-64 overflow-hidden rounded-2xl border border-border bg-popover shadow-[var(--shadow-card-hover)]"
+                    className="absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-popover shadow-[var(--shadow-card-hover)]"
                   >
                     <div className="p-2">
                       <NavLink
@@ -344,14 +357,20 @@ export default function Navbar() {
                 aria-current={location === link.href ? "page" : undefined}
                 aria-busy={location === link.href && isNavigating ? true : undefined}
                 className={cn(
-                  "relative rounded-full px-4 py-2 text-[0.8125rem] font-medium tracking-tight transition-all duration-200 motion-reduce:transition-none",
-                  FOCUS_RING,
+                  "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
                   location === link.href
-                    ? "bg-card text-foreground shadow-sm [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground hover:text-foreground hover:bg-card/70",
+                    ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {link.label}
+                {location === link.href && (
+                  <motion.span
+                    layoutId="desktopNavIndicator"
+                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  />
+                )}
               </NavLink>
             ))}
           </nav>

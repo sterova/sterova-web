@@ -135,7 +135,7 @@
   --animate-node-float: node-float 9s ease-in-out infinite;
   --animate-marquee-scroll: marquee-scroll 38s linear infinite;
   --animate-aurora: aurora 18s ease-in-out infinite;
-  --animate-float-slow: float-slow 7s ease-in-out infinite;
+  --animate-float-slow: float-slow 3.5s ease-in-out infinite;
   --animate-dash: dash 3.2s linear infinite;
   --animate-pulse-ring: pulse-ring 3.4s ease-out infinite;
   --animate-shimmer: shimmer 2.6s linear infinite;
@@ -781,10 +781,13 @@
 @keyframes float-slow {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
-  50% {
-    transform: translateY(-8px);
+  33% {
+    transform: translate3d(-2px, -8px, 0) rotate(-0.5deg);
+  }
+  66% {
+    transform: translate3d(2px, -4px, 0) rotate(0.5deg);
   }
 }
 

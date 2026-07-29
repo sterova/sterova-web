@@ -13,6 +13,7 @@ import {
   Database,
   ArrowUpRight,
   Check,
+  Repeat,
 } from "lucide-react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -110,7 +111,7 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
         </div>
 
         {/* Bento grid: the lead service owns a 2×2 slot, the rest tile around it. */}
-        <div className="mt-9 grid gap-3 sm:grid-cols-2 lg:mt-11 lg:grid-cols-3">
+        <div className="mt-9 grid gap-5 sm:grid-cols-2 lg:mt-11 lg:grid-cols-3 lg:gap-6">
           {displayed.map((service, i) => {
             const Icon = ICON_MAP[service.icon_name] ?? Code2;
             const featured = i === 0;
@@ -133,8 +134,10 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                       : `/services#${service.slug}`
                   }
                   className={cn(
-                    "card-premium sheen group relative flex h-full flex-col overflow-hidden p-5 ring-1 ring-transparent transition-all duration-300 xl:p-6",
-                    featured && "gradient-border bg-linear-to-br from-card via-card to-primary/10",
+                    "card-premium sheen group relative flex h-full flex-col overflow-hidden p-6 ring-1 ring-transparent transition-all duration-300 xl:p-8",
+                    "border border-border/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-none dark:border-white/5",
+                    featured && "gradient-border bg-linear-to-br from-white via-white to-primary/5 dark:from-card dark:via-card dark:to-primary/10",
+                    !featured && "bg-white dark:bg-card",
                     accentStyle?.ring,
                   )}
                 >
@@ -201,6 +204,75 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                     {featured ? service.description : service.short_description}
                   </p>
 
+                  {/* Continuous Infinite Workflow Animation Graphic */}
+                  {featured && (
+                    <div className="absolute left-[5%] right-[5%] top-[40%] h-16 hidden lg:flex items-center overflow-hidden pointer-events-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+                       
+                       <div className="flex w-max items-center animate-marquee-scroll will-change-transform">
+                         {/* Render 4 chunks so it's long enough to never have blank space when translating -50% */}
+                         {[...Array(4)].map((_, idx) => (
+                           <div key={idx} className="flex shrink-0 items-center gap-6 px-3">
+                             
+                             {/* 1. Design & UX */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0s' }}>
+                                 <Palette className="mr-2 h-3.5 w-3.5 text-brand-violet" />
+                                 <span className="font-mono text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Design</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" />
+                             </div>
+
+                             {/* 2. Frontend */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-[0_0_15px_rgba(var(--primary),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.4s' }}>
+                                 <Code2 className="mr-2 h-3.5 w-3.5 text-primary" />
+                                 <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">Frontend</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.2s' }} />
+                             </div>
+
+                             {/* 3. Backend */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-[0_0_15px_rgba(var(--brand-teal),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.8s' }}>
+                                 <Server className="mr-2 h-3.5 w-3.5 text-brand-teal" />
+                                 <span className="font-mono text-[10px] text-brand-teal font-medium uppercase tracking-wider">Backend</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                             </div>
+
+                             {/* 4. Database */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-[0_0_15px_rgba(var(--brand-amber),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.2s' }}>
+                                 <Database className="mr-2 h-3.5 w-3.5 text-brand-amber" />
+                                 <span className="font-mono text-[10px] text-brand-amber font-medium uppercase tracking-wider">Database</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.6s' }} />
+                             </div>
+
+                             {/* 5. Production */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.6s' }}>
+                                 <Globe className="mr-2 h-3.5 w-3.5 text-foreground/70" />
+                                 <span className="font-mono text-[10px] text-foreground/70 font-medium uppercase tracking-wider">Production</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.8s' }} />
+                             </div>
+
+                             {/* 6. Repeat */}
+                             <div className="flex items-center gap-6">
+                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '2s' }}>
+                                 <Repeat className="mr-2 h-3.5 w-3.5 text-primary" />
+                                 <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">Repeat</span>
+                               </div>
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '1s' }} />
+                             </div>
+
+                           </div>
+                         ))}
+                       </div>
+                    </div>
+                  )}
+
                   {featured ? (
                     <div className="relative mt-auto grid gap-5 pt-6 sm:grid-cols-2">
                       <div>
@@ -233,11 +305,11 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                                 className={cn(
                                   "rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-wide",
                                   accent === "primary" &&
-                                    "border-primary/30 bg-primary/10 text-primary",
+                                  "border-primary/30 bg-primary/10 text-primary",
                                   accent === "violet" &&
-                                    "border-brand-violet/30 bg-brand-violet/10 text-brand-violet",
+                                  "border-brand-violet/30 bg-brand-violet/10 text-brand-violet",
                                   accent === "teal" &&
-                                    "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
+                                  "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
                                 )}
                               >
                                 {tech}
@@ -246,17 +318,35 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                           })}
                         </div>
                       </div>
-                      <span className="relative inline-flex w-fit items-center gap-2 overflow-hidden rounded-full gradient-brand px-5 py-2.5 text-[0.8125rem] font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-primary/40">
-                        <span
-                          className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-                          aria-hidden="true"
-                        />
-                        <span className="relative">Start a project</span>
-                        <ArrowRight
-                          className="relative h-4 w-4 transition-transform group-hover:translate-x-1"
-                          aria-hidden="true"
-                        />
-                      </span>
+                      <div className="col-span-2 flex items-center justify-between">
+                        {/* Left: Button */}
+                        <span className="relative inline-flex w-fit items-center gap-2 overflow-hidden rounded-full gradient-brand px-5 py-2.5 text-[0.8125rem] font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-xl group-hover:shadow-primary/40">
+                          <span
+                            className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
+                            aria-hidden="true"
+                          />
+                          <span className="relative">Start a project</span>
+                          <ArrowRight
+                            className="relative h-4 w-4 transition-transform group-hover:translate-x-1"
+                            aria-hidden="true"
+                          />
+                        </span>
+
+                        {/* Right: Decorative Element to fill blank space */}
+                        <div className="hidden sm:flex items-center justify-end pr-4 opacity-50 grayscale transition-all duration-500 group-hover:opacity-100 group-hover:grayscale-0">
+                          <div className="relative flex h-10 w-28 items-center justify-end">
+                            <div className="absolute right-14 z-10 flex h-10 w-10 items-center justify-center rounded-full border-[3px] border-card bg-emerald-500/10 text-emerald-500 shadow-sm transition-transform duration-500 group-hover:-translate-x-2">
+                              <Code2 className="h-4 w-4" />
+                            </div>
+                            <div className="absolute right-7 z-20 flex h-10 w-10 items-center justify-center rounded-full border-[3px] border-card bg-blue-500/10 text-blue-500 shadow-sm transition-transform duration-500 group-hover:-translate-y-1">
+                              <Database className="h-4 w-4" />
+                            </div>
+                            <div className="absolute right-0 z-30 flex h-10 w-10 items-center justify-center rounded-full border-[3px] border-card bg-purple-500/10 text-purple-500 shadow-sm transition-transform duration-500 group-hover:translate-x-2">
+                              <Zap className="h-4 w-4" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ) : (
                     <div className="relative mt-auto border-t border-border/70 pt-3.5">

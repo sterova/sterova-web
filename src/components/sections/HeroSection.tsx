@@ -26,18 +26,28 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { HERO } from "@/data/constants";
+import { HERO, SITE } from "@/data/constants";
 import { cn } from "@/lib/utils";
 
 type Detail =
   | { kind: "chips"; icons: React.ElementType[] }
   | { kind: "metric"; label: string; value: string; fill: number };
 
+const THEMES = {
+  blue: { text: "text-blue-600 dark:text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20", shadow: "shadow-blue-500/20", hoverBg: "group-hover:bg-blue-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-blue-600", hoverBorder: "group-hover:border-blue-500/40", fill: "bg-blue-500" },
+  emerald: { text: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", shadow: "shadow-emerald-500/20", hoverBg: "group-hover:bg-emerald-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-emerald-600", hoverBorder: "group-hover:border-emerald-500/40", fill: "bg-emerald-500" },
+  purple: { text: "text-purple-600 dark:text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20", shadow: "shadow-purple-500/20", hoverBg: "group-hover:bg-purple-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-purple-600", hoverBorder: "group-hover:border-purple-500/40", fill: "bg-purple-500" },
+  amber: { text: "text-amber-600 dark:text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20", shadow: "shadow-amber-500/20", hoverBg: "group-hover:bg-amber-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-amber-600", hoverBorder: "group-hover:border-amber-500/40", fill: "bg-amber-500" },
+  pink: { text: "text-pink-600 dark:text-pink-400", bg: "bg-pink-500/10", border: "border-pink-500/20", shadow: "shadow-pink-500/20", hoverBg: "group-hover:bg-pink-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-pink-600", hoverBorder: "group-hover:border-pink-500/40", fill: "bg-pink-500" },
+  cyan: { text: "text-cyan-600 dark:text-cyan-400", bg: "bg-cyan-500/10", border: "border-cyan-500/20", shadow: "shadow-cyan-500/20", hoverBg: "group-hover:bg-cyan-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-cyan-600", hoverBorder: "group-hover:border-cyan-500/40", fill: "bg-cyan-500" },
+};
+
 type Node = {
   label: string;
   icon: React.ElementType;
   href: string;
   detail: Detail;
+  theme: keyof typeof THEMES;
   /** Desktop anchor, in % of the constellation box (card top-left). */
   x: number;
   y: number;
@@ -49,110 +59,86 @@ const NODES: Node[] = [
     icon: Code2,
     href: "/services#custom-software",
     detail: { kind: "chips", icons: [Server, Database, Shield, Braces] },
-    x: 4,
-    y: 1,
+    theme: "blue",
+    x: 10,
+    y: -12,
   },
   {
     label: "Web Development",
     icon: Globe,
     href: "/services#web-development",
     detail: { kind: "metric", label: "Lighthouse", value: "98/100", fill: 96 },
-    x: 71,
-    y: 3,
+    theme: "emerald",
+    x: 66,
+    y: -12,
   },
   {
     label: "Mobile Apps",
     icon: Smartphone,
     href: "/services#mobile-apps",
     detail: { kind: "chips", icons: [Layout, Zap, Rocket, Sparkles] },
-    x: 0,
-    y: 35,
+    theme: "purple",
+    x: 4,
+    y: 26,
   },
   {
     label: "SaaS Products",
     icon: Layers,
     href: "/services#saas",
     detail: { kind: "chips", icons: [Users, CreditCard, Boxes, Blocks] },
-    x: 73,
-    y: 34,
+    theme: "amber",
+    x: 72,
+    y: 26,
   },
   {
     label: "UI/UX Design",
     icon: Palette,
     href: "/services#design",
     detail: { kind: "chips", icons: [Figma, Layout, Sparkles, Gauge] },
-    x: 6,
-    y: 66,
+    theme: "pink",
+    x: 10,
+    y: 64,
   },
   {
     label: "API Integration",
     icon: Plug,
     href: "/services#api-integration",
     detail: { kind: "metric", label: "Latency", value: "80ms", fill: 72 },
-    x: 70,
+    theme: "cyan",
+    x: 66,
     y: 64,
   },
 ];
 
-/**
- * Brand mark rendered inline so it inherits theme colours. The gradient id is
- * per-instance (useId) — a shared id would be owned by whichever copy mounts
- * first, and the hidden desktop copy would starve the mobile one.
- */
-function SterovaMark({ className }: { className?: string }) {
-  // useId() emits ":r0:" / "«r0»" which are invalid in url(#...) references.
-  const gid = `sterova-mark-${useId().replace(/[^a-zA-Z0-9-_]/g, "")}`;
-  return (
-    <svg viewBox="0 0 48 48" className={className} aria-hidden="true">
-      <defs>
-        <linearGradient id={gid} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="var(--primary)" />
-          <stop offset="100%" stopColor="var(--primary-light)" />
-        </linearGradient>
-      </defs>
-      <path d="M24 2 42 12v24L24 46 6 36V12L24 2Z" fill={`url(#${gid})`} opacity="0.14" />
-      <path
-        d="M31.5 16.5c-2-2.2-4.7-3.3-7.9-3.3-4.9 0-8.2 2.4-8.2 6.2 0 3.3 2.3 5.1 7.1 6.1l2.6.6c2.6.6 3.7 1.3 3.7 2.7 0 1.7-1.7 2.8-4.5 2.8-3 0-5.3-1.2-7-3.4"
-        fill="none"
-        stroke={`url(#${gid})`}
-        strokeWidth="3.4"
-        strokeLinecap="round"
-      />
-      <path
-        d="M24 2 42 12v24L24 46 6 36V12L24 2Z"
-        fill="none"
-        stroke={`url(#${gid})`}
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
-function NodeDetail({ detail }: { detail: Detail }) {
+function NodeDetail({ detail, theme }: { detail: Detail; theme: keyof typeof THEMES }) {
+  const t = THEMES[theme];
   if (detail.kind === "chips") {
     return (
-      <span className="mt-3 flex items-center gap-1.5" aria-hidden="true">
+      <span className="mt-3 xl:mt-4 flex items-center gap-1 xl:gap-1.5" aria-hidden="true">
         {detail.icons.map((Chip, i) => (
           <span
             key={i}
-            className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border/70 bg-surface text-muted-foreground transition-colors duration-300 group-hover:border-primary/30 group-hover:text-primary"
+            className={cn(
+              "inline-flex h-5 w-5 xl:h-7 xl:w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
+              t.bg, t.text
+            )}
           >
-            <Chip className="h-3.5 w-3.5" />
+            <Chip className="h-[10px] w-[10px] xl:h-3.5 xl:w-3.5" />
           </span>
         ))}
       </span>
     );
   }
   return (
-    <span className="mt-3 block" aria-hidden="true">
+    <span className="mt-3 xl:mt-4 block" aria-hidden="true">
       <span className="flex items-baseline justify-between">
-        <span className="text-[0.75rem] text-muted-foreground">{detail.label}</span>
-        <span className="font-mono text-[0.75rem] font-medium text-foreground">{detail.value}</span>
+        <span className="text-[0.7rem] xl:text-[0.8rem] font-medium text-muted-foreground">{detail.label}</span>
+        <span className="font-mono text-[0.7rem] xl:text-[0.8rem] font-bold text-foreground">{detail.value}</span>
       </span>
-      <span className="mt-2 block h-1.5 w-full overflow-hidden rounded-full bg-surface">
+      <span className="mt-1.5 xl:mt-2 block h-1.5 xl:h-2 w-full overflow-hidden rounded-full bg-surface">
         <span
-          className="gradient-brand block h-full rounded-full"
+          className={cn("block h-full rounded-full", t.fill)}
           style={{ width: `${detail.fill}%` }}
         />
       </span>
@@ -162,30 +148,35 @@ function NodeDetail({ detail }: { detail: Detail }) {
 
 function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) {
   const Icon = node.icon;
+  const t = THEMES[node.theme];
   return (
     <Link
       href={node.href}
       className={cn(
-        "group card-premium sheen block h-full text-left outline-none",
-        "transition-[transform,box-shadow,border-color] duration-300 ease-out",
-        "hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-card-hover)]",
-        "focus-visible:-translate-y-1 focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        "group bg-white dark:bg-card block h-full text-left outline-none rounded-2xl xl:rounded-3xl",
+        "border border-border/40",
+        "transition-all duration-300 ease-out",
+        "hover:-translate-y-1 hover:border-primary/40",
+        "shadow-xl", t.shadow,
         "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
-        compact ? "p-4" : "p-4 xl:p-5",
+        compact ? "p-3" : "p-3 xl:p-5",
       )}
     >
-      <span className="flex items-center gap-2.5">
+      <span className="flex items-center gap-2 xl:gap-3">
         <span
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border bg-surface text-primary transition-colors duration-300 group-hover:border-primary/40 group-hover:bg-primary group-hover:text-primary-foreground"
+          className={cn(
+            "inline-flex h-8 w-8 xl:h-10 xl:w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
+            t.bg, t.text
+          )}
           aria-hidden="true"
         >
-          <Icon className="h-4 w-4" />
+          <Icon className="h-4 w-4 xl:h-5 xl:w-5" />
         </span>
-        <span className="min-w-0 text-sm font-semibold leading-tight tracking-tight text-foreground">
+        <span className="min-w-0 text-[0.8rem] xl:text-[0.95rem] font-bold leading-tight tracking-tight text-foreground">
           {node.label}
         </span>
       </span>
-      <NodeDetail detail={node.detail} />
+      <NodeDetail detail={node.detail} theme={node.theme} />
     </Link>
   );
 }
@@ -193,28 +184,21 @@ function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) 
 /** Central node: the Sterova core every capability connects back to. */
 function Core() {
   return (
-    <div className="relative">
+    <div className="relative w-full h-full">
       <span
         className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-primary/25 blur-3xl"
         aria-hidden="true"
       />
-      <div className="card-premium sheen relative flex flex-col items-center gap-3 px-6 py-8 text-center">
-        <span
-          className="pointer-events-none absolute inset-0 rounded-[inherit] border border-primary/20"
-          aria-hidden="true"
-        />
-        <span className="relative flex h-16 w-16 items-center justify-center">
-          <span
-            className="absolute inset-0 rounded-full bg-primary/25 animate-pulse-ring motion-reduce:hidden"
-            aria-hidden="true"
-          />
-          <span className="gradient-brand glow-brand relative flex h-16 w-16 items-center justify-center rounded-2xl">
-            <SterovaMark className="h-10 w-10 [&_path]:stroke-primary-foreground" />
+      <div className="bg-white dark:bg-card relative flex h-full w-full flex-col items-center justify-center gap-1 xl:gap-2 p-3 xl:p-5 text-center rounded-2xl xl:rounded-[2.5rem] shadow-2xl shadow-cyan-500/10 border border-border/40">
+        <span className="relative flex h-16 w-16 xl:h-24 xl:w-24 items-center justify-center mb-1 xl:mb-2">
+          <span className="absolute inset-0 rounded-[1rem] xl:rounded-[1.5rem] bg-gradient-to-br from-slate-700 to-slate-900 dark:from-slate-600 dark:to-slate-800 shadow-xl" />
+          <span className="relative flex items-center justify-center">
+            <img src="/logo.png" alt={`${SITE.name} Logo`} className="h-8 w-8 xl:h-12 xl:w-12 object-contain brightness-0 invert" />
           </span>
         </span>
-        <span className="font-display text-lg font-semibold tracking-tight">Sterova Core</span>
-        <span className="text-[0.8125rem] text-muted-foreground">
-          One integrated engineering partner
+        <span className="font-display text-lg xl:text-2xl font-black tracking-tight leading-none text-foreground mt-1">{SITE.name} Core</span>
+        <span className="text-[0.6rem] xl:text-[0.85rem] font-medium text-muted-foreground mt-0.5">
+          Integrated Platform
         </span>
       </div>
     </div>
@@ -300,7 +284,12 @@ export default function HeroSection() {
           {/* ── Constellation ──────────────────────────────────── */}
           <div className="hidden lg:col-span-7 lg:block">
             {/* Desktop: anchored nodes orbiting the core. */}
-            <div className="relative mx-auto hidden aspect-[7/5.4] max-h-[min(78vh,40rem)] w-full lg:block">
+            <motion.div
+              initial={reduce ? false : { opacity: 0, x: 60 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="relative mx-auto hidden aspect-[7/5.4] max-h-[min(78vh,40rem)] w-full lg:block"
+            >
               <svg
                 className="absolute inset-0 h-full w-full"
                 viewBox="0 0 100 100"
@@ -311,9 +300,9 @@ export default function HeroSection() {
                   <line
                     key={n.label}
                     x1="50"
-                    y1="50"
-                    x2={n.x < 50 ? n.x + 27 : n.x}
-                    y2={n.y + 11}
+                    y1="35"
+                    x2={n.x + 12}
+                    y2={n.y + 10}
                     stroke="var(--border-strong)"
                     strokeWidth="0.25"
                     strokeDasharray="1.2 1.6"
@@ -321,37 +310,25 @@ export default function HeroSection() {
                 ))}
               </svg>
 
-              <div className="absolute left-1/2 top-1/2 w-[30%] -translate-x-1/2 -translate-y-1/2">
-                <motion.div
-                  initial={reduce ? false : { opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.15 }}
-                >
-                  <Core />
-                </motion.div>
+              <div className="absolute left-1/2 top-[35%] w-[25%] aspect-square min-w-[8rem] xl:min-w-[9rem] -translate-x-1/2 -translate-y-1/2">
+                <Core />
               </div>
 
               {NODES.map((node, i) => (
                 <div
                   key={node.label}
-                  style={{ left: `${node.x}%`, top: `${node.y}%` }}
-                  className="absolute w-[27%] min-w-[11rem]"
+                  style={{ left: `${node.x + 12}%`, top: `${node.y + 10}%` }}
+                  className="absolute w-[24%] min-w-[9rem] xl:min-w-[11rem] -translate-x-1/2 -translate-y-1/2"
                 >
-                  <motion.div
-                    initial={reduce ? false : { opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: 0.25 + i * 0.07 }}
+                  <div
+                    className="animate-float-slow motion-reduce:animate-none [&:has(:hover)]:[animation-play-state:paused] [&:has(:focus-visible)]:[animation-play-state:paused]"
+                    style={{ animationDelay: `${i * 0.7}s` }}
                   >
-                    <div
-                      className="animate-float-slow motion-reduce:animate-none [&:has(:hover)]:[animation-play-state:paused] [&:has(:focus-visible)]:[animation-play-state:paused]"
-                      style={{ animationDelay: `${i * 0.7}s` }}
-                    >
-                      <NodeCard node={node} />
-                    </div>
-                  </motion.div>
+                    <NodeCard node={node} />
+                  </div>
                 </div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
