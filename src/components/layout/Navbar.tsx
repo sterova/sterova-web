@@ -74,8 +74,36 @@ export default function Navbar() {
   const servicesMenuRef = useRef<HTMLDivElement>(null);
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const navRef = useRef<HTMLElement>(null);
   // Only pull focus into the dropdown when it was opened from the keyboard.
   const openedViaKeyboardRef = useRef(false);
+
+  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; opacity: number } | null>(null);
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      if (!navRef.current) return;
+      const activeEl = navRef.current.querySelector<HTMLElement>('[data-active="true"]');
+      if (activeEl) {
+        setIndicatorStyle({
+          left: activeEl.offsetLeft + activeEl.offsetWidth / 2,
+          opacity: 1,
+        });
+      } else {
+        setIndicatorStyle(null);
+      }
+    };
+    
+    // Slight delay to ensure DOM is fully laid out and fonts are loaded
+    const timeoutId = setTimeout(updateIndicator, 50);
+    updateIndicator();
+    
+    window.addEventListener("resize", updateIndicator);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", updateIndicator);
+    };
+  }, [location, hydrated, isScrolled]);
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
@@ -234,7 +262,8 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <nav
-            className="hidden lg:flex items-center gap-8"
+            ref={navRef}
+            className="hidden lg:flex items-center gap-8 relative"
             aria-label="Main navigation"
           >
             {LEFT_LINKS.map((link) => (
@@ -243,6 +272,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={location === link.href ? "page" : undefined}
                 aria-busy={location === link.href && isNavigating ? true : undefined}
+                data-active={location === link.href}
                 className={cn(
                   "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
                   location === link.href
@@ -251,13 +281,6 @@ export default function Navbar() {
                 )}
               >
                 {link.label}
-                {location === link.href && (
-                  <motion.span
-                    layoutId="desktopNavIndicator"
-                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
               </NavLink>
             ))}
 
@@ -284,6 +307,7 @@ export default function Navbar() {
                 aria-haspopup="menu"
                 aria-expanded={servicesOpen}
                 aria-controls="services-menu"
+                data-active={location.startsWith("/services")}
               >
                 Services
                 <ChevronDown
@@ -292,13 +316,6 @@ export default function Navbar() {
                     servicesOpen && "rotate-180",
                   )}
                 />
-                {location.startsWith("/services") && (
-                  <motion.span
-                    layoutId="desktopNavIndicator"
-                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
               </button>
 
               <AnimatePresence>
@@ -356,6 +373,7 @@ export default function Navbar() {
                 href={link.href}
                 aria-current={location === link.href ? "page" : undefined}
                 aria-busy={location === link.href && isNavigating ? true : undefined}
+                data-active={location === link.href}
                 className={cn(
                   "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
                   location === link.href
@@ -364,15 +382,21 @@ export default function Navbar() {
                 )}
               >
                 {link.label}
-                {location === link.href && (
-                  <motion.span
-                    layoutId="desktopNavIndicator"
-                    className="absolute bottom-0 left-1/2 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
-                )}
               </NavLink>
             ))}
+
+            {/* Sliding Indicator */}
+            {indicatorStyle && (
+              <motion.span
+                className="absolute bottom-0 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary pointer-events-none"
+                initial={{ left: indicatorStyle.left, opacity: 0 }}
+                animate={{
+                  left: indicatorStyle.left,
+                  opacity: 1,
+                }}
+                transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              />
+            )}
           </nav>
 
           {/* Right actions */}

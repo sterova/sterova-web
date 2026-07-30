@@ -2,7 +2,7 @@
 // Site metadata
 // ─────────────────────────────────────────────
 export const SITE = {
-  name: "Sterova",
+  name: "Sterova Tech",
   tagline: "Custom software, engineered to last.",
   description:
     "Sterova designs, builds, and maintains web platforms, mobile apps, and SaaS products for startups and enterprises — shipped on time, built to scale.",

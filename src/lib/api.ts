@@ -111,6 +111,8 @@ export async function incrementPostViews(slug: string): Promise<void> {
 // Public writes — insert-only, forced into a moderated state by RLS
 // ─────────────────────────────────────────────────────────────────────────────
 
+const ZAPIER_WEBHOOK_URL = "https://hooks.zapier.com/hooks/catch/28402671/46o5srb/";
+
 export async function submitContactMessage(input: {
   name: string;
   email: string;
@@ -125,16 +127,38 @@ export async function submitContactMessage(input: {
     source: "contact",
   });
   if (error && isMissingColumn(error.message)) {
-    const retry = await supabase.from("contact_messages").insert({
+    const retryBase = {
       name: input.name.trim(),
       email: input.email.trim(),
       subject: input.subject?.trim() || null,
       message: input.message.trim(),
-    });
+    };
+    const retry = await supabase.from("contact_messages").insert(retryBase);
+    
+    if (!retry.error) {
+      // Fire and forget webhook
+      fetch(ZAPIER_WEBHOOK_URL, {
+        method: "POST",
+        body: JSON.stringify({ ...retryBase, source: "contact" })
+      }).catch(console.error);
+    }
+    
     if (retry.error) throw new Error(retry.error.message);
     return;
   }
   if (error) throw new Error(error.message);
+
+  // Fire and forget webhook on success
+  fetch(ZAPIER_WEBHOOK_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      name: input.name.trim(),
+      email: input.email.trim(),
+      subject: input.subject?.trim() || null,
+      message: input.message.trim(),
+      source: "contact",
+    })
+  }).catch(console.error);
 }
 
 /** True when Postgres/PostgREST rejects a payload because a column is absent. */
@@ -188,14 +212,38 @@ export async function submitServiceInquiry(input: ServiceInquiryInput): Promise<
     ]
       .filter(Boolean)
       .join("\n");
-    const retry = await supabase.from("contact_messages").insert({
+      
+    const retryPayload = {
       ...base,
       message: details ? `${details}\n\n${base.message}` : base.message,
-    });
+    };
+    const retry = await supabase.from("contact_messages").insert(retryPayload);
+    
+    if (!retry.error) {
+      // Fire and forget webhook
+      fetch(ZAPIER_WEBHOOK_URL, {
+        method: "POST",
+        body: JSON.stringify({ ...retryPayload, source: "service" })
+      }).catch(console.error);
+    }
+    
     if (retry.error) throw new Error(retry.error.message);
     return;
   }
   if (error) throw new Error(error.message);
+
+  // Fire and forget webhook on success
+  fetch(ZAPIER_WEBHOOK_URL, {
+    method: "POST",
+    body: JSON.stringify({
+      ...base,
+      source: "service",
+      service_slug: clean(input.serviceSlug),
+      service_title: clean(input.serviceTitle),
+      company: clean(input.company),
+      phone: clean(input.phone),
+    })
+  }).catch(console.error);
 }
 
 export async function submitReview(input: {

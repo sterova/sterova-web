@@ -196,9 +196,9 @@ function Core() {
             <img src="/logo.png" alt={`${SITE.name} Logo`} className="h-8 w-8 xl:h-12 xl:w-12 object-contain brightness-0 invert" />
           </span>
         </span>
-        <span className="font-display text-lg xl:text-2xl font-black tracking-tight leading-none text-foreground mt-1">{SITE.name} Core</span>
+        <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-1">{SITE.name}</span>
         <span className="text-[0.6rem] xl:text-[0.85rem] font-medium text-muted-foreground mt-0.5">
-          Integrated Platform
+          Digital Solutions
         </span>
       </div>
     </div>
