@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Loader2, AlertCircle, ShieldCheck, Clock, Sparkles } from "lucide-react";
+import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,19 +19,7 @@ const schema = z.object({
   rating: z.number().min(1, "Please choose a rating").max(5),
 });
 
-const ASSURANCES = [
-  {
-    icon: ShieldCheck,
-    label: "Reviewed by a human",
-    copy: "Every submission is read before it goes live.",
-  },
-  {
-    icon: Clock,
-    label: "Usually within 48h",
-    copy: "We publish in batches a couple of times a week.",
-  },
-  { icon: Sparkles, label: "Unedited", copy: "We publish feedback as written — good or critical." },
-];
+
 
 function WriteReviewForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
@@ -179,22 +167,7 @@ export default function ReviewFormSection() {
               title="Worked with us? Tell the next team."
               description="Your feedback shapes how we work and helps other founders judge whether we're the right engineering partner."
             />
-            <ul className="mt-10 space-y-4">
-              {ASSURANCES.map(({ icon: Icon, label, copy }) => (
-                <li key={label} className="flex gap-4">
-                  <span
-                    className="grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-card text-primary"
-                    aria-hidden="true"
-                  >
-                    <Icon className="h-4 w-4" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="text-sm font-semibold tracking-tight">{label}</p>
-                    <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground">{copy}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+
           </div>
 
           <div className="lg:col-span-7">

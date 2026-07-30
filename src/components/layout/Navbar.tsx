@@ -85,8 +85,10 @@ export default function Navbar() {
       if (!navRef.current) return;
       const activeEl = navRef.current.querySelector<HTMLElement>('[data-active="true"]');
       if (activeEl) {
+        const navRect = navRef.current.getBoundingClientRect();
+        const activeRect = activeEl.getBoundingClientRect();
         setIndicatorStyle({
-          left: activeEl.offsetLeft + activeEl.offsetWidth / 2,
+          left: activeRect.left - navRect.left + activeRect.width / 2,
           opacity: 1,
         });
       } else {
