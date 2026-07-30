@@ -1,11 +1,12 @@
 import { Link } from "@/lib/router-compat";
 import { Mail, MessageCircle, ArrowUpRight, MapPin } from "lucide-react";
 import { SITE, FOOTER_LINKS } from "@/data/constants";
+import { useBrandLinks } from "@/hooks/use-brand-links";
 import { getWhatsAppUrl } from "@/lib/utils";
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const waUrl = getWhatsAppUrl(SITE.whatsapp, "Hi Sterova, I'd like to discuss a project.");
+  const { email, whatsappDisplay, whatsappHref, address } = useBrandLinks();
 
   function NavLink({
     href,
@@ -65,16 +66,16 @@ export default function Footer() {
 
               <div className="space-y-2.5">
                 <a
-                  href={`mailto:${SITE.email}`}
+                  href={`mailto:${email}`}
                   className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
                 >
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
                     <Mail className="h-3.5 w-3.5" />
                   </span>
-                  {SITE.email}
+                  {email}
                 </a>
                 <a
-                  href={waUrl}
+                  href={whatsappHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-whatsapp transition-colors"
@@ -82,14 +83,14 @@ export default function Footer() {
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-brand-whatsapp/40 group-hover:text-brand-whatsapp transition-colors">
                     <MessageCircle className="h-3.5 w-3.5" />
                   </span>
-                  WhatsApp: {SITE.whatsappDisplay}
+                  WhatsApp: {whatsappDisplay}
                 </a>
-                {SITE.address && SITE.address !== "[ADDRESS_PLACEHOLDER]" && (
+                {address && address !== "[ADDRESS_PLACEHOLDER]" && (
                   <p className="group flex items-center gap-2 text-sm text-muted-foreground">
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground">
                       <MapPin className="h-3.5 w-3.5" />
                     </span>
-                    {SITE.address}
+                    {address}
                   </p>
                 )}
               </div>
@@ -139,7 +140,7 @@ export default function Footer() {
               Terms
             </Link>
             <a
-              href={`mailto:${SITE.email}`}
+              href={`mailto:${email}`}
               className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
             >
               Contact <ArrowUpRight className="h-3 w-3" />

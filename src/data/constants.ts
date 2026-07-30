@@ -51,10 +51,10 @@ export const NAV_LINKS = [
 // ─────────────────────────────────────────────
 export const HERO = {
   badge: "Software Engineering Partner",
-  headline: "Software your business can build on",
-  headlineHighlight: "build on",
+  headline: "Software your business can scale on",
+  headlineHighlight: "scale on",
   subheadline:
-    "We design and engineer web platforms, mobile apps, and SaaS products for startups and enterprise teams — delivered on time, built to scale, and supported long after launch.",
+    "We design and engineer web platforms, mobile apps, and SaaS products for startups and enterprises. Delivered on time, built to scale, and fully owned by you.",
   cta: {
     primary: { label: "Start a Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
@@ -532,8 +532,10 @@ export const FOOTER_LINKS = [
 // About
 // ─────────────────────────────────────────────
 export const ABOUT = {
+  heroDescription:
+    "We build reliable software that solves real business problems — and scales effortlessly as you grow.",
   mission:
-    "Build reliable software that actually works for the people using it — and keeps working as their business grows.",
+    "To engineer software that works flawlessly for end-users and drives lasting business value.",
   vision:
     "Be the engineering partner people recommend by name — because the work speaks for itself.",
   values: [
@@ -545,7 +547,7 @@ export const ABOUT = {
     {
       title: "Quality",
       description:
-        "We set a high bar on code quality, testing, and architecture. Good enough is never good enough for us.",
+        "We set a high bar on code quality, testing, and architecture. \"Good enough\" is never our standard.",
     },
     {
       title: "Trust",

@@ -4,6 +4,7 @@ import type {
   BlogCategoryRow,
   BlogPostRow,
   BlogPostWithCategory,
+  BrandLinkRow,
   ContactMessageRow,
   ContactStatus,
   ProjectRow,
@@ -599,4 +600,53 @@ export async function adminPruneSessions(): Promise<number> {
   const { data, error } = await supabase.rpc("prune_admin_sessions");
   if (error) throw new Error(error.message);
   return (data as number | null) ?? 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Brand links — public read + admin CRUD
+// ─────────────────────────────────────────────────────────────────────────────
+
+export async function fetchBrandLinks(): Promise<BrandLinkRow[]> {
+  const { data, error } = await supabase
+    .from("brand_links")
+    .select("*")
+    .eq("is_active", true)
+    .order("category")
+    .order("display_order");
+  return unwrap(data as BrandLinkRow[] | null, error);
+}
+
+export async function adminFetchBrandLinks(): Promise<BrandLinkRow[]> {
+  const { data, error } = await supabase
+    .from("brand_links")
+    .select("*")
+    .order("category")
+    .order("display_order")
+    .order("created_at");
+  return unwrap(data as BrandLinkRow[] | null, error);
+}
+
+export async function adminCreateBrandLink(
+  input: Partial<BrandLinkRow> & { category: string; key: string; label: string },
+): Promise<BrandLinkRow> {
+  const { data, error } = await supabase.from("brand_links").insert(input).select().single();
+  return unwrap(data as BrandLinkRow | null, error);
+}
+
+export async function adminUpdateBrandLink(
+  id: string,
+  input: Partial<BrandLinkRow>,
+): Promise<BrandLinkRow> {
+  const { data, error } = await supabase
+    .from("brand_links")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data as BrandLinkRow | null, error);
+}
+
+export async function adminDeleteBrandLink(id: string): Promise<void> {
+  const { error } = await supabase.from("brand_links").delete().eq("id", id);
+  if (error) throw new Error(error.message);
 }

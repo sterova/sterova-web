@@ -19,7 +19,7 @@ export default function PortfolioPage() {
           <AnimatedSection>
             <SectionHeader
               badge="Portfolio"
-              title="What we can build for you"
+              title="Proof of engineering excellence"
               description="Illustrative examples of the platforms and integrations we engineer. Every engagement is a partnership — we stay involved from concept through post-launch support."
               centered
               size="page"

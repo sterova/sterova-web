@@ -224,27 +224,27 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
 
                              {/* 2. Frontend */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-[0_0_15px_rgba(var(--primary),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.4s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-sm shadow-primary/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.4s' }}>
                                  <Code2 className="mr-2 h-3.5 w-3.5 text-primary" />
-                                 <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">Frontend</span>
+                                 <span className="font-mono text-[10px] text-primary font-semibold uppercase tracking-wider">Frontend</span>
                                </div>
                                <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.2s' }} />
                              </div>
 
                              {/* 3. Backend */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-[0_0_15px_rgba(var(--brand-teal),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.8s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-sm shadow-brand-teal/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.8s' }}>
                                  <Server className="mr-2 h-3.5 w-3.5 text-brand-teal" />
-                                 <span className="font-mono text-[10px] text-brand-teal font-medium uppercase tracking-wider">Backend</span>
+                                 <span className="font-mono text-[10px] text-brand-teal font-semibold uppercase tracking-wider">Backend</span>
                                </div>
                                <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.4s' }} />
                              </div>
 
                              {/* 4. Database */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-[0_0_15px_rgba(var(--brand-amber),0.1)] animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.2s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-sm shadow-brand-amber/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.2s' }}>
                                  <Database className="mr-2 h-3.5 w-3.5 text-brand-amber" />
-                                 <span className="font-mono text-[10px] text-brand-amber font-medium uppercase tracking-wider">Database</span>
+                                 <span className="font-mono text-[10px] text-brand-amber font-semibold uppercase tracking-wider">Database</span>
                                </div>
                                <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.6s' }} />
                              </div>

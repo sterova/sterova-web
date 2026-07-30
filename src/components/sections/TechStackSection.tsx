@@ -276,7 +276,7 @@ export default function TechStackSection() {
         <SectionHeader
           badge="Tech Stack"
           title="Powered by modern engineering"
-          description="We leverage industry-leading frameworks and robust architectures to engineer secure, scalable, and high-performance digital products."
+          description="We engineer secure, scalable, and high-performance products using modern architectures and industry-standard frameworks."
           centered
           className="mb-4"
         />

@@ -26,6 +26,7 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as SterovaAdminIndexRouteImport } from './routes/sterova-admin.index'
 import { Route as SterovaAdminCmsRouteImport } from './routes/sterova-admin._cms'
+import { Route as SterovaAdminCmsBrandLinksRouteImport } from './routes/sterova-admin._cms.brand-links'
 import { Route as SterovaAdminCmsCategoriesRouteImport } from './routes/sterova-admin._cms.categories'
 import { Route as SterovaAdminCmsDashboardRouteImport } from './routes/sterova-admin._cms.dashboard'
 import { Route as SterovaAdminCmsMessagesRouteImport } from './routes/sterova-admin._cms.messages'
@@ -122,6 +123,12 @@ const SterovaAdminCmsRoute = SterovaAdminCmsRouteImport.update({
   id: '/_cms',
   getParentRoute: () => SterovaAdminRoute,
 } as any)
+const SterovaAdminCmsBrandLinksRoute =
+  SterovaAdminCmsBrandLinksRouteImport.update({
+    id: '/brand-links',
+    path: '/brand-links',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
 const SterovaAdminCmsCategoriesRoute =
   SterovaAdminCmsCategoriesRouteImport.update({
     id: '/categories',
@@ -198,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
+  '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
   '/sterova-admin/categories': typeof SterovaAdminCmsCategoriesRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
@@ -226,6 +234,7 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/sterova-admin': typeof SterovaAdminIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
   '/sterova-admin/categories': typeof SterovaAdminCmsCategoriesRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
@@ -257,6 +266,7 @@ export interface FileRoutesById {
   '/sterova-admin/_cms': typeof SterovaAdminCmsRouteWithChildren
   '/blog/': typeof BlogIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
+  '/sterova-admin/_cms/brand-links': typeof SterovaAdminCmsBrandLinksRoute
   '/sterova-admin/_cms/categories': typeof SterovaAdminCmsCategoriesRoute
   '/sterova-admin/_cms/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/_cms/messages': typeof SterovaAdminCmsMessagesRoute
@@ -288,6 +298,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/'
     | '/sterova-admin/'
+    | '/sterova-admin/brand-links'
     | '/sterova-admin/categories'
     | '/sterova-admin/dashboard'
     | '/sterova-admin/messages'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/sterova-admin'
     | '/blog'
+    | '/sterova-admin/brand-links'
     | '/sterova-admin/categories'
     | '/sterova-admin/dashboard'
     | '/sterova-admin/messages'
@@ -346,6 +358,7 @@ export interface FileRouteTypes {
     | '/sterova-admin/_cms'
     | '/blog/'
     | '/sterova-admin/'
+    | '/sterova-admin/_cms/brand-links'
     | '/sterova-admin/_cms/categories'
     | '/sterova-admin/_cms/dashboard'
     | '/sterova-admin/_cms/messages'
@@ -498,6 +511,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsRouteImport
       parentRoute: typeof SterovaAdminRoute
     }
+    '/sterova-admin/_cms/brand-links': {
+      id: '/sterova-admin/_cms/brand-links'
+      path: '/brand-links'
+      fullPath: '/sterova-admin/brand-links'
+      preLoaderRoute: typeof SterovaAdminCmsBrandLinksRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
     '/sterova-admin/_cms/categories': {
       id: '/sterova-admin/_cms/categories'
       path: '/categories'
@@ -579,6 +599,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface SterovaAdminCmsRouteChildren {
+  SterovaAdminCmsBrandLinksRoute: typeof SterovaAdminCmsBrandLinksRoute
   SterovaAdminCmsCategoriesRoute: typeof SterovaAdminCmsCategoriesRoute
   SterovaAdminCmsDashboardRoute: typeof SterovaAdminCmsDashboardRoute
   SterovaAdminCmsMessagesRoute: typeof SterovaAdminCmsMessagesRoute
@@ -593,6 +614,7 @@ interface SterovaAdminCmsRouteChildren {
 }
 
 const SterovaAdminCmsRouteChildren: SterovaAdminCmsRouteChildren = {
+  SterovaAdminCmsBrandLinksRoute: SterovaAdminCmsBrandLinksRoute,
   SterovaAdminCmsCategoriesRoute: SterovaAdminCmsCategoriesRoute,
   SterovaAdminCmsDashboardRoute: SterovaAdminCmsDashboardRoute,
   SterovaAdminCmsMessagesRoute: SterovaAdminCmsMessagesRoute,

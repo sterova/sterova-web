@@ -2,8 +2,7 @@ import { Link } from "@/lib/router-compat";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Mail, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SITE } from "@/data/constants";
-import { getWhatsAppUrl } from "@/lib/utils";
+import { useBrandLinks } from "@/hooks/use-brand-links";
 
 interface Props {
   title?: string;
@@ -15,7 +14,7 @@ export default function CTASection({
   description = "Tell us what you're working on. We reply within a day with honest feedback and a clear next step.",
 }: Props) {
   const reduce = useReducedMotion();
-  const waUrl = getWhatsAppUrl(SITE.whatsapp, "Hi Sterova, I'd like to discuss a project.");
+  const { email, whatsappHref } = useBrandLinks();
 
   return (
     <section className="section-y">
@@ -69,7 +68,7 @@ export default function CTASection({
                   </Link>
                 </Button>
                 <Button asChild variant="outline" size="xl">
-                  <a href={waUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="mr-1 h-5 w-5" aria-hidden="true" />
                     Chat on WhatsApp
                   </a>
@@ -96,11 +95,11 @@ export default function CTASection({
                 ))}
               </dl>
               <a
-                href={`mailto:${SITE.email}`}
+                href={`mailto:${email}`}
                 className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
               >
                 <Mail className="h-4 w-4" aria-hidden="true" />
-                {SITE.email}
+                {email}
               </a>
             </div>
           </div>

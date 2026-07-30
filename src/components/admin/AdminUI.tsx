@@ -373,21 +373,21 @@ export function AdminTable({
   );
 }
 
-export function AdminRow({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+export const AdminRow = React.forwardRef<
+  HTMLTableRowElement,
+  React.HTMLAttributes<HTMLTableRowElement>
+>(({ children, className, ...props }, ref) => {
   return (
     <tr
+      ref={ref}
       className={cn(
         "group transition-colors hover:bg-muted/40 [&>td]:px-5 [&>td]:py-3.5 [&>td]:align-middle",
         className,
       )}
+      {...props}
     >
       {children}
     </tr>
   );
-}
+});
+AdminRow.displayName = "AdminRow";

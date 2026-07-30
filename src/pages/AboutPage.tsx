@@ -24,7 +24,7 @@ export default function AboutPage() {
             <SectionHeader
               badge="About Sterova"
               title="Engineering-first software development"
-              description={ABOUT.mission}
+              description={ABOUT.heroDescription}
               centered
               size="page"
             />

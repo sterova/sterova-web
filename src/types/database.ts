@@ -124,6 +124,23 @@ export interface TeamMemberRow {
   updated_at: string;
 }
 
+export type BrandLinkCategory = "social" | "contact";
+
+export interface BrandLinkRow {
+  id: string;
+  category: BrandLinkCategory;
+  key: string;
+  label: string;
+  value: string;
+  href: string | null;
+  description: string | null;
+  icon_key: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
 /** A blog post joined with its category record. */
 export type BlogPostWithCategory = BlogPostRow & {
   blog_categories: Pick<BlogCategoryRow, "id" | "name" | "slug"> | null;
@@ -173,6 +190,11 @@ export interface Database {
         Row: TeamMemberRow;
         Insert: Insertable<TeamMemberRow, "full_name" | "position">;
         Update: Partial<TeamMemberRow>;
+      };
+      brand_links: {
+        Row: BrandLinkRow;
+        Insert: Insertable<BrandLinkRow, "category" | "key" | "label">;
+        Update: Partial<BrandLinkRow>;
       };
     };
     Views: Record<string, never>;

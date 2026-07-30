@@ -18,6 +18,7 @@ export const ADMIN_ROUTES = {
   team: `${ADMIN_BASE}/team`,
   messages: `${ADMIN_BASE}/messages`,
   sessions: `${ADMIN_BASE}/sessions`,
+  brandLinks: `${ADMIN_BASE}/brand-links`,
 } as const;
 
 export const STORAGE_BUCKETS = {

@@ -7,6 +7,7 @@ import {
   FileText,
   FolderKanban,
   LayoutDashboard,
+  Link2,
   LogOut,
   Mail,
   Menu,
@@ -42,6 +43,7 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
       { href: ADMIN_ROUTES.projects, label: "Projects", icon: FolderKanban },
       { href: ADMIN_ROUTES.results, label: "Results", icon: TrendingUp },
       { href: ADMIN_ROUTES.team, label: "Team", icon: Users },
+      { href: ADMIN_ROUTES.brandLinks, label: "Brand Links", icon: Link2 },
     ],
   },
   {

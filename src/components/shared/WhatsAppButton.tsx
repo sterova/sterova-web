@@ -2,13 +2,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, ArrowRight } from "lucide-react";
 import { SITE } from "@/data/constants";
-import { getWhatsAppUrl } from "@/lib/utils";
+import { useBrandLinks } from "@/hooks/use-brand-links";
 
 const DEFAULT_MSG = "Hi Sterova, I'd like to discuss a project.";
 
 export default function WhatsAppButton() {
   const [isOpen, setIsOpen] = useState(false);
-  const waUrl = getWhatsAppUrl(SITE.whatsapp, DEFAULT_MSG);
+  const { whatsappHref } = useBrandLinks();
 
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
@@ -34,7 +34,7 @@ export default function WhatsAppButton() {
               👋 Hi there! Ready to start your project? Chat with us on WhatsApp.
             </div>
             <a
-              href={waUrl}
+              href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full bg-brand-whatsapp hover:bg-brand-whatsapp-hover text-brand-whatsapp-foreground rounded-xl py-2.5 text-sm font-medium transition-colors"
