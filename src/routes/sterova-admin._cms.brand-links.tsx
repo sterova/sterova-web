@@ -106,11 +106,13 @@ const PAGE_SIZE = 20;
 
 function SortableLinkRow({
   link,
+  isReordering,
   onEdit,
   onDelete,
   onToggleActive,
 }: {
   link: BrandLinkRow;
+  isReordering?: boolean;
   onEdit: () => void;
   onDelete: () => void;
   onToggleActive: (checked: boolean) => void;
@@ -127,15 +129,23 @@ function SortableLinkRow({
 
   return (
     <AdminRow ref={setNodeRef} style={style} className={isDragging ? "bg-muted shadow-xl" : ""}>
-      <td className="w-10 px-0 pl-3">
-        <button
-          type="button"
-          className="cursor-grab hover:text-primary active:cursor-grabbing text-muted-foreground p-1.5 rounded"
-          {...attributes}
-          {...listeners}
-        >
-          <GripVertical className="h-4 w-4" />
-        </button>
+      <td className="w-10 px-2 py-3 text-center align-middle">
+        {isReordering ? (
+          <div className="flex w-full items-center justify-center text-muted-foreground/50">
+            <Loader2 className="h-4 w-4 animate-spin" />
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="flex w-full cursor-grab items-center justify-center text-muted-foreground hover:text-foreground active:cursor-grabbing focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+            {...attributes}
+            {...listeners}
+            title="Drag to reorder"
+            aria-label="Drag to reorder"
+          >
+            <GripVertical className="h-4 w-4" />
+          </button>
+        )}
       </td>
       <td>
         <p className="font-medium text-foreground">{link.label}</p>
@@ -207,6 +217,7 @@ function AdminBrandLinksPage() {
   const [editing, setEditing] = useState<BrandLinkRow | null>(null);
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [pendingDelete, setPendingDelete] = useState<BrandLinkRow | null>(null);
+  const [isReordering, setIsReordering] = useState(false);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["admin", "brand-links"],
@@ -350,26 +361,72 @@ function AdminBrandLinksPage() {
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
-  const handleDragEnd = (event: DragEndEvent) => {
+  const handleDragEnd = async (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) return;
 
-    const oldIndex = paged.findIndex((l) => l.id === active.id);
-    const newIndex = paged.findIndex((l) => l.id === over.id);
+    const activeItem = data?.find((l) => l.id === active.id);
+    const overItemRaw = data?.find((l) => l.id === over.id);
+
+    if (!activeItem || !overItemRaw) {
+      return;
+    }
+
+    const category = activeItem.category;
+    const categoryItems = [...(data ?? [])]
+      .filter((l) => l.category === category)
+      .sort((a, b) => a.display_order - b.display_order);
+
+    const oldIndex = categoryItems.findIndex((l) => l.id === active.id);
+    let newIndex = categoryItems.findIndex((l) => l.id === overItemRaw.id);
+
+    // If dragged over a different category, snap it to the top/bottom of its own category
+    if (activeItem.category !== overItemRaw.category) {
+      if (overItemRaw.category.localeCompare(activeItem.category) < 0) {
+        newIndex = 0; // Dragged UP over an earlier category
+      } else {
+        newIndex = categoryItems.length - 1; // Dragged DOWN over a later category
+      }
+    }
+
     if (oldIndex === -1 || newIndex === -1) return;
 
-    const newPaged = arrayMove(paged, oldIndex, newIndex);
-    const displayOrders = paged.map((l) => l.display_order).sort((a, b) => a - b);
+    const newCategoryItems = arrayMove(categoryItems, oldIndex, newIndex);
 
-    newPaged.forEach((link, index) => {
-      const targetOrder = displayOrders[index];
+    const updates = new Map<string, number>();
+    newCategoryItems.forEach((link, index) => {
+      const targetOrder = index; // Force sequential indexing to fix any duplicates
       if (link.display_order !== targetOrder) {
-        queryClient.setQueryData<BrandLinkRow[]>(["admin", "brand-links"], (old) => {
-          return (old ?? []).map((l) => (l.id === link.id ? { ...l, display_order: targetOrder } : l));
-        });
-        reorder.mutate({ id: link.id, display_order: targetOrder });
+        updates.set(link.id, targetOrder);
       }
     });
+
+    if (updates.size === 0) return;
+
+    setIsReordering(true);
+
+    // Optimistically update the cache immediately
+    queryClient.setQueryData<BrandLinkRow[]>(["admin", "brand-links"], (old) => {
+      return (old ?? []).map((l) => {
+        if (updates.has(l.id)) {
+          return { ...l, display_order: updates.get(l.id)! };
+        }
+        return l;
+      });
+    });
+
+    // Run mutations concurrently, then invalidate once
+    try {
+      const promises = Array.from(updates.entries()).map(([id, order]) =>
+        adminUpdateBrandLink(id, { display_order: order })
+      );
+      await Promise.all(promises);
+    } catch (err) {
+      fail("Could not reorder links")(err);
+    } finally {
+      setIsReordering(false);
+      invalidate();
+    }
   };
 
   const canSave =
@@ -440,26 +497,27 @@ function AdminBrandLinksPage() {
             />
           ) : (
             <>
-              <AdminTable
-                head={
-                  <>
-                    <th scope="col" className="w-10"></th>
-                    <th scope="col">Link</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Status</th>
-                    <th scope="col" className="text-right">
-                      Actions
-                    </th>
-                  </>
-                }
-              >
-                <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <AdminTable
+                  head={
+                    <>
+                      <th scope="col" className="w-10"></th>
+                      <th scope="col">Link</th>
+                      <th scope="col">Category</th>
+                      <th scope="col">Value</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" className="text-right">
+                        Actions
+                      </th>
+                    </>
+                  }
+                >
                   <SortableContext items={paged.map((l) => l.id)} strategy={verticalListSortingStrategy}>
                     {paged.map((link) => (
                       <SortableLinkRow
                         key={link.id}
                         link={link}
+                        isReordering={isReordering}
                         onEdit={() => openEdit(link)}
                         onDelete={() => setPendingDelete(link)}
                         onToggleActive={(checked) =>
@@ -468,8 +526,8 @@ function AdminBrandLinksPage() {
                       />
                     ))}
                   </SortableContext>
-                </DndContext>
-              </AdminTable>
+                </AdminTable>
+              </DndContext>
 
               {pageCount > 1 ? (
                 <div className="flex items-center justify-between gap-3 border-t border-border/70 px-4 py-3 text-xs text-muted-foreground">
