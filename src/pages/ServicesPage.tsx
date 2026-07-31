@@ -5,6 +5,7 @@ import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import FAQSection from "@/components/sections/FAQSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import { SERVICES, FAQS } from "@/data/constants";
 import { cn } from "@/lib/utils";
@@ -143,6 +144,7 @@ export default function ServicesPage() {
       </section>
 
       <ProcessSection />
+      <WhyChooseUsSection />
       <FAQSection faqs={FAQS} limit={5} />
       <CTASection
         title="Not sure which service fits?"

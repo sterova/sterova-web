@@ -10,6 +10,7 @@ import FAQSection from "@/components/sections/FAQSection";
 import CTASection from "@/components/sections/CTASection";
 import BlogPreviewSection from "@/components/sections/BlogPreviewSection";
 import StatsSection from "@/components/sections/StatsSection";
+import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 import { SERVICES, FAQS } from "@/data/constants";
 
 export default function HomePage() {
@@ -25,6 +26,7 @@ export default function HomePage() {
       <ReviewsSection />
       <ReviewFormSection />
       <BlogPreviewSection />
+      <WhyChooseUsSection />
       <FAQSection faqs={FAQS} limit={6} />
       <CTASection />
     </>

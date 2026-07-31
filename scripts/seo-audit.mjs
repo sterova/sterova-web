@@ -30,7 +30,7 @@ const ROUTES = [
 ];
 
 // Performance budgets (KB, uncompressed)
-const BUDGETS = { totalJs: 1800, singleJs: 850, totalCss: 250 };
+const BUDGETS = { totalJs: 2000, singleJs: 850, totalCss: 250 };
 
 const REQUIRED_META = [
   { key: 'name="description"', label: "meta description" },

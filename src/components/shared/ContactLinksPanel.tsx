@@ -150,7 +150,7 @@ export default function ContactLinksPanel({ showProfessionalLinks = true }: Prop
                   className="group flex items-center justify-between gap-3 py-3 transition-colors hover:text-primary"
                 >
                   <span className="min-w-0">
-                    <span className="block text-sm font-medium">{item.title}</span>
+                    <span className="block text-sm font-medium">{item.label}</span>
                     {item.description && (
                       <span className="block truncate text-xs text-muted-foreground">
                         {item.description}
