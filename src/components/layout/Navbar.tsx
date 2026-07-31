@@ -95,11 +95,11 @@ export default function Navbar() {
         setIndicatorStyle(null);
       }
     };
-    
+
     // Slight delay to ensure DOM is fully laid out and fonts are loaded
     const timeoutId = setTimeout(updateIndicator, 50);
     updateIndicator();
-    
+
     window.addEventListener("resize", updateIndicator);
     return () => {
       clearTimeout(timeoutId);
