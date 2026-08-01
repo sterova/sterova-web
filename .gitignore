@@ -58,4 +58,7 @@ Thumbs.db
 .agents/
 .agents/*
 .agents/*/*
-.agents/skills/hallmark
+.agents/skills/*
+.agents/skills/*/*
+.agents/tools/*
+.agents/tools/*/*
