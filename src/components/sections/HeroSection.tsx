@@ -239,8 +239,7 @@ export default function HeroSection() {
             </span>
 
             <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
-              Software your business
-              <br className="hidden sm:block" /> <span className="gradient-text">can build on</span>
+              Sterova: Software your business <span className="gradient-text">can build on</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-text-secondary">

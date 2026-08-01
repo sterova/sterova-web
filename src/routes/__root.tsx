@@ -19,8 +19,6 @@ import ScrollRestoration from "@/components/shared/ScrollRestoration";
 import RoutePending from "@/components/shared/RoutePending";
 import NavigationErrorBoundary from "@/components/shared/NavigationErrorBoundary";
 import { SITE } from "@/data/constants";
-import { organizationJsonLd } from "@/lib/seo";
-
 // Client-only UI enhancements are lazy-loaded to keep the initial SSR bundle
 // small. They are not needed in the first server render.
 const RouteProgress = lazy(() => import("@/components/shared/RouteProgress"));
@@ -57,9 +55,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/icons/favicon.ico", sizes: "48x48" },
+      { rel: "icon", href: "/icons/favicon.svg", sizes: "any", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
+      { rel: "icon", type: "image/png", sizes: "32x32", href: "/icons/favicon-32x32.png" },
+      { rel: "icon", type: "image/png", sizes: "16x16", href: "/icons/favicon-16x16.png" },
     ],
-    scripts: [organizationJsonLd()],
   }),
   shellComponent: RootShell,
   component: RootComponent,

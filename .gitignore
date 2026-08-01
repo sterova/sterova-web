@@ -55,3 +55,6 @@ Thumbs.db
 # ─── Turbo / Cache ────────────────────────────
 .turbo
 .others
+.agents/
+.agents/*
+.agents/*/*

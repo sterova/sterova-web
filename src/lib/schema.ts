@@ -6,7 +6,7 @@ export function getOrganizationSchema() {
     "@type": "Organization",
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/favicon.svg`,
+    logo: `${SITE.url}/icons/favicon.svg`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: "+918124949176",
@@ -27,7 +27,7 @@ export function getProfessionalServiceSchema() {
     "@type": "ProfessionalService",
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/favicon.svg`,
+    logo: `${SITE.url}/icons/favicon.svg`,
     image: `${SITE.url}/og-image.png`,
     description: SITE.description,
     telephone: "+918124949176",
@@ -88,7 +88,7 @@ export function getArticleSchema(
       name: SITE.name,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE.url}/favicon.svg`,
+        url: `${SITE.url}/icons/favicon.svg`,
       },
     },
     mainEntityOfPage: {

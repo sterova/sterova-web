@@ -2,15 +2,15 @@
 // Site metadata
 // ─────────────────────────────────────────────
 export const SITE = {
-  name: "Sterova Tech",
-  tagline: "Custom software, engineered to last.",
+  name: "Sterova",
+  tagline: "Custom Software Engineering Agency",
   description:
-    "Sterova designs, builds, and maintains web platforms, mobile apps, and SaaS products for startups and enterprises — shipped on time, built to scale.",
+    "Sterova is a premier software engineering agency specializing in custom web platforms, native mobile apps, and SaaS product development. Built to scale.",
   url: "https://sterova.tech",
   email: "hello@sterova.tech",
   phone: "+91 97864 75035",
-  /** Empty until a public office address is published — hidden from the contact page. */
-  address: "",
+  /** Physical office address to boost local relevance and trust signals. */
+  address: "Dindigul, Tamil Nadu, India",
   whatsapp: "+919786475035",
   whatsappDisplay: "+91 97864 75035",
   social: {
@@ -54,7 +54,7 @@ export const HERO = {
   headline: "Software your business can scale on",
   headlineHighlight: "scale on",
   subheadline:
-    "We design and engineer web platforms, mobile apps, and SaaS products for startups and enterprises. Delivered on time, built to scale, and fully owned by you.",
+    "Sterova is a custom software engineering agency that builds scalable web platforms, mobile apps, and SaaS products for startups and enterprises. Delivered on time, built to scale, and fully owned by you.",
   cta: {
     primary: { label: "Start a Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
@@ -356,6 +356,14 @@ export const TESTIMONIALS = [
 // ─────────────────────────────────────────────
 export const FAQS = [
   {
+    id: "disambiguation",
+    question: "Are you Sterova the AI 3D generator?",
+    answer:
+      "No, we are Sterova (.tech), a custom software engineering and SaaS development agency. If you are looking for the AI text-to-3D tool, that is a separate product located at sterova.com.",
+    is_active: true,
+    display_order: 0,
+  },
+  {
     id: "1",
     question: "How long does a typical project take?",
     answer:
@@ -533,7 +541,7 @@ export const FOOTER_LINKS = [
 // ─────────────────────────────────────────────
 export const ABOUT = {
   heroDescription:
-    "We build reliable software that solves real business problems — and scales effortlessly as you grow.",
+    "Sterova builds reliable software that solves real business problems — and scales effortlessly as you grow.",
   mission:
     "To engineer software that works flawlessly for end-users and drives lasting business value.",
   vision:
@@ -578,7 +586,7 @@ export const ABOUT = {
 export const CONTACT = {
   heading: "Start a conversation",
   subheading:
-    "Have a question or want to work together? Send us a message and we'll get back to you within 24 hours.",
+    "Have a question or want to work with Sterova? Send us a message and our team will get back to you within 24 hours.",
   formFields: {
     name: "Full Name",
     email: "Email Address",

@@ -107,7 +107,7 @@ export function organizationJsonLd() {
       url: SITE.url,
       description: SITE.description,
       email: SITE.email,
-      logo: absoluteUrl("/favicon.svg"),
+      logo: absoluteUrl("/icons/favicon.svg"),
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "customer service",
