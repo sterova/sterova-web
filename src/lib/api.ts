@@ -1,4 +1,8 @@
-import { supabase } from "@/lib/supabase";
+import {
+  supabase,
+  isSupabaseConfigured,
+  SUPABASE_NOT_CONFIGURED_MESSAGE,
+} from "@/lib/supabase";
 import { ACCEPTED_IMAGE_TYPES, MAX_UPLOAD_BYTES } from "@/data/admin-constants";
 import type {
   BlogCategoryRow,
@@ -23,11 +27,27 @@ function unwrap<T>(data: T | null, error: { message: string } | null): T {
   return data;
 }
 
+/**
+ * Public reads degrade to an empty result when the Supabase env vars are
+ * absent, so the marketing site still renders its static content instead of
+ * throwing a query error on every section.
+ */
+function offlineFallback<T>(value: T): T | undefined {
+  return isSupabaseConfigured ? undefined : value;
+}
+
+/** Writes and admin calls cannot degrade — surface a clear, actionable error. */
+function assertConfigured(): void {
+  if (!isSupabaseConfigured) throw new Error(SUPABASE_NOT_CONFIGURED_MESSAGE);
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Public reads — RLS restricts these to published / active / approved rows
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function fetchPublishedPosts(): Promise<BlogPostWithCategory[]> {
+  const fallback = offlineFallback<BlogPostWithCategory[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("blog_posts")
     .select(POST_WITH_CATEGORY)
@@ -40,6 +60,7 @@ export async function fetchPostBySlug(
   slug: string,
   signal?: AbortSignal,
 ): Promise<BlogPostWithCategory | null> {
+  if (!isSupabaseConfigured) return null;
   let query = supabase
     .from("blog_posts")
     .select(POST_WITH_CATEGORY)
@@ -52,6 +73,8 @@ export async function fetchPostBySlug(
 }
 
 export async function fetchCategories(): Promise<BlogCategoryRow[]> {
+  const fallback = offlineFallback<BlogCategoryRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("blog_categories")
     .select("*")
@@ -61,6 +84,8 @@ export async function fetchCategories(): Promise<BlogCategoryRow[]> {
 }
 
 export async function fetchActiveProjects(): Promise<ProjectRow[]> {
+  const fallback = offlineFallback<ProjectRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("projects")
     .select("*")
@@ -71,6 +96,8 @@ export async function fetchActiveProjects(): Promise<ProjectRow[]> {
 }
 
 export async function fetchApprovedReviews(): Promise<ReviewRow[]> {
+  const fallback = offlineFallback<ReviewRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("reviews")
     .select("*")
@@ -81,6 +108,8 @@ export async function fetchApprovedReviews(): Promise<ReviewRow[]> {
 }
 
 export async function fetchActiveStats(): Promise<SiteStatRow[]> {
+  const fallback = offlineFallback<SiteStatRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("site_stats")
     .select("*")
@@ -91,6 +120,8 @@ export async function fetchActiveStats(): Promise<SiteStatRow[]> {
 }
 
 export async function fetchActiveTeamMembers(): Promise<TeamMemberRow[]> {
+  const fallback = offlineFallback<TeamMemberRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("team_members")
     .select("*")
@@ -102,6 +133,7 @@ export async function fetchActiveTeamMembers(): Promise<TeamMemberRow[]> {
 
 /** Fire-and-forget view counter; failures must never break the page. */
 export async function incrementPostViews(slug: string): Promise<void> {
+  if (!isSupabaseConfigured) return;
   const { error } = await supabase.rpc("increment_post_views", {
     p_slug: slug,
   });
@@ -120,6 +152,7 @@ export async function submitContactMessage(input: {
   subject?: string;
   message: string;
 }): Promise<void> {
+  assertConfigured();
   const { error } = await supabase.from("contact_messages").insert({
     name: input.name.trim(),
     email: input.email.trim(),
@@ -184,6 +217,7 @@ export interface ServiceInquiryInput {
  * message body so nothing is ever lost.
  */
 export async function submitServiceInquiry(input: ServiceInquiryInput): Promise<void> {
+  assertConfigured();
   const clean = (v?: string) => v?.trim() || null;
   const subject = input.serviceTitle
     ? `Service enquiry — ${input.serviceTitle}`
@@ -255,6 +289,7 @@ export async function submitReview(input: {
   role?: string;
   company?: string;
 }): Promise<void> {
+  assertConfigured();
   const { error } = await supabase.from("reviews").insert({
     name: input.name.trim(),
     content: input.content.trim(),
@@ -607,6 +642,8 @@ export async function adminPruneSessions(): Promise<number> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function fetchBrandLinks(): Promise<BrandLinkRow[]> {
+  const fallback = offlineFallback<BrandLinkRow[]>([]);
+  if (fallback) return fallback;
   const { data, error } = await supabase
     .from("brand_links")
     .select("*")

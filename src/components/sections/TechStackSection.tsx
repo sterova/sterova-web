@@ -275,7 +275,7 @@ export default function TechStackSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Tech Stack"
-          title="Powered by modern engineering"
+          title="Our tech stack: React, TypeScript, and modern cloud engineering"
           description="We engineer secure, scalable, and high-performance products using modern architectures and industry-standard frameworks."
           centered
           className="mb-4"

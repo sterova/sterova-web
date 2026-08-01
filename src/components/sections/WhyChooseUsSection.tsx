@@ -59,7 +59,7 @@ export default function WhyChooseUsSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Why Sterova"
-          title="Why Choose Sterova?"
+          title="Why choose Sterova as your software development partner"
           description="We don't just build software. We build advantages for your business."
           centered
         />

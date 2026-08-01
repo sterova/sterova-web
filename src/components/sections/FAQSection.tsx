@@ -27,7 +27,7 @@ export default function FAQSection({ faqs, limit }: Props) {
             <div className="lg:sticky lg:top-28">
               <SectionHeader
                 badge="FAQ"
-                title="Questions we hear a lot"
+                title="Custom software development FAQs"
                 description="If yours isn't here, just ask. We'd rather talk than make you guess."
               />
               <Button asChild variant="outline" size="lg" className="group mt-8">

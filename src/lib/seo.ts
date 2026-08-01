@@ -1,4 +1,4 @@
-import { SITE } from "@/data/constants";
+import { POSTAL_ADDRESS, SAME_AS, SITE } from "@/data/constants";
 
 /** Absolute URL helper — crawlers require absolute og:image / @id values. */
 export function absoluteUrl(path: string) {
@@ -18,6 +18,8 @@ interface SeoInput {
   meta?: { name?: string; property?: string; content: string }[];
   /** Structured data objects rendered as <script type="application/ld+json">. */
   jsonLd?: JsonLd[];
+  /** Extra <link> entries (preload hints, etc.). */
+  links?: Record<string, unknown>[];
 }
 
 /** Builds a complete, self-referencing meta set for a route's head(). */
@@ -29,6 +31,7 @@ export function seo({
   image,
   meta = [],
   jsonLd,
+  links = [],
 }: SeoInput) {
   const fullTitle = path === "/" ? title : `${title} — ${SITE.name}`;
   const ogImage = absoluteUrl(image ?? SITE.ogImage);
@@ -50,7 +53,14 @@ export function seo({
       { name: "twitter:image", content: ogImage },
       ...meta,
     ],
-    links: [{ rel: "canonical", href: canonical }],
+    // Self-referencing hreflang: the site is English-only, so `en` and
+    // `x-default` both point at the page itself.
+    links: [
+      { rel: "canonical", href: canonical },
+      { rel: "alternate", hrefLang: "en", href: canonical },
+      { rel: "alternate", hrefLang: "x-default", href: canonical },
+      ...links,
+    ],
     scripts: (jsonLd ?? []).map((schema) => ({
       type: "application/ld+json",
       children: JSON.stringify(schema),
@@ -97,23 +107,82 @@ export function webPageSchema(name: string, description: string, path: string) {
   };
 }
 
-export function organizationJsonLd() {
+/** Stable node identifiers so every schema references one entity graph. */
+export const ORG_ID = `${SITE.url}/#organization`;
+export const WEBSITE_ID = `${SITE.url}/#website`;
+export const LOCAL_BUSINESS_ID = `${SITE.url}/#localbusiness`;
+
+/** The canonical Organization node. Everything else references it by @id. */
+export function organizationSchema() {
   return {
-    type: "application/ld+json",
-    children: JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      name: SITE.name,
-      url: SITE.url,
-      description: SITE.description,
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": ORG_ID,
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    email: SITE.email,
+    telephone: SITE.phone,
+    logo: {
+      "@type": "ImageObject",
+      url: absoluteUrl("/logo-512.png"),
+      width: 512,
+      height: 512,
+    },
+    image: absoluteUrl(SITE.ogImage),
+    address: { "@type": "PostalAddress", ...POSTAL_ADDRESS },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
       email: SITE.email,
-      logo: absoluteUrl("/icons/favicon.svg"),
-      contactPoint: {
-        "@type": "ContactPoint",
-        contactType: "customer service",
-        email: SITE.email,
-        telephone: SITE.whatsapp,
+      telephone: SITE.phone,
+      areaServed: "Worldwide",
+      availableLanguage: "English",
+    },
+    sameAs: SAME_AS,
+  };
+}
+
+export function websiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+    url: SITE.url,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: { "@id": ORG_ID },
+    inLanguage: "en",
+  };
+}
+
+/** LocalBusiness node — required for local pack / map eligibility. */
+export function localBusinessSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": LOCAL_BUSINESS_ID,
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    image: absoluteUrl(SITE.ogImage),
+    telephone: SITE.phone,
+    email: SITE.email,
+    priceRange: "$$",
+    parentOrganization: { "@id": ORG_ID },
+    address: { "@type": "PostalAddress", ...POSTAL_ADDRESS },
+    areaServed: [
+      { "@type": "Country", name: "India" },
+      { "@type": "Place", name: "Worldwide" },
+    ],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:30",
+        closes: "18:30",
       },
-    }),
+    ],
+    sameAs: SAME_AS,
   };
 }

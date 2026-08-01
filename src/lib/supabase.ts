@@ -17,6 +17,10 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undef
  */
 export const isSupabaseConfigured = Boolean(supabaseUrl && supabaseAnonKey);
 
+/** Shown in the UI and thrown from writes when the backend is not wired up. */
+export const SUPABASE_NOT_CONFIGURED_MESSAGE =
+  "Content service is not configured. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in your .env file.";
+
 if (!isSupabaseConfigured) {
   console.warn(
     "[sterova] Supabase env vars missing — falling back to static content. " +
@@ -33,8 +37,12 @@ if (!isSupabaseConfigured) {
  * service role key is never referenced in frontend code.
  */
 export const supabase = createClient(
-  supabaseUrl ?? "http://localhost:54321",
-  supabaseAnonKey ?? "public-anon-key-placeholder",
+  // A syntactically valid placeholder keeps createClient from throwing when the
+  // env vars are absent. It is never contacted: the fetch shim below fails the
+  // request locally instead, so unconfigured builds produce one clear warning
+  // rather than a stream of ERR_CONNECTION_REFUSED console noise.
+  supabaseUrl ?? "https://placeholder.supabase.co",
+  supabaseAnonKey ?? "placeholder-anon-key",
   {
     auth: {
       persistSession: true,
@@ -42,5 +50,12 @@ export const supabase = createClient(
       detectSessionInUrl: true,
       storageKey: "sterova-auth",
     },
+    ...(isSupabaseConfigured
+      ? {}
+      : {
+          global: {
+            fetch: () => Promise.reject(new Error(SUPABASE_NOT_CONFIGURED_MESSAGE)),
+          },
+        }),
   },
 );

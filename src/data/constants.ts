@@ -3,7 +3,7 @@
 // ─────────────────────────────────────────────
 export const SITE = {
   name: "Sterova",
-  tagline: "Custom Software Engineering Agency",
+  tagline: "Custom Software & Web App Development Agency",
   description:
     "Sterova is a premier software engineering agency specializing in custom web platforms, native mobile apps, and SaaS product development. Built to scale.",
   url: "https://sterova.tech",
@@ -14,12 +14,28 @@ export const SITE = {
   whatsapp: "+919786475035",
   whatsappDisplay: "+91 97864 75035",
   social: {
-    twitter: "",
-    linkedin: "",
-    github: "",
+    twitter: "https://x.com/sterova",
+    linkedin: "https://www.linkedin.com/company/sterova",
+    github: "https://github.com/sterova",
     instagram: "",
   },
   ogImage: "/og-image.png",
+};
+
+/** Verified profiles for the Organization entity (schema.org `sameAs`). */
+export const SAME_AS = [
+  SITE.social.linkedin,
+  SITE.social.github,
+  SITE.social.twitter,
+  SITE.social.instagram,
+].filter(Boolean);
+
+/** Single source of truth for the published postal address. */
+export const POSTAL_ADDRESS = {
+  addressLocality: "Dindigul",
+  addressRegion: "Tamil Nadu",
+  postalCode: "624001",
+  addressCountry: "IN",
 };
 
 // ─────────────────────────────────────────────

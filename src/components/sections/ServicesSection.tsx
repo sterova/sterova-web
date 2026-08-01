@@ -96,7 +96,7 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
         <div className="grid gap-5 lg:grid-cols-12 lg:items-end">
           <SectionHeader
             badge="What we build"
-            title="Six disciplines, one delivery team"
+            title="Custom software development services, one delivery team"
             description="Each service is backed by shipped work — not a capabilities deck. Engage one, or let us own the whole build."
             className="lg:col-span-8"
           />
@@ -215,7 +215,7 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                              
                              {/* 1. Design & UX */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:0s] backdrop-blur-md z-10">
                                  <Palette className="mr-2 h-3.5 w-3.5 text-brand-violet" />
                                  <span className="font-mono text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Design</span>
                                </div>
@@ -224,47 +224,47 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
 
                              {/* 2. Frontend */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-sm shadow-primary/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.4s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-sm shadow-primary/10 animate-float-slow [animation-delay:0.4s] backdrop-blur-md z-10">
                                  <Code2 className="mr-2 h-3.5 w-3.5 text-primary" />
                                  <span className="font-mono text-[10px] text-primary font-semibold uppercase tracking-wider">Frontend</span>
                                </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.2s' }} />
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.2s]" />
                              </div>
 
                              {/* 3. Backend */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-sm shadow-brand-teal/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '0.8s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-sm shadow-brand-teal/10 animate-float-slow [animation-delay:0.8s] backdrop-blur-md z-10">
                                  <Server className="mr-2 h-3.5 w-3.5 text-brand-teal" />
                                  <span className="font-mono text-[10px] text-brand-teal font-semibold uppercase tracking-wider">Backend</span>
                                </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.4s' }} />
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.4s]" />
                              </div>
 
                              {/* 4. Database */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-sm shadow-brand-amber/10 animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.2s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-sm shadow-brand-amber/10 animate-float-slow [animation-delay:1.2s] backdrop-blur-md z-10">
                                  <Database className="mr-2 h-3.5 w-3.5 text-brand-amber" />
                                  <span className="font-mono text-[10px] text-brand-amber font-semibold uppercase tracking-wider">Database</span>
                                </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.6s' }} />
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.6s]" />
                              </div>
 
                              {/* 5. Production */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '1.6s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:1.6s] backdrop-blur-md z-10">
                                  <Globe className="mr-2 h-3.5 w-3.5 text-foreground/70" />
                                  <span className="font-mono text-[10px] text-foreground/70 font-medium uppercase tracking-wider">Production</span>
                                </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '0.8s' }} />
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.8s]" />
                              </div>
 
                              {/* 6. Repeat */}
                              <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 shadow-sm animate-float-slow backdrop-blur-md z-10" style={{ animationDelay: '2s' }}>
+                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 shadow-sm animate-float-slow [animation-delay:2s] backdrop-blur-md z-10">
                                  <Repeat className="mr-2 h-3.5 w-3.5 text-primary" />
                                  <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">Repeat</span>
                                </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" style={{ animationDelay: '1s' }} />
+                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:1s]" />
                              </div>
 
                            </div>

@@ -2,7 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import BlogPostPage from "@/pages/BlogPostPage";
 import RouteErrorState from "@/components/shared/RouteErrorState";
 import NotFoundPage from "@/pages/NotFoundPage";
-import { seo, breadcrumbSchema, absoluteUrl, privateSeo } from "@/lib/seo";
+import {
+  seo,
+  breadcrumbSchema,
+  absoluteUrl,
+  privateSeo,
+  organizationSchema,
+  ORG_ID,
+} from "@/lib/seo";
 import { SITE } from "@/data/constants";
 import { fetchPostBySlug } from "@/lib/api";
 
@@ -58,12 +65,18 @@ export const Route = createFileRoute("/blog/$slug")({
           ? [{ property: "article:published_time", content: loaderData.published_at }]
           : []),
         ...(loaderData.updated_at
-          ? [{ property: "article:modified_time", content: loaderData.updated_at }]
+          ? [
+              { property: "article:modified_time", content: loaderData.updated_at },
+              // Freshness signal crawlers and AI engines read directly.
+              { property: "og:updated_time", content: loaderData.updated_at },
+            ]
           : []),
         { property: "article:author", content: loaderData.author },
         ...loaderData.tags.map((tag) => ({ property: "article:tag", content: tag })),
       ],
       jsonLd: [
+        // The Article references the org by @id, so the node must be present.
+        organizationSchema(),
         {
           "@context": "https://schema.org",
           "@type": "Article",
@@ -75,9 +88,7 @@ export const Route = createFileRoute("/blog/$slug")({
           dateModified: loaderData.updated_at ?? loaderData.published_at ?? undefined,
           author: { "@type": "Person", name: loaderData.author },
           publisher: {
-            "@type": "Organization",
-            name: SITE.name,
-            logo: { "@type": "ImageObject", url: absoluteUrl("/icons/favicon.svg") },
+            "@id": ORG_ID,
           },
           mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(path) },
         },

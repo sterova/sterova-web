@@ -15,7 +15,7 @@ export default function ProcessSection() {
             <div className="lg:sticky lg:top-28">
               <SectionHeader
                 badge="Our process"
-                title="Delivery without surprises"
+                title="Our software development process, without surprises"
                 description="No surprises. You always know what's happening, what's next, and what it costs."
               />
               <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border">

@@ -1,3 +1,4 @@
+import BrandLogo from "@/components/shared/BrandLogo";
 import { useId } from "react";
 import { Link } from "@/lib/router-compat";
 import { motion, useReducedMotion } from "framer-motion";
@@ -193,7 +194,12 @@ function Core() {
         <span className="relative flex h-16 w-16 xl:h-24 xl:w-24 items-center justify-center mb-1 xl:mb-2">
           <span className="absolute inset-0 rounded-[1rem] xl:rounded-[1.5rem] bg-gradient-to-br from-slate-700 to-slate-900 dark:from-slate-600 dark:to-slate-800 shadow-xl" />
           <span className="relative flex items-center justify-center">
-            <img src="/logo.png" alt={`${SITE.name} Logo`} className="h-8 w-8 xl:h-12 xl:w-12 object-contain brightness-0 invert" />
+            <BrandLogo
+              size={48}
+              priority
+              alt=""
+              className="h-8 w-8 xl:h-12 xl:w-12 object-contain brightness-0 invert"
+            />
           </span>
         </span>
         <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-1">{SITE.name}</span>

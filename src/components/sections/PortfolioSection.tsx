@@ -38,7 +38,7 @@ export default function PortfolioSection({
         {!showHeader ? null : featuredOnly ? (
           <SectionHeader
             badge="Capabilities"
-            title="The kind of systems we build"
+            title="Web platforms, mobile apps, and SaaS products we build"
             description="Illustrative examples of the platforms, integrations, and architectures we engineer — shown to convey scope and technical depth."
             centered
             className="mb-16"
@@ -46,7 +46,7 @@ export default function PortfolioSection({
         ) : (
           <SectionHeader
             badge="Portfolio"
-            title="The kind of systems we build"
+            title="Web platforms, mobile apps, and SaaS products we build"
             description="Illustrative examples across industries, shown to convey the scope and technical depth of our work rather than to name specific clients."
             centered
             className="mb-16"

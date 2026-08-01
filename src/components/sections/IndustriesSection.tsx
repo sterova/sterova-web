@@ -37,7 +37,7 @@ export default function IndustriesSection() {
       <div className="container-custom">
         <SectionHeader
           badge="Industries"
-          title="Domain context, not a learning curve"
+          title="Industries we build software for"
           description="We've shipped products in these spaces, so we understand the constraints before you explain them."
           centered
           className="mb-14"

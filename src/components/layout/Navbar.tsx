@@ -1,3 +1,4 @@
+import BrandLogo from "@/components/shared/BrandLogo";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "@/lib/router-compat";
 import { useRouterState } from "@tanstack/react-router";
@@ -261,7 +262,12 @@ export default function Navbar() {
             aria-label={`${SITE.name} — home`}
             aria-current={location === "/" ? "page" : undefined}
           >
-            <img src="/logo.png" alt={`${SITE.name} logo`} className="h-7 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80" />
+            <BrandLogo
+              size={28}
+              priority
+              alt=""
+              className="h-7 w-7 object-contain transition-opacity duration-300 group-hover:opacity-80"
+            />
             <span className="gradient-text font-display font-black text-[1.35rem] md:text-[1.5rem] tracking-tighter transition-opacity duration-300 group-hover:opacity-80">
               {SITE.name}
             </span>

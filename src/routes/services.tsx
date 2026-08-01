@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ServicesPage from "@/pages/ServicesPage";
-import { seo, breadcrumbSchema, absoluteUrl } from "@/lib/seo";
+import { seo, breadcrumbSchema, absoluteUrl, ORG_ID } from "@/lib/seo";
 import { SITE, FAQS } from "@/data/constants";
 
 const description =
@@ -20,7 +20,7 @@ export const Route = createFileRoute("/services")({
           description,
           url: absoluteUrl("/services"),
           serviceType: "Software engineering",
-          provider: { "@type": "Organization", name: SITE.name, url: SITE.url },
+          provider: { "@id": ORG_ID },
         },
         {
           "@context": "https://schema.org",

@@ -25,6 +25,7 @@ const RouteProgress = lazy(() => import("@/components/shared/RouteProgress"));
 const RouteFocus = lazy(() => import("@/components/shared/RouteFocus"));
 const RoutePrefetcher = lazy(() => import("@/components/shared/RoutePrefetcher"));
 const WhatsAppButton = lazy(() => import("@/components/shared/WhatsAppButton"));
+const CookieConsent = lazy(() => import("@/components/shared/CookieConsent"));
 const Toaster = lazy(() => import("@/components/ui/sonner").then((m) => ({ default: m.Toaster })));
 
 const lazyFallback = <div className="fixed inset-x-0 top-0 z-[200] h-0.5" aria-hidden="true" />;
@@ -39,6 +40,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "author", content: SITE.name },
       { property: "og:site_name", content: SITE.name },
       { name: "theme-color", content: "#17181b" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -56,10 +59,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/icons/favicon.ico", sizes: "48x48" },
-      { rel: "icon", href: "/icons/favicon.svg", sizes: "any", type: "image/svg+xml" },
+      { rel: "icon", href: "/icons/favicon.ico", sizes: "any", type: "image/x-icon" },
       { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
-      { rel: "icon", type: "image/png", sizes: "32x32", href: "/icons/favicon-32x32.png" },
-      { rel: "icon", type: "image/png", sizes: "16x16", href: "/icons/favicon-16x16.png" },
+      { rel: "icon", type: "image/x-icon", sizes: "32x32", href: "/icons/favicon.ico" },
+      { rel: "icon", type: "image/x-icon", sizes: "16x16", href: "/icons/favicon.ico" },
     ],
   }),
   shellComponent: RootShell,
@@ -149,6 +152,9 @@ function RootComponent() {
         </main>
         <Footer />
         <WhatsAppButton />
+        <Suspense>
+          <CookieConsent />
+        </Suspense>
       </AppErrorBoundary>
     </QueryClientProvider>
   );

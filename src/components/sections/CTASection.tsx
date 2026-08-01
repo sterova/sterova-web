@@ -1,3 +1,4 @@
+import ObfuscatedEmail from "@/components/shared/ObfuscatedEmail";
 import { Link } from "@/lib/router-compat";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Mail, MessageCircle } from "lucide-react";
@@ -14,7 +15,7 @@ export default function CTASection({
   description = "Tell us what you're working on. We reply within a day with honest feedback and a clear next step.",
 }: Props) {
   const reduce = useReducedMotion();
-  const { email, whatsappHref } = useBrandLinks();
+  const { whatsappHref } = useBrandLinks();
 
   return (
     <section className="section-y">
@@ -94,13 +95,9 @@ export default function CTASection({
                   </div>
                 ))}
               </dl>
-              <a
-                href={`mailto:${email}`}
-                className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-              >
+              <ObfuscatedEmail className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary">
                 <Mail className="h-4 w-4" aria-hidden="true" />
-                {email}
-              </a>
+              </ObfuscatedEmail>
             </div>
           </div>
         </motion.div>
