@@ -359,7 +359,7 @@ export const FAQS = [
     id: "disambiguation",
     question: "Are you Sterova the AI 3D generator?",
     answer:
-      "No, we are Sterova (.tech), a custom software engineering and SaaS development agency. If you are looking for the AI text-to-3D tool, that is a separate product located at sterova.com.",
+      "No, we are Sterova, a custom software engineering and SaaS development agency. If you are looking for the AI text-to-3D tool, that is a separate product located at sterova.com.",
     is_active: true,
     display_order: 0,
   },
