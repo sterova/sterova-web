@@ -224,8 +224,8 @@ export default function Navbar() {
         className={cn(
           "relative w-full border-b transition-[background,border,box-shadow,height] duration-300",
           isScrolled
-            ? "border-border/60 bg-background/80 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/65 shadow-[0_1px_0_0_color-mix(in_oklab,var(--border)_50%,transparent),0_12px_40px_-20px_rgb(0_0_0/0.3)]"
-            : "border-border/40 bg-background/60 backdrop-blur-md supports-[backdrop-filter]:bg-background/50",
+            ? "glass rounded-none border-b-glass-border shadow-[0_12px_40px_-20px_var(--shadow-brand)]"
+            : "border-transparent bg-transparent",
         )}
       >
         {/* Premium top glow */}
@@ -246,7 +246,7 @@ export default function Navbar() {
         />
         <div
           className={cn(
-            "container-custom mx-auto relative flex items-center justify-between transition-[height] duration-300",
+            "w-full px-4 md:px-8 lg:px-12 relative flex items-center justify-between transition-[height] duration-300",
             isScrolled ? "h-[3.75rem]" : "h-[4.5rem]",
           )}
         >
@@ -276,7 +276,7 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav
             ref={navRef}
-            className="hidden lg:flex items-center gap-8 relative"
+            className="hidden lg:flex items-center gap-5 xl:gap-6 relative"
             aria-label="Main navigation"
           >
             {LEFT_LINKS.map((link) => (
@@ -287,10 +287,10 @@ export default function Navbar() {
                 aria-busy={location === link.href && isNavigating ? true : undefined}
                 data-active={location === link.href}
                 className={cn(
-                  "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
+                  "relative px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
                   location === link.href
                     ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground",
                 )}
               >
                 {link.label}
@@ -311,10 +311,10 @@ export default function Navbar() {
                   }
                 }}
                 className={cn(
-                  "relative flex items-center gap-1 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
+                  "relative flex items-center gap-1 px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
                   location.startsWith("/services")
                     ? "text-primary font-semibold"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground",
                 )}
                 aria-current={location.startsWith("/services") ? "page" : undefined}
                 aria-haspopup="menu"
@@ -388,10 +388,10 @@ export default function Navbar() {
                 aria-busy={location === link.href && isNavigating ? true : undefined}
                 data-active={location === link.href}
                 className={cn(
-                  "relative py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm",
+                  "relative px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
                   location === link.href
                     ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground hover:text-foreground",
+                    : "text-muted-foreground",
                 )}
               >
                 {link.label}
@@ -485,7 +485,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: -4 }}
             transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="w-full border-b border-border/60 bg-background/95 backdrop-blur-xl overflow-hidden shadow-[var(--shadow-card-hover)] lg:hidden"
+            className="w-full border-b glass rounded-none shadow-[var(--shadow-card-hover)] lg:hidden"
           >
             <div className="w-full py-2 flex flex-col max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-8">
               {allFlatLinks.map((link) => (

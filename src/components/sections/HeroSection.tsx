@@ -62,7 +62,7 @@ const NODES: Node[] = [
     detail: { kind: "chips", icons: [Server, Database, Shield, Braces] },
     theme: "blue",
     x: 10,
-    y: -12,
+    y: -2,
   },
   {
     label: "Web Development",
@@ -71,7 +71,7 @@ const NODES: Node[] = [
     detail: { kind: "metric", label: "Lighthouse", value: "98/100", fill: 96 },
     theme: "emerald",
     x: 66,
-    y: -12,
+    y: -2,
   },
   {
     label: "Mobile Apps",
@@ -80,7 +80,7 @@ const NODES: Node[] = [
     detail: { kind: "chips", icons: [Layout, Zap, Rocket, Sparkles] },
     theme: "purple",
     x: 4,
-    y: 26,
+    y: 32,
   },
   {
     label: "SaaS Products",
@@ -89,7 +89,7 @@ const NODES: Node[] = [
     detail: { kind: "chips", icons: [Users, CreditCard, Boxes, Blocks] },
     theme: "amber",
     x: 72,
-    y: 26,
+    y: 32,
   },
   {
     label: "UI/UX Design",
@@ -98,7 +98,7 @@ const NODES: Node[] = [
     detail: { kind: "chips", icons: [Figma, Layout, Sparkles, Gauge] },
     theme: "pink",
     x: 10,
-    y: 64,
+    y: 66,
   },
   {
     label: "API Integration",
@@ -107,7 +107,7 @@ const NODES: Node[] = [
     detail: { kind: "metric", label: "Latency", value: "80ms", fill: 72 },
     theme: "cyan",
     x: 66,
-    y: 64,
+    y: 66,
   },
 ];
 
@@ -154,8 +154,8 @@ function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) 
     <Link
       href={node.href}
       className={cn(
-        "group bg-white dark:bg-card block h-full text-left outline-none rounded-2xl xl:rounded-3xl",
-        "border border-border/40",
+        "group glass block h-full text-left outline-none rounded-2xl xl:rounded-3xl",
+        "border border-glass-border",
         "transition-all duration-300 ease-out",
         "hover:-translate-y-1 hover:border-primary/40",
         "shadow-xl", t.shadow,
@@ -190,7 +190,7 @@ function Core() {
         className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-primary/25 blur-3xl"
         aria-hidden="true"
       />
-      <div className="bg-white dark:bg-card relative flex h-full w-full flex-col items-center justify-center gap-1 xl:gap-2 p-3 xl:p-5 text-center rounded-2xl xl:rounded-[2.5rem] shadow-2xl shadow-cyan-500/10 border border-border/40">
+      <div className="glass relative flex h-full w-full flex-col items-center justify-center gap-1 xl:gap-2 p-3 xl:p-5 text-center rounded-2xl xl:rounded-[2.5rem] shadow-2xl shadow-primary/20 border border-glass-border">
         <span className="relative flex h-16 w-16 xl:h-24 xl:w-24 items-center justify-center mb-1 xl:mb-2">
           <span className="absolute inset-0 rounded-[1rem] xl:rounded-[1.5rem] bg-gradient-to-br from-slate-700 to-slate-900 dark:from-slate-600 dark:to-slate-800 shadow-xl" />
           <span className="relative flex items-center justify-center">
@@ -216,28 +216,28 @@ export default function HeroSection() {
 
   return (
     <section className="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-24" aria-label="Hero">
-      {/* Ambient background: dotted field + two restrained brand washes. */}
+      {/* Ambient background: liquid glass floating orbs */}
       <div
-        className="dot-grid radial-fade pointer-events-none absolute inset-0 opacity-70"
+        className="dot-grid radial-fade pointer-events-none absolute inset-0 opacity-40 dark:opacity-20"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -left-56 -top-40 h-[42rem] w-[42rem] rounded-full bg-primary/10 blur-[160px]"
+        className="pointer-events-none absolute -left-20 -top-40 h-[60rem] w-[60rem] rounded-full bg-primary/20 blur-[160px] animate-aurora mix-blend-multiply dark:mix-blend-color-dodge"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute -right-64 top-24 h-[38rem] w-[38rem] rounded-full bg-primary/8 blur-[170px]"
+        className="pointer-events-none absolute -right-40 top-40 h-[50rem] w-[50rem] rounded-full bg-brand-violet/20 blur-[140px] animate-aurora [animation-delay:4s] mix-blend-multiply dark:mix-blend-color-dodge"
         aria-hidden="true"
       />
 
       <div className="container-custom relative z-10">
-        <div className="grid items-center gap-14 lg:grid-cols-12 lg:gap-10 xl:gap-16">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-10 xl:gap-16">
           {/* ── Copy ───────────────────────────────────────────── */}
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 lg:self-center"
           >
             <span className="eyebrow">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
@@ -245,7 +245,7 @@ export default function HeroSection() {
             </span>
 
             <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
-              Sterova: Software your business <span className="gradient-text">can build on</span>
+              Software engineered for an <span className="animate-gradient-text">unfair advantage.</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-text-secondary">
@@ -287,13 +287,13 @@ export default function HeroSection() {
           </motion.div>
 
           {/* ── Constellation ──────────────────────────────────── */}
-          <div className="hidden lg:col-span-7 lg:block">
+          <div className="hidden lg:col-span-7 lg:block lg:self-start lg:-mt-4 xl:-mt-8">
             {/* Desktop: anchored nodes orbiting the core. */}
             <motion.div
               initial={reduce ? false : { opacity: 0, x: 60 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative mx-auto hidden aspect-[7/5.4] max-h-[min(78vh,40rem)] w-full lg:block"
+              className="relative mx-auto hidden w-full h-[30rem] xl:h-[36rem] 2xl:h-[40rem] max-w-[650px] xl:max-w-[850px] lg:block"
             >
               <svg
                 className="absolute inset-0 h-full w-full"
@@ -305,7 +305,7 @@ export default function HeroSection() {
                   <line
                     key={n.label}
                     x1="50"
-                    y1="35"
+                    y1="40"
                     x2={n.x + 12}
                     y2={n.y + 10}
                     stroke="var(--border-strong)"
@@ -315,7 +315,7 @@ export default function HeroSection() {
                 ))}
               </svg>
 
-              <div className="absolute left-1/2 top-[35%] w-[25%] aspect-square min-w-[8rem] xl:min-w-[9rem] -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute left-1/2 top-[40%] w-[25%] aspect-square min-w-[8rem] xl:min-w-[9rem] -translate-x-1/2 -translate-y-1/2">
                 <Core />
               </div>
 

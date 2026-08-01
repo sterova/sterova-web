@@ -34,7 +34,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative border-t border-border bg-surface">
+    <footer className="relative border-t border-glass-border glass backdrop-blur-xl">
       {/* Premium gradient top border */}
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent"
@@ -116,7 +116,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <NavLink
                       href={link.href}
-                      className="group inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="group inline-flex items-center gap-1 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm"
                     >
                       <span className="relative">
                         {link.label}
