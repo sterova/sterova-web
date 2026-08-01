@@ -53,7 +53,15 @@ export default function Footer() {
                 className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/30 via-transparent to-primary/30"
                 aria-hidden="true"
               />
-              <Link href="/" className="inline-flex items-center gap-2 mb-4 group">
+              <Link 
+                href="/" 
+                className="inline-flex items-center gap-2 mb-4 group"
+                onClick={() => {
+                  if (window.location.pathname === "/") {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
+              >
                 <img src="/logo.png" alt={`${SITE.name} logo`} className="h-7 w-auto object-contain transition-opacity duration-300 group-hover:opacity-80" />
                 <span className="gradient-text font-display font-black text-2xl md:text-3xl tracking-tighter drop-shadow-sm transition-opacity duration-300 group-hover:opacity-80">
                   {SITE.name}

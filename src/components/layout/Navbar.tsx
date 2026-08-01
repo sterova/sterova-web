@@ -252,6 +252,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             href="/"
+            onClick={() => {
+              if (location === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
             className={cn("group flex items-center gap-2 rounded-lg", FOCUS_RING)}
             aria-label={`${SITE.name} — home`}
             aria-current={location === "/" ? "page" : undefined}
