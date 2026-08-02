@@ -159,10 +159,10 @@ export function ChatbotWindow() {
 
   /* Keep the composer focused during normal use. */
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen || isSmall) return;
     const id = window.setTimeout(() => textareaRef.current?.focus(), 120);
     return () => window.clearTimeout(id);
-  }, [isOpen, form?.stepIndex, isTyping]);
+  }, [isOpen, form?.stepIndex, isTyping, isSmall]);
 
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
@@ -170,6 +170,9 @@ export function ChatbotWindow() {
       if (!text || isSubmitting) return;
       sendText(text);
       setValue("");
+      if (window.matchMedia("(max-width: 639.98px)").matches) {
+        textareaRef.current?.blur();
+      }
     },
     [isSubmitting, sendText, value],
   );

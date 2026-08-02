@@ -337,7 +337,7 @@ export default function HeroSection() {
                 asChild
                 variant="outline"
                 size="xl"
-                className="group transition-[transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/50 focus-visible:-translate-y-0.5 motion-reduce:transition-none"
+                className="group bg-background/50 backdrop-blur-md border-border/80 transition-[transform,background-color,border-color] duration-300 hover:-translate-y-0.5 hover:border-primary/50 focus-visible:-translate-y-0.5 motion-reduce:transition-none"
               >
                 <Link href={HERO.cta.secondary.href}>{HERO.cta.secondary.label}</Link>
               </Button>

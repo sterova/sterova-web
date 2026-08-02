@@ -20,7 +20,12 @@ export function ChatActions({ actions, className }: { actions: ChatAction[]; cla
             type="button"
             size="sm"
             variant={isPrimary ? "default" : isNav ? "ghost" : "outline"}
-            onClick={() => runAction(action)}
+            onClick={() => {
+              if (window.matchMedia("(max-width: 639.98px)").matches) {
+                (document.activeElement as HTMLElement)?.blur();
+              }
+              runAction(action);
+            }}
             className={cn(
               "h-auto min-h-7 rounded-full px-2.5 py-1 text-[11px] font-medium shadow-none",
               isNav && "text-muted-foreground opacity-80 hover:opacity-100",
