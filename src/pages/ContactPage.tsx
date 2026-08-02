@@ -22,11 +22,7 @@ export default function ContactPage() {
         <div className="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Left — form */}
           <AnimatedSection className="lg:col-span-7 xl:col-span-8" delay={0.05}>
-            <div className="card-premium p-6 sm:p-8">
-              <ContactForm />
-            </div>
-
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-5">
+            <div className="mb-6 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-primary/20 bg-primary/5 p-5">
               <p className="text-sm text-muted-foreground">
                 Have a specific service in mind? Send a full project brief instead.
               </p>
@@ -40,6 +36,10 @@ export default function ContactPage() {
                   aria-hidden="true"
                 />
               </Link>
+            </div>
+
+            <div className="card-premium p-6 sm:p-8">
+              <ContactForm />
             </div>
           </AnimatedSection>
 
