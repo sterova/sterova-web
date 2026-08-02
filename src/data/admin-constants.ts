@@ -19,6 +19,15 @@ export const ADMIN_ROUTES = {
   messages: `${ADMIN_BASE}/messages`,
   sessions: `${ADMIN_BASE}/sessions`,
   brandLinks: `${ADMIN_BASE}/brand-links`,
+  chatLeads: `${ADMIN_BASE}/chat-leads`,
+  consultations: `${ADMIN_BASE}/consultations`,
+  estimates: `${ADMIN_BASE}/estimates`,
+  chatAnalytics: `${ADMIN_BASE}/chat-analytics`,
+  testimonials: `${ADMIN_BASE}/testimonials`,
+  careers: `${ADMIN_BASE}/careers`,
+  notifications: `${ADMIN_BASE}/notifications`,
+  settings: `${ADMIN_BASE}/settings`,
+  access: `${ADMIN_BASE}/access`,
 } as const;
 
 export const STORAGE_BUCKETS = {

@@ -19,6 +19,9 @@ import ScrollRestoration from "@/components/shared/ScrollRestoration";
 import RoutePending from "@/components/shared/RoutePending";
 import NavigationErrorBoundary from "@/components/shared/NavigationErrorBoundary";
 import { SITE } from "@/data/constants";
+import { SterovaChatbot } from "@/components/chatbot/SterovaChatbot";
+import MaintenanceGate from "@/components/shared/MaintenanceGate";
+import { useFeatureEnabled } from "@/hooks/use-site-settings";
 // Client-only UI enhancements are lazy-loaded to keep the initial SSR bundle
 // small. They are not needed in the first server render.
 const RouteProgress = lazy(() => import("@/components/shared/RouteProgress"));
@@ -59,7 +62,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: appCss,
       },
       { rel: "icon", href: "/favicon.ico", sizes: "any" },
-      { rel: "icon", href: "/icons/favicon.svg", type: "image/svg+xml" },
+      { rel: "icon", href: "/icons/favicon-32x32.png", type: "image/png", sizes: "32x32" },
       { rel: "apple-touch-icon", href: "/icons/apple-touch-icon.png" },
       { rel: "icon", href: "/icons/favicon-48x48.png", type: "image/png", sizes: "48x48" },
       { rel: "icon", href: "/icons/favicon-64x64.png", type: "image/png", sizes: "64x64" },
@@ -124,6 +127,18 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <MaintenanceGate>
+        <PublicShell pathname={pathname} />
+      </MaintenanceGate>
+    </QueryClientProvider>
+  );
+}
+
+function PublicShell({ pathname }: { pathname: string }) {
+  const chatbotEnabled = useFeatureEnabled("chatbot");
+
+  return (
+    <>
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
@@ -152,10 +167,18 @@ function RootComponent() {
         </main>
         <Footer />
         <WhatsAppButton />
+        {chatbotEnabled ? (
+          <Suspense>
+            <SterovaChatbot />
+          </Suspense>
+        ) : null}
         <Suspense>
           <CookieConsent />
         </Suspense>
+        <Suspense>
+          <Toaster />
+        </Suspense>
       </AppErrorBoundary>
-    </QueryClientProvider>
+    </>
   );
 }

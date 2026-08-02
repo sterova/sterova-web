@@ -1,6 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Eye, FileText, FolderKanban, Mail, MessageSquare, Star } from "lucide-react";
+import {
+  Activity,
+  ArrowRight,
+  Bot,
+  Calculator,
+  CalendarClock,
+  Eye,
+  FileText,
+  FolderKanban,
+  Mail,
+  MessageSquare,
+  Star,
+} from "lucide-react";
 import {
   AdminCard,
   AdminCardHeader,
@@ -17,6 +29,13 @@ import {
   adminFetchProjects,
   adminFetchReviews,
 } from "@/lib/api";
+import {
+  adminFetchChatbotEvents,
+  adminFetchChatbotLeads,
+  adminFetchConsultations,
+  summariseChatbotEvents,
+} from "@/lib/chatbot/admin-api";
+import { adminFetchEstimatorSubmissions } from "@/lib/estimator-api";
 import { ADMIN_ROUTES } from "@/data/admin-constants";
 import { formatDate } from "@/lib/utils";
 import { privateSeo } from "@/lib/seo";
@@ -105,6 +124,8 @@ function AdminDashboardPage() {
               progress={totalMessages ? (newMessages / totalMessages) * 100 : 0}
             />
           </div>
+
+          <ChatPipelineSection />
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
             <AdminCard className="xl:col-span-2">
@@ -281,6 +302,175 @@ function AdminDashboardPage() {
           </div>
         </>
       )}
+    </>
+  );
+}
+
+/* ── Chatbot & estimator pipeline ─────────────────────────────────────── */
+
+function ChatPipelineSection() {
+  const leads = useQuery({
+    queryKey: ["admin", "chatbot-leads"],
+    queryFn: adminFetchChatbotLeads,
+    retry: false,
+  });
+  const consultations = useQuery({
+    queryKey: ["admin", "consultations"],
+    queryFn: adminFetchConsultations,
+    retry: false,
+  });
+  const estimates = useQuery({
+    queryKey: ["admin", "estimator-submissions"],
+    queryFn: adminFetchEstimatorSubmissions,
+    retry: false,
+  });
+  const events = useQuery({
+    queryKey: ["admin", "chatbot-events", 30],
+    queryFn: () => adminFetchChatbotEvents(30),
+    retry: false,
+  });
+
+  const isLoading =
+    leads.isLoading || consultations.isLoading || estimates.isLoading || events.isLoading;
+  const setupError = leads.error || consultations.error || estimates.error || events.error;
+
+  if (setupError) {
+    return (
+      <AdminCard>
+        <AdminCardHeader
+          title="Chatbot pipeline"
+          description="Leads, consultations and estimator requests captured by the assistant"
+        />
+        <p className="px-5 pb-5 text-sm text-muted-foreground">{(setupError as Error).message}</p>
+      </AdminCard>
+    );
+  }
+
+  const leadRows = leads.data ?? [];
+  const consultationRows = consultations.data ?? [];
+  const estimateRows = estimates.data ?? [];
+  const analytics = summariseChatbotEvents(events.data ?? []);
+
+  const newLeads = leadRows.filter((l) => l.status === "new").length;
+  const pendingConsultations = consultationRows.filter((c) => c.status === "pending").length;
+  const newEstimates = estimateRows.filter((e) => e.status === "new").length;
+
+  const recentLeads = leadRows.slice(0, 5);
+
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <StatTile
+          label="Chat leads"
+          value={leadRows.length}
+          icon={Bot}
+          hint={newLeads > 0 ? `${newLeads} awaiting follow-up` : "All triaged"}
+          accent={newLeads > 0}
+          progress={leadRows.length ? (newLeads / leadRows.length) * 100 : 0}
+        />
+        <StatTile
+          label="Consultations"
+          value={consultationRows.length}
+          icon={CalendarClock}
+          hint={pendingConsultations > 0 ? `${pendingConsultations} to confirm` : "Nothing pending"}
+          accent={pendingConsultations > 0}
+          progress={
+            consultationRows.length ? (pendingConsultations / consultationRows.length) * 100 : 0
+          }
+        />
+        <StatTile
+          label="Estimator requests"
+          value={estimateRows.length}
+          icon={Calculator}
+          hint={newEstimates > 0 ? `${newEstimates} new` : "All reviewed"}
+          accent={newEstimates > 0}
+          progress={estimateRows.length ? (newEstimates / estimateRows.length) * 100 : 0}
+        />
+        <StatTile
+          label="Chat sessions (30d)"
+          value={analytics.sessions}
+          icon={Activity}
+          hint={`${analytics.conversionRate}% form conversion`}
+          progress={analytics.conversionRate}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
+        <AdminCard className="xl:col-span-2">
+          <AdminCardHeader
+            title="Latest chat leads"
+            description="Captured by the scripted assistant"
+            action={
+              <Link
+                to={ADMIN_ROUTES.chatLeads}
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              >
+                View all <ArrowRight className="h-3 w-3" />
+              </Link>
+            }
+          />
+          {isLoading ? (
+            <AdminTableSkeleton rows={5} cols={3} />
+          ) : recentLeads.length === 0 ? (
+            <p className="px-5 py-12 text-center text-sm text-muted-foreground">
+              No chat leads yet.
+            </p>
+          ) : (
+            <ul className="divide-y divide-border/70">
+              {recentLeads.map((lead) => (
+                <li key={lead.id} className="flex items-start gap-3 px-5 py-4">
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Bot className="h-4 w-4" aria-hidden="true" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="truncate text-sm font-medium">{lead.name || "Anonymous"}</p>
+                      <StatusBadge status={lead.status} />
+                    </div>
+                    <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                      {[lead.service, lead.timeline, lead.email].filter(Boolean).join(" · ") ||
+                        "No details captured"}
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {formatDate(lead.created_at)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </AdminCard>
+
+        <AdminCard>
+          <AdminCardHeader
+            title="Assistant engagement"
+            description="Last 30 days"
+            action={
+              <Link
+                to={ADMIN_ROUTES.chatAnalytics}
+                className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              >
+                Analytics <ArrowRight className="h-3 w-3" />
+              </Link>
+            }
+          />
+          <dl className="grid grid-cols-2 gap-4 p-5">
+            {[
+              { label: "Chat opens", value: analytics.opens },
+              { label: "Option clicks", value: analytics.optionClicks },
+              { label: "Forms started", value: analytics.formsStarted },
+              { label: "Forms submitted", value: analytics.formsSubmitted },
+              { label: "Free-text asks", value: analytics.freeText },
+              { label: "Fallback rate", value: `${analytics.fallbackRate}%` },
+            ].map((item) => (
+              <div key={item.label} className="min-w-0">
+                <dt className="truncate text-xs text-muted-foreground">{item.label}</dt>
+                <dd className="text-lg font-semibold tabular-nums">{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </AdminCard>
+      </div>
     </>
   );
 }

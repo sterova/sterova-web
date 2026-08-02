@@ -418,7 +418,7 @@ function AdminBrandLinksPage() {
     // Run mutations concurrently, then invalidate once
     try {
       const promises = Array.from(updates.entries()).map(([id, order]) =>
-        adminUpdateBrandLink(id, { display_order: order })
+        adminUpdateBrandLink(id, { display_order: order }),
       );
       await Promise.all(promises);
     } catch (err) {
@@ -429,8 +429,7 @@ function AdminBrandLinksPage() {
     }
   };
 
-  const canSave =
-    form.key.trim().length >= 2 && form.label.trim().length >= 1 && !duplicateKey;
+  const canSave = form.key.trim().length >= 2 && form.label.trim().length >= 1 && !duplicateKey;
 
   const activeCount = data?.filter((l) => l.is_active).length ?? 0;
 
@@ -497,7 +496,11 @@ function AdminBrandLinksPage() {
             />
           ) : (
             <>
-              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+              <DndContext
+                sensors={sensors}
+                collisionDetection={closestCenter}
+                onDragEnd={handleDragEnd}
+              >
                 <AdminTable
                   head={
                     <>
@@ -512,7 +515,10 @@ function AdminBrandLinksPage() {
                     </>
                   }
                 >
-                  <SortableContext items={paged.map((l) => l.id)} strategy={verticalListSortingStrategy}>
+                  <SortableContext
+                    items={paged.map((l) => l.id)}
+                    strategy={verticalListSortingStrategy}
+                  >
                     {paged.map((link) => (
                       <SortableLinkRow
                         key={link.id}

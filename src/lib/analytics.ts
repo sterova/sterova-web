@@ -4,8 +4,7 @@ export const CONSENT_EVENT = "sterova:cookie-consent-change";
 export type ConsentValue = "granted" | "denied";
 
 /** GA4 measurement IDs are public by design; env var can override per-env. */
-export const GA4_MEASUREMENT_ID =
-  import.meta.env.VITE_GA4_ID || "G-CSVTF2FTC4";
+export const GA4_MEASUREMENT_ID = import.meta.env.VITE_GA4_ID || "G-CSVTF2FTC4";
 
 let initialized = false;
 

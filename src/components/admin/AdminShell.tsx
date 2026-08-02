@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
+  BarChart3,
+  BellRing,
+  Briefcase,
+  CalendarClock,
+  Calculator,
+  KeyRound,
+  Quote,
+  Settings,
   ChevronsLeft,
   ChevronsRight,
+  MessageSquare,
   ExternalLink,
   FileText,
   FolderKanban,
@@ -54,8 +63,30 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     ],
   },
   {
+    label: "Chatbot",
+    items: [
+      { href: ADMIN_ROUTES.chatLeads, label: "Chat Leads", icon: MessageSquare },
+      { href: ADMIN_ROUTES.consultations, label: "Consultations", icon: CalendarClock },
+      { href: ADMIN_ROUTES.estimates, label: "Estimator Requests", icon: Calculator },
+
+      { href: ADMIN_ROUTES.chatAnalytics, label: "Chat Analytics", icon: BarChart3 },
+    ],
+  },
+  {
+    label: "Growth",
+    items: [
+      { href: ADMIN_ROUTES.testimonials, label: "Testimonials", icon: Quote },
+      { href: ADMIN_ROUTES.careers, label: "Careers", icon: Briefcase },
+      { href: ADMIN_ROUTES.notifications, label: "Notifications", icon: BellRing },
+    ],
+  },
+  {
     label: "Security",
-    items: [{ href: ADMIN_ROUTES.sessions, label: "Sessions", icon: ShieldCheck }],
+    items: [
+      { href: ADMIN_ROUTES.sessions, label: "Sessions", icon: ShieldCheck },
+      { href: ADMIN_ROUTES.access, label: "Access & Audit", icon: KeyRound },
+      { href: ADMIN_ROUTES.settings, label: "Settings", icon: Settings },
+    ],
   },
 ];
 

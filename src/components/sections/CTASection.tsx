@@ -1,7 +1,8 @@
 import ObfuscatedEmail from "@/components/shared/ObfuscatedEmail";
 import { Link } from "@/lib/router-compat";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Mail, MessageCircle } from "lucide-react";
+import { ArrowRight, Mail } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { useBrandLinks } from "@/hooks/use-brand-links";
 
@@ -70,7 +71,7 @@ export default function CTASection({
                 </Button>
                 <Button asChild variant="outline" size="xl">
                   <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
-                    <MessageCircle className="mr-1 h-5 w-5" aria-hidden="true" />
+                    <FaWhatsapp className="mr-2 h-5 w-5" aria-hidden="true" />
                     Chat on WhatsApp
                   </a>
                 </Button>

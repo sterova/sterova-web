@@ -1,4 +1,4 @@
-import { ArrowUpRight, Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowUpRight, Clock, Mail, MapPin, Phone } from "lucide-react";
 import {
   FaBehance,
   FaDribbble,
@@ -6,6 +6,7 @@ import {
   FaInstagram,
   FaLinkedin,
   FaXTwitter,
+  FaWhatsapp,
 } from "react-icons/fa6";
 import { Link } from "@/lib/router-compat";
 import { useBrandLinks } from "@/hooks/use-brand-links";
@@ -26,7 +27,7 @@ const SOCIAL_ICONS: Record<string, IconType> = {
 
 const CONTACT_ICONS: Record<string, IconType> = {
   mail: Mail as unknown as IconType,
-  "message-circle": MessageCircle as unknown as IconType,
+  "message-circle": FaWhatsapp as IconType,
   phone: Phone as unknown as IconType,
   "map-pin": MapPin as unknown as IconType,
 };
@@ -34,7 +35,7 @@ const CONTACT_ICONS: Record<string, IconType> = {
 function getContactIcon(link: BrandLinkRow): IconType {
   if (link.icon_key && CONTACT_ICONS[link.icon_key]) return CONTACT_ICONS[link.icon_key];
   if (link.key === "email") return Mail as unknown as IconType;
-  if (link.key === "whatsapp") return MessageCircle as unknown as IconType;
+  if (link.key === "whatsapp") return FaWhatsapp as IconType;
   if (link.key === "phone") return Phone as unknown as IconType;
   if (link.key === "address") return MapPin as unknown as IconType;
   return Mail as unknown as IconType;

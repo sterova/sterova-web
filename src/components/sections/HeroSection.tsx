@@ -35,12 +35,72 @@ type Detail =
   | { kind: "metric"; label: string; value: string; fill: number };
 
 const THEMES = {
-  blue: { text: "text-blue-600 dark:text-blue-400", bg: "bg-blue-500/10", border: "border-blue-500/20", shadow: "shadow-blue-500/20", hoverBg: "group-hover:bg-blue-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-blue-600", hoverBorder: "group-hover:border-blue-500/40", fill: "bg-blue-500" },
-  emerald: { text: "text-emerald-600 dark:text-emerald-400", bg: "bg-emerald-500/10", border: "border-emerald-500/20", shadow: "shadow-emerald-500/20", hoverBg: "group-hover:bg-emerald-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-emerald-600", hoverBorder: "group-hover:border-emerald-500/40", fill: "bg-emerald-500" },
-  purple: { text: "text-purple-600 dark:text-purple-400", bg: "bg-purple-500/10", border: "border-purple-500/20", shadow: "shadow-purple-500/20", hoverBg: "group-hover:bg-purple-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-purple-600", hoverBorder: "group-hover:border-purple-500/40", fill: "bg-purple-500" },
-  amber: { text: "text-amber-600 dark:text-amber-400", bg: "bg-amber-500/10", border: "border-amber-500/20", shadow: "shadow-amber-500/20", hoverBg: "group-hover:bg-amber-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-amber-600", hoverBorder: "group-hover:border-amber-500/40", fill: "bg-amber-500" },
-  pink: { text: "text-pink-600 dark:text-pink-400", bg: "bg-pink-500/10", border: "border-pink-500/20", shadow: "shadow-pink-500/20", hoverBg: "group-hover:bg-pink-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-pink-600", hoverBorder: "group-hover:border-pink-500/40", fill: "bg-pink-500" },
-  cyan: { text: "text-cyan-600 dark:text-cyan-400", bg: "bg-cyan-500/10", border: "border-cyan-500/20", shadow: "shadow-cyan-500/20", hoverBg: "group-hover:bg-cyan-500", hoverText: "group-hover:text-white", hoverIconText: "group-hover:text-cyan-600", hoverBorder: "group-hover:border-cyan-500/40", fill: "bg-cyan-500" },
+  blue: {
+    text: "text-blue-600 dark:text-blue-400",
+    bg: "bg-blue-500/10",
+    border: "border-blue-500/20",
+    shadow: "shadow-blue-500/20",
+    hoverBg: "group-hover:bg-blue-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-blue-600",
+    hoverBorder: "group-hover:border-blue-500/40",
+    fill: "bg-blue-500",
+  },
+  emerald: {
+    text: "text-emerald-600 dark:text-emerald-400",
+    bg: "bg-emerald-500/10",
+    border: "border-emerald-500/20",
+    shadow: "shadow-emerald-500/20",
+    hoverBg: "group-hover:bg-emerald-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-emerald-600",
+    hoverBorder: "group-hover:border-emerald-500/40",
+    fill: "bg-emerald-500",
+  },
+  purple: {
+    text: "text-purple-600 dark:text-purple-400",
+    bg: "bg-purple-500/10",
+    border: "border-purple-500/20",
+    shadow: "shadow-purple-500/20",
+    hoverBg: "group-hover:bg-purple-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-purple-600",
+    hoverBorder: "group-hover:border-purple-500/40",
+    fill: "bg-purple-500",
+  },
+  amber: {
+    text: "text-amber-600 dark:text-amber-400",
+    bg: "bg-amber-500/10",
+    border: "border-amber-500/20",
+    shadow: "shadow-amber-500/20",
+    hoverBg: "group-hover:bg-amber-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-amber-600",
+    hoverBorder: "group-hover:border-amber-500/40",
+    fill: "bg-amber-500",
+  },
+  pink: {
+    text: "text-pink-600 dark:text-pink-400",
+    bg: "bg-pink-500/10",
+    border: "border-pink-500/20",
+    shadow: "shadow-pink-500/20",
+    hoverBg: "group-hover:bg-pink-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-pink-600",
+    hoverBorder: "group-hover:border-pink-500/40",
+    fill: "bg-pink-500",
+  },
+  cyan: {
+    text: "text-cyan-600 dark:text-cyan-400",
+    bg: "bg-cyan-500/10",
+    border: "border-cyan-500/20",
+    shadow: "shadow-cyan-500/20",
+    hoverBg: "group-hover:bg-cyan-500",
+    hoverText: "group-hover:text-white",
+    hoverIconText: "group-hover:text-cyan-600",
+    hoverBorder: "group-hover:border-cyan-500/40",
+    fill: "bg-cyan-500",
+  },
 };
 
 type Node = {
@@ -111,7 +171,6 @@ const NODES: Node[] = [
   },
 ];
 
-
 function NodeDetail({ detail, theme }: { detail: Detail; theme: keyof typeof THEMES }) {
   const t = THEMES[theme];
   if (detail.kind === "chips") {
@@ -122,7 +181,8 @@ function NodeDetail({ detail, theme }: { detail: Detail; theme: keyof typeof THE
             key={i}
             className={cn(
               "inline-flex h-5 w-5 xl:h-7 xl:w-7 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
-              t.bg, t.text
+              t.bg,
+              t.text,
             )}
           >
             <Chip className="h-[10px] w-[10px] xl:h-3.5 xl:w-3.5" />
@@ -134,8 +194,12 @@ function NodeDetail({ detail, theme }: { detail: Detail; theme: keyof typeof THE
   return (
     <span className="mt-3 xl:mt-4 block" aria-hidden="true">
       <span className="flex items-baseline justify-between">
-        <span className="text-[0.7rem] xl:text-[0.8rem] font-medium text-muted-foreground">{detail.label}</span>
-        <span className="font-mono text-[0.7rem] xl:text-[0.8rem] font-bold text-foreground">{detail.value}</span>
+        <span className="text-[0.7rem] xl:text-[0.8rem] font-medium text-muted-foreground">
+          {detail.label}
+        </span>
+        <span className="font-mono text-[0.7rem] xl:text-[0.8rem] font-bold text-foreground">
+          {detail.value}
+        </span>
       </span>
       <span className="mt-1.5 xl:mt-2 block h-1.5 xl:h-2 w-full overflow-hidden rounded-full bg-surface">
         <span
@@ -158,7 +222,8 @@ function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) 
         "border border-glass-border",
         "transition-all duration-300 ease-out",
         "hover:-translate-y-1 hover:border-primary/40",
-        "shadow-xl", t.shadow,
+        "shadow-xl",
+        t.shadow,
         "motion-reduce:transition-none motion-reduce:hover:translate-y-0",
         compact ? "p-3" : "p-3 xl:p-5",
       )}
@@ -167,7 +232,8 @@ function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) 
         <span
           className={cn(
             "inline-flex h-8 w-8 xl:h-10 xl:w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
-            t.bg, t.text
+            t.bg,
+            t.text,
           )}
           aria-hidden="true"
         >
@@ -202,7 +268,9 @@ function Core() {
             />
           </span>
         </span>
-        <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-1">{SITE.name}</span>
+        <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-1">
+          {SITE.name}
+        </span>
         <span className="text-[0.6rem] xl:text-[0.85rem] font-medium text-muted-foreground mt-0.5">
           Digital Solutions
         </span>
@@ -234,7 +302,7 @@ export default function HeroSection() {
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-10 xl:gap-16">
           {/* ── Copy ───────────────────────────────────────────── */}
           <motion.div
-            initial={reduce ? false : { opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="lg:col-span-5 lg:self-center"
@@ -245,7 +313,8 @@ export default function HeroSection() {
             </span>
 
             <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
-              Software engineered for an <span className="animate-gradient-text">unfair advantage.</span>
+              Software engineered for an{" "}
+              <span className="animate-gradient-text">unfair advantage.</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-text-secondary">
@@ -290,7 +359,7 @@ export default function HeroSection() {
           <div className="hidden lg:col-span-7 lg:block lg:self-start lg:-mt-4 xl:-mt-8">
             {/* Desktop: anchored nodes orbiting the core. */}
             <motion.div
-              initial={reduce ? false : { opacity: 0, x: 60 }}
+              initial={false}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 2, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="relative mx-auto hidden w-full h-[30rem] xl:h-[36rem] 2xl:h-[40rem] max-w-[650px] xl:max-w-[850px] lg:block"

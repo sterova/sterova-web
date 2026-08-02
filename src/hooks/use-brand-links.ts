@@ -24,7 +24,7 @@ const STATIC_SOCIAL: BrandLinkRow[] = SOCIAL_LINKS.map((s, i) => ({
   updated_at: "",
 }));
 
-const waUrl = getWhatsAppUrl(SITE.whatsapp, "Hi Sterova, I'd like to discuss a project.");
+const waUrl = getWhatsAppUrl(SITE.whatsapp);
 
 const STATIC_CONTACT: BrandLinkRow[] = [
   {

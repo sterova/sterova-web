@@ -79,7 +79,9 @@ export default function Navbar() {
   // Only pull focus into the dropdown when it was opened from the keyboard.
   const openedViaKeyboardRef = useRef(false);
 
-  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; opacity: number } | null>(null);
+  const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; opacity: number } | null>(
+    null,
+  );
 
   useEffect(() => {
     const updateIndicator = () => {
@@ -276,7 +278,7 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav
             ref={navRef}
-            className="hidden lg:flex items-center gap-5 xl:gap-6 relative"
+            className="hidden lg:flex items-center gap-2 xl:gap-4 relative"
             aria-label="Main navigation"
           >
             {LEFT_LINKS.map((link) => (
@@ -417,6 +419,17 @@ export default function Navbar() {
             <ThemeToggle />
             <Button
               asChild
+              variant="outline"
+              size="default"
+              className={cn(
+                "ml-1 rounded-full px-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 motion-reduce:transition-none",
+                FOCUS_RING,
+              )}
+            >
+              <Link href="/estimate">Estimate Project</Link>
+            </Button>
+            <Button
+              asChild
               variant="gradient"
               size="default"
               className={cn(
@@ -528,7 +541,16 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <div className="px-6 pt-6 mt-2">
+              <div className="px-6 pt-6 mt-2 flex flex-col gap-3">
+                <Button
+                  asChild
+                  variant="outline"
+                  className={cn("w-full h-12 text-base", FOCUS_RING)}
+                >
+                  <Link href="/estimate" onClick={() => setIsOpen(false)}>
+                    Estimate Project
+                  </Link>
+                </Button>
                 <Button
                   asChild
                   variant="gradient"

@@ -1,8 +1,4 @@
-import {
-  supabase,
-  isSupabaseConfigured,
-  SUPABASE_NOT_CONFIGURED_MESSAGE,
-} from "@/lib/supabase";
+import { supabase, isSupabaseConfigured, SUPABASE_NOT_CONFIGURED_MESSAGE } from "@/lib/supabase";
 import { ACCEPTED_IMAGE_TYPES, MAX_UPLOAD_BYTES } from "@/data/admin-constants";
 import type {
   BlogCategoryRow,
@@ -168,15 +164,15 @@ export async function submitContactMessage(input: {
       message: input.message.trim(),
     };
     const retry = await supabase.from("contact_messages").insert(retryBase);
-    
+
     if (!retry.error) {
       // Fire and forget webhook
       fetch(ZAPIER_WEBHOOK_URL, {
         method: "POST",
-        body: JSON.stringify({ ...retryBase, source: "contact" })
+        body: JSON.stringify({ ...retryBase, source: "contact" }),
       }).catch(console.error);
     }
-    
+
     if (retry.error) throw new Error(retry.error.message);
     return;
   }
@@ -191,7 +187,7 @@ export async function submitContactMessage(input: {
       subject: input.subject?.trim() || null,
       message: input.message.trim(),
       source: "contact",
-    })
+    }),
   }).catch(console.error);
 }
 
@@ -247,21 +243,21 @@ export async function submitServiceInquiry(input: ServiceInquiryInput): Promise<
     ]
       .filter(Boolean)
       .join("\n");
-      
+
     const retryPayload = {
       ...base,
       message: details ? `${details}\n\n${base.message}` : base.message,
     };
     const retry = await supabase.from("contact_messages").insert(retryPayload);
-    
+
     if (!retry.error) {
       // Fire and forget webhook
       fetch(ZAPIER_WEBHOOK_URL, {
         method: "POST",
-        body: JSON.stringify({ ...retryPayload, source: "service" })
+        body: JSON.stringify({ ...retryPayload, source: "service" }),
       }).catch(console.error);
     }
-    
+
     if (retry.error) throw new Error(retry.error.message);
     return;
   }
@@ -277,7 +273,7 @@ export async function submitServiceInquiry(input: ServiceInquiryInput): Promise<
       service_title: clean(input.serviceTitle),
       company: clean(input.company),
       phone: clean(input.phone),
-    })
+    }),
   }).catch(console.error);
 }
 

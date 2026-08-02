@@ -76,9 +76,7 @@ export default function WhyChooseUsSection() {
               <h3 className="mb-2 font-display text-lg font-semibold tracking-tight">
                 {reason.title}
               </h3>
-              <p className="text-sm leading-relaxed text-text-secondary">
-                {reason.description}
-              </p>
+              <p className="text-sm leading-relaxed text-text-secondary">{reason.description}</p>
             </div>
           ))}
         </div>

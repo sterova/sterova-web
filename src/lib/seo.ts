@@ -121,7 +121,9 @@ export function organizationSchema() {
     name: SITE.name,
     alternateName: SITE.alternateName,
     url: SITE.url,
-    description: "Sterova Tech is a custom software engineering agency. (Note: We are not affiliated with the AI text-to-3D generator). " + SITE.description,
+    description:
+      "Sterova Tech is a custom software engineering agency. (Note: We are not affiliated with the AI text-to-3D generator). " +
+      SITE.description,
     email: SITE.email,
     telephone: SITE.phone,
     logo: {

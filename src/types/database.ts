@@ -141,6 +141,208 @@ export interface BrandLinkRow {
   updated_at: string;
 }
 
+// ── Chatbot (sql/0006_chatbot.sql) ───────────────────────────────────────────
+
+export type ChatbotLeadStatus = "new" | "contacted" | "qualified" | "won" | "lost" | "spam";
+
+export interface ChatbotLeadRow {
+  id: string;
+  name: string;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  service: string | null;
+  timeline: string | null;
+  message: string;
+  source_node: string | null;
+  page_url: string | null;
+  session_id: string | null;
+  status: ChatbotLeadStatus;
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ConsultationStatus = "pending" | "confirmed" | "completed" | "cancelled" | "no_show";
+
+export interface ConsultationBookingRow {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  topic: string | null;
+  preferred_date: string | null;
+  preferred_time: string | null;
+  notes: string | null;
+  page_url: string | null;
+  session_id: string | null;
+  status: ConsultationStatus;
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ChatbotEventRow {
+  id: string;
+  session_id: string;
+  event_type: string;
+  value: string | null;
+  page_url: string | null;
+  created_at: string;
+}
+
+/** One Project Estimator (/estimate) submission. */
+export interface EstimatorSubmissionRow {
+  id: string;
+  name: string | null;
+  email: string;
+  phone: string | null;
+  project_type: string;
+  features: string[];
+  design_need: string | null;
+  timeline_pref: string | null;
+  estimate_cost: string | null;
+  estimate_weeks: string | null;
+  page_url: string | null;
+  status: ChatbotLeadStatus;
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+// ─────────────────────────────────────────────
+// Phase 2 — settings, testimonials, careers, notifications, roles, audit
+// mirrors sql/0009_phase2.sql
+// ─────────────────────────────────────────────
+
+export type SettingsKey = "company" | "website" | "features";
+
+export interface CompanySettings {
+  legal_name?: string;
+  tagline?: string;
+  founded_year?: string;
+  registration_no?: string;
+  gst_no?: string;
+  support_email?: string;
+  sales_email?: string;
+  phone?: string;
+  address?: string;
+  working_hours?: string;
+}
+
+export interface WebsiteSettings {
+  maintenance_mode?: boolean;
+  maintenance_message?: string;
+  announcement?: string;
+  default_meta_title?: string;
+  default_meta_description?: string;
+  analytics_id?: string;
+}
+
+export interface FeatureSettings {
+  chatbot?: boolean;
+  estimator?: boolean;
+  reviews?: boolean;
+  blog?: boolean;
+  careers?: boolean;
+}
+
+export interface SiteSettingsMap {
+  company: CompanySettings;
+  website: WebsiteSettings;
+  features: FeatureSettings;
+}
+
+export interface SiteSettingRow {
+  key: SettingsKey;
+  value: Record<string, unknown>;
+  updated_at: string;
+}
+
+export interface TestimonialRow {
+  id: string;
+  name: string;
+  role: string | null;
+  company: string | null;
+  content: string;
+  rating: number;
+  avatar_url: string | null;
+  is_published: boolean;
+  is_featured: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export type EmploymentType = "full_time" | "part_time" | "contract" | "internship";
+
+export interface JobOpeningRow {
+  id: string;
+  title: string;
+  slug: string;
+  department: string | null;
+  location: string | null;
+  employment_type: EmploymentType;
+  experience: string | null;
+  description: string;
+  requirements: string[];
+  is_open: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export type ApplicationStatus = "new" | "screening" | "interview" | "offer" | "hired" | "rejected";
+
+export interface JobApplicationRow {
+  id: string;
+  job_id: string | null;
+  job_title: string | null;
+  name: string;
+  email: string;
+  phone: string | null;
+  portfolio_url: string | null;
+  resume_url: string | null;
+  cover_letter: string;
+  status: ApplicationStatus;
+  admin_notes: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export type NotificationKind =
+  "info" | "lead" | "booking" | "estimate" | "application" | "review" | "message" | "system";
+
+export interface AdminNotificationRow {
+  id: string;
+  kind: NotificationKind;
+  title: string;
+  body: string | null;
+  link: string | null;
+  is_read: boolean;
+  created_at: string;
+}
+
+export type AppRole = "super_admin" | "admin" | "editor";
+
+export interface UserRoleRow {
+  id: string;
+  user_id: string;
+  role: AppRole;
+  created_at: string;
+}
+
+export interface AuditLogRow {
+  id: string;
+  actor_id: string | null;
+  actor_email: string | null;
+  action: string;
+  entity: string;
+  entity_id: string | null;
+  summary: string | null;
+  created_at: string;
+}
+
 /** A blog post joined with its category record. */
 export type BlogPostWithCategory = BlogPostRow & {
   blog_categories: Pick<BlogCategoryRow, "id" | "name" | "slug"> | null;
@@ -196,7 +398,63 @@ export interface Database {
         Insert: Insertable<BrandLinkRow, "category" | "key" | "label">;
         Update: Partial<BrandLinkRow>;
       };
+      chatbot_leads: {
+        Row: ChatbotLeadRow;
+        Insert: Insertable<ChatbotLeadRow, "name" | "email" | "message">;
+        Update: Partial<ChatbotLeadRow>;
+      };
+      consultation_bookings: {
+        Row: ConsultationBookingRow;
+        Insert: Insertable<ConsultationBookingRow, "name" | "email" | "phone">;
+        Update: Partial<ConsultationBookingRow>;
+      };
+      chatbot_events: {
+        Row: ChatbotEventRow;
+        Insert: Insertable<ChatbotEventRow, "session_id" | "event_type">;
+        Update: Partial<ChatbotEventRow>;
+      };
+      estimator_submissions: {
+        Row: EstimatorSubmissionRow;
+        Insert: Insertable<EstimatorSubmissionRow, "email" | "project_type">;
+        Update: Partial<EstimatorSubmissionRow>;
+      };
+      site_settings: {
+        Row: SiteSettingRow;
+        Insert: Insertable<SiteSettingRow, "key" | "value">;
+        Update: Partial<SiteSettingRow>;
+      };
+      testimonials: {
+        Row: TestimonialRow;
+        Insert: Insertable<TestimonialRow, "name" | "content">;
+        Update: Partial<TestimonialRow>;
+      };
+      job_openings: {
+        Row: JobOpeningRow;
+        Insert: Insertable<JobOpeningRow, "title" | "slug">;
+        Update: Partial<JobOpeningRow>;
+      };
+      job_applications: {
+        Row: JobApplicationRow;
+        Insert: Insertable<JobApplicationRow, "name" | "email">;
+        Update: Partial<JobApplicationRow>;
+      };
+      admin_notifications: {
+        Row: AdminNotificationRow;
+        Insert: Insertable<AdminNotificationRow, "title">;
+        Update: Partial<AdminNotificationRow>;
+      };
+      user_roles: {
+        Row: UserRoleRow;
+        Insert: Insertable<UserRoleRow, "user_id" | "role">;
+        Update: Partial<UserRoleRow>;
+      };
+      audit_logs: {
+        Row: AuditLogRow;
+        Insert: Insertable<AuditLogRow, "action" | "entity">;
+        Update: Partial<AuditLogRow>;
+      };
     };
+
     Views: Record<string, never>;
     Functions: {
       is_admin: {

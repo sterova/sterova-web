@@ -43,8 +43,8 @@ export default function CookieConsent() {
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-muted-foreground">
-          We use analytics cookies to understand how the site is used. They stay off
-          until you accept.{" "}
+          We use analytics cookies to understand how the site is used. They stay off until you
+          accept.{" "}
           <Link to="/privacy" className="font-medium text-foreground underline underline-offset-4">
             Privacy Policy
           </Link>

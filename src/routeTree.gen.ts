@@ -14,6 +14,7 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as EstimateRouteImport } from './routes/estimate'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
@@ -26,15 +27,24 @@ import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as SterovaAdminIndexRouteImport } from './routes/sterova-admin.index'
 import { Route as SterovaAdminCmsRouteImport } from './routes/sterova-admin._cms'
+import { Route as SterovaAdminCmsAccessRouteImport } from './routes/sterova-admin._cms.access'
 import { Route as SterovaAdminCmsBrandLinksRouteImport } from './routes/sterova-admin._cms.brand-links'
+import { Route as SterovaAdminCmsCareersRouteImport } from './routes/sterova-admin._cms.careers'
 import { Route as SterovaAdminCmsCategoriesRouteImport } from './routes/sterova-admin._cms.categories'
+import { Route as SterovaAdminCmsChatAnalyticsRouteImport } from './routes/sterova-admin._cms.chat-analytics'
+import { Route as SterovaAdminCmsChatLeadsRouteImport } from './routes/sterova-admin._cms.chat-leads'
+import { Route as SterovaAdminCmsConsultationsRouteImport } from './routes/sterova-admin._cms.consultations'
 import { Route as SterovaAdminCmsDashboardRouteImport } from './routes/sterova-admin._cms.dashboard'
+import { Route as SterovaAdminCmsEstimatesRouteImport } from './routes/sterova-admin._cms.estimates'
 import { Route as SterovaAdminCmsMessagesRouteImport } from './routes/sterova-admin._cms.messages'
+import { Route as SterovaAdminCmsNotificationsRouteImport } from './routes/sterova-admin._cms.notifications'
 import { Route as SterovaAdminCmsProjectsRouteImport } from './routes/sterova-admin._cms.projects'
 import { Route as SterovaAdminCmsResultsRouteImport } from './routes/sterova-admin._cms.results'
 import { Route as SterovaAdminCmsReviewsRouteImport } from './routes/sterova-admin._cms.reviews'
 import { Route as SterovaAdminCmsSessionsRouteImport } from './routes/sterova-admin._cms.sessions'
+import { Route as SterovaAdminCmsSettingsRouteImport } from './routes/sterova-admin._cms.settings'
 import { Route as SterovaAdminCmsTeamRouteImport } from './routes/sterova-admin._cms.team'
+import { Route as SterovaAdminCmsTestimonialsRouteImport } from './routes/sterova-admin._cms.testimonials'
 import { Route as SterovaAdminCmsPostsIndexRouteImport } from './routes/sterova-admin._cms.posts.index'
 import { Route as SterovaAdminCmsPostsIdRouteImport } from './routes/sterova-admin._cms.posts.$id'
 import { Route as SterovaAdminCmsPostsNewRouteImport } from './routes/sterova-admin._cms.posts.new'
@@ -62,6 +72,11 @@ const CareersRoute = CareersRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstimateRoute = EstimateRouteImport.update({
+  id: '/estimate',
+  path: '/estimate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PortfolioRoute = PortfolioRouteImport.update({
@@ -123,16 +138,44 @@ const SterovaAdminCmsRoute = SterovaAdminCmsRouteImport.update({
   id: '/_cms',
   getParentRoute: () => SterovaAdminRoute,
 } as any)
+const SterovaAdminCmsAccessRoute = SterovaAdminCmsAccessRouteImport.update({
+  id: '/access',
+  path: '/access',
+  getParentRoute: () => SterovaAdminCmsRoute,
+} as any)
 const SterovaAdminCmsBrandLinksRoute =
   SterovaAdminCmsBrandLinksRouteImport.update({
     id: '/brand-links',
     path: '/brand-links',
     getParentRoute: () => SterovaAdminCmsRoute,
   } as any)
+const SterovaAdminCmsCareersRoute = SterovaAdminCmsCareersRouteImport.update({
+  id: '/careers',
+  path: '/careers',
+  getParentRoute: () => SterovaAdminCmsRoute,
+} as any)
 const SterovaAdminCmsCategoriesRoute =
   SterovaAdminCmsCategoriesRouteImport.update({
     id: '/categories',
     path: '/categories',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
+const SterovaAdminCmsChatAnalyticsRoute =
+  SterovaAdminCmsChatAnalyticsRouteImport.update({
+    id: '/chat-analytics',
+    path: '/chat-analytics',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
+const SterovaAdminCmsChatLeadsRoute =
+  SterovaAdminCmsChatLeadsRouteImport.update({
+    id: '/chat-leads',
+    path: '/chat-leads',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
+const SterovaAdminCmsConsultationsRoute =
+  SterovaAdminCmsConsultationsRouteImport.update({
+    id: '/consultations',
+    path: '/consultations',
     getParentRoute: () => SterovaAdminCmsRoute,
   } as any)
 const SterovaAdminCmsDashboardRoute =
@@ -141,11 +184,23 @@ const SterovaAdminCmsDashboardRoute =
     path: '/dashboard',
     getParentRoute: () => SterovaAdminCmsRoute,
   } as any)
+const SterovaAdminCmsEstimatesRoute =
+  SterovaAdminCmsEstimatesRouteImport.update({
+    id: '/estimates',
+    path: '/estimates',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
 const SterovaAdminCmsMessagesRoute = SterovaAdminCmsMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
   getParentRoute: () => SterovaAdminCmsRoute,
 } as any)
+const SterovaAdminCmsNotificationsRoute =
+  SterovaAdminCmsNotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
 const SterovaAdminCmsProjectsRoute = SterovaAdminCmsProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -166,11 +221,22 @@ const SterovaAdminCmsSessionsRoute = SterovaAdminCmsSessionsRouteImport.update({
   path: '/sessions',
   getParentRoute: () => SterovaAdminCmsRoute,
 } as any)
+const SterovaAdminCmsSettingsRoute = SterovaAdminCmsSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => SterovaAdminCmsRoute,
+} as any)
 const SterovaAdminCmsTeamRoute = SterovaAdminCmsTeamRouteImport.update({
   id: '/team',
   path: '/team',
   getParentRoute: () => SterovaAdminCmsRoute,
 } as any)
+const SterovaAdminCmsTestimonialsRoute =
+  SterovaAdminCmsTestimonialsRouteImport.update({
+    id: '/testimonials',
+    path: '/testimonials',
+    getParentRoute: () => SterovaAdminCmsRoute,
+  } as any)
 const SterovaAdminCmsPostsIndexRoute =
   SterovaAdminCmsPostsIndexRouteImport.update({
     id: '/posts/',
@@ -194,6 +260,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
@@ -205,15 +272,24 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
+  '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
+  '/sterova-admin/careers': typeof SterovaAdminCmsCareersRoute
   '/sterova-admin/categories': typeof SterovaAdminCmsCategoriesRoute
+  '/sterova-admin/chat-analytics': typeof SterovaAdminCmsChatAnalyticsRoute
+  '/sterova-admin/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
+  '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
+  '/sterova-admin/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
+  '/sterova-admin/notifications': typeof SterovaAdminCmsNotificationsRoute
   '/sterova-admin/projects': typeof SterovaAdminCmsProjectsRoute
   '/sterova-admin/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/sessions': typeof SterovaAdminCmsSessionsRoute
+  '/sterova-admin/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/team': typeof SterovaAdminCmsTeamRoute
+  '/sterova-admin/testimonials': typeof SterovaAdminCmsTestimonialsRoute
   '/sterova-admin/posts/$id': typeof SterovaAdminCmsPostsIdRoute
   '/sterova-admin/posts/new': typeof SterovaAdminCmsPostsNewRoute
   '/sterova-admin/posts/': typeof SterovaAdminCmsPostsIndexRoute
@@ -224,6 +300,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
@@ -234,15 +311,24 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/sterova-admin': typeof SterovaAdminIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
+  '/sterova-admin/careers': typeof SterovaAdminCmsCareersRoute
   '/sterova-admin/categories': typeof SterovaAdminCmsCategoriesRoute
+  '/sterova-admin/chat-analytics': typeof SterovaAdminCmsChatAnalyticsRoute
+  '/sterova-admin/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
+  '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
+  '/sterova-admin/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
+  '/sterova-admin/notifications': typeof SterovaAdminCmsNotificationsRoute
   '/sterova-admin/projects': typeof SterovaAdminCmsProjectsRoute
   '/sterova-admin/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/sessions': typeof SterovaAdminCmsSessionsRoute
+  '/sterova-admin/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/team': typeof SterovaAdminCmsTeamRoute
+  '/sterova-admin/testimonials': typeof SterovaAdminCmsTestimonialsRoute
   '/sterova-admin/posts/$id': typeof SterovaAdminCmsPostsIdRoute
   '/sterova-admin/posts/new': typeof SterovaAdminCmsPostsNewRoute
   '/sterova-admin/posts': typeof SterovaAdminCmsPostsIndexRoute
@@ -254,6 +340,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
+  '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
@@ -266,15 +353,24 @@ export interface FileRoutesById {
   '/sterova-admin/_cms': typeof SterovaAdminCmsRouteWithChildren
   '/blog/': typeof BlogIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
+  '/sterova-admin/_cms/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/_cms/brand-links': typeof SterovaAdminCmsBrandLinksRoute
+  '/sterova-admin/_cms/careers': typeof SterovaAdminCmsCareersRoute
   '/sterova-admin/_cms/categories': typeof SterovaAdminCmsCategoriesRoute
+  '/sterova-admin/_cms/chat-analytics': typeof SterovaAdminCmsChatAnalyticsRoute
+  '/sterova-admin/_cms/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
+  '/sterova-admin/_cms/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/_cms/dashboard': typeof SterovaAdminCmsDashboardRoute
+  '/sterova-admin/_cms/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/_cms/messages': typeof SterovaAdminCmsMessagesRoute
+  '/sterova-admin/_cms/notifications': typeof SterovaAdminCmsNotificationsRoute
   '/sterova-admin/_cms/projects': typeof SterovaAdminCmsProjectsRoute
   '/sterova-admin/_cms/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/_cms/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/_cms/sessions': typeof SterovaAdminCmsSessionsRoute
+  '/sterova-admin/_cms/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/_cms/team': typeof SterovaAdminCmsTeamRoute
+  '/sterova-admin/_cms/testimonials': typeof SterovaAdminCmsTestimonialsRoute
   '/sterova-admin/_cms/posts/$id': typeof SterovaAdminCmsPostsIdRoute
   '/sterova-admin/_cms/posts/new': typeof SterovaAdminCmsPostsNewRoute
   '/sterova-admin/_cms/posts/': typeof SterovaAdminCmsPostsIndexRoute
@@ -287,6 +383,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/contact'
+    | '/estimate'
     | '/portfolio'
     | '/privacy'
     | '/process'
@@ -298,15 +395,24 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/blog/'
     | '/sterova-admin/'
+    | '/sterova-admin/access'
     | '/sterova-admin/brand-links'
+    | '/sterova-admin/careers'
     | '/sterova-admin/categories'
+    | '/sterova-admin/chat-analytics'
+    | '/sterova-admin/chat-leads'
+    | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
+    | '/sterova-admin/estimates'
     | '/sterova-admin/messages'
+    | '/sterova-admin/notifications'
     | '/sterova-admin/projects'
     | '/sterova-admin/results'
     | '/sterova-admin/reviews'
     | '/sterova-admin/sessions'
+    | '/sterova-admin/settings'
     | '/sterova-admin/team'
+    | '/sterova-admin/testimonials'
     | '/sterova-admin/posts/$id'
     | '/sterova-admin/posts/new'
     | '/sterova-admin/posts/'
@@ -317,6 +423,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/contact'
+    | '/estimate'
     | '/portfolio'
     | '/privacy'
     | '/process'
@@ -327,15 +434,24 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/sterova-admin'
     | '/blog'
+    | '/sterova-admin/access'
     | '/sterova-admin/brand-links'
+    | '/sterova-admin/careers'
     | '/sterova-admin/categories'
+    | '/sterova-admin/chat-analytics'
+    | '/sterova-admin/chat-leads'
+    | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
+    | '/sterova-admin/estimates'
     | '/sterova-admin/messages'
+    | '/sterova-admin/notifications'
     | '/sterova-admin/projects'
     | '/sterova-admin/results'
     | '/sterova-admin/reviews'
     | '/sterova-admin/sessions'
+    | '/sterova-admin/settings'
     | '/sterova-admin/team'
+    | '/sterova-admin/testimonials'
     | '/sterova-admin/posts/$id'
     | '/sterova-admin/posts/new'
     | '/sterova-admin/posts'
@@ -346,6 +462,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/careers'
     | '/contact'
+    | '/estimate'
     | '/portfolio'
     | '/privacy'
     | '/process'
@@ -358,15 +475,24 @@ export interface FileRouteTypes {
     | '/sterova-admin/_cms'
     | '/blog/'
     | '/sterova-admin/'
+    | '/sterova-admin/_cms/access'
     | '/sterova-admin/_cms/brand-links'
+    | '/sterova-admin/_cms/careers'
     | '/sterova-admin/_cms/categories'
+    | '/sterova-admin/_cms/chat-analytics'
+    | '/sterova-admin/_cms/chat-leads'
+    | '/sterova-admin/_cms/consultations'
     | '/sterova-admin/_cms/dashboard'
+    | '/sterova-admin/_cms/estimates'
     | '/sterova-admin/_cms/messages'
+    | '/sterova-admin/_cms/notifications'
     | '/sterova-admin/_cms/projects'
     | '/sterova-admin/_cms/results'
     | '/sterova-admin/_cms/reviews'
     | '/sterova-admin/_cms/sessions'
+    | '/sterova-admin/_cms/settings'
     | '/sterova-admin/_cms/team'
+    | '/sterova-admin/_cms/testimonials'
     | '/sterova-admin/_cms/posts/$id'
     | '/sterova-admin/_cms/posts/new'
     | '/sterova-admin/_cms/posts/'
@@ -378,6 +504,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
+  EstimateRoute: typeof EstimateRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
@@ -425,6 +552,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estimate': {
+      id: '/estimate'
+      path: '/estimate'
+      fullPath: '/estimate'
+      preLoaderRoute: typeof EstimateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/portfolio': {
@@ -511,11 +645,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsRouteImport
       parentRoute: typeof SterovaAdminRoute
     }
+    '/sterova-admin/_cms/access': {
+      id: '/sterova-admin/_cms/access'
+      path: '/access'
+      fullPath: '/sterova-admin/access'
+      preLoaderRoute: typeof SterovaAdminCmsAccessRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
     '/sterova-admin/_cms/brand-links': {
       id: '/sterova-admin/_cms/brand-links'
       path: '/brand-links'
       fullPath: '/sterova-admin/brand-links'
       preLoaderRoute: typeof SterovaAdminCmsBrandLinksRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
+    '/sterova-admin/_cms/careers': {
+      id: '/sterova-admin/_cms/careers'
+      path: '/careers'
+      fullPath: '/sterova-admin/careers'
+      preLoaderRoute: typeof SterovaAdminCmsCareersRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
     '/sterova-admin/_cms/categories': {
@@ -525,6 +673,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsCategoriesRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
+    '/sterova-admin/_cms/chat-analytics': {
+      id: '/sterova-admin/_cms/chat-analytics'
+      path: '/chat-analytics'
+      fullPath: '/sterova-admin/chat-analytics'
+      preLoaderRoute: typeof SterovaAdminCmsChatAnalyticsRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
+    '/sterova-admin/_cms/chat-leads': {
+      id: '/sterova-admin/_cms/chat-leads'
+      path: '/chat-leads'
+      fullPath: '/sterova-admin/chat-leads'
+      preLoaderRoute: typeof SterovaAdminCmsChatLeadsRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
+    '/sterova-admin/_cms/consultations': {
+      id: '/sterova-admin/_cms/consultations'
+      path: '/consultations'
+      fullPath: '/sterova-admin/consultations'
+      preLoaderRoute: typeof SterovaAdminCmsConsultationsRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
     '/sterova-admin/_cms/dashboard': {
       id: '/sterova-admin/_cms/dashboard'
       path: '/dashboard'
@@ -532,11 +701,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsDashboardRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
+    '/sterova-admin/_cms/estimates': {
+      id: '/sterova-admin/_cms/estimates'
+      path: '/estimates'
+      fullPath: '/sterova-admin/estimates'
+      preLoaderRoute: typeof SterovaAdminCmsEstimatesRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
     '/sterova-admin/_cms/messages': {
       id: '/sterova-admin/_cms/messages'
       path: '/messages'
       fullPath: '/sterova-admin/messages'
       preLoaderRoute: typeof SterovaAdminCmsMessagesRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
+    '/sterova-admin/_cms/notifications': {
+      id: '/sterova-admin/_cms/notifications'
+      path: '/notifications'
+      fullPath: '/sterova-admin/notifications'
+      preLoaderRoute: typeof SterovaAdminCmsNotificationsRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
     '/sterova-admin/_cms/projects': {
@@ -567,11 +750,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsSessionsRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
+    '/sterova-admin/_cms/settings': {
+      id: '/sterova-admin/_cms/settings'
+      path: '/settings'
+      fullPath: '/sterova-admin/settings'
+      preLoaderRoute: typeof SterovaAdminCmsSettingsRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
     '/sterova-admin/_cms/team': {
       id: '/sterova-admin/_cms/team'
       path: '/team'
       fullPath: '/sterova-admin/team'
       preLoaderRoute: typeof SterovaAdminCmsTeamRouteImport
+      parentRoute: typeof SterovaAdminCmsRoute
+    }
+    '/sterova-admin/_cms/testimonials': {
+      id: '/sterova-admin/_cms/testimonials'
+      path: '/testimonials'
+      fullPath: '/sterova-admin/testimonials'
+      preLoaderRoute: typeof SterovaAdminCmsTestimonialsRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
     '/sterova-admin/_cms/posts/': {
@@ -599,30 +796,48 @@ declare module '@tanstack/react-router' {
 }
 
 interface SterovaAdminCmsRouteChildren {
+  SterovaAdminCmsAccessRoute: typeof SterovaAdminCmsAccessRoute
   SterovaAdminCmsBrandLinksRoute: typeof SterovaAdminCmsBrandLinksRoute
+  SterovaAdminCmsCareersRoute: typeof SterovaAdminCmsCareersRoute
   SterovaAdminCmsCategoriesRoute: typeof SterovaAdminCmsCategoriesRoute
+  SterovaAdminCmsChatAnalyticsRoute: typeof SterovaAdminCmsChatAnalyticsRoute
+  SterovaAdminCmsChatLeadsRoute: typeof SterovaAdminCmsChatLeadsRoute
+  SterovaAdminCmsConsultationsRoute: typeof SterovaAdminCmsConsultationsRoute
   SterovaAdminCmsDashboardRoute: typeof SterovaAdminCmsDashboardRoute
+  SterovaAdminCmsEstimatesRoute: typeof SterovaAdminCmsEstimatesRoute
   SterovaAdminCmsMessagesRoute: typeof SterovaAdminCmsMessagesRoute
+  SterovaAdminCmsNotificationsRoute: typeof SterovaAdminCmsNotificationsRoute
   SterovaAdminCmsProjectsRoute: typeof SterovaAdminCmsProjectsRoute
   SterovaAdminCmsResultsRoute: typeof SterovaAdminCmsResultsRoute
   SterovaAdminCmsReviewsRoute: typeof SterovaAdminCmsReviewsRoute
   SterovaAdminCmsSessionsRoute: typeof SterovaAdminCmsSessionsRoute
+  SterovaAdminCmsSettingsRoute: typeof SterovaAdminCmsSettingsRoute
   SterovaAdminCmsTeamRoute: typeof SterovaAdminCmsTeamRoute
+  SterovaAdminCmsTestimonialsRoute: typeof SterovaAdminCmsTestimonialsRoute
   SterovaAdminCmsPostsIdRoute: typeof SterovaAdminCmsPostsIdRoute
   SterovaAdminCmsPostsNewRoute: typeof SterovaAdminCmsPostsNewRoute
   SterovaAdminCmsPostsIndexRoute: typeof SterovaAdminCmsPostsIndexRoute
 }
 
 const SterovaAdminCmsRouteChildren: SterovaAdminCmsRouteChildren = {
+  SterovaAdminCmsAccessRoute: SterovaAdminCmsAccessRoute,
   SterovaAdminCmsBrandLinksRoute: SterovaAdminCmsBrandLinksRoute,
+  SterovaAdminCmsCareersRoute: SterovaAdminCmsCareersRoute,
   SterovaAdminCmsCategoriesRoute: SterovaAdminCmsCategoriesRoute,
+  SterovaAdminCmsChatAnalyticsRoute: SterovaAdminCmsChatAnalyticsRoute,
+  SterovaAdminCmsChatLeadsRoute: SterovaAdminCmsChatLeadsRoute,
+  SterovaAdminCmsConsultationsRoute: SterovaAdminCmsConsultationsRoute,
   SterovaAdminCmsDashboardRoute: SterovaAdminCmsDashboardRoute,
+  SterovaAdminCmsEstimatesRoute: SterovaAdminCmsEstimatesRoute,
   SterovaAdminCmsMessagesRoute: SterovaAdminCmsMessagesRoute,
+  SterovaAdminCmsNotificationsRoute: SterovaAdminCmsNotificationsRoute,
   SterovaAdminCmsProjectsRoute: SterovaAdminCmsProjectsRoute,
   SterovaAdminCmsResultsRoute: SterovaAdminCmsResultsRoute,
   SterovaAdminCmsReviewsRoute: SterovaAdminCmsReviewsRoute,
   SterovaAdminCmsSessionsRoute: SterovaAdminCmsSessionsRoute,
+  SterovaAdminCmsSettingsRoute: SterovaAdminCmsSettingsRoute,
   SterovaAdminCmsTeamRoute: SterovaAdminCmsTeamRoute,
+  SterovaAdminCmsTestimonialsRoute: SterovaAdminCmsTestimonialsRoute,
   SterovaAdminCmsPostsIdRoute: SterovaAdminCmsPostsIdRoute,
   SterovaAdminCmsPostsNewRoute: SterovaAdminCmsPostsNewRoute,
   SterovaAdminCmsPostsIndexRoute: SterovaAdminCmsPostsIndexRoute,
@@ -652,6 +867,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
+  EstimateRoute: EstimateRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,

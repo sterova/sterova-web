@@ -11,7 +11,13 @@ export const Route = createFileRoute("/")({
       path: "/",
       // The brand mark is the above-the-fold LCP candidate.
       links: [
-        { rel: "preload", as: "image", href: "/logo-128.webp", type: "image/webp", fetchPriority: "high" },
+        {
+          rel: "preload",
+          as: "image",
+          href: "/logo-128.webp",
+          type: "image/webp",
+          fetchPriority: "high",
+        },
       ],
       jsonLd: [
         organizationSchema(),
@@ -21,16 +27,16 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "FAQPage",
           "@id": `${SITE.url}/#faq`,
-          "publisher": { "@id": ORG_ID },
-          "mainEntity": FAQS.slice(0, 6).map((faq) => ({
+          publisher: { "@id": ORG_ID },
+          mainEntity: FAQS.slice(0, 6).map((faq) => ({
             "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
+            name: faq.question,
+            acceptedAnswer: {
               "@type": "Answer",
-              "text": faq.answer
-            }
-          }))
-        }
+              text: faq.answer,
+            },
+          })),
+        },
       ],
     }),
   component: HomePage,

@@ -1,7 +1,8 @@
 import ObfuscatedEmail from "@/components/shared/ObfuscatedEmail";
 import BrandLogo from "@/components/shared/BrandLogo";
 import { Link } from "@/lib/router-compat";
-import { Mail, MessageCircle, ArrowUpRight, MapPin } from "lucide-react";
+import { Mail, ArrowUpRight, MapPin } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { SITE, FOOTER_LINKS } from "@/data/constants";
 import { useBrandLinks } from "@/hooks/use-brand-links";
 import { getWhatsAppUrl } from "@/lib/utils";
@@ -55,8 +56,8 @@ export default function Footer() {
                 className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-primary/30 via-transparent to-primary/30"
                 aria-hidden="true"
               />
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 className="inline-flex items-center gap-2 mb-4 group"
                 onClick={() => {
                   if (window.location.pathname === "/") {
@@ -91,7 +92,7 @@ export default function Footer() {
                   className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-whatsapp transition-colors"
                 >
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-brand-whatsapp/40 group-hover:text-brand-whatsapp transition-colors">
-                    <MessageCircle className="h-3.5 w-3.5" />
+                    <FaWhatsapp className="h-3.5 w-3.5" />
                   </span>
                   WhatsApp: {whatsappDisplay}
                 </a>

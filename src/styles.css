@@ -330,7 +330,7 @@
   --grid-line: rgba(255, 255, 255, 0.04);
   --shadow-panel: 0 24px 60px -30px rgba(0, 0, 0, 0.95);
   --shadow-brand: 0 18px 50px -22px rgba(166, 77, 255, 0.5);
-  
+
   --border-strong: #404040;
   --grid-dot: rgba(255, 255, 255, 0.08);
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.6), 0 12px 32px -16px rgba(0, 0, 0, 0.8);
@@ -863,4 +863,47 @@
   to {
     height: 0;
   }
+}
+
+/* Chatbot: aggressive wrapping so long words, URLs and IDs never overflow bubbles */
+/* Full-page chat on small screens: hide the floating launcher + WhatsApp FAB. */
+@media (max-width: 639.98px) {
+  body[data-chat-fullscreen="true"] .fixed.z-\[71\],
+  body[data-chat-fullscreen="true"] [aria-label="Chat on WhatsApp"] {
+    display: none !important;
+  }
+}
+
+[data-chatbot-surface] {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+[data-chatbot-surface] p,
+[data-chatbot-surface] span,
+[data-chatbot-surface] li,
+[data-chatbot-surface] a,
+[data-chatbot-surface] button,
+[data-chatbot-surface] code,
+[data-chatbot-surface] input,
+[data-chatbot-surface] textarea {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  min-width: 0;
+}
+
+[data-chatbot-surface] .whitespace-pre-line,
+[data-chatbot-surface] [class*="whitespace-pre"] {
+  white-space: pre-wrap;
+}
+
+[data-chatbot-surface] a {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+[data-chatbot-surface] .truncate,
+[data-chatbot-surface] [class*="line-clamp-"] {
+  overflow-wrap: anywhere;
 }

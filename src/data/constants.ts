@@ -522,6 +522,7 @@ export const FOOTER_LINKS = [
     links: [
       { label: "About", href: "/about" },
       { label: "Process", href: "/process" },
+      { label: "Estimate Project", href: "/estimate" },
       { label: "Careers", href: "/careers" },
       { label: "Blog", href: "/blog" },
     ],
@@ -572,7 +573,7 @@ export const ABOUT = {
     {
       title: "Quality",
       description:
-        "We set a high bar on code quality, testing, and architecture. \"Good enough\" is never our standard.",
+        'We set a high bar on code quality, testing, and architecture. "Good enough" is never our standard.',
     },
     {
       title: "Trust",

@@ -19,8 +19,6 @@ const schema = z.object({
   rating: z.number().min(1, "Please choose a rating").max(5),
 });
 
-
-
 function WriteReviewForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "done" | "error">("idle");
   const {
@@ -167,7 +165,6 @@ export default function ReviewFormSection() {
               title="Worked with us? Tell the next team."
               description="Your feedback shapes how we work and helps other founders judge whether we're the right engineering partner."
             />
-
           </div>
 
           <div className="lg:col-span-7">

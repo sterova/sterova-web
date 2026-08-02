@@ -136,7 +136,8 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                   className={cn(
                     "card-premium sheen group relative flex h-full flex-col overflow-hidden p-6 ring-1 ring-transparent transition-all duration-300 xl:p-8",
                     "border border-border/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-none dark:border-white/5",
-                    featured && "gradient-border bg-linear-to-br from-white via-white to-primary/5 dark:from-card dark:via-card dark:to-primary/10",
+                    featured &&
+                      "gradient-border bg-linear-to-br from-white via-white to-primary/5 dark:from-card dark:via-card dark:to-primary/10",
                     !featured && "bg-white dark:bg-card",
                     accentStyle?.ring,
                   )}
@@ -207,69 +208,78 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                   {/* Continuous Infinite Workflow Animation Graphic */}
                   {featured && (
                     <div className="absolute left-[5%] right-[5%] top-[40%] h-16 hidden lg:flex items-center overflow-hidden pointer-events-none [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-                       
-                       <div className="flex w-max items-center animate-marquee-scroll will-change-transform">
-                         {/* Render 4 chunks so it's long enough to never have blank space when translating -50% */}
-                         {[...Array(4)].map((_, idx) => (
-                           <div key={idx} className="flex shrink-0 items-center gap-6 px-3">
-                             
-                             {/* 1. Design & UX */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:0s] backdrop-blur-md z-10">
-                                 <Palette className="mr-2 h-3.5 w-3.5 text-brand-violet" />
-                                 <span className="font-mono text-[10px] text-muted-foreground font-medium uppercase tracking-wider">Design</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" />
-                             </div>
+                      <div className="flex w-max items-center animate-marquee-scroll will-change-transform">
+                        {/* Render 4 chunks so it's long enough to never have blank space when translating -50% */}
+                        {[...Array(4)].map((_, idx) => (
+                          <div key={idx} className="flex shrink-0 items-center gap-6 px-3">
+                            {/* 1. Design & UX */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:0s] backdrop-blur-md z-10">
+                                <Palette className="mr-2 h-3.5 w-3.5 text-brand-violet" />
+                                <span className="font-mono text-[10px] text-muted-foreground font-medium uppercase tracking-wider">
+                                  Design
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse" />
+                            </div>
 
-                             {/* 2. Frontend */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-sm shadow-primary/10 animate-float-slow [animation-delay:0.4s] backdrop-blur-md z-10">
-                                 <Code2 className="mr-2 h-3.5 w-3.5 text-primary" />
-                                 <span className="font-mono text-[10px] text-primary font-semibold uppercase tracking-wider">Frontend</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.2s]" />
-                             </div>
+                            {/* 2. Frontend */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/5 px-3.5 shadow-sm shadow-primary/10 animate-float-slow [animation-delay:0.4s] backdrop-blur-md z-10">
+                                <Code2 className="mr-2 h-3.5 w-3.5 text-primary" />
+                                <span className="font-mono text-[10px] text-primary font-semibold uppercase tracking-wider">
+                                  Frontend
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.2s]" />
+                            </div>
 
-                             {/* 3. Backend */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-sm shadow-brand-teal/10 animate-float-slow [animation-delay:0.8s] backdrop-blur-md z-10">
-                                 <Server className="mr-2 h-3.5 w-3.5 text-brand-teal" />
-                                 <span className="font-mono text-[10px] text-brand-teal font-semibold uppercase tracking-wider">Backend</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.4s]" />
-                             </div>
+                            {/* 3. Backend */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-brand-teal/30 bg-brand-teal/5 px-3.5 shadow-sm shadow-brand-teal/10 animate-float-slow [animation-delay:0.8s] backdrop-blur-md z-10">
+                                <Server className="mr-2 h-3.5 w-3.5 text-brand-teal" />
+                                <span className="font-mono text-[10px] text-brand-teal font-semibold uppercase tracking-wider">
+                                  Backend
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.4s]" />
+                            </div>
 
-                             {/* 4. Database */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-sm shadow-brand-amber/10 animate-float-slow [animation-delay:1.2s] backdrop-blur-md z-10">
-                                 <Database className="mr-2 h-3.5 w-3.5 text-brand-amber" />
-                                 <span className="font-mono text-[10px] text-brand-amber font-semibold uppercase tracking-wider">Database</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.6s]" />
-                             </div>
+                            {/* 4. Database */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-brand-amber/30 bg-brand-amber/5 px-3.5 shadow-sm shadow-brand-amber/10 animate-float-slow [animation-delay:1.2s] backdrop-blur-md z-10">
+                                <Database className="mr-2 h-3.5 w-3.5 text-brand-amber" />
+                                <span className="font-mono text-[10px] text-brand-amber font-semibold uppercase tracking-wider">
+                                  Database
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.6s]" />
+                            </div>
 
-                             {/* 5. Production */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:1.6s] backdrop-blur-md z-10">
-                                 <Globe className="mr-2 h-3.5 w-3.5 text-foreground/70" />
-                                 <span className="font-mono text-[10px] text-foreground/70 font-medium uppercase tracking-wider">Production</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.8s]" />
-                             </div>
+                            {/* 5. Production */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-border/50 bg-surface/90 px-3.5 shadow-sm animate-float-slow [animation-delay:1.6s] backdrop-blur-md z-10">
+                                <Globe className="mr-2 h-3.5 w-3.5 text-foreground/70" />
+                                <span className="font-mono text-[10px] text-foreground/70 font-medium uppercase tracking-wider">
+                                  Production
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:0.8s]" />
+                            </div>
 
-                             {/* 6. Repeat */}
-                             <div className="flex items-center gap-6">
-                               <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 shadow-sm animate-float-slow [animation-delay:2s] backdrop-blur-md z-10">
-                                 <Repeat className="mr-2 h-3.5 w-3.5 text-primary" />
-                                 <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">Repeat</span>
-                               </div>
-                               <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:1s]" />
-                             </div>
-
-                           </div>
-                         ))}
-                       </div>
+                            {/* 6. Repeat */}
+                            <div className="flex items-center gap-6">
+                              <div className="flex h-8 items-center rounded-full border border-primary/30 bg-primary/10 px-3.5 shadow-sm animate-float-slow [animation-delay:2s] backdrop-blur-md z-10">
+                                <Repeat className="mr-2 h-3.5 w-3.5 text-primary" />
+                                <span className="font-mono text-[10px] text-primary font-medium uppercase tracking-wider">
+                                  Repeat
+                                </span>
+                              </div>
+                              <ArrowRight className="h-4 w-4 text-muted-foreground/30 animate-pulse [animation-delay:1s]" />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
@@ -305,11 +315,11 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                                 className={cn(
                                   "rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-wide",
                                   accent === "primary" &&
-                                  "border-primary/30 bg-primary/10 text-primary",
+                                    "border-primary/30 bg-primary/10 text-primary",
                                   accent === "violet" &&
-                                  "border-brand-violet/30 bg-brand-violet/10 text-brand-violet",
+                                    "border-brand-violet/30 bg-brand-violet/10 text-brand-violet",
                                   accent === "teal" &&
-                                  "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
+                                    "border-brand-teal/30 bg-brand-teal/10 text-brand-teal",
                                 )}
                               >
                                 {tech}
