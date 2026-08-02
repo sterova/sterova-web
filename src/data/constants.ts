@@ -3,6 +3,7 @@
 // ─────────────────────────────────────────────
 export const SITE = {
   name: "Sterova",
+  alternateName: "Sterova Tech",
   tagline: "Custom Software & Web App Development Agency",
   description:
     "Sterova is a premier software engineering agency specializing in custom web platforms, native mobile apps, and SaaS product development. Built to scale.",

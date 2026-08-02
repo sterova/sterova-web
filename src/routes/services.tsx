@@ -9,7 +9,7 @@ const description =
 export const Route = createFileRoute("/services")({
   head: () =>
     seo({
-      title: "Services",
+      title: "Sterova Tech Services",
       description,
       path: "/services",
       jsonLd: [

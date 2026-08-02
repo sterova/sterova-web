@@ -8,7 +8,7 @@ const description =
 export const Route = createFileRoute("/about")({
   head: () =>
     seo({
-      title: "About",
+      title: "About Sterova Tech",
       description,
       path: "/about",
       jsonLd: [

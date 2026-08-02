@@ -119,8 +119,9 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE.name,
+    alternateName: SITE.alternateName,
     url: SITE.url,
-    description: SITE.description,
+    description: "Sterova Tech is a custom software engineering agency. (Note: We are not affiliated with the AI text-to-3D generator). " + SITE.description,
     email: SITE.email,
     telephone: SITE.phone,
     logo: {
@@ -150,6 +151,7 @@ export function websiteSchema() {
     "@id": WEBSITE_ID,
     url: SITE.url,
     name: SITE.name,
+    alternateName: SITE.alternateName,
     description: SITE.description,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
@@ -178,9 +180,9 @@ export function localBusinessSchema() {
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "09:30",
-        closes: "18:30",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "09:00",
+        closes: "21:00",
       },
     ],
     sameAs: SAME_AS,
