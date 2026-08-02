@@ -214,8 +214,8 @@ export function ChatbotWindow() {
             "inset-0 rounded-none border-0",
             "sm:inset-auto sm:bottom-24 sm:right-6 sm:rounded-2xl sm:border sm:border-border/70 sm:bg-background/95 sm:backdrop-blur-xl",
             isExpanded
-              ? "sm:h-[min(90vh,860px)] sm:w-[min(94vw,760px)]"
-              : "sm:h-[min(78vh,680px)] sm:w-[min(92vw,420px)]",
+              ? "sm:h-[min(calc(100dvh-10rem),860px)] sm:w-[min(94vw,760px)]"
+              : "sm:h-[min(calc(100dvh-10rem),680px)] sm:w-[min(92vw,420px)]",
           )}
         >
           <Header
