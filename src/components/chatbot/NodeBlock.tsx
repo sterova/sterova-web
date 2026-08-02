@@ -73,14 +73,14 @@ function MenuGrid({ options, columns }: { options: MenuOption[]; columns: 1 | 2 
             <ChatIcon name={option.icon} className="mt-0.5 size-3 text-primary" />
           )}
           <span className="min-w-0 flex-1">
-            <span className="block text-[12px] font-medium text-foreground leading-tight">{option.label}</span>
+            <span className="block text-[13px] font-medium text-foreground leading-tight">{option.label}</span>
             {option.description ? (
-              <span className="mt-0.5 block text-[10px] leading-snug text-muted-foreground">
+              <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
                 {option.description}
               </span>
             ) : null}
           </span>
-          <ArrowUpRight className="ml-auto size-3 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+          <ArrowUpRight className="ml-auto size-3.5 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
       ))}
     </div>
@@ -96,10 +96,10 @@ function CardList({ cards }: { cards: InfoCard[] }) {
         <div key={card.title} className="rounded-lg border border-border/70 bg-card/60 p-2.5">
           <div className="flex items-center gap-2">
             {card.icon ? <ChatIcon name={card.icon} className="size-4 text-primary" /> : null}
-            <p className="text-[13px] font-semibold text-foreground">{card.title}</p>
+            <p className="text-sm font-semibold text-foreground">{card.title}</p>
           </div>
           {card.body ? (
-            <p className="mt-0.5 whitespace-pre-line text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-0.5 whitespace-pre-line text-[13px] leading-relaxed text-muted-foreground">
               {card.body}
             </p>
           ) : null}
@@ -109,7 +109,7 @@ function CardList({ cards }: { cards: InfoCard[] }) {
                 <Badge
                   key={item}
                   variant="secondary"
-                  className="rounded-full text-[11px] font-normal"
+                  className="rounded-full text-xs font-normal"
                 >
                   {item}
                 </Badge>
@@ -133,10 +133,10 @@ function FaqAccordion({ items }: { items: { id: string; question: string; answer
     >
       {items.map((item) => (
         <AccordionItem key={item.id} value={item.id} className="border-border/60 last:border-b-0">
-          <AccordionTrigger className="py-2.5 text-left text-sm font-medium hover:no-underline">
+          <AccordionTrigger className="py-2.5 text-left text-[15px] font-medium hover:no-underline">
             {item.question}
           </AccordionTrigger>
-          <AccordionContent className="whitespace-pre-line pb-2.5 text-xs leading-relaxed text-muted-foreground">
+          <AccordionContent className="whitespace-pre-line pb-2.5 text-[13px] leading-relaxed text-muted-foreground">
             {item.answer}
           </AccordionContent>
         </AccordionItem>
@@ -157,7 +157,7 @@ function ServiceBlock({ service }: { service: ServiceDetail }) {
               <Badge
                 key={item}
                 variant="secondary"
-                className="rounded-full text-[11px] font-normal"
+                className="rounded-full text-xs font-normal"
               >
                 {item}
               </Badge>
@@ -181,7 +181,7 @@ function ServiceBlock({ service }: { service: ServiceDetail }) {
       <Section title="Technologies">
         <div className="flex flex-wrap gap-1">
           {service.stack.map((tech) => (
-            <Badge key={tech} variant="outline" className="rounded-full text-[11px] font-normal">
+            <Badge key={tech} variant="outline" className="rounded-full text-xs font-normal">
               {tech}
             </Badge>
           ))}
@@ -189,8 +189,8 @@ function ServiceBlock({ service }: { service: ServiceDetail }) {
       </Section>
 
       <Section title="Typical timeline">
-        <p className="flex gap-2 text-xs leading-relaxed text-muted-foreground">
-          <Clock className="mt-0.5 size-3.5 shrink-0 text-primary" />
+        <p className="flex gap-2 text-[13px] leading-relaxed text-muted-foreground">
+          <Clock className="mt-0.5 size-4 shrink-0 text-primary" />
           {service.timeline}
         </p>
       </Section>
@@ -205,7 +205,7 @@ function ServiceBlock({ service }: { service: ServiceDetail }) {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="rounded-lg border border-border/70 bg-card/60 p-2.5">
-      <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
         {title}
       </p>
       {children}
@@ -217,8 +217,8 @@ function BulletList({ items }: { items: string[] }) {
   return (
     <ul className="space-y-1.5">
       {items.map((item) => (
-        <li key={item} className="flex gap-2 text-xs leading-relaxed text-foreground/90">
-          <span aria-hidden className="mt-1.5 size-1 shrink-0 rounded-full bg-primary" />
+        <li key={item} className="flex gap-2 text-[13px] leading-relaxed text-foreground/90">
+          <span aria-hidden className="mt-1.5 size-1.5 shrink-0 rounded-full bg-primary" />
           {item}
         </li>
       ))}
@@ -283,11 +283,11 @@ function PortfolioBlock() {
             />
           ) : null}
           <span className="min-w-0">
-            <span className="block text-[13px] font-medium text-foreground">{project.title}</span>
-            <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-muted-foreground">
+            <span className="block text-sm font-medium text-foreground">{project.title}</span>
+            <span className="mt-0.5 line-clamp-2 block text-[13px] leading-snug text-muted-foreground">
               {project.description}
             </span>
-            <span className="mt-1 block text-[11px] uppercase tracking-wide text-primary">
+            <span className="mt-1 block text-xs uppercase tracking-wide text-primary">
               {project.category}
             </span>
           </span>
@@ -326,11 +326,11 @@ function BlogBlock() {
           onClick={close}
           className="block rounded-lg border border-border/70 bg-card/60 p-2.5 transition-colors hover:border-primary/50 hover:bg-accent"
         >
-          <span className="block text-[13px] font-medium text-foreground">{post.title}</span>
-          <span className="mt-0.5 line-clamp-2 block text-xs leading-snug text-muted-foreground">
+          <span className="block text-sm font-medium text-foreground">{post.title}</span>
+          <span className="mt-0.5 line-clamp-2 block text-[13px] leading-snug text-muted-foreground">
             {post.excerpt}
           </span>
-          <span className="mt-1 block text-[11px] text-muted-foreground">
+          <span className="mt-1 block text-xs text-muted-foreground">
             {post.read_time_minutes} min read
           </span>
         </Link>
@@ -371,12 +371,12 @@ function ContactBlock() {
           rel="noopener noreferrer"
           className="flex items-center gap-3 rounded-lg border border-border/70 bg-card/60 p-2.5 transition-colors hover:border-primary/50 hover:bg-accent"
         >
-          <row.icon className="size-4 text-primary" />
+          <row.icon className="size-5 text-primary" />
           <span className="min-w-0">
-            <span className="block text-[11px] uppercase tracking-wide text-muted-foreground">
+            <span className="block text-xs uppercase tracking-wide text-muted-foreground">
               {row.label}
             </span>
-            <span className="block truncate text-sm font-medium text-foreground">{row.value}</span>
+            <span className="block truncate text-[15px] font-medium text-foreground">{row.value}</span>
           </span>
         </a>
       ))}
@@ -388,11 +388,11 @@ function EmptyNotice({ text, to, label }: { text: string; to: string; label: str
   const { close } = useChatbot();
   return (
     <div className="rounded-lg border border-border/70 bg-card/60 p-2.5">
-      <p className="text-xs leading-relaxed text-muted-foreground">{text}</p>
+      <p className="text-[13px] leading-relaxed text-muted-foreground">{text}</p>
       <Link
         to={to}
         onClick={close}
-        className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+        className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium text-primary hover:underline"
       >
         {label}
         <ArrowUpRight className="size-3.5" />

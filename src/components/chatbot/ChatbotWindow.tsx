@@ -507,7 +507,7 @@ function EntryRow({
         <p
           className={cn(
             "whitespace-pre-line",
-            compact ? "text-[13px] leading-[1.35]" : "text-sm leading-relaxed",
+            compact ? "text-sm leading-[1.4]" : "text-[15px] sm:text-base leading-relaxed",
           )}
         >
           {entry.text}
