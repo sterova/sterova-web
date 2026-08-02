@@ -95,7 +95,6 @@ const PROCESS: ChatNode = {
   })),
   actions: withNav(
     { kind: "node", label: "Typical timelines", node: "timelines", icon: "Clock" },
-    { kind: "route", label: "Process page", to: "/process", icon: "ExternalLink" },
     { kind: "form", label: "Book Consultation", form: "consultation", icon: "CalendarDays" },
   ),
 };

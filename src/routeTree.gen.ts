@@ -17,7 +17,6 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EstimateRouteImport } from './routes/estimate'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as ProcessRouteImport } from './routes/process'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StartProjectRouteImport } from './routes/start-project'
@@ -87,11 +86,6 @@ const PortfolioRoute = PortfolioRouteImport.update({
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProcessRoute = ProcessRouteImport.update({
-  id: '/process',
-  path: '/process',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesRoute = ServicesRouteImport.update({
@@ -263,7 +257,6 @@ export interface FileRoutesByFullPath {
   '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
-  '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
@@ -303,7 +296,6 @@ export interface FileRoutesByTo {
   '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
-  '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
@@ -343,7 +335,6 @@ export interface FileRoutesById {
   '/estimate': typeof EstimateRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
-  '/process': typeof ProcessRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
@@ -386,7 +377,6 @@ export interface FileRouteTypes {
     | '/estimate'
     | '/portfolio'
     | '/privacy'
-    | '/process'
     | '/services'
     | '/sitemap.xml'
     | '/start-project'
@@ -426,7 +416,6 @@ export interface FileRouteTypes {
     | '/estimate'
     | '/portfolio'
     | '/privacy'
-    | '/process'
     | '/services'
     | '/sitemap.xml'
     | '/start-project'
@@ -465,7 +454,6 @@ export interface FileRouteTypes {
     | '/estimate'
     | '/portfolio'
     | '/privacy'
-    | '/process'
     | '/services'
     | '/sitemap.xml'
     | '/start-project'
@@ -507,7 +495,6 @@ export interface RootRouteChildren {
   EstimateRoute: typeof EstimateRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
-  ProcessRoute: typeof ProcessRoute
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StartProjectRoute: typeof StartProjectRoute
@@ -573,13 +560,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/process': {
-      id: '/process'
-      path: '/process'
-      fullPath: '/process'
-      preLoaderRoute: typeof ProcessRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/services': {
@@ -870,7 +850,6 @@ const rootRouteChildren: RootRouteChildren = {
   EstimateRoute: EstimateRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
-  ProcessRoute: ProcessRoute,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StartProjectRoute: StartProjectRoute,

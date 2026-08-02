@@ -58,7 +58,6 @@ export const NAV_LINKS = [
     ],
   },
   { label: "Portfolio", href: "/portfolio" },
-  { label: "Process", href: "/process" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
@@ -521,7 +520,6 @@ export const FOOTER_LINKS = [
     heading: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Process", href: "/process" },
       { label: "Estimate Project", href: "/estimate" },
       { label: "Careers", href: "/careers" },
       { label: "Blog", href: "/blog" },
@@ -648,7 +646,6 @@ export const SOCIAL_LINKS = [
 /** Internal “professional” destinations surfaced next to the enquiry forms. */
 export const PROFESSIONAL_LINKS = [
   { label: "Our work", description: "Case studies and shipped products", href: "/portfolio" },
-  { label: "How we work", description: "Our delivery process, step by step", href: "/process" },
   { label: "Services", description: "Six engineering disciplines", href: "/services" },
   { label: "Engineering blog", description: "Notes from the delivery team", href: "/blog" },
   { label: "Careers", description: "Join the team", href: "/careers" },
