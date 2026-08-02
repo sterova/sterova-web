@@ -325,7 +325,7 @@ export function ChatbotWindow() {
                     onChange={(event) => setValue(event.target.value)}
                     placeholder={placeholder}
                     disabled={isSubmitting}
-                    className="flex-1 min-h-[44px] max-h-[160px] py-[10px] px-4 text-[15px] bg-transparent border-0 focus-visible:ring-0 resize-none leading-relaxed text-foreground placeholder:text-muted-foreground"
+                    className="flex-1 min-h-[44px] max-h-[160px] py-[10px] px-4 text-base touch-action-manipulation bg-transparent border-0 focus-visible:ring-0 resize-none leading-relaxed text-foreground placeholder:text-muted-foreground"
                   />
                 </div>
                 <PromptInputSubmit

@@ -84,17 +84,17 @@ export function ChatbotLauncher() {
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 360, damping: 24 }}
             className={cn(
-              "pointer-events-auto relative flex size-14 items-center justify-center rounded-full",
+              "pointer-events-auto relative flex size-12 sm:size-14 items-center justify-center rounded-full",
               "overflow-hidden bg-primary text-primary-foreground shadow-xl shadow-primary/25",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
             )}
           >
             {isOpen ? (
-              <X className="size-6" />
+              <X className="size-5 sm:size-6" />
             ) : (
               <>
-                <div className="flex size-14 items-center justify-center rounded-full bg-primary">
-                  <BotMessageSquare className="size-6 text-primary-foreground" />
+                <div className="flex size-12 sm:size-14 items-center justify-center rounded-full bg-primary">
+                  <BotMessageSquare className="size-5 sm:size-6 text-primary-foreground" />
                 </div>
                 {hasUnread && CHATBOT_CONFIG.launcher.unreadIndicator ? (
                   <span className="absolute right-1 top-1 flex size-3">
