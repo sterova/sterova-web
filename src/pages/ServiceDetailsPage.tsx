@@ -7,7 +7,7 @@ import AnimatedSection from "@/components/shared/AnimatedSection";
 import { FAQS } from "@/data/constants";
 
 export default function ServiceDetailsPage() {
-  const service = useLoaderData({ from: "/services/$slug" });
+  const service = useLoaderData({ from: "/services_/$slug" });
 
   if (!service) return null;
 

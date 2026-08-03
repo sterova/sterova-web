@@ -129,7 +129,10 @@ export default function ChangelogPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
         <div
           className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
@@ -152,7 +155,10 @@ export default function ChangelogPage() {
         <div className="container-custom max-w-3xl mx-auto">
           <div className="relative">
             {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-px bg-border hidden sm:block" aria-hidden="true" />
+            <div
+              className="absolute left-6 top-0 bottom-0 w-px bg-border hidden sm:block"
+              aria-hidden="true"
+            />
 
             <div className="flex flex-col gap-12">
               {CHANGELOG.map((block, bi) => {

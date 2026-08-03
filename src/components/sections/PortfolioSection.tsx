@@ -113,7 +113,14 @@ export default function PortfolioSection({
                     {item.category}
                   </p>
                   <h3 className="font-display text-lg font-semibold tracking-tight transition-colors group-hover:text-primary">
-                    {item.title}
+                    <a
+                      href={item.live_url || item.github_url || "#"}
+                      target={item.live_url || item.github_url ? "_blank" : undefined}
+                      rel={item.live_url || item.github_url ? "noopener noreferrer" : undefined}
+                      className="before:absolute before:inset-0 focus:outline-none"
+                    >
+                      {item.title}
+                    </a>
                   </h3>
                   <p className="mt-2.5 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {item.description}
@@ -122,14 +129,14 @@ export default function PortfolioSection({
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground"
+                        className="rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted-foreground relative z-10"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                   {(item.live_url || item.github_url) && (
-                    <div className="mt-5 flex gap-4 border-t border-border pt-4">
+                    <div className="mt-5 flex gap-4 border-t border-border pt-4 relative z-10">
                       {item.live_url && (
                         <a
                           href={item.live_url}

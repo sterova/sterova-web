@@ -8,17 +8,20 @@ const BENEFITS = [
   {
     icon: PenLine,
     title: "Engineering insights",
-    description: "Practical articles on architecture, tooling, and software delivery written by the Sterova team.",
+    description:
+      "Practical articles on architecture, tooling, and software delivery written by the Sterova team.",
   },
   {
     icon: Zap,
     title: "Industry radar",
-    description: "The frameworks, tools, and patterns worth paying attention to — curated, not aggregated.",
+    description:
+      "The frameworks, tools, and patterns worth paying attention to — curated, not aggregated.",
   },
   {
     icon: BookOpen,
     title: "Whitepaper releases",
-    description: "First access to new technical guides and research we publish, before they're promoted anywhere else.",
+    description:
+      "First access to new technical guides and research we publish, before they're promoted anywhere else.",
   },
 ];
 
@@ -48,7 +51,10 @@ export default function NewsletterPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
         <div
           className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
@@ -69,7 +75,6 @@ export default function NewsletterPage() {
       <section className="section-y bg-background">
         <div className="container-custom max-w-4xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
-
             {/* Signup form */}
             <div className="lg:col-span-3">
               <AnimatedSection>
@@ -100,7 +105,10 @@ export default function NewsletterPage() {
 
                       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                         <div>
-                          <label htmlFor="newsletter-email" className="block text-sm font-medium mb-1.5">
+                          <label
+                            htmlFor="newsletter-email"
+                            className="block text-sm font-medium mb-1.5"
+                          >
                             Email address
                           </label>
                           <input
@@ -115,7 +123,11 @@ export default function NewsletterPage() {
                           />
                           {error && <p className="mt-1.5 text-xs text-red-500">{error}</p>}
                         </div>
-                        <Button type="submit" variant="gradient" className="w-full rounded-full h-11">
+                        <Button
+                          type="submit"
+                          variant="gradient"
+                          className="w-full rounded-full h-11"
+                        >
                           Subscribe to The Sterova Signal
                           <ArrowRight className="ml-1 h-4 w-4" />
                         </Button>

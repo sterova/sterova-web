@@ -21,33 +21,25 @@ export const GREETINGS: Record<"morning" | "afternoon" | "evening" | "returning"
   afternoon: {
     id: "afternoon",
     title: "Good afternoon 👋",
-    lines: [
-      "You're in the right place for serious software.",
-      "What are you looking to build?",
-    ],
+    lines: ["You're in the right place for serious software.", "What are you looking to build?"],
   },
   evening: {
     id: "evening",
     title: "Good evening 👋",
-    lines: [
-      "Great ideas don't wait for office hours.",
-      "Let's talk about what you want to build.",
-    ],
+    lines: ["Great ideas don't wait for office hours.", "Let's talk about what you want to build."],
   },
   returning: {
     id: "returning",
     title: "Welcome back!",
-    lines: [
-      "Good to see you again.",
-      "Ready to pick up where we left off?",
-    ],
+    lines: ["Good to see you again.", "Ready to pick up where we left off?"],
   },
 };
 
 export const WELCOME_SCREEN = {
   emoji: "🚀",
   title: "Sterova Assistant",
-  subtitle: "Ask me about our services, process, portfolio, or pricing. I'll point you in the right direction.",
+  subtitle:
+    "Ask me about our services, process, portfolio, or pricing. I'll point you in the right direction.",
   question: "What would you like to explore?",
 };
 

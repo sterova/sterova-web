@@ -1,6 +1,5 @@
 import { Link } from "@/lib/router-compat";
-import { ArrowRight, Check, Code2, Globe, Smartphone, Layers, Palette, Plug } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Code2, Globe, Smartphone, Layers, Palette, Plug } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import ProcessSection from "@/components/sections/ProcessSection";
@@ -8,7 +7,6 @@ import FAQSection from "@/components/sections/FAQSection";
 import WhyChooseUsSection from "@/components/sections/WhyChooseUsSection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import { SERVICES, FAQS } from "@/data/constants";
-import { cn } from "@/lib/utils";
 
 const ICON_MAP: Record<string, React.ElementType> = {
   Code2,
@@ -18,6 +16,33 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Palette,
   Plug,
 };
+
+const SERVICE_THEMES = [
+  {
+    color: "from-blue-500/10 to-cyan-500/10 border-blue-500/20",
+    iconColor: "text-blue-500",
+  },
+  {
+    color: "from-violet-500/10 to-purple-500/10 border-violet-500/20",
+    iconColor: "text-violet-500",
+  },
+  {
+    color: "from-emerald-500/10 to-teal-500/10 border-emerald-500/20",
+    iconColor: "text-emerald-500",
+  },
+  {
+    color: "from-amber-500/10 to-yellow-500/10 border-amber-500/20",
+    iconColor: "text-amber-500",
+  },
+  {
+    color: "from-rose-500/10 to-pink-500/10 border-rose-500/20",
+    iconColor: "text-rose-500",
+  },
+  {
+    color: "from-indigo-500/10 to-violet-500/10 border-indigo-500/20",
+    iconColor: "text-indigo-500",
+  },
+];
 
 export default function ServicesPage() {
   return (
@@ -44,102 +69,41 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Spec-sheet rows: sticky index rail on the left, detail panel on the right. */}
-      <section className="section-y">
-        <div className="container-custom space-y-20 lg:space-y-28">
-          {SERVICES.map((service, i) => {
-            const Icon = ICON_MAP[service.icon_name] ?? Code2;
-            return (
-              <motion.article
-                key={service.id}
-                id={service.slug}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5 }}
-                className="grid grid-cols-1 items-start gap-10 scroll-mt-32 lg:grid-cols-12 lg:gap-16"
-              >
-                {/* Narrative rail */}
-                <div className="lg:col-span-5 lg:sticky lg:top-32">
-                  <div className="mb-6 flex items-center gap-4">
-                    <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
-                      <Icon className="h-6 w-6" aria-hidden="true" />
-                    </span>
-                    <span className="font-mono text-xs tracking-[0.22em] text-muted-foreground">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                  </div>
-                  <h2 className="font-display text-[clamp(1.6rem,2.4vw,2.35rem)] font-bold leading-[1.1] tracking-[-0.03em]">
-                    <Link
-                      href={`/start-project?service=${service.slug}`}
-                      className="transition-colors hover:text-primary"
-                    >
-                      {service.title}
-                    </Link>
-                  </h2>
-                  <p className="mt-4 max-w-prose text-[0.975rem] leading-relaxed text-muted-foreground">
-                    {service.description}
-                  </p>
-                  <Link
-                    href={`/start-project?service=${service.slug}`}
-                    className="group relative mt-7 inline-flex items-center gap-2 overflow-hidden rounded-full gradient-brand px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                  >
-                    <span
-                      className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full"
-                      aria-hidden="true"
-                    />
-                    <span className="relative">Start a project</span>
-                    <ArrowRight
-                      className="relative h-4 w-4 transition-transform group-hover:translate-x-1"
-                      aria-hidden="true"
-                    />
-                  </Link>
-                </div>
+      <section className="section-y bg-background">
+        <div className="container-custom">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SERVICES.map((service, i) => {
+              const Icon = ICON_MAP[service.icon_name] ?? Code2;
+              const theme = SERVICE_THEMES[i % SERVICE_THEMES.length];
 
-                {/* Detail panel */}
-                <div className="lg:col-span-7">
-                  <div className="card-premium overflow-hidden p-0">
-                    <div className="border-b border-border px-6 py-4 sm:px-8">
-                      <h3 className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                        What&apos;s included
-                      </h3>
-                    </div>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2">
-                      {service.features.map((feature, fi) => (
-                        <li
-                          key={feature}
-                          className={cn(
-                            "flex items-start gap-3 px-6 py-4 text-sm border-border sm:px-8",
-                            "border-b sm:[&:nth-last-child(-n+2)]:border-b-0 last:border-b-0",
-                            fi % 2 === 0 && "sm:border-r",
-                          )}
-                        >
-                          <Check
-                            className="mt-0.5 h-4 w-4 shrink-0 text-primary"
-                            aria-hidden="true"
-                          />
-                          <span className="leading-snug">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex flex-wrap items-center gap-2 border-t border-border bg-surface px-6 py-5 sm:px-8">
-                      <span className="mr-1 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-                        Stack
+              return (
+                <AnimatedSection key={service.id} delay={i * 0.05}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className={`group flex flex-col h-full rounded-2xl border bg-gradient-to-br p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] ${theme.color}`}
+                  >
+                    <div className="mb-5 flex items-center justify-between">
+                      <span
+                        className={`flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-background/60 backdrop-blur-sm ${theme.iconColor}`}
+                      >
+                        <Icon className="h-6 w-6" />
                       </span>
-                      {service.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-full border border-border bg-background px-3 py-1 font-mono text-[11px] tracking-wide text-muted-foreground"
-                        >
-                          {tech}
-                        </span>
-                      ))}
                     </div>
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
+                    <h2 className="text-xl font-bold font-display text-foreground mb-3 group-hover:text-primary transition-colors">
+                      {service.title}
+                    </h2>
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">
+                      {service.short_description}
+                    </p>
+                    <div className="mt-auto flex items-center gap-1.5 text-sm font-medium text-primary">
+                      Learn more
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </div>
+                  </Link>
+                </AnimatedSection>
+              );
+            })}
+          </div>
         </div>
       </section>
 

@@ -12,7 +12,7 @@ import {
 } from "@/lib/seo";
 import { fetchCaseStudyBySlug } from "@/lib/api";
 
-export const Route = createFileRoute("/case-studies/$slug")({
+export const Route = createFileRoute("/case-studies_/$slug")({
   loader: async ({ params, abortController }) => {
     try {
       const study = await fetchCaseStudyBySlug(params.slug, abortController.signal);
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/case-studies/$slug")({
       description: loaderData.problem,
       path,
       type: "article",
-      image: loaderData.cover_image,
+      image: loaderData.cover_image || undefined,
       jsonLd: [
         organizationSchema(),
         {

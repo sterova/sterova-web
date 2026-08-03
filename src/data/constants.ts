@@ -106,7 +106,7 @@ export const NAV_LINKS = [
   },
   {
     label: "Solutions",
-    href: "/industries",
+    href: "/solutions",
     children: [
       {
         label: "Industries",

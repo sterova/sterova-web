@@ -49,7 +49,10 @@ export default function OpenSourcePage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
         <div
           className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
@@ -155,11 +158,15 @@ export default function OpenSourcePage() {
           </div>
 
           {/* Contribute */}
-          <AnimatedSection delay={0.3} className="mt-12 rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center">
+          <AnimatedSection
+            delay={0.3}
+            className="mt-12 rounded-2xl border border-primary/20 bg-primary/5 p-8 text-center"
+          >
             <Heart className="h-8 w-8 text-primary mx-auto mb-4" />
             <h3 className="font-semibold text-lg mb-2">Want to contribute?</h3>
             <p className="text-sm text-muted-foreground mb-5 max-w-md mx-auto">
-              We welcome pull requests, bug reports, and feature suggestions. Check the issues tab on any repository for good first issues.
+              We welcome pull requests, bug reports, and feature suggestions. Check the issues tab
+              on any repository for good first issues.
             </p>
             <a
               href={SITE.social.github}

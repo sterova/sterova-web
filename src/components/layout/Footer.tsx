@@ -2,13 +2,24 @@ import ObfuscatedEmail from "@/components/shared/ObfuscatedEmail";
 import BrandLogo from "@/components/shared/BrandLogo";
 import { Link } from "@/lib/router-compat";
 import { Mail, ArrowUpRight, MapPin } from "lucide-react";
-import { FaWhatsapp, FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaDribbble } from "react-icons/fa6";
-import { SITE, FOOTER_LINKS, SOCIAL_LINKS } from "@/data/constants";
+import {
+  FaWhatsapp,
+  FaLinkedin,
+  FaGithub,
+  FaXTwitter,
+  FaInstagram,
+  FaDribbble,
+} from "react-icons/fa6";
+import { SITE, FOOTER_LINKS } from "@/data/constants";
 import { useBrandLinks } from "@/hooks/use-brand-links";
 
 export default function Footer() {
   const year = new Date().getFullYear();
-  const { whatsappDisplay, whatsappHref, address } = useBrandLinks();
+  const { whatsappDisplay, whatsappHref, address, social, contact, email } = useBrandLinks();
+
+  const hasEmail = contact.some(c => c.key === "email");
+  const hasWhatsapp = contact.some(c => c.key === "whatsapp");
+  const hasAddress = contact.some(c => c.key === "address");
 
   function NavLink({
     href,
@@ -82,27 +93,32 @@ export default function Footer() {
                 </span>
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-sm">
-                Custom software engineering for startups and enterprises. Built to scale, owned by you.
+                Custom software engineering for startups and enterprises. Built to scale, owned by
+                you.
               </p>
 
               <div className="space-y-2.5 mb-6">
-                <ObfuscatedEmail className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
-                    <Mail className="h-3.5 w-3.5" />
-                  </span>
-                </ObfuscatedEmail>
-                <a
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-whatsapp transition-colors"
-                >
-                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-brand-whatsapp/40 group-hover:text-brand-whatsapp transition-colors">
-                    <FaWhatsapp className="h-3.5 w-3.5" />
-                  </span>
-                  WhatsApp: {whatsappDisplay}
-                </a>
-                {address && address !== "[ADDRESS_PLACEHOLDER]" && (
+                {hasEmail && (
+                  <ObfuscatedEmail email={email} className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
+                      <Mail className="h-3.5 w-3.5" />
+                    </span>
+                  </ObfuscatedEmail>
+                )}
+                {hasWhatsapp && (
+                  <a
+                    href={whatsappHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-brand-whatsapp transition-colors"
+                  >
+                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-brand-whatsapp/40 group-hover:text-brand-whatsapp transition-colors">
+                      <FaWhatsapp className="h-3.5 w-3.5" />
+                    </span>
+                    WhatsApp: {whatsappDisplay}
+                  </a>
+                )}
+                {hasAddress && address && address !== "[ADDRESS_PLACEHOLDER]" && (
                   <p className="group flex items-center gap-2 text-sm text-muted-foreground">
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground">
                       <MapPin className="h-3.5 w-3.5" />
@@ -114,16 +130,16 @@ export default function Footer() {
 
               {/* Social icons */}
               <div className="flex items-center gap-2 flex-wrap">
-                {SOCIAL_LINKS.filter((s) => s.href).map((social) => {
-                  const Icon = SOCIAL_ICONS[social.key];
+                {social.filter((s) => s.href).map((s) => {
+                  const Icon = SOCIAL_ICONS[s.key];
                   if (!Icon) return null;
                   return (
                     <a
-                      key={social.key}
-                      href={social.href}
+                      key={s.key}
+                      href={s.href || undefined}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={social.label}
+                      aria-label={s.label}
                       className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
                     >
                       <Icon className="h-3.5 w-3.5" />

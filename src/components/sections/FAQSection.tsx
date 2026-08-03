@@ -33,7 +33,12 @@ export default function FAQSection({ faqs, limit, showHeader = true }: Props) {
                   description="If yours isn't here, just ask. We'd rather talk than make you guess."
                 />
               )}
-              <Button asChild variant="outline" size="lg" className={showHeader ? "group mt-8" : "group"}>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className={showHeader ? "group mt-8" : "group"}
+              >
                 <Link href="/contact">
                   Ask us directly
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

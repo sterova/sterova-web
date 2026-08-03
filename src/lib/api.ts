@@ -1,5 +1,6 @@
 import { supabase, isSupabaseConfigured, SUPABASE_NOT_CONFIGURED_MESSAGE } from "@/lib/supabase";
 import { ACCEPTED_IMAGE_TYPES, MAX_UPLOAD_BYTES } from "@/data/admin-constants";
+import { SERVICES, PROCESS_STEPS } from "@/data/constants";
 import type {
   BlogCategoryRow,
   BlogPostRow,
@@ -80,26 +81,64 @@ export async function fetchCategories(): Promise<BlogCategoryRow[]> {
 }
 
 export async function fetchServices(): Promise<ServiceRow[]> {
-  const fallback = offlineFallback<ServiceRow[]>([]);
-  if (fallback) return fallback;
-  const { data, error } = await supabase
-    .from("services")
-    .select("*")
-    .eq("is_active", true)
-    .order("display_order");
-  return unwrap(data, error);
+  let data = null;
+  if (isSupabaseConfigured) {
+    const res = await supabase
+      .from("services")
+      .select("*")
+      .eq("is_active", true)
+      .order("display_order");
+    if (!res.error) data = res.data;
+  }
+
+  if (!data || data.length === 0) {
+    return SERVICES.map((s) => ({
+      id: s.id,
+      title: s.title,
+      slug: s.slug,
+      overview: s.description,
+      benefits: s.features,
+      process: PROCESS_STEPS.map((p) => p.title),
+      pricing_approach: "We offer fixed-price quotes based on detailed scoping, ensuring transparency and predictability.",
+      display_order: s.display_order,
+      is_active: s.is_active,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }));
+  }
+  return data;
 }
 
 export async function fetchServiceBySlug(
   slug: string,
   signal?: AbortSignal,
 ): Promise<ServiceRow | null> {
-  if (!isSupabaseConfigured) return null;
-  let query = supabase.from("services").select("*").eq("slug", slug).eq("is_active", true);
-  if (signal) query = query.abortSignal(signal) as typeof query;
-  const { data, error } = await query.maybeSingle();
-  if (error) throw new Error(error.message);
-  return data ?? null;
+  let data = null;
+  if (isSupabaseConfigured) {
+    let query = supabase.from("services").select("*").eq("slug", slug).eq("is_active", true);
+    if (signal) query = query.abortSignal(signal) as typeof query;
+    const res = await query.maybeSingle();
+    if (!res.error) data = res.data;
+  }
+
+  if (!data) {
+    const s = SERVICES.find((service) => service.slug === slug);
+    if (!s) return null;
+    return {
+      id: s.id,
+      title: s.title,
+      slug: s.slug,
+      overview: s.description,
+      benefits: s.features,
+      process: PROCESS_STEPS.map((p) => p.title),
+      pricing_approach: "We offer fixed-price quotes based on detailed scoping, ensuring transparency and predictability.",
+      display_order: s.display_order,
+      is_active: s.is_active,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+  }
+  return data;
 }
 
 export async function fetchCaseStudies(): Promise<CaseStudyRow[]> {

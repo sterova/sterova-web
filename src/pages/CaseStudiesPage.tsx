@@ -1,4 +1,5 @@
-import { useLoaderData, Link } from "@tanstack/react-router";
+import { useLoaderData } from "@tanstack/react-router";
+import { Link } from "@/lib/router-compat";
 import { ArrowRight, BookOpen } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
@@ -6,7 +7,7 @@ import AnimatedSection from "@/components/shared/AnimatedSection";
 import type { CaseStudyRow } from "@/types/database";
 
 export default function CaseStudiesPage() {
-  const caseStudies = useLoaderData({ from: "/case-studies" }) as CaseStudyRow[];
+  const caseStudies = useLoaderData({ from: "/case-studies/" }) as CaseStudyRow[];
 
   return (
     <>

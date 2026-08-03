@@ -5,7 +5,7 @@ import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 
 export default function CaseStudyDetailsPage() {
-  const study = useLoaderData({ from: "/case-studies/$slug" });
+  const study = useLoaderData({ from: "/case-studies_/$slug" });
 
   if (!study) return null;
 

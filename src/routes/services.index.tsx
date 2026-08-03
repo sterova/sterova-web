@@ -6,7 +6,7 @@ import { SITE, FAQS } from "@/data/constants";
 const description =
   "Custom software, web platforms, mobile apps, SaaS products, UI/UX design, and API integration.";
 
-export const Route = createFileRoute("/services")({
+export const Route = createFileRoute("/services/")({
   head: () =>
     seo({
       title: "Sterova Tech Services",

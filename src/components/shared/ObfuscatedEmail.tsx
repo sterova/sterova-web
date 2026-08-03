@@ -1,14 +1,14 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { SITE } from "@/data/constants";
 
-const [LOCAL, DOMAIN] = SITE.email.split("@");
-
 interface ObfuscatedEmailProps {
   className?: string;
   /** Optional subject appended to the mailto: link. */
   subject?: string;
   /** Optional leading content (icon, etc.) rendered before the address. */
   children?: ReactNode;
+  /** Optional email address, falls back to SITE.email if not provided. */
+  email?: string;
 }
 
 /**
@@ -17,16 +17,19 @@ interface ObfuscatedEmailProps {
  * in the browser after hydration, so harvesters that never run JS see only a
  * masked placeholder while people and JS-rendering crawlers get a live link.
  */
-export default function ObfuscatedEmail({ className, subject, children }: ObfuscatedEmailProps) {
+export default function ObfuscatedEmail({ className, subject, children, email }: ObfuscatedEmailProps) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => setRevealed(true), []);
 
-  const address = `${LOCAL}@${DOMAIN}`;
+  const targetEmail = email || SITE.email;
+  const [localPart, domainPart] = targetEmail.split("@");
+
+  const address = `${localPart}@${domainPart}`;
   const label = (
     <>
       {children}
-      {revealed ? address : `${LOCAL} [at] ${DOMAIN}`}
+      {revealed ? address : `${localPart} [at] ${domainPart}`}
     </>
   );
 

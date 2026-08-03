@@ -14,7 +14,6 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AccessibilityRouteImport } from './routes/accessibility'
 import { Route as CareersRouteImport } from './routes/careers'
-import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
@@ -32,8 +31,8 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
 import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as StartProjectRouteImport } from './routes/start-project'
 import { Route as SterovaAdminRouteImport } from './routes/sterova-admin'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
@@ -42,8 +41,10 @@ import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies.$slug'
-import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
+import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies_.$slug'
+import { Route as ServicesIndexRouteImport } from './routes/services.index'
+import { Route as ServicesSlugRouteImport } from './routes/services_.$slug'
 import { Route as SterovaAdminIndexRouteImport } from './routes/sterova-admin.index'
 import { Route as SterovaAdminCmsRouteImport } from './routes/sterova-admin._cms'
 import { Route as SterovaAdminCmsAccessRouteImport } from './routes/sterova-admin._cms.access'
@@ -97,11 +98,6 @@ const AccessibilityRoute = AccessibilityRouteImport.update({
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesRoute = CaseStudiesRouteImport.update({
-  id: '/case-studies',
-  path: '/case-studies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChangelogRoute = ChangelogRouteImport.update({
@@ -189,14 +185,14 @@ const ResourcesRoute = ResourcesRouteImport.update({
   path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ServicesRoute = ServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SolutionsRoute = SolutionsRouteImport.update({
+  id: '/solutions',
+  path: '/solutions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StartProjectRoute = StartProjectRouteImport.update({
@@ -239,15 +235,25 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
+  id: '/case-studies/',
+  path: '/case-studies/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => CaseStudiesRoute,
+  id: '/case-studies_/$slug',
+  path: '/case-studies/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesIndexRoute = ServicesIndexRouteImport.update({
+  id: '/services/',
+  path: '/services/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ServicesRoute,
+  id: '/services_/$slug',
+  path: '/services/$slug',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SterovaAdminIndexRoute = SterovaAdminIndexRouteImport.update({
   id: '/',
@@ -414,7 +420,6 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/careers': typeof CareersRoute
-  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -432,8 +437,8 @@ export interface FileRoutesByFullPath {
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/resources': typeof ResourcesRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
@@ -444,6 +449,8 @@ export interface FileRoutesByFullPath {
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
   '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
@@ -479,7 +486,6 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/careers': typeof CareersRoute
-  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -497,8 +503,8 @@ export interface FileRoutesByTo {
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/resources': typeof ResourcesRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
@@ -509,6 +515,8 @@ export interface FileRoutesByTo {
   '/services/$slug': typeof ServicesSlugRoute
   '/sterova-admin': typeof SterovaAdminIndexRoute
   '/blog': typeof BlogIndexRoute
+  '/case-studies': typeof CaseStudiesIndexRoute
+  '/services': typeof ServicesIndexRoute
   '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
   '/sterova-admin/careers': typeof SterovaAdminCmsCareersRoute
@@ -544,7 +552,6 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/accessibility': typeof AccessibilityRoute
   '/careers': typeof CareersRoute
-  '/case-studies': typeof CaseStudiesRouteWithChildren
   '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
@@ -562,8 +569,8 @@ export interface FileRoutesById {
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
   '/resources': typeof ResourcesRoute
-  '/services': typeof ServicesRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
@@ -571,10 +578,12 @@ export interface FileRoutesById {
   '/testimonials': typeof TestimonialsRoute
   '/whitepapers': typeof WhitepapersRoute
   '/blog/$slug': typeof BlogSlugRoute
-  '/case-studies/$slug': typeof CaseStudiesSlugRoute
-  '/services/$slug': typeof ServicesSlugRoute
+  '/case-studies_/$slug': typeof CaseStudiesSlugRoute
+  '/services_/$slug': typeof ServicesSlugRoute
   '/sterova-admin/_cms': typeof SterovaAdminCmsRouteWithChildren
   '/blog/': typeof BlogIndexRoute
+  '/case-studies/': typeof CaseStudiesIndexRoute
+  '/services/': typeof ServicesIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
   '/sterova-admin/_cms/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/_cms/brand-links': typeof SterovaAdminCmsBrandLinksRoute
@@ -612,7 +621,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/careers'
-    | '/case-studies'
     | '/changelog'
     | '/contact'
     | '/cookie-policy'
@@ -630,8 +638,8 @@ export interface FileRouteTypes {
     | '/process'
     | '/refund-policy'
     | '/resources'
-    | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
@@ -642,6 +650,8 @@ export interface FileRouteTypes {
     | '/case-studies/$slug'
     | '/services/$slug'
     | '/blog/'
+    | '/case-studies/'
+    | '/services/'
     | '/sterova-admin/'
     | '/sterova-admin/access'
     | '/sterova-admin/brand-links'
@@ -677,7 +687,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/careers'
-    | '/case-studies'
     | '/changelog'
     | '/contact'
     | '/cookie-policy'
@@ -695,8 +704,8 @@ export interface FileRouteTypes {
     | '/process'
     | '/refund-policy'
     | '/resources'
-    | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/start-project'
     | '/technologies'
     | '/terms'
@@ -707,6 +716,8 @@ export interface FileRouteTypes {
     | '/services/$slug'
     | '/sterova-admin'
     | '/blog'
+    | '/case-studies'
+    | '/services'
     | '/sterova-admin/access'
     | '/sterova-admin/brand-links'
     | '/sterova-admin/careers'
@@ -741,7 +752,6 @@ export interface FileRouteTypes {
     | '/about'
     | '/accessibility'
     | '/careers'
-    | '/case-studies'
     | '/changelog'
     | '/contact'
     | '/cookie-policy'
@@ -759,8 +769,8 @@ export interface FileRouteTypes {
     | '/process'
     | '/refund-policy'
     | '/resources'
-    | '/services'
     | '/sitemap.xml'
+    | '/solutions'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
@@ -768,10 +778,12 @@ export interface FileRouteTypes {
     | '/testimonials'
     | '/whitepapers'
     | '/blog/$slug'
-    | '/case-studies/$slug'
-    | '/services/$slug'
+    | '/case-studies_/$slug'
+    | '/services_/$slug'
     | '/sterova-admin/_cms'
     | '/blog/'
+    | '/case-studies/'
+    | '/services/'
     | '/sterova-admin/'
     | '/sterova-admin/_cms/access'
     | '/sterova-admin/_cms/brand-links'
@@ -808,7 +820,6 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AccessibilityRoute: typeof AccessibilityRoute
   CareersRoute: typeof CareersRoute
-  CaseStudiesRoute: typeof CaseStudiesRouteWithChildren
   ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
@@ -826,8 +837,8 @@ export interface RootRouteChildren {
   ProcessRoute: typeof ProcessRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
   ResourcesRoute: typeof ResourcesRoute
-  ServicesRoute: typeof ServicesRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SolutionsRoute: typeof SolutionsRoute
   StartProjectRoute: typeof StartProjectRoute
   SterovaAdminRoute: typeof SterovaAdminRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
@@ -835,7 +846,11 @@ export interface RootRouteChildren {
   TestimonialsRoute: typeof TestimonialsRoute
   WhitepapersRoute: typeof WhitepapersRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
+  ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
+  ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -873,13 +888,6 @@ declare module '@tanstack/react-router' {
       path: '/careers'
       fullPath: '/careers'
       preLoaderRoute: typeof CareersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies': {
-      id: '/case-studies'
-      path: '/case-studies'
-      fullPath: '/case-studies'
-      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/changelog': {
@@ -1001,18 +1009,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/services': {
-      id: '/services'
-      path: '/services'
-      fullPath: '/services'
-      preLoaderRoute: typeof ServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/solutions': {
+      id: '/solutions'
+      path: '/solutions'
+      fullPath: '/solutions'
+      preLoaderRoute: typeof SolutionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/start-project': {
@@ -1071,19 +1079,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/case-studies/$slug': {
-      id: '/case-studies/$slug'
-      path: '/$slug'
+    '/case-studies/': {
+      id: '/case-studies/'
+      path: '/case-studies'
+      fullPath: '/case-studies/'
+      preLoaderRoute: typeof CaseStudiesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies_/$slug': {
+      id: '/case-studies_/$slug'
+      path: '/case-studies/$slug'
       fullPath: '/case-studies/$slug'
       preLoaderRoute: typeof CaseStudiesSlugRouteImport
-      parentRoute: typeof CaseStudiesRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/services/$slug': {
-      id: '/services/$slug'
-      path: '/$slug'
+    '/services/': {
+      id: '/services/'
+      path: '/services'
+      fullPath: '/services/'
+      preLoaderRoute: typeof ServicesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services_/$slug': {
+      id: '/services_/$slug'
+      path: '/services/$slug'
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
-      parentRoute: typeof ServicesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/sterova-admin/': {
       id: '/sterova-admin/'
@@ -1291,30 +1313,6 @@ declare module '@tanstack/react-router' {
   }
 }
 
-interface CaseStudiesRouteChildren {
-  CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
-}
-
-const CaseStudiesRouteChildren: CaseStudiesRouteChildren = {
-  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
-}
-
-const CaseStudiesRouteWithChildren = CaseStudiesRoute._addFileChildren(
-  CaseStudiesRouteChildren,
-)
-
-interface ServicesRouteChildren {
-  ServicesSlugRoute: typeof ServicesSlugRoute
-}
-
-const ServicesRouteChildren: ServicesRouteChildren = {
-  ServicesSlugRoute: ServicesSlugRoute,
-}
-
-const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
-  ServicesRouteChildren,
-)
-
 interface SterovaAdminCmsRouteChildren {
   SterovaAdminCmsAccessRoute: typeof SterovaAdminCmsAccessRoute
   SterovaAdminCmsBrandLinksRoute: typeof SterovaAdminCmsBrandLinksRoute
@@ -1399,7 +1397,6 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AccessibilityRoute: AccessibilityRoute,
   CareersRoute: CareersRoute,
-  CaseStudiesRoute: CaseStudiesRouteWithChildren,
   ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
@@ -1417,8 +1414,8 @@ const rootRouteChildren: RootRouteChildren = {
   ProcessRoute: ProcessRoute,
   RefundPolicyRoute: RefundPolicyRoute,
   ResourcesRoute: ResourcesRoute,
-  ServicesRoute: ServicesRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SolutionsRoute: SolutionsRoute,
   StartProjectRoute: StartProjectRoute,
   SterovaAdminRoute: SterovaAdminRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
@@ -1426,7 +1423,11 @@ const rootRouteChildren: RootRouteChildren = {
   TestimonialsRoute: TestimonialsRoute,
   WhitepapersRoute: WhitepapersRoute,
   BlogSlugRoute: BlogSlugRoute,
+  CaseStudiesSlugRoute: CaseStudiesSlugRoute,
+  ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
+  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
+  ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

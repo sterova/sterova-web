@@ -40,10 +40,14 @@ export default function AccessibilityPage() {
             <section>
               <h2>Our Commitment</h2>
               <p>
-                {SITE.name} is committed to ensuring digital accessibility for people with disabilities. We continually improve the user experience for everyone and apply relevant accessibility standards.
+                {SITE.name} is committed to ensuring digital accessibility for people with
+                disabilities. We continually improve the user experience for everyone and apply
+                relevant accessibility standards.
               </p>
               <p>
-                We aim to meet the <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> across this website.
+                We aim to meet the{" "}
+                <strong>Web Content Accessibility Guidelines (WCAG) 2.1 Level AA</strong> across
+                this website.
               </p>
             </section>
           </div>
@@ -78,35 +82,45 @@ export default function AccessibilityPage() {
             <section>
               <h2>Technical Approach</h2>
               <p>
-                This website is built with semantic HTML5, Tailwind CSS, and React 19. Interactive components use Radix UI primitives, which implement WAI-ARIA design patterns for accessible disclosure widgets, dialogs, menus, and form controls.
+                This website is built with semantic HTML5, Tailwind CSS, and React 19. Interactive
+                components use Radix UI primitives, which implement WAI-ARIA design patterns for
+                accessible disclosure widgets, dialogs, menus, and form controls.
               </p>
             </section>
 
             <section>
               <h2>Browser and Assistive Technology Compatibility</h2>
               <p>
-                We test on modern browsers (Chrome, Firefox, Safari, Edge) and aim for compatibility with common screen readers including NVDA (Windows), JAWS (Windows), and VoiceOver (macOS/iOS).
+                We test on modern browsers (Chrome, Firefox, Safari, Edge) and aim for compatibility
+                with common screen readers including NVDA (Windows), JAWS (Windows), and VoiceOver
+                (macOS/iOS).
               </p>
             </section>
 
             <section>
               <h2>Feedback and Contact</h2>
               <p>
-                We welcome accessibility feedback. If you encounter any barriers while using our website, or if you need information in an alternative format, please contact us:
+                We welcome accessibility feedback. If you encounter any barriers while using our
+                website, or if you need information in an alternative format, please contact us:
               </p>
               <ul>
-                <li>Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+                <li>
+                  Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                </li>
                 <li>Response time: within 5 business days</li>
               </ul>
               <p>
-                We take accessibility concerns seriously and will work to address reported issues promptly.
+                We take accessibility concerns seriously and will work to address reported issues
+                promptly.
               </p>
             </section>
 
             <section>
               <h2>Formal Complaints</h2>
               <p>
-                If you are not satisfied with our response to your accessibility concern, you may contact the relevant national equality or disability rights body in your jurisdiction.
+                If you are not satisfied with our response to your accessibility concern, you may
+                contact the relevant national equality or disability rights body in your
+                jurisdiction.
               </p>
             </section>
           </div>

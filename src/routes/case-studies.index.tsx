@@ -6,7 +6,7 @@ import { fetchCaseStudies } from "@/lib/api";
 const description =
   "Explore deep dives into the challenges our clients faced and the solutions we engineered.";
 
-export const Route = createFileRoute("/case-studies")({
+export const Route = createFileRoute("/case-studies/")({
   loader: async () => {
     try {
       return await fetchCaseStudies();

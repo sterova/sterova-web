@@ -24,7 +24,10 @@ export default function PressKitPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
         <div
           className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
@@ -44,7 +47,6 @@ export default function PressKitPage() {
 
       <div className="section-y bg-background">
         <div className="container-custom max-w-5xl mx-auto space-y-16">
-
           {/* Company boilerplate */}
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-6">
@@ -56,21 +58,26 @@ export default function PressKitPage() {
                 Short boilerplate (60 words)
               </h3>
               <p className="text-foreground leading-relaxed mb-6">
-                {SITE.name} is a custom software engineering agency headquartered in Dindigul, Tamil Nadu, India.
-                We build scalable web platforms, native mobile applications, and SaaS products for startups and enterprises.
-                Our team delivers fixed-scope projects with full client code ownership, direct engineer access, and ongoing post-launch support.
+                {SITE.name} is a custom software engineering agency headquartered in Dindigul, Tamil
+                Nadu, India. We build scalable web platforms, native mobile applications, and SaaS
+                products for startups and enterprises. Our team delivers fixed-scope projects with
+                full client code ownership, direct engineer access, and ongoing post-launch support.
               </p>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
                 Long boilerplate (120 words)
               </h3>
               <p className="text-foreground leading-relaxed">
-                {SITE.name} is a custom software engineering and product development agency based in Dindigul, Tamil Nadu, India.
-                Founded to bridge the gap between technical execution quality and honest client communication, Sterova builds scalable web platforms,
-                cross-platform mobile applications, SaaS products, and API-driven integrations for startups, scale-ups, and enterprises globally.
-                The Sterova team operates on a transparent, fixed-scope engagement model — no black boxes, no surprise invoices.
-                Every client retains full ownership of their codebase and infrastructure from day one. Sterova's engineering stack centres on React,
-                TypeScript, Supabase, and cloud-native deployment, with support for custom technology requirements. Post-launch maintenance retainers
-                ensure products continue to improve after delivery.
+                {SITE.name} is a custom software engineering and product development agency based in
+                Dindigul, Tamil Nadu, India. Founded to bridge the gap between technical execution
+                quality and honest client communication, Sterova builds scalable web platforms,
+                cross-platform mobile applications, SaaS products, and API-driven integrations for
+                startups, scale-ups, and enterprises globally. The Sterova team operates on a
+                transparent, fixed-scope engagement model — no black boxes, no surprise invoices.
+                Every client retains full ownership of their codebase and infrastructure from day
+                one. Sterova's engineering stack centres on React, TypeScript, Supabase, and
+                cloud-native deployment, with support for custom technology requirements.
+                Post-launch maintenance retainers ensure products continue to improve after
+                delivery.
               </p>
             </div>
           </AnimatedSection>
@@ -84,7 +91,11 @@ export default function PressKitPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {[
                 { bg: "bg-background", label: "Dark background", border: "border-border" },
-                { bg: "bg-zinc-50 dark:bg-zinc-900", label: "Light background", border: "border-zinc-200 dark:border-zinc-700" },
+                {
+                  bg: "bg-zinc-50 dark:bg-zinc-900",
+                  label: "Light background",
+                  border: "border-zinc-200 dark:border-zinc-700",
+                },
               ].map((variant) => (
                 <div
                   key={variant.label}

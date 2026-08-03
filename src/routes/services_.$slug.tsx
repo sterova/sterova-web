@@ -12,7 +12,7 @@ import {
 } from "@/lib/seo";
 import { fetchServiceBySlug } from "@/lib/api";
 
-export const Route = createFileRoute("/services/$slug")({
+export const Route = createFileRoute("/services_/$slug")({
   loader: async ({ params, abortController }) => {
     try {
       const service = await fetchServiceBySlug(params.slug, abortController.signal);

@@ -2,7 +2,16 @@ import { Link } from "@/lib/router-compat";
 import AnimatedSection from "@/components/shared/AnimatedSection";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
-import { FileCode2, ArrowRight, BookOpen, Plug, Shield, Rocket, Settings, HelpCircle } from "lucide-react";
+import {
+  FileCode2,
+  ArrowRight,
+  BookOpen,
+  Plug,
+  Shield,
+  Rocket,
+  Settings,
+  HelpCircle,
+} from "lucide-react";
 
 const DOC_SECTIONS = [
   {
@@ -79,7 +88,10 @@ export default function DocsPage() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border bg-surface pt-36 pb-20">
-        <div className="pointer-events-none absolute inset-0 dot-grid opacity-40" aria-hidden="true" />
+        <div
+          className="pointer-events-none absolute inset-0 dot-grid opacity-40"
+          aria-hidden="true"
+        />
         <div
           className="pointer-events-none absolute -top-1/3 left-1/2 aspect-square w-[60rem] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl"
           aria-hidden="true"
@@ -149,11 +161,15 @@ export default function DocsPage() {
             })}
           </div>
 
-          <AnimatedSection delay={0.4} className="mt-12 rounded-2xl border border-border bg-card p-8 text-center">
+          <AnimatedSection
+            delay={0.4}
+            className="mt-12 rounded-2xl border border-border bg-card p-8 text-center"
+          >
             <FileCode2 className="h-8 w-8 text-primary mx-auto mb-4" />
             <h3 className="font-semibold text-lg mb-2">Can't find what you're looking for?</h3>
             <p className="text-sm text-muted-foreground mb-5">
-              Our team is happy to answer any questions about our process, standards, or how to work with us.
+              Our team is happy to answer any questions about our process, standards, or how to work
+              with us.
             </p>
             <a
               href="mailto:hello@sterova.tech"
