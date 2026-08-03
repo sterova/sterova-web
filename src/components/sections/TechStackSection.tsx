@@ -1,44 +1,34 @@
 import { motion } from "framer-motion";
 import SectionHeader from "@/components/shared/SectionHeader";
 import {
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiTypescript,
   SiReact,
   SiNextdotjs,
-  SiTypescript,
   SiTailwindcss,
   SiVite,
   SiNodedotjs,
   SiExpress,
   SiPostgresql,
-  SiSupabase,
   SiMongodb,
-  SiRedis,
-  SiVercel,
-  SiCloudflare,
   SiFirebase,
-  SiDocker,
-  SiExpo,
-  SiFlutter,
-  SiJavascript,
-  SiPython,
-  SiGo,
-  SiFigma,
+  SiSupabase,
+  SiVercel,
+  SiNetlify,
+  SiCloudflare,
+  SiOpenaigym,
+  SiGooglegemini,
+  SiRazorpay,
   SiStripe,
+  SiFigma,
   SiGit,
   SiGithub,
-  SiGithubactions,
-  SiLangchain,
-  SiOpenaigym,
-  SiGraphql,
-  SiLinux,
-  SiPrisma,
-  SiDrizzle,
-  SiKubernetes,
-  SiNginx,
-  SiSentry,
+  SiFlutter
 } from "react-icons/si";
-import { FaAws } from "react-icons/fa";
+import { Bot, Database, Cloud, CreditCard, Code2, Monitor, Palette, Server, Smartphone, Wrench } from "lucide-react";
 import { TbBrandReactNative } from "react-icons/tb";
-import { Bot, Cloud, Code2, Monitor, Palette, Server, Smartphone, Wrench } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -60,15 +50,23 @@ interface TechCategory {
 
 const TECH_CATEGORIES: TechCategory[] = [
   {
+    label: "Languages",
+    icon: Code2,
+    techs: [
+      { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
+      { name: "CSS3", icon: SiCss, color: "#1572B6" },
+      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
+      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
+    ],
+  },
+  {
     label: "Frontend",
     icon: Monitor,
     techs: [
       { name: "React", icon: SiReact, color: "#61DAFB" },
       { name: "Next.js", icon: SiNextdotjs, color: "#888", darkColor: "#fff" },
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
       { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
       { name: "Vite", icon: SiVite, color: "#646CFF" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
     ],
   },
   {
@@ -76,28 +74,21 @@ const TECH_CATEGORIES: TechCategory[] = [
     icon: Server,
     techs: [
       { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-      { name: "Express", icon: SiExpress, color: "#888", darkColor: "#fff" },
+      { name: "Express.js", icon: SiExpress, color: "#888", darkColor: "#fff" },
       { name: "PostgreSQL", icon: SiPostgresql, color: "#336791" },
-      { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
       { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
-      { name: "Redis", icon: SiRedis, color: "#DC382D" },
-      { name: "GraphQL", icon: SiGraphql, color: "#E10098" },
-      { name: "Prisma", icon: SiPrisma, color: "#2D3748", darkColor: "#CBD5E0" },
-      { name: "Drizzle", icon: SiDrizzle, color: "#C5F74F", darkColor: "#C5F74F" },
+      { name: "Firestore", icon: SiFirebase, color: "#FFCA28" },
+      { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
     ],
   },
   {
     label: "Cloud & Infra",
     icon: Cloud,
     techs: [
-      { name: "Vercel", icon: SiVercel, color: "#888", darkColor: "#fff" },
-      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
       { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
-      { name: "Docker", icon: SiDocker, color: "#2496ED" },
-      { name: "AWS", icon: FaAws, color: "#FF9900" },
-      { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
-      { name: "Nginx", icon: SiNginx, color: "#009639" },
-      { name: "Linux", icon: SiLinux, color: "#FCC624" },
+      { name: "Vercel", icon: SiVercel, color: "#888", darkColor: "#fff" },
+      { name: "Netlify", icon: SiNetlify, color: "#00C7B7" },
+      { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
     ],
   },
   {
@@ -105,18 +96,7 @@ const TECH_CATEGORIES: TechCategory[] = [
     icon: Smartphone,
     techs: [
       { name: "React Native", icon: TbBrandReactNative, color: "#61DAFB" },
-      { name: "Expo", icon: SiExpo, color: "#888", darkColor: "#fff" },
       { name: "Flutter", icon: SiFlutter, color: "#02569B" },
-    ],
-  },
-  {
-    label: "Languages",
-    icon: Code2,
-    techs: [
-      { name: "TypeScript", icon: SiTypescript, color: "#3178C6" },
-      { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-      { name: "Python", icon: SiPython, color: "#3776AB" },
-      { name: "Go", icon: SiGo, color: "#00ADD8" },
     ],
   },
   {
@@ -124,6 +104,7 @@ const TECH_CATEGORIES: TechCategory[] = [
     icon: Palette,
     techs: [
       { name: "Figma", icon: SiFigma, color: "#F24E1E" },
+      { name: "Razorpay", icon: SiRazorpay, color: "#02042B", darkColor: "#3395FF" },
       { name: "Stripe", icon: SiStripe, color: "#635BFF" },
     ],
   },
@@ -133,8 +114,6 @@ const TECH_CATEGORIES: TechCategory[] = [
     techs: [
       { name: "Git", icon: SiGit, color: "#F05032" },
       { name: "GitHub", icon: SiGithub, color: "#888", darkColor: "#fff" },
-      { name: "GitHub Actions", icon: SiGithubactions, color: "#2088FF" },
-      { name: "Sentry", icon: SiSentry, color: "#362D59", darkColor: "#8B78D5" },
     ],
   },
   {
@@ -142,7 +121,7 @@ const TECH_CATEGORIES: TechCategory[] = [
     icon: Bot,
     techs: [
       { name: "OpenAI", icon: SiOpenaigym, color: "#412991", darkColor: "#fff" },
-      { name: "LangChain", icon: SiLangchain, color: "#1C3C3C", darkColor: "#3ECF8E" },
+      { name: "Google Gemini", icon: SiGooglegemini, color: "#8E75B2", darkColor: "#8E75B2" },
     ],
   },
 ];
@@ -154,17 +133,12 @@ function TechCard({ tech, delay, isDark }: { tech: Tech; delay: number; isDark?:
   const color = isDark && tech.darkColor ? tech.darkColor : tech.color;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 10 }}
-      whileInView={{ opacity: 1, scale: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.4, delay, ease: "easeOut" }}
-      whileHover={{ y: -3, scale: 1.03, transition: { duration: 0.2 } }}
+    <div
       className={cn(
         "group flex items-center gap-3 p-1.5 pr-4 rounded-full",
-        "border border-border/40 bg-surface backdrop-blur-md",
+        "border border-border/40 bg-surface",
         "hover:border-primary/30 hover:bg-secondary/50 hover:shadow-lg hover:shadow-primary/5",
-        "transition-all duration-300 cursor-default",
+        "transition-all duration-300 cursor-default hover:-translate-y-[2px] hover:scale-[1.02]",
       )}
     >
       {/* Icon wrapper with glow on hover */}
@@ -178,7 +152,7 @@ function TechCard({ tech, delay, isDark }: { tech: Tech; delay: number; isDark?:
         />
         {/* Glow effect on hover */}
         <div
-          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-md"
+          className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{ backgroundColor: `${color}25` }}
           aria-hidden="true"
         />
@@ -186,7 +160,7 @@ function TechCard({ tech, delay, isDark }: { tech: Tech; delay: number; isDark?:
       <span className="text-xs font-semibold text-foreground/80 group-hover:text-foreground transition-colors">
         {tech.name}
       </span>
-    </motion.div>
+    </div>
   );
 }
 
@@ -200,6 +174,7 @@ function CategoryBlock({ category, blockDelay }: { category: TechCategory; block
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.4, delay: blockDelay }}
+      className="flex flex-col h-full p-6 rounded-2xl border border-border/50 bg-background/50 hover:bg-surface/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-lg transition-all duration-300"
     >
       {/* Category header */}
       <div className="flex items-center gap-2 mb-3">
@@ -254,7 +229,7 @@ function TechMarqueeStrip() {
           return (
             <div
               key={`${tech.name}-${i}`}
-              className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-border/20 bg-secondary/10 backdrop-blur-sm text-sm text-muted-foreground shrink-0 shadow-sm transition-colors hover:bg-surface"
+              className="flex items-center gap-2.5 px-4 py-2 rounded-full border border-border/20 bg-secondary/10 text-sm text-muted-foreground shrink-0 shadow-sm transition-colors hover:bg-surface"
             >
               <tech.icon className="h-4 w-4 shrink-0" style={{ color }} />
               <span className="font-semibold">{tech.name}</span>
@@ -270,6 +245,7 @@ function TechMarqueeStrip() {
 // Main section
 // ─────────────────────────────────────────────────────────────────────────────
 export default function TechStackSection() {
+  const activeCategories = TECH_CATEGORIES.filter(c => c.techs.length > 0);
   return (
     <section className="section-y overflow-hidden">
       <div className="container-custom">
@@ -287,8 +263,8 @@ export default function TechStackSection() {
         </div>
 
         {/* Detailed category grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10">
-          {TECH_CATEGORIES.map((category, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {activeCategories.map((category, i) => (
             <CategoryBlock key={category.label} category={category} blockDelay={i * 0.07} />
           ))}
         </div>

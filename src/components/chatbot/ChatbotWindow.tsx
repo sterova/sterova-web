@@ -15,7 +15,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import avatar from "@/assets/chatbot-avatar.png";
 import { ChatActions } from "@/components/chatbot/ChatActions";
-import { useChatbot } from "@/components/chatbot/ChatbotProvider";
+import { useChatbot } from "@/components/chatbot/context";
 import { NodeBlock } from "@/components/chatbot/NodeBlock";
 import {
   Conversation,

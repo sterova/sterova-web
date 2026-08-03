@@ -88,44 +88,43 @@ export const NAV_LINKS = [
   },
   {
     label: "Work",
-    href: "/all-works",
+    href: "/portfolio",
+  },
+  { label: "Solutions", href: "/industries", feature_key: "industries" },
+  { label: "About", href: "/about" },
+  {
+    label: "Resources",
+    href: "/resources",
     children: [
       {
-        label: "Projects",
-        href: "/portfolio",
-        description: "Shipped products across every industry",
-        icon_name: "FolderOpen",
+        label: "Blog",
+        href: "/blog",
+        description: "Engineering and design notes",
+        icon_name: "BookOpen",
+        feature_key: "blog",
       },
       {
-        label: "Case Studies",
-        href: "/case-studies",
-        description: "Deep dives: problem → solution → results",
-        icon_name: "FileText",
-      },
-      {
-        label: "Testimonials",
-        href: "/testimonials",
-        description: "What our clients say",
-        icon_name: "Star",
+        label: "Technologies",
+        href: "/technologies",
+        description: "Our core tech stack",
+        icon_name: "Monitor",
+        feature_key: "technologies",
       },
     ],
   },
-  { label: "About", href: "/about" },
-  { label: "Blog", href: "/blog" },
-  { label: "Process", href: "/process" },
 ];
 
 // ─────────────────────────────────────────────
 // Hero
 // ─────────────────────────────────────────────
 export const HERO = {
-  badge: "Software Engineering Partner",
-  headline: "Software your business can scale on",
-  headlineHighlight: "scale on",
+  badge: "Premium Software Engineering",
+  headline: "Engineering digital products to",
+  headlineHighlight: "accelerate growth",
   subheadline:
-    "Sterova is a custom software engineering agency that builds scalable web platforms, mobile apps, and SaaS products for startups and enterprises. Delivered on time, built to scale, and fully owned by you.",
+    "We engineer high-performance web and mobile apps for startups and enterprises. Shipped fast, built to scale, and delivered with zero surprises.",
   cta: {
-    primary: { label: "Start a Project", href: "/contact" },
+    primary: { label: "Start Your Project", href: "/contact" },
     secondary: { label: "View Our Work", href: "/portfolio" },
   },
   // Commitments we can stand behind — no unverifiable metrics or invented
@@ -503,10 +502,8 @@ export const FOOTER_LINKS = [
     heading: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Careers", href: "/careers" },
-      { label: "Our Process", href: "/process" },
-      { label: "Blog", href: "/blog" },
-      { label: "FAQ", href: "/faq" },
+      { label: "Careers", href: "/careers", feature_key: "careers" },
+      { label: "Our Process", href: "/process", feature_key: "process" },
     ],
   },
   {
@@ -524,19 +521,14 @@ export const FOOTER_LINKS = [
     heading: "Work",
     links: [
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Case Studies", href: "/case-studies" },
-      { label: "Testimonials", href: "/testimonials" },
-      { label: "Industries", href: "/industries" },
-      { label: "Technologies", href: "/technologies" },
+      { label: "Solutions", href: "/industries", feature_key: "industries" },
     ],
   },
   {
-    heading: "Legal",
+    heading: "Resources",
     links: [
-      { label: "Privacy Policy", href: "/privacy" },
-      { label: "Terms of Service", href: "/terms" },
-      { label: "Cookie Policy", href: "/cookie-policy" },
-      { label: "Refund Policy", href: "/refund-policy" },
+      { label: "Blog", href: "/blog", feature_key: "blog" },
+      { label: "Technologies", href: "/technologies", feature_key: "technologies" },
     ],
   },
 ];

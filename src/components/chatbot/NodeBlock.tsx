@@ -4,7 +4,7 @@ import { ArrowUpRight, Clock, Mail, MessageCircle, Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
 import { ChatIcon } from "@/components/chatbot/ChatIcon";
-import { useChatbot } from "@/components/chatbot/ChatbotProvider";
+import { useChatbot } from "@/components/chatbot/context";
 import {
   Accordion,
   AccordionContent,

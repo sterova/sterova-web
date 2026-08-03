@@ -65,7 +65,7 @@ export default function CTASection({
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                 <Button asChild variant="gradient" size="xl" className="group">
                   <Link href="/contact">
-                    Start a project
+                    Start Your Project
                     <ArrowRight className="ml-1 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </Button>

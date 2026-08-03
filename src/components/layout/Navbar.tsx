@@ -17,6 +17,13 @@ import {
   FolderOpen,
   FileText,
   Star,
+  Building2,
+  Monitor,
+  Users,
+  Briefcase,
+  GitBranch,
+  BookOpen,
+  HelpCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -35,10 +42,17 @@ const ICON_MAP: Record<string, React.ElementType> = {
   FolderOpen,
   FileText,
   Star,
+  Building2,
+  Monitor,
+  Users,
+  Briefcase,
+  GitBranch,
+  BookOpen,
+  HelpCircle,
 };
 
-type NavChild = { label: string; href: string; description?: string; icon_name?: string };
-type NavItem = { label: string; href: string; children?: NavChild[] };
+type NavChild = { label: string; href: string; description?: string; icon_name?: string; feature_key?: string };
+type NavItem = { label: string; href: string; children?: NavChild[]; feature_key?: string };
 
 // Nav link that handles hash links natively
 function NavLink({
@@ -377,18 +391,15 @@ export default function Navbar() {
   }, [isOpen]);
 
   // Filter links based on feature toggles
-  const filteredNavLinks = NAV_LINKS.filter((link) => {
-    if (link.label === "Services" && settings.features.services === false) return false;
-    if (link.label === "Work" && settings.features.portfolio === false) return false;
-    if (link.label === "Blog" && settings.features.blog === false) return false;
-    if (link.label === "Process" && settings.features.process === false) return false;
+  const filteredNavLinks = (NAV_LINKS as NavItem[]).filter((link) => {
+    if (link.feature_key && settings.features[link.feature_key as keyof typeof settings.features] === false) return false;
     return true;
   }).map((link) => {
     if (link.children) {
       return {
         ...link,
         children: link.children.filter((child) => {
-          if (child.label === "Testimonials" && settings.features.reviews === false) return false;
+          if (child.feature_key && settings.features[child.feature_key as keyof typeof settings.features] === false) return false;
           return true;
         }),
       };

@@ -313,8 +313,8 @@ export default function HeroSection() {
             </span>
 
             <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
-              Software engineered for an{" "}
-              <span className="animate-gradient-text">unfair advantage.</span>
+              {HERO.headline}{" "}
+              <span className="animate-gradient-text">{HERO.headlineHighlight}</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-text-secondary">

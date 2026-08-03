@@ -4,7 +4,19 @@ import { routeTree } from "./routeTree.gen";
 import NotFoundPage from "@/pages/NotFoundPage";
 import RouteErrorState from "@/components/shared/RouteErrorState";
 export const getRouter = () => {
-  const queryClient = new QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        // Cache data for 5 minutes to prevent unnecessary Supabase queries
+        staleTime: 1000 * 60 * 5,
+        // Keep data in cache for 30 minutes
+        gcTime: 1000 * 60 * 30,
+        // Don't refetch on window focus to save bandwidth on the free tier
+        refetchOnWindowFocus: false,
+        retry: 1,
+      },
+    },
+  });
 
   const router = createRouter({
     routeTree,
@@ -16,13 +28,10 @@ export const getRouter = () => {
     // Prefetch the route chunk + data on hover/focus so a click navigates
     // instantly instead of waiting for the chunk to download.
     defaultPreload: "intent",
-    defaultPreloadDelay: 0,
-    // Render the destination as soon as it is ready. Loaders resolve against
-    // prewarmed chunks, so we never flash a whole-page pending state; the top
-    // progress bar carries the feedback instead.
-    defaultPendingMs: 1500,
-    defaultPendingMinMs: 0,
-    defaultPreloadStaleTime: 0,
+    defaultPreloadDelay: 50,
+    // Aggressively cache router loaders to save Supabase requests
+    defaultStaleTime: 1000 * 60 * 5,
+    defaultPreloadStaleTime: 1000 * 60 * 5,
     defaultNotFoundComponent: () => <NotFoundPage />,
     defaultErrorComponent: ({ error, reset }) => (
       <RouteErrorState error={error} reset={reset} boundary="router_default" />

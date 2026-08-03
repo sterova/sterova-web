@@ -163,7 +163,7 @@ function PublicShell({ pathname }: { pathname: string }) {
         <main id="main" tabIndex={-1} className="outline-none">
           {/* Required: nested routes render here. */}
           <NavigationErrorBoundary resetKey={pathname}>
-            <Suspense key={pathname} fallback={<RoutePending pathname={pathname} />}>
+            <Suspense fallback={<RoutePending pathname={pathname} />}>
               <Outlet />
             </Suspense>
           </NavigationErrorBoundary>

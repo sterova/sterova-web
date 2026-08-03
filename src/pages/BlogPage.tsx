@@ -59,7 +59,7 @@ export default function BlogPage() {
         <div className="container-custom relative text-center">
           <AnimatedSection>
             <SectionHeader
-              badge="Insights"
+              badge="Blog"
               title="Engineering knowledge, openly shared"
               description="Deep dives, product thinking, and practical guides from our engineering team."
               centered

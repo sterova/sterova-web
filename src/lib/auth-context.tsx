@@ -10,7 +10,7 @@ const HEARTBEAT_MS = 60_000;
  * Reads the `session_id` claim out of the access token. Supabase mints one per
  * login, which is what the CMS session list is keyed on.
  */
-export function readSessionId(session: Session | null): string | null {
+function readSessionId(session: Session | null): string | null {
   const token = session?.access_token;
   if (!token) return null;
   try {

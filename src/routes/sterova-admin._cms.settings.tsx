@@ -48,12 +48,9 @@ const FEATURE_FIELDS: { key: keyof FeatureSettings; label: string; hint: string 
   { key: "reviews", label: "Testimonials", hint: "Accept and display client testimonials" },
   { key: "blog", label: "Blog", hint: "Surface blog links across the site" },
   { key: "careers", label: "Careers", hint: "Show open roles and accept applications" },
-  { key: "services", label: "Services", hint: "Enable the services directory" },
-  { key: "portfolio", label: "Portfolio / Case Studies", hint: "Showcase completed case studies" },
   { key: "industries", label: "Industries", hint: "List supported industry verticals" },
   { key: "process", label: "Process", hint: "Show our process steps" },
   { key: "technologies", label: "Technologies", hint: "Display our tech stack" },
-  { key: "faq", label: "FAQ", hint: "Show frequently asked questions" },
 ];
 
 function AdminSettingsPage() {

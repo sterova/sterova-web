@@ -205,7 +205,7 @@ export default function Footer() {
           <p className="text-sm text-muted-foreground">
             © {year} {SITE.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 flex-wrap justify-center">
+          <div className="flex items-center gap-4 flex-wrap justify-center sm:pr-16 md:pr-24">
             <Link
               href="/privacy"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -223,6 +223,12 @@ export default function Footer() {
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Cookies
+            </Link>
+            <Link
+              href="/refund-policy"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Refund Policy
             </Link>
             <Link
               href="/contact"

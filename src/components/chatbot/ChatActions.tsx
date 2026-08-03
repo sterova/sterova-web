@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ChatIcon } from "@/components/chatbot/ChatIcon";
-import { useChatbot } from "@/components/chatbot/ChatbotProvider";
+import { useChatbot } from "@/components/chatbot/context";
 import type { ChatAction } from "@/data/chatbot/types";
 import { cn } from "@/lib/utils";
 

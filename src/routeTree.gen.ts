@@ -12,26 +12,23 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AllWorksRouteImport } from './routes/all-works'
 import { Route as CareersRouteImport } from './routes/careers'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
 import { Route as EstimateRouteImport } from './routes/estimate'
-import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StartProjectRouteImport } from './routes/start-project'
 import { Route as SterovaAdminRouteImport } from './routes/sterova-admin'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
-import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
 import { Route as CaseStudiesSlugRouteImport } from './routes/case-studies_.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services_.$slug'
@@ -79,11 +76,6 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AllWorksRoute = AllWorksRouteImport.update({
-  id: '/all-works',
-  path: '/all-works',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
@@ -102,11 +94,6 @@ const CookiePolicyRoute = CookiePolicyRouteImport.update({
 const EstimateRoute = EstimateRouteImport.update({
   id: '/estimate',
   path: '/estimate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FaqRoute = FaqRouteImport.update({
-  id: '/faq',
-  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesRoute = IndustriesRouteImport.update({
@@ -134,6 +121,11 @@ const RefundPolicyRoute = RefundPolicyRouteImport.update({
   path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -159,11 +151,6 @@ const TermsRoute = TermsRouteImport.update({
   path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TestimonialsRoute = TestimonialsRouteImport.update({
-  id: '/testimonials',
-  path: '/testimonials',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
@@ -172,11 +159,6 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CaseStudiesIndexRoute = CaseStudiesIndexRouteImport.update({
-  id: '/case-studies/',
-  path: '/case-studies/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseStudiesSlugRoute = CaseStudiesSlugRouteImport.update({
@@ -351,28 +333,25 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/estimate': typeof EstimateRoute
-  '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
-  '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/blog/': typeof BlogIndexRoute
-  '/case-studies/': typeof CaseStudiesIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
   '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
@@ -406,28 +385,25 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/estimate': typeof EstimateRoute
-  '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
-  '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/sterova-admin': typeof SterovaAdminIndexRoute
   '/blog': typeof BlogIndexRoute
-  '/case-studies': typeof CaseStudiesIndexRoute
   '/services': typeof ServicesIndexRoute
   '/sterova-admin/access': typeof SterovaAdminCmsAccessRoute
   '/sterova-admin/brand-links': typeof SterovaAdminCmsBrandLinksRoute
@@ -461,29 +437,26 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
   '/estimate': typeof EstimateRoute
-  '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
   '/portfolio': typeof PortfolioRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
+  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
-  '/testimonials': typeof TestimonialsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies_/$slug': typeof CaseStudiesSlugRoute
   '/services_/$slug': typeof ServicesSlugRoute
   '/sterova-admin/_cms': typeof SterovaAdminCmsRouteWithChildren
   '/blog/': typeof BlogIndexRoute
-  '/case-studies/': typeof CaseStudiesIndexRoute
   '/services/': typeof ServicesIndexRoute
   '/sterova-admin/': typeof SterovaAdminIndexRoute
   '/sterova-admin/_cms/access': typeof SterovaAdminCmsAccessRoute
@@ -519,28 +492,25 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/all-works'
     | '/careers'
     | '/contact'
     | '/cookie-policy'
     | '/estimate'
-    | '/faq'
     | '/industries'
     | '/portfolio'
     | '/privacy'
     | '/process'
     | '/refund-policy'
+    | '/resources'
     | '/sitemap.xml'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
     | '/terms'
-    | '/testimonials'
     | '/blog/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
     | '/blog/'
-    | '/case-studies/'
     | '/services/'
     | '/sterova-admin/'
     | '/sterova-admin/access'
@@ -574,28 +544,25 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/all-works'
     | '/careers'
     | '/contact'
     | '/cookie-policy'
     | '/estimate'
-    | '/faq'
     | '/industries'
     | '/portfolio'
     | '/privacy'
     | '/process'
     | '/refund-policy'
+    | '/resources'
     | '/sitemap.xml'
     | '/start-project'
     | '/technologies'
     | '/terms'
-    | '/testimonials'
     | '/blog/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
     | '/sterova-admin'
     | '/blog'
-    | '/case-studies'
     | '/services'
     | '/sterova-admin/access'
     | '/sterova-admin/brand-links'
@@ -628,29 +595,26 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/all-works'
     | '/careers'
     | '/contact'
     | '/cookie-policy'
     | '/estimate'
-    | '/faq'
     | '/industries'
     | '/portfolio'
     | '/privacy'
     | '/process'
     | '/refund-policy'
+    | '/resources'
     | '/sitemap.xml'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
     | '/terms'
-    | '/testimonials'
     | '/blog/$slug'
     | '/case-studies_/$slug'
     | '/services_/$slug'
     | '/sterova-admin/_cms'
     | '/blog/'
-    | '/case-studies/'
     | '/services/'
     | '/sterova-admin/'
     | '/sterova-admin/_cms/access'
@@ -685,28 +649,25 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
-  AllWorksRoute: typeof AllWorksRoute
   CareersRoute: typeof CareersRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
   EstimateRoute: typeof EstimateRoute
-  FaqRoute: typeof FaqRoute
   IndustriesRoute: typeof IndustriesRoute
   PortfolioRoute: typeof PortfolioRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
+  ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StartProjectRoute: typeof StartProjectRoute
   SterovaAdminRoute: typeof SterovaAdminRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
   TermsRoute: typeof TermsRoute
-  TestimonialsRoute: typeof TestimonialsRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
   BlogIndexRoute: typeof BlogIndexRoute
-  CaseStudiesIndexRoute: typeof CaseStudiesIndexRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
 }
 
@@ -731,13 +692,6 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/all-works': {
-      id: '/all-works'
-      path: '/all-works'
-      fullPath: '/all-works'
-      preLoaderRoute: typeof AllWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -766,13 +720,6 @@ declare module '@tanstack/react-router' {
       path: '/estimate'
       fullPath: '/estimate'
       preLoaderRoute: typeof EstimateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/faq': {
-      id: '/faq'
-      path: '/faq'
-      fullPath: '/faq'
-      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/industries': {
@@ -810,6 +757,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -845,13 +799,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/testimonials': {
-      id: '/testimonials'
-      path: '/testimonials'
-      fullPath: '/testimonials'
-      preLoaderRoute: typeof TestimonialsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/blog/': {
       id: '/blog/'
       path: '/blog'
@@ -864,13 +811,6 @@ declare module '@tanstack/react-router' {
       path: '/blog/$slug'
       fullPath: '/blog/$slug'
       preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/case-studies/': {
-      id: '/case-studies/'
-      path: '/case-studies'
-      fullPath: '/case-studies/'
-      preLoaderRoute: typeof CaseStudiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-studies_/$slug': {
@@ -1173,28 +1113,25 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
-  AllWorksRoute: AllWorksRoute,
   CareersRoute: CareersRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
   EstimateRoute: EstimateRoute,
-  FaqRoute: FaqRoute,
   IndustriesRoute: IndustriesRoute,
   PortfolioRoute: PortfolioRoute,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   RefundPolicyRoute: RefundPolicyRoute,
+  ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StartProjectRoute: StartProjectRoute,
   SterovaAdminRoute: SterovaAdminRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
   TermsRoute: TermsRoute,
-  TestimonialsRoute: TestimonialsRoute,
   BlogSlugRoute: BlogSlugRoute,
   CaseStudiesSlugRoute: CaseStudiesSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,
   BlogIndexRoute: BlogIndexRoute,
-  CaseStudiesIndexRoute: CaseStudiesIndexRoute,
   ServicesIndexRoute: ServicesIndexRoute,
 }
 export const routeTree = rootRouteImport

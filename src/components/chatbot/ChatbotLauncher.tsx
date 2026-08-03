@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X, BotMessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
 
-import { useChatbot } from "@/components/chatbot/ChatbotProvider";
+import { useChatbot } from "@/components/chatbot/context";
 import { CHATBOT_CONFIG } from "@/data/chatbot/config";
 import { cn } from "@/lib/utils";
 

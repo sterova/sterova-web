@@ -39,9 +39,6 @@ export default function ReviewsSection() {
                 <p className="font-display text-3xl font-semibold tracking-tight">
                   {average.toFixed(1)}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {reviews.length} published review{reviews.length === 1 ? "" : "s"}
-                </p>
               </div>
               <div className="h-10 w-px bg-border" aria-hidden="true" />
               <StarRating value={Math.round(average)} readonly />
