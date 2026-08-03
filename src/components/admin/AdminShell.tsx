@@ -25,6 +25,12 @@ import {
   Tags,
   TrendingUp,
   Users,
+  Image,
+  FolderSearch,
+  Building2,
+  Layers,
+  MessageCircleQuestion,
+  Search,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -47,9 +53,13 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
   {
     label: "Content",
     items: [
+      { href: ADMIN_ROUTES.services, label: "Services", icon: Layers },
+      { href: ADMIN_ROUTES.caseStudies, label: "Case Studies", icon: FolderSearch },
+      { href: ADMIN_ROUTES.industries, label: "Industries", icon: Building2 },
       { href: ADMIN_ROUTES.posts, label: "Blog posts", icon: FileText },
       { href: ADMIN_ROUTES.categories, label: "Categories", icon: Tags },
       { href: ADMIN_ROUTES.projects, label: "Projects", icon: FolderKanban },
+      { href: ADMIN_ROUTES.mediaLibrary, label: "Media Library", icon: Image },
       { href: ADMIN_ROUTES.results, label: "Results", icon: TrendingUp },
       { href: ADMIN_ROUTES.team, label: "Team", icon: Users },
       { href: ADMIN_ROUTES.brandLinks, label: "Brand Links", icon: Link2 },
@@ -76,7 +86,9 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     label: "Growth",
     items: [
       { href: ADMIN_ROUTES.testimonials, label: "Testimonials", icon: Quote },
+      { href: ADMIN_ROUTES.faqs, label: "FAQs", icon: MessageCircleQuestion },
       { href: ADMIN_ROUTES.careers, label: "Careers", icon: Briefcase },
+      { href: ADMIN_ROUTES.seoMetadata, label: "SEO Metadata", icon: Search },
       { href: ADMIN_ROUTES.notifications, label: "Notifications", icon: BellRing },
     ],
   },

@@ -1,5 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { AlignJustify, ArrowLeft, Loader2, Maximize2, Minimize2, Rows3, RotateCcw, Send, X } from "lucide-react";
+import {
+  AlignJustify,
+  ArrowLeft,
+  Loader2,
+  Maximize2,
+  Minimize2,
+  Rows3,
+  RotateCcw,
+  Send,
+  X,
+} from "lucide-react";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -46,7 +56,6 @@ export function ChatbotWindow() {
     cancelForm,
     fallbackActions,
   } = useChatbot();
-
 
   const [value, setValue] = useState("");
   const [compact, setCompact] = useState(false);
@@ -131,7 +140,6 @@ export function ChatbotWindow() {
     close();
   }, [isSmall, close]);
 
-
   /* Restore the saved density preference. */
   useEffect(() => {
     try {
@@ -182,8 +190,6 @@ export function ChatbotWindow() {
     return "Message";
   }, [step]);
 
-
-
   /* Escape closes the panel. */
   useEffect(() => {
     if (!isOpen) return;
@@ -193,8 +199,6 @@ export function ChatbotWindow() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [close, isOpen]);
-
-
 
   return (
     <AnimatePresence>
@@ -311,14 +315,14 @@ export function ChatbotWindow() {
             ) : null}
           </div>
 
-          {/* WhatsApp-like Composer */}
-          <div className="relative z-10 p-2 sm:p-3 bg-[#f0f2f5] dark:bg-[#202c33] pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          {/* WhatsApp-like Composer -> Premium Composer */}
+          <div className="relative z-10 p-2 sm:p-3 bg-surface border-t border-border/60 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
             <PromptInput
               onSubmit={handleSubmit}
               className="[&_[data-slot=input-group]]:h-auto [&_[data-slot=input-group]]:overflow-visible [&_[data-slot=input-group]]:border-0 [&_[data-slot=input-group]]:!ring-0 [&_[data-slot=input-group]]:shadow-none [&_[data-slot=input-group]]:bg-transparent [&_[data-slot=input-group]]:p-0 mx-auto max-w-3xl"
             >
               <div className="flex items-end gap-2 w-full">
-                <div className="flex-1 bg-white dark:bg-[#2a3942] rounded-3xl shadow-sm flex items-end">
+                <div className="flex-1 bg-background border border-border/50 rounded-3xl shadow-sm flex items-end">
                   <PromptInputTextarea
                     ref={textareaRef}
                     value={value}
@@ -332,12 +336,12 @@ export function ChatbotWindow() {
                   size="icon-sm"
                   status={isSubmitting ? "submitted" : undefined}
                   disabled={!value.trim() || isSubmitting}
-                  className="!size-[44px] shrink-0 rounded-full bg-[#00a884] hover:bg-[#008f6f] text-white shadow-sm transition-all flex items-center justify-center mb-0 disabled:opacity-50 disabled:hover:bg-[#00a884]"
+                  className="!size-[44px] shrink-0 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm transition-all flex items-center justify-center mb-0 disabled:opacity-50 disabled:hover:bg-primary"
                 >
                   {isSubmitting ? (
-                    <Loader2 className="size-5 animate-spin text-white" />
+                    <Loader2 className="size-5 animate-spin text-primary-foreground" />
                   ) : (
-                    <Send className="size-[20px] text-white ml-0.5 fill-white" />
+                    <Send className="size-[20px] text-primary-foreground ml-0.5 fill-primary-foreground" />
                   )}
                 </PromptInputSubmit>
               </div>

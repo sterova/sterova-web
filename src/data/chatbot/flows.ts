@@ -48,7 +48,12 @@ const SERVICE_NODES: ChatNode[] = CHAT_SERVICES.map((service) => ({
   heading: service.title,
   messages: [service.long],
   actions: withNav(
-    { kind: "route", label: "Service Request Form", to: `/start-project?service=${service.id}`, icon: "FileText" },
+    {
+      kind: "route",
+      label: "Service Request Form",
+      to: `/start-project?service=${service.id}`,
+      icon: "FileText",
+    },
     { kind: "form", label: "Request Quote", form: "lead", icon: "FileText" },
     { kind: "form", label: "Book Consultation", form: "consultation", icon: "CalendarDays" },
     { kind: "route", label: "Project Estimator", to: "/estimate", icon: "Calculator" },

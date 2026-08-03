@@ -79,6 +79,74 @@ export async function fetchCategories(): Promise<BlogCategoryRow[]> {
   return unwrap(data, error);
 }
 
+export async function fetchServices(): Promise<ServiceRow[]> {
+  const fallback = offlineFallback<ServiceRow[]>([]);
+  if (fallback) return fallback;
+  const { data, error } = await supabase
+    .from("services")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  return unwrap(data, error);
+}
+
+export async function fetchServiceBySlug(
+  slug: string,
+  signal?: AbortSignal,
+): Promise<ServiceRow | null> {
+  if (!isSupabaseConfigured) return null;
+  let query = supabase.from("services").select("*").eq("slug", slug).eq("is_active", true);
+  if (signal) query = query.abortSignal(signal) as typeof query;
+  const { data, error } = await query.maybeSingle();
+  if (error) throw new Error(error.message);
+  return data ?? null;
+}
+
+export async function fetchCaseStudies(): Promise<CaseStudyRow[]> {
+  const fallback = offlineFallback<CaseStudyRow[]>([]);
+  if (fallback) return fallback;
+  const { data, error } = await supabase
+    .from("case_studies")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  return unwrap(data, error);
+}
+
+export async function fetchCaseStudyBySlug(
+  slug: string,
+  signal?: AbortSignal,
+): Promise<CaseStudyRow | null> {
+  if (!isSupabaseConfigured) return null;
+  let query = supabase.from("case_studies").select("*").eq("slug", slug).eq("is_active", true);
+  if (signal) query = query.abortSignal(signal) as typeof query;
+  const { data, error } = await query.maybeSingle();
+  if (error) throw new Error(error.message);
+  return data ?? null;
+}
+
+export async function fetchIndustries(): Promise<IndustryRow[]> {
+  const fallback = offlineFallback<IndustryRow[]>([]);
+  if (fallback) return fallback;
+  const { data, error } = await supabase
+    .from("industries")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  return unwrap(data, error);
+}
+
+export async function fetchFAQs(): Promise<FAQRow[]> {
+  const fallback = offlineFallback<FAQRow[]>([]);
+  if (fallback) return fallback;
+  const { data, error } = await supabase
+    .from("faqs")
+    .select("*")
+    .eq("is_active", true)
+    .order("display_order");
+  return unwrap(data, error);
+}
+
 export async function fetchActiveProjects(): Promise<ProjectRow[]> {
   const fallback = offlineFallback<ProjectRow[]>([]);
   if (fallback) return fallback;
@@ -681,5 +749,209 @@ export async function adminUpdateBrandLink(
 
 export async function adminDeleteBrandLink(id: string): Promise<void> {
   const { error } = await supabase.from("brand_links").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Enterprise Expansion — Admin CRUD
+// ─────────────────────────────────────────────────────────────────────────────
+
+import type {
+  ServiceRow,
+  CaseStudyRow,
+  IndustryRow,
+  FAQRow,
+  MediaAssetRow,
+  SEOMetadataRow,
+} from "@/types/database";
+
+// Services
+export async function adminFetchServices(): Promise<ServiceRow[]> {
+  const { data, error } = await supabase.from("services").select("*").order("display_order");
+  return unwrap(data, error);
+}
+
+export async function adminCreateService(
+  input: Partial<ServiceRow> & { title: string; slug: string; overview: string },
+): Promise<ServiceRow> {
+  const { data, error } = await supabase.from("services").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminUpdateService(
+  id: string,
+  input: Partial<ServiceRow>,
+): Promise<ServiceRow> {
+  const { data, error } = await supabase
+    .from("services")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteService(id: string): Promise<void> {
+  const { error } = await supabase.from("services").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// Case Studies
+export async function adminFetchCaseStudies(): Promise<CaseStudyRow[]> {
+  const { data, error } = await supabase.from("case_studies").select("*").order("display_order");
+  return unwrap(data, error);
+}
+
+export async function adminCreateCaseStudy(
+  input: Partial<CaseStudyRow> & {
+    title: string;
+    slug: string;
+    client_name: string;
+    problem: string;
+    research: string;
+    design: string;
+    development: string;
+    deployment: string;
+    results: string;
+  },
+): Promise<CaseStudyRow> {
+  const { data, error } = await supabase.from("case_studies").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminUpdateCaseStudy(
+  id: string,
+  input: Partial<CaseStudyRow>,
+): Promise<CaseStudyRow> {
+  const { data, error } = await supabase
+    .from("case_studies")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteCaseStudy(id: string): Promise<void> {
+  const { error } = await supabase.from("case_studies").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// Industries
+export async function adminFetchIndustries(): Promise<IndustryRow[]> {
+  const { data, error } = await supabase.from("industries").select("*").order("display_order");
+  return unwrap(data, error);
+}
+
+export async function adminCreateIndustry(
+  input: Partial<IndustryRow> & { name: string; slug: string; description: string },
+): Promise<IndustryRow> {
+  const { data, error } = await supabase.from("industries").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminUpdateIndustry(
+  id: string,
+  input: Partial<IndustryRow>,
+): Promise<IndustryRow> {
+  const { data, error } = await supabase
+    .from("industries")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteIndustry(id: string): Promise<void> {
+  const { error } = await supabase.from("industries").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// FAQs
+export async function adminFetchFAQs(): Promise<FAQRow[]> {
+  const { data, error } = await supabase.from("faqs").select("*").order("display_order");
+  return unwrap(data, error);
+}
+
+export async function adminCreateFAQ(
+  input: Partial<FAQRow> & { question: string; answer: string },
+): Promise<FAQRow> {
+  const { data, error } = await supabase.from("faqs").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminUpdateFAQ(id: string, input: Partial<FAQRow>): Promise<FAQRow> {
+  const { data, error } = await supabase.from("faqs").update(input).eq("id", id).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteFAQ(id: string): Promise<void> {
+  const { error } = await supabase.from("faqs").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// Media Assets
+export async function adminFetchMediaAssets(): Promise<MediaAssetRow[]> {
+  const { data, error } = await supabase
+    .from("media_assets")
+    .select("*")
+    .order("uploaded_at", { ascending: false });
+  return unwrap(data, error);
+}
+
+export async function adminCreateMediaAsset(
+  input: Partial<MediaAssetRow> & { file_name: string; file_type: string; url: string },
+): Promise<MediaAssetRow> {
+  const { data, error } = await supabase.from("media_assets").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminUpdateMediaAsset(
+  id: string,
+  input: Partial<MediaAssetRow>,
+): Promise<MediaAssetRow> {
+  const { data, error } = await supabase
+    .from("media_assets")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteMediaAsset(id: string): Promise<void> {
+  const { error } = await supabase.from("media_assets").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+// SEO Metadata
+export async function adminFetchSEOMetadata(): Promise<SEOMetadataRow[]> {
+  const { data, error } = await supabase.from("seo_metadata").select("*");
+  return unwrap(data, error);
+}
+
+export async function adminUpdateSEOMetadata(
+  id: string,
+  input: Partial<SEOMetadataRow>,
+): Promise<SEOMetadataRow> {
+  const { data, error } = await supabase
+    .from("seo_metadata")
+    .update(input)
+    .eq("id", id)
+    .select()
+    .single();
+  return unwrap(data, error);
+}
+
+export async function adminCreateSEOMetadata(
+  input: Partial<SEOMetadataRow> & { route_path: string; title: string; description: string },
+): Promise<SEOMetadataRow> {
+  const { data, error } = await supabase.from("seo_metadata").insert(input).select().single();
+  return unwrap(data, error);
+}
+
+export async function adminDeleteSEOMetadata(id: string): Promise<void> {
+  const { error } = await supabase.from("seo_metadata").delete().eq("id", id);
   if (error) throw new Error(error.message);
 }

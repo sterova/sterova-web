@@ -48,6 +48,9 @@ const FEATURE_FIELDS: { key: keyof FeatureSettings; label: string; hint: string 
   { key: "reviews", label: "Reviews", hint: "Accept and display client reviews" },
   { key: "blog", label: "Blog", hint: "Surface blog links across the site" },
   { key: "careers", label: "Careers", hint: "Show open roles and accept applications" },
+  { key: "services", label: "Services", hint: "Enable the services directory" },
+  { key: "portfolio", label: "Portfolio / Case Studies", hint: "Showcase completed case studies" },
+  { key: "industries", label: "Industries", hint: "List supported industry verticals" },
 ];
 
 function AdminSettingsPage() {
@@ -129,12 +132,12 @@ function AdminSettingsPage() {
                 />
               </div>
             </div>
-            <div className="flex justify-end border-t border-border/70 px-5 py-3">
+            <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
               <Button size="sm" disabled={saving} onClick={() => save.mutate("company")}>
                 {saving ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
-                  <Save className="h-4 w-4" />
+                  <Save className="h-4 w-4 mr-1.5" />
                 )}
                 Save company
               </Button>
@@ -184,13 +187,23 @@ function AdminSettingsPage() {
                   onChange={(e) => setWebsite({ ...website, announcement: e.target.value })}
                 />
               </div>
-              <div className="space-y-1.5">
-                <Label htmlFor="meta-title">Default meta title</Label>
-                <Input
-                  id="meta-title"
-                  value={website.default_meta_title ?? ""}
-                  onChange={(e) => setWebsite({ ...website, default_meta_title: e.target.value })}
-                />
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <Label htmlFor="meta-title">Default meta title</Label>
+                  <Input
+                    id="meta-title"
+                    value={website.default_meta_title ?? ""}
+                    onChange={(e) => setWebsite({ ...website, default_meta_title: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="analytics-id">Analytics ID (G-XXXXXXX)</Label>
+                  <Input
+                    id="analytics-id"
+                    value={website.analytics_id ?? ""}
+                    onChange={(e) => setWebsite({ ...website, analytics_id: e.target.value })}
+                  />
+                </div>
               </div>
               <div className="space-y-1.5">
                 <Label htmlFor="meta-description">Default meta description</Label>
@@ -204,12 +217,12 @@ function AdminSettingsPage() {
                 />
               </div>
             </div>
-            <div className="flex justify-end border-t border-border/70 px-5 py-3">
+            <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
               <Button size="sm" disabled={saving} onClick={() => save.mutate("website")}>
                 {saving ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
-                  <Save className="h-4 w-4" />
+                  <Save className="h-4 w-4 mr-1.5" />
                 )}
                 Save website
               </Button>
@@ -241,12 +254,12 @@ function AdminSettingsPage() {
                 </div>
               ))}
             </div>
-            <div className="flex justify-end border-t border-border/70 px-5 py-3">
+            <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
               <Button size="sm" disabled={saving} onClick={() => save.mutate("features")}>
                 {saving ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
-                  <Save className="h-4 w-4" />
+                  <Save className="h-4 w-4 mr-1.5" />
                 )}
                 Save features
               </Button>

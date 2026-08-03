@@ -44,13 +44,7 @@ const DESTINATIONS = [
     icon: Briefcase,
     keywords: ["portfolio", "work", "case", "project", "projects", "client"],
   },
-  {
-    label: "Process",
-    to: "/process",
-    note: "How an engagement actually runs",
-    icon: RouteIcon,
-    keywords: ["process", "how", "method", "workflow", "engage"],
-  },
+
   {
     label: "Blog",
     to: "/blog",

@@ -245,6 +245,9 @@ export interface FeatureSettings {
   reviews?: boolean;
   blog?: boolean;
   careers?: boolean;
+  services?: boolean;
+  portfolio?: boolean;
+  industries?: boolean;
 }
 
 export interface SiteSettingsMap {
@@ -348,6 +351,86 @@ export type BlogPostWithCategory = BlogPostRow & {
   blog_categories: Pick<BlogCategoryRow, "id" | "name" | "slug"> | null;
 };
 
+export interface ServiceRow {
+  id: string;
+  title: string;
+  slug: string;
+  overview: string;
+  benefits: string[];
+  process: string[];
+  pricing_approach: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface CaseStudyRow {
+  id: string;
+  title: string;
+  slug: string;
+  client_name: string;
+  problem: string;
+  research: string;
+  design: string;
+  development: string;
+  deployment: string;
+  results: string;
+  cover_image: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface IndustryRow {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  icon_key: string | null;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ProjectIndustryRow {
+  project_id: string;
+  industry_id: string;
+}
+
+export interface FAQRow {
+  id: string;
+  question: string;
+  answer: string;
+  category: string;
+  display_order: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface MediaAssetRow {
+  id: string;
+  file_name: string;
+  file_type: string;
+  url: string;
+  alt_text: string | null;
+  uploaded_at: string;
+}
+
+export interface SEOMetadataRow {
+  id: string;
+  route_path: string;
+  title: string;
+  description: string;
+  keywords: string[];
+  og_image: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
 type Insertable<T, Required extends keyof T> = Partial<T> & Pick<T, Required>;
 
 export interface Database {
@@ -447,6 +530,52 @@ export interface Database {
         Row: UserRoleRow;
         Insert: Insertable<UserRoleRow, "user_id" | "role">;
         Update: Partial<UserRoleRow>;
+      };
+      services: {
+        Row: ServiceRow;
+        Insert: Insertable<ServiceRow, "title" | "slug" | "overview">;
+        Update: Partial<ServiceRow>;
+      };
+      case_studies: {
+        Row: CaseStudyRow;
+        Insert: Insertable<
+          CaseStudyRow,
+          | "title"
+          | "slug"
+          | "client_name"
+          | "problem"
+          | "research"
+          | "design"
+          | "development"
+          | "deployment"
+          | "results"
+        >;
+        Update: Partial<CaseStudyRow>;
+      };
+      industries: {
+        Row: IndustryRow;
+        Insert: Insertable<IndustryRow, "name" | "slug" | "description">;
+        Update: Partial<IndustryRow>;
+      };
+      project_industries: {
+        Row: ProjectIndustryRow;
+        Insert: ProjectIndustryRow;
+        Update: Partial<ProjectIndustryRow>;
+      };
+      faqs: {
+        Row: FAQRow;
+        Insert: Insertable<FAQRow, "question" | "answer">;
+        Update: Partial<FAQRow>;
+      };
+      media_assets: {
+        Row: MediaAssetRow;
+        Insert: Insertable<MediaAssetRow, "file_name" | "file_type" | "url">;
+        Update: Partial<MediaAssetRow>;
+      };
+      seo_metadata: {
+        Row: SEOMetadataRow;
+        Insert: Insertable<SEOMetadataRow, "route_path" | "title" | "description">;
+        Update: Partial<SEOMetadataRow>;
       };
       audit_logs: {
         Row: AuditLogRow;

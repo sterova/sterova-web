@@ -13,9 +13,10 @@ import type { Faq } from "@/types";
 interface Props {
   faqs: Faq[];
   limit?: number;
+  showHeader?: boolean;
 }
 
-export default function FAQSection({ faqs, limit }: Props) {
+export default function FAQSection({ faqs, limit, showHeader = true }: Props) {
   const displayed = limit ? faqs.slice(0, limit) : faqs;
   if (displayed.length === 0) return null;
 
@@ -25,12 +26,14 @@ export default function FAQSection({ faqs, limit }: Props) {
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-28">
-              <SectionHeader
-                badge="FAQ"
-                title="Custom software development FAQs"
-                description="If yours isn't here, just ask. We'd rather talk than make you guess."
-              />
-              <Button asChild variant="outline" size="lg" className="group mt-8">
+              {showHeader && (
+                <SectionHeader
+                  badge="FAQ"
+                  title="Custom software development FAQs"
+                  description="If yours isn't here, just ask. We'd rather talk than make you guess."
+                />
+              )}
+              <Button asChild variant="outline" size="lg" className={showHeader ? "group mt-8" : "group"}>
                 <Link href="/contact">
                   Ask us directly
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

@@ -28,12 +28,19 @@ export const ADMIN_ROUTES = {
   notifications: `${ADMIN_BASE}/notifications`,
   settings: `${ADMIN_BASE}/settings`,
   access: `${ADMIN_BASE}/access`,
+  services: `${ADMIN_BASE}/services`,
+  caseStudies: `${ADMIN_BASE}/case-studies`,
+  industries: `${ADMIN_BASE}/industries`,
+  faqs: `${ADMIN_BASE}/faqs`,
+  mediaLibrary: `${ADMIN_BASE}/media-library`,
+  seoMetadata: `${ADMIN_BASE}/seo-metadata`,
 } as const;
 
 export const STORAGE_BUCKETS = {
   blog: "blog-media",
   project: "project-media",
   team: "team-media",
+  media: "media-assets",
 } as const;
 
 /** Max upload size for images, in bytes. */

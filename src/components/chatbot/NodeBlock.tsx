@@ -73,7 +73,9 @@ function MenuGrid({ options, columns }: { options: MenuOption[]; columns: 1 | 2 
             <ChatIcon name={option.icon} className="mt-0.5 size-3 text-primary" />
           )}
           <span className="min-w-0 flex-1">
-            <span className="block text-[13px] font-medium text-foreground leading-tight">{option.label}</span>
+            <span className="block text-[13px] font-medium text-foreground leading-tight">
+              {option.label}
+            </span>
             {option.description ? (
               <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
                 {option.description}
@@ -106,11 +108,7 @@ function CardList({ cards }: { cards: InfoCard[] }) {
           {card.items?.length ? (
             <div className="mt-1.5 flex flex-wrap gap-1">
               {card.items.map((item) => (
-                <Badge
-                  key={item}
-                  variant="secondary"
-                  className="rounded-full text-xs font-normal"
-                >
+                <Badge key={item} variant="secondary" className="rounded-full text-xs font-normal">
                   {item}
                 </Badge>
               ))}
@@ -154,11 +152,7 @@ function ServiceBlock({ service }: { service: ServiceDetail }) {
         <Section title="What we build">
           <div className="flex flex-wrap gap-1">
             {service.offerings.map((item) => (
-              <Badge
-                key={item}
-                variant="secondary"
-                className="rounded-full text-xs font-normal"
-              >
+              <Badge key={item} variant="secondary" className="rounded-full text-xs font-normal">
                 {item}
               </Badge>
             ))}
@@ -376,7 +370,9 @@ function ContactBlock() {
             <span className="block text-xs uppercase tracking-wide text-muted-foreground">
               {row.label}
             </span>
-            <span className="block truncate text-[15px] font-medium text-foreground">{row.value}</span>
+            <span className="block truncate text-[15px] font-medium text-foreground">
+              {row.value}
+            </span>
           </span>
         </a>
       ))}
