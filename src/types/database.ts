@@ -248,6 +248,9 @@ export interface FeatureSettings {
   services?: boolean;
   portfolio?: boolean;
   industries?: boolean;
+  process?: boolean;
+  technologies?: boolean;
+  faq?: boolean;
 }
 
 export interface SiteSettingsMap {

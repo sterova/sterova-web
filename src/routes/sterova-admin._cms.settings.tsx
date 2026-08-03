@@ -45,12 +45,15 @@ const COMPANY_FIELDS: { key: keyof CompanySettings; label: string; placeholder?:
 const FEATURE_FIELDS: { key: keyof FeatureSettings; label: string; hint: string }[] = [
   { key: "chatbot", label: "Chat assistant", hint: "Show the floating chatbot launcher" },
   { key: "estimator", label: "Project estimator", hint: "Enable the /estimate calculator" },
-  { key: "reviews", label: "Reviews", hint: "Accept and display client reviews" },
+  { key: "reviews", label: "Testimonials", hint: "Accept and display client testimonials" },
   { key: "blog", label: "Blog", hint: "Surface blog links across the site" },
   { key: "careers", label: "Careers", hint: "Show open roles and accept applications" },
   { key: "services", label: "Services", hint: "Enable the services directory" },
   { key: "portfolio", label: "Portfolio / Case Studies", hint: "Showcase completed case studies" },
   { key: "industries", label: "Industries", hint: "List supported industry verticals" },
+  { key: "process", label: "Process", hint: "Show our process steps" },
+  { key: "technologies", label: "Technologies", hint: "Display our tech stack" },
+  { key: "faq", label: "FAQ", hint: "Show frequently asked questions" },
 ];
 
 function AdminSettingsPage() {
@@ -65,6 +68,7 @@ function AdminSettingsPage() {
   const [company, setCompany] = useState<CompanySettings>({});
   const [website, setWebsite] = useState<WebsiteSettings>({});
   const [features, setFeatures] = useState<FeatureSettings>({});
+  const [savingSection, setSavingSection] = useState<keyof SiteSettingsMap | null>(null);
 
   useEffect(() => {
     if (!data) return;
@@ -80,6 +84,12 @@ function AdminSettingsPage() {
       await recordAudit({ action: "update", entity: "site_settings", entity_id: group });
       return group;
     },
+    onMutate: (group) => {
+      setSavingSection(group);
+    },
+    onSettled: () => {
+      setSavingSection(null);
+    },
     onSuccess: (group) => {
       void queryClient.invalidateQueries({ queryKey: ["admin", "site-settings"] });
       void queryClient.invalidateQueries({ queryKey: ["site-settings"] });
@@ -88,8 +98,6 @@ function AdminSettingsPage() {
     onError: (err: Error) =>
       toast({ title: "Could not save settings", description: err.message, variant: "destructive" }),
   });
-
-  const saving = save.isPending;
 
   return (
     <>
@@ -133,8 +141,8 @@ function AdminSettingsPage() {
               </div>
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={saving} onClick={() => save.mutate("company")}>
-                {saving ? (
+              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("company")}>
+                {savingSection === "company" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
                   <Save className="h-4 w-4 mr-1.5" />
@@ -218,8 +226,8 @@ function AdminSettingsPage() {
               </div>
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={saving} onClick={() => save.mutate("website")}>
-                {saving ? (
+              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("website")}>
+                {savingSection === "website" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
                   <Save className="h-4 w-4 mr-1.5" />
@@ -255,8 +263,8 @@ function AdminSettingsPage() {
               ))}
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={saving} onClick={() => save.mutate("features")}>
-                {saving ? (
+              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("features")}>
+                {savingSection === "features" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
                   <Save className="h-4 w-4 mr-1.5" />

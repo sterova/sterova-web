@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/data/constants";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 // Icon map for nav children
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -295,6 +296,7 @@ function DropdownItem({
 
 export default function Navbar() {
   const [location] = useLocation();
+  const settings = useSiteSettings();
   const routerPending = useRouterState({ select: (s) => s.status === "pending" });
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
@@ -374,9 +376,29 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
 
+  // Filter links based on feature toggles
+  const filteredNavLinks = NAV_LINKS.filter((link) => {
+    if (link.label === "Services" && settings.features.services === false) return false;
+    if (link.label === "Work" && settings.features.portfolio === false) return false;
+    if (link.label === "Blog" && settings.features.blog === false) return false;
+    if (link.label === "Process" && settings.features.process === false) return false;
+    return true;
+  }).map((link) => {
+    if (link.children) {
+      return {
+        ...link,
+        children: link.children.filter((child) => {
+          if (child.label === "Testimonials" && settings.features.reviews === false) return false;
+          return true;
+        }),
+      };
+    }
+    return link;
+  });
+
   // Flat links for mobile (non-dropdown items)
-  const flatNavItems = NAV_LINKS.filter((l) => !l.children);
-  const dropdownNavItems = NAV_LINKS.filter((l) => l.children);
+  const flatNavItems = filteredNavLinks.filter((l) => !l.children);
+  const dropdownNavItems = filteredNavLinks.filter((l) => l.children);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -439,7 +461,7 @@ export default function Navbar() {
             className="hidden xl:flex items-center gap-0.5 relative"
             aria-label="Main navigation"
           >
-            {NAV_LINKS.map((item) => {
+            {filteredNavLinks.map((item) => {
               if (item.children) {
                 return (
                   <DropdownItem

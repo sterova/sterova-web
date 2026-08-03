@@ -31,7 +31,7 @@ export const DEFAULT_SETTINGS: SiteSettingsMap = {
     maintenance_mode: false,
     maintenance_message: "Sterova is undergoing scheduled maintenance. We will be back shortly.",
   },
-  features: { chatbot: true, estimator: true, reviews: true, blog: true, careers: true },
+  features: { chatbot: true, estimator: true, reviews: true, blog: true, careers: true, services: true, portfolio: true, industries: true, process: true, technologies: true, faq: true },
 };
 
 /** Public read. Never throws — the site must render even without the tables. */

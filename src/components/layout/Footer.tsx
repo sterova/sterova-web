@@ -12,14 +12,35 @@ import {
 } from "react-icons/fa6";
 import { SITE, FOOTER_LINKS } from "@/data/constants";
 import { useBrandLinks } from "@/hooks/use-brand-links";
+import { useSiteSettings } from "@/hooks/use-site-settings";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const { whatsappDisplay, whatsappHref, address, social, contact, email } = useBrandLinks();
+  const settings = useSiteSettings();
 
   const hasEmail = contact.some((c) => c.key === "email");
   const hasWhatsapp = contact.some((c) => c.key === "whatsapp");
   const hasAddress = contact.some((c) => c.key === "address");
+
+  const filteredFooterLinks = FOOTER_LINKS.map(group => {
+    return {
+      ...group,
+      links: group.links.filter(link => {
+        if (link.label === "Careers" && settings.features.careers === false) return false;
+        if (link.label === "Our Process" && settings.features.process === false) return false;
+        if (link.label === "Blog" && settings.features.blog === false) return false;
+        if (link.label === "FAQ" && settings.features.faq === false) return false;
+        if (group.heading === "Services" && settings.features.services === false) return false;
+        if (link.label === "Portfolio" && settings.features.portfolio === false) return false;
+        if (link.label === "Case Studies" && settings.features.portfolio === false) return false;
+        if (link.label === "Testimonials" && settings.features.reviews === false) return false;
+        if (link.label === "Industries" && settings.features.industries === false) return false;
+        if (link.label === "Technologies" && settings.features.technologies === false) return false;
+        return true;
+      })
+    };
+  }).filter(group => group.links.length > 0);
 
   function NavLink({
     href,
@@ -156,7 +177,7 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          {FOOTER_LINKS.map((group) => (
+          {filteredFooterLinks.map((group) => (
             <div key={group.heading} className="col-span-1">
               <h3 className="text-sm font-semibold mb-4 text-foreground">{group.heading}</h3>
               <ul className="space-y-2">
