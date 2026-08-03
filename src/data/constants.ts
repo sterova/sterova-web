@@ -119,8 +119,8 @@ export const NAV_LINKS = [
 // ─────────────────────────────────────────────
 export const HERO = {
   badge: "Digital products for growing businesses",
-  headline: ["Build trust.", "Win more work."],
-  headlineHighlight: ["Make daily work", "feel lighter."],
+  headline: ["Engineering", "Technology"],
+  headlineHighlight: ["That Drives", "Growth"],
   subheadline:
     "Sterova designs and builds websites, online stores, and custom software that turn interest into action—and take friction out of the work behind the scenes.",
   cta: {

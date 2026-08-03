@@ -13,7 +13,10 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <ServicesSection services={SERVICES} showCta={false} />
+      <ServicesSection
+        services={SERVICES.filter((s) => s.id !== "maintenance-support")}
+        showCta={false}
+      />
       <TechStackSection />
       <BentoGridSection />
       <PortfolioSection featuredOnly showCta />
