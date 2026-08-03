@@ -16,18 +16,7 @@ import {
   Layers,
   FolderOpen,
   FileText,
-  Building2,
-  Cpu,
-  BadgeDollarSign,
-  GitBranch,
-  PenLine,
-  HelpCircle,
   Star,
-  BookOpen,
-  FileCode2,
-  ListChecks,
-  Newspaper,
-  Github,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -44,18 +33,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Layers,
   FolderOpen,
   FileText,
-  Building2,
-  Cpu,
-  BadgeDollarSign,
-  GitBranch,
-  PenLine,
-  HelpCircle,
   Star,
-  BookOpen,
-  FileCode2,
-  ListChecks,
-  Newspaper,
-  Github,
 };
 
 type NavChild = { label: string; href: string; description?: string; icon_name?: string };
@@ -508,27 +486,16 @@ export default function Navbar() {
             <ThemeToggle />
             <Button
               asChild
-              variant="outline"
-              size="default"
-              className={cn(
-                "ml-1 rounded-full px-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 motion-reduce:transition-none",
-                FOCUS_RING,
-              )}
-            >
-              <Link href="/estimate">Estimate Project</Link>
-            </Button>
-            <Button
-              asChild
               variant="gradient"
               size="default"
               className={cn(
-                "ml-1 group rounded-full px-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 motion-reduce:transition-none",
+                "ml-1 group rounded-full px-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] focus-visible:-translate-y-0.5 motion-reduce:transition-none",
                 FOCUS_RING,
               )}
             >
               <Link href="/contact">
-                Get in touch
-                <ArrowRight className="ml-0.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                Get a Quote
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </Button>
           </div>
@@ -696,20 +663,12 @@ export default function Navbar() {
               <div className="px-6 pt-5 mt-2 flex flex-col gap-3">
                 <Button
                   asChild
-                  variant="outline"
-                  className={cn("w-full h-12 text-base", FOCUS_RING)}
-                >
-                  <Link href="/estimate" onClick={() => setIsOpen(false)}>
-                    Estimate Project
-                  </Link>
-                </Button>
-                <Button
-                  asChild
                   variant="gradient"
                   className={cn("w-full h-12 text-base", FOCUS_RING)}
                 >
                   <Link href="/contact" onClick={() => setIsOpen(false)}>
-                    Contact Us
+                    Get a Quote
+                    <ArrowRight className="ml-1.5 h-4 w-4" />
                   </Link>
                 </Button>
               </div>

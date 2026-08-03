@@ -57,7 +57,7 @@ interface FormState {
   overview: string;
   benefits: string;
   process: string;
-  pricing_approach: string;
+
   display_order: number;
   is_active: boolean;
 }
@@ -68,7 +68,7 @@ const EMPTY_FORM: FormState = {
   overview: "",
   benefits: "",
   process: "",
-  pricing_approach: "",
+
   display_order: 0,
   is_active: true,
 };
@@ -80,7 +80,7 @@ function toForm(service: ServiceRow): FormState {
     overview: service.overview,
     benefits: service.benefits.join(", "),
     process: service.process.join(", "),
-    pricing_approach: service.pricing_approach ?? "",
+
     display_order: service.display_order,
     is_active: service.is_active,
   };
@@ -144,7 +144,7 @@ function AdminServicesPage() {
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean),
-        pricing_approach: form.pricing_approach.trim() || null,
+
         display_order: Number(form.display_order) || 0,
         is_active: form.is_active,
       };
@@ -297,13 +297,6 @@ function AdminServicesPage() {
             <div className="flex flex-col gap-2">
               <Label>Process (comma separated)</Label>
               <Input value={form.process} onChange={(e) => set("process", e.target.value)} />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label>Pricing Approach</Label>
-              <Input
-                value={form.pricing_approach}
-                onChange={(e) => set("pricing_approach", e.target.value)}
-              />
             </div>
             <div className="grid grid-cols-2 gap-4 items-end">
               <div className="flex flex-col gap-2">

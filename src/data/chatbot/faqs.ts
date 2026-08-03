@@ -146,33 +146,6 @@ export const FAQ_CATEGORIES: FAQCategory[] = [
     ],
   },
   {
-    id: "pricing",
-    label: "Pricing",
-    emoji: "💰",
-    items: [
-      {
-        id: "pr-1",
-        category: "Pricing",
-        question: "How much does a project cost?",
-        answer: "Every project is unique.\nContact Sterova for a personalized quotation.",
-      },
-      {
-        id: "pr-2",
-        category: "Pricing",
-        question: "Do you have fixed packages?",
-        answer:
-          "We scope each engagement individually because requirements differ so widely. Share your requirements and we will prepare a tailored proposal.",
-      },
-      {
-        id: "pr-3",
-        category: "Pricing",
-        question: "How do I get a quotation?",
-        answer:
-          "Request a quote in this chat, use the project estimator, or contact the team directly — we will respond with a detailed proposal.",
-      },
-    ],
-  },
-  {
     id: "technical",
     label: "Technical",
     emoji: "🛠️",

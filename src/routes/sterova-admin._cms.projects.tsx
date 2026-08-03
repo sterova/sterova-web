@@ -85,7 +85,7 @@ const EMPTY_FORM: FormState = {
   display_order: 0,
 };
 
-type FilterValue = "all" | "active" | "hidden";
+type FilterValue = "all" | "active" | "hidden" | "featured";
 
 function toForm(project: ProjectRow): FormState {
   return {
@@ -223,12 +223,14 @@ function AdminProjectsPage() {
 
   const activeCount = data?.filter((p) => p.is_active).length ?? 0;
   const hiddenCount = (data?.length ?? 0) - activeCount;
+  const featuredCount = data?.filter((p) => p.is_featured).length ?? 0;
 
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
     let list = data ?? [];
     if (filter === "active") list = list.filter((p) => p.is_active);
     if (filter === "hidden") list = list.filter((p) => !p.is_active);
+    if (filter === "featured") list = list.filter((p) => p.is_featured);
     if (!term) return list;
     return list.filter(
       (p) =>
@@ -254,7 +256,7 @@ function AdminProjectsPage() {
       <AdminPageHeading
         eyebrow="Portfolio"
         title="Projects"
-        description={`${data?.length ?? 0} total · ${activeCount} visible on the site`}
+        description={`${data?.length ?? 0} total · ${activeCount} visible · ${featuredCount} featured on homepage`}
         actions={
           <Button type="button" variant="gradient" size="sm" onClick={openNew}>
             <Plus className="h-4 w-4 mr-1.5" />
@@ -280,6 +282,7 @@ function AdminProjectsPage() {
               options={[
                 { value: "all", label: "All", count: data?.length ?? 0 },
                 { value: "active", label: "Active", count: activeCount },
+                { value: "featured", label: "Featured", count: featuredCount },
                 { value: "hidden", label: "Hidden", count: hiddenCount },
               ]}
             />

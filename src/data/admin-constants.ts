@@ -21,7 +21,6 @@ export const ADMIN_ROUTES = {
   brandLinks: `${ADMIN_BASE}/brand-links`,
   chatLeads: `${ADMIN_BASE}/chat-leads`,
   consultations: `${ADMIN_BASE}/consultations`,
-  estimates: `${ADMIN_BASE}/estimates`,
   chatAnalytics: `${ADMIN_BASE}/chat-analytics`,
   testimonials: `${ADMIN_BASE}/testimonials`,
   careers: `${ADMIN_BASE}/careers`,

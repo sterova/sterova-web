@@ -1,4 +1,4 @@
-import { PRICING_RESPONSE, withNav } from "./config";
+import { withNav } from "./config";
 import { FAQ_CATEGORIES } from "./faqs";
 import { INDUSTRY_CATEGORIES, INDUSTRY_INTRO, OTHER_INDUSTRY_MESSAGE } from "./industries";
 import { MAIN_MENU } from "./menu";
@@ -233,21 +233,35 @@ const FAQ_NODES: ChatNode[] = FAQ_CATEGORIES.map((category) => ({
   ),
 }));
 
-const PRICING: ChatNode = {
-  id: "pricing",
-  kind: "message",
-  heading: "Pricing",
-  messages: [
-    PRICING_RESPONSE,
-    "Scope, integrations and timeline all change the number, so we prepare a written proposal rather than publishing a price list. Share your requirements and you'll get a detailed quotation.",
-  ],
-  actions: withNav(
-    { kind: "form", label: "Request Quote", form: "lead", icon: "FileText" },
-    { kind: "route", label: "Project Estimator", to: "/estimate", icon: "Calculator" },
-    { kind: "form", label: "Book Consultation", form: "consultation", icon: "CalendarDays" },
-    { kind: "whatsapp", label: "WhatsApp", icon: "FaWhatsapp" },
-  ),
+const SERVICE_REQUEST: ChatNode = {
+  id: "service-request",
+  kind: "menu",
+  heading: "Service Request",
+  messages: ["Which service are you interested in?"],
+  columns: 1,
+  options: CHAT_SERVICES.map((service) => ({
+    label: service.title,
+    node: `service-request-${service.id}`,
+    emoji: service.emoji,
+  })),
+  actions: withNav(),
 };
+
+const SERVICE_REQUEST_NODES: ChatNode[] = CHAT_SERVICES.map((service) => ({
+  id: `service-request-${service.id}`,
+  kind: "message",
+  heading: service.title,
+  messages: [`Great! Please click below to open the ${service.title} request form.`],
+  actions: withNav(
+    {
+      kind: "route",
+      label: `Open ${service.title} Form`,
+      to: `/start-project?service=${service.id}`,
+      icon: "FileText",
+    },
+    { kind: "node", label: "Other services", node: "service-request", icon: "Rocket" },
+  ),
+}));
 
 const QUOTE: ChatNode = {
   id: "quote",
@@ -272,20 +286,6 @@ const CONTACT: ChatNode = {
   actions: withNav(
     { kind: "route", label: "Contact page", to: "/contact", icon: "ExternalLink" },
     { kind: "form", label: "Request Quote", form: "lead", icon: "FileText" },
-  ),
-};
-
-const ESTIMATOR: ChatNode = {
-  id: "estimator",
-  kind: "message",
-  heading: "Project Estimator",
-  messages: [
-    "Our project estimator walks you through scope, features and timeline, then sends the summary straight to our team.",
-    "It takes about two minutes and gives us everything we need to prepare an accurate proposal.",
-  ],
-  actions: withNav(
-    { kind: "route", label: "Open the estimator", to: "/estimate", icon: "Calculator" },
-    { kind: "form", label: "Prefer to just ask? Request a quote", form: "lead", icon: "FileText" },
   ),
 };
 
@@ -391,11 +391,11 @@ const NODE_LIST: ChatNode[] = [
   ABOUT,
   FAQS,
   ...FAQ_NODES,
-  PRICING,
+  SERVICE_REQUEST,
+  ...SERVICE_REQUEST_NODES,
   QUOTE,
   BOOK,
   CONTACT,
-  ESTIMATOR,
   SUPPORT,
   SECURITY,
   HIRING,

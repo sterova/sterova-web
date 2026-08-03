@@ -12,12 +12,12 @@ export default function WhatsAppButton() {
         href={whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-14 h-14 rounded-full bg-brand-whatsapp hover:bg-brand-whatsapp-hover text-brand-whatsapp-foreground shadow-lg hover:shadow-xl flex items-center justify-center transition-colors"
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-brand-whatsapp hover:bg-brand-whatsapp-hover text-brand-whatsapp-foreground shadow-lg hover:shadow-xl flex items-center justify-center transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Chat on WhatsApp"
       >
-        <FaWhatsapp className="h-7 w-7" />
+        <FaWhatsapp className="h-6 w-6 sm:h-7 sm:w-7" />
       </motion.a>
     </div>
   );

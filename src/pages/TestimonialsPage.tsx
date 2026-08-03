@@ -5,7 +5,6 @@ import CTASection from "@/components/sections/CTASection";
 import StarRating from "@/components/shared/StarRating";
 import ReviewFormSection from "@/components/sections/ReviewFormSection";
 import { fetchPublishedTestimonials } from "@/lib/cms-api";
-import { TESTIMONIALS } from "@/data/constants";
 import { Quote } from "lucide-react";
 
 function Avatar({ name, company }: { name: string; company?: string }) {
@@ -28,8 +27,7 @@ export default function TestimonialsPage() {
     queryFn: fetchPublishedTestimonials,
   });
 
-  const testimonials =
-    liveTestimonials && liveTestimonials.length > 0 ? liveTestimonials : TESTIMONIALS;
+  const testimonials = liveTestimonials ?? [];
 
   return (
     <>
@@ -54,47 +52,51 @@ export default function TestimonialsPage() {
             />
           </AnimatedSection>
           {/* Aggregate rating */}
-          <AnimatedSection delay={0.15}>
-            <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3">
-              <StarRating value={5} readonly size="sm" />
-              <span className="text-sm font-semibold">5.0 average</span>
-              <span className="text-sm text-muted-foreground">·</span>
-              <span className="text-sm text-muted-foreground">{testimonials.length} reviews</span>
-            </div>
-          </AnimatedSection>
+          {testimonials.length > 0 && (
+            <AnimatedSection delay={0.15}>
+              <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-3">
+                <StarRating value={5} readonly size="sm" />
+                <span className="text-sm font-semibold">5.0 average</span>
+                <span className="text-sm text-muted-foreground">·</span>
+                <span className="text-sm text-muted-foreground">{testimonials.length} reviews</span>
+              </div>
+            </AnimatedSection>
+          )}
         </div>
       </section>
 
       {/* Testimonials masonry */}
-      <section className="section-y bg-background">
-        <div className="container-custom">
-          <div className="columns-1 md:columns-2 xl:columns-3 gap-5 space-y-5">
-            {testimonials.map((t, i) => (
-              <AnimatedSection key={t.id} delay={i * 0.06} className="break-inside-avoid">
-                <div className="card-premium p-6 flex flex-col gap-4">
-                  <div className="flex items-start justify-between">
-                    <Quote className="h-7 w-7 text-primary/40" />
-                    <StarRating value={t.rating ?? 5} readonly size="sm" />
-                  </div>
-                  <p className="text-sm text-foreground/90 leading-relaxed italic">
-                    &ldquo;{t.content}&rdquo;
-                  </p>
-                  <div className="flex items-center gap-3 pt-2 border-t border-border/50">
-                    <Avatar name={t.name} company={t.company ?? undefined} />
-                    <div>
-                      <p className="text-sm font-semibold">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {t.role}
-                        {t.company ? `, ${t.company}` : ""}
-                      </p>
+      {testimonials.length > 0 && (
+        <section className="section-y bg-background">
+          <div className="container-custom">
+            <div className="columns-1 md:columns-2 xl:columns-3 gap-5 space-y-5">
+              {testimonials.map((t, i) => (
+                <AnimatedSection key={t.id} delay={i * 0.06} className="break-inside-avoid">
+                  <div className="card-premium p-6 flex flex-col gap-4">
+                    <div className="flex items-start justify-between">
+                      <Quote className="h-7 w-7 text-primary/40" />
+                      <StarRating value={t.rating ?? 5} readonly size="sm" />
+                    </div>
+                    <p className="text-sm text-foreground/90 leading-relaxed italic">
+                      &ldquo;{t.content}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-3 pt-2 border-t border-border/50">
+                      <Avatar name={t.name} company={t.company ?? undefined} />
+                      <div>
+                        <p className="text-sm font-semibold">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {t.role}
+                          {t.company ? `, ${t.company}` : ""}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Submit a review */}
       <ReviewFormSection />

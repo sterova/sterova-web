@@ -17,7 +17,12 @@ interface ObfuscatedEmailProps {
  * in the browser after hydration, so harvesters that never run JS see only a
  * masked placeholder while people and JS-rendering crawlers get a live link.
  */
-export default function ObfuscatedEmail({ className, subject, children, email }: ObfuscatedEmailProps) {
+export default function ObfuscatedEmail({
+  className,
+  subject,
+  children,
+  email,
+}: ObfuscatedEmailProps) {
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => setRevealed(true), []);

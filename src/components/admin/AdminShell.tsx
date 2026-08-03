@@ -77,8 +77,6 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
     items: [
       { href: ADMIN_ROUTES.chatLeads, label: "Chat Leads", icon: MessageSquare },
       { href: ADMIN_ROUTES.consultations, label: "Consultations", icon: CalendarClock },
-      { href: ADMIN_ROUTES.estimates, label: "Estimator Requests", icon: Calculator },
-
       { href: ADMIN_ROUTES.chatAnalytics, label: "Chat Analytics", icon: BarChart3 },
     ],
   },

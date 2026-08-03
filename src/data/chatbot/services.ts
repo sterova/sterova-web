@@ -1,77 +1,18 @@
 import type { ServiceDetail } from "./types";
 
 /**
- * The four Sterova service lines. Every field here is surfaced verbatim by the
+ * The Sterova service lines. Every field here is surfaced verbatim by the
  * service conversation flow: details → benefits → technologies → FAQs → CTAs.
  */
 export const CHAT_SERVICES: ServiceDetail[] = [
-  {
-    id: "custom-software",
-    title: "Custom Software Development",
-    emoji: "🧩",
-    icon: "Code2",
-    route: "/services",
-    short: "Tailor-made software built around your exact business requirements.",
-    long: "We architect and build custom software from the ground up — shaped around your workflows rather than forcing your team into someone else's product. Discovery and technical scoping come first, then iterative delivery with automated testing, CI/CD and documentation, so the system stays maintainable long after launch.",
-    features: [
-      "Requirements analysis and technical scoping",
-      "System architecture and database design",
-      "Full-stack development with modern frameworks",
-      "API design and third-party integrations",
-      "Automated testing and quality assurance",
-      "CI/CD pipelines and cloud deployment",
-      "Role-based access control and audit trails",
-      "Ongoing maintenance, monitoring and support",
-    ],
-    benefits: [
-      "Software that matches your process exactly — no workflow compromises",
-      "Lower long-term cost than per-seat licences as your team grows",
-      "You own the source code and the data",
-      "Scales with your business instead of capping it",
-      "Secure by design: least-privilege access, encrypted data, audited changes",
-      "Integrates with the tools you already run",
-    ],
-    idealClients: [
-      "Businesses outgrowing spreadsheets and manual processes",
-      "Companies stuck with rigid off-the-shelf software",
-      "Enterprises needing internal tools, portals or automation",
-      "Startups building a defensible product",
-    ],
-    stack: ["TypeScript", "Node.js", "Express", "Python", "FastAPI", "PostgreSQL", "React"],
-    timeline:
-      "Small internal tools typically run 4–6 weeks. Mid-size platforms run 2–4 months. Large multi-module systems are delivered in phases, with a working release every 2 weeks.",
-    faqs: [
-      {
-        id: "cs-1",
-        category: "Custom Software",
-        question: "Do you build custom software from scratch?",
-        answer:
-          "Yes. We handle the full lifecycle — discovery, architecture, design, development, testing, deployment and support.",
-      },
-      {
-        id: "cs-2",
-        category: "Custom Software",
-        question: "Can you modernize our existing legacy system?",
-        answer:
-          "Yes. We audit the current system, plan an incremental migration path, and modernize module by module so your operations never stop.",
-      },
-      {
-        id: "cs-3",
-        category: "Custom Software",
-        question: "Will we own the source code?",
-        answer:
-          "Yes. On final delivery the full source code, repositories and infrastructure configuration are transferred to you.",
-      },
-    ],
-  },
   {
     id: "web-development",
     title: "Web Application Development",
     emoji: "🌐",
     icon: "Globe",
     route: "/services",
-    short: "Fast, accessible, SEO-ready web apps that convert and scale.",
-    long: "From marketing sites to full SaaS platforms, we build web applications that load fast, rank well and stay easy to operate. Server-side rendering, Core Web Vitals budgets and accessibility are part of the build, not an afterthought.",
+    short: "Fast, accessible, SEO-optimized web apps that convert and scale.",
+    long: "From marketing sites to full-featured SaaS platforms, we build web applications that are performant, accessible, and designed to grow. Server-side rendering, Core Web Vitals budgets and accessibility are part of the build, not an afterthought.",
     offerings: [
       "Corporate websites",
       "Business websites",
@@ -80,9 +21,6 @@ export const CHAT_SERVICES: ServiceDetail[] = [
       "CRM platforms",
       "ERP systems",
       "E-Commerce stores",
-      "Booking systems",
-      "Portfolio websites",
-      "Custom web applications",
     ],
     features: [
       "Server-side and static rendering for speed and SEO",
@@ -92,19 +30,16 @@ export const CHAT_SERVICES: ServiceDetail[] = [
       "Payment gateway and third-party API integration",
       "Real-time features, notifications and live updates",
       "Analytics, conversion tracking and reporting",
-      "Content management so your team can edit without a developer",
     ],
     benefits: [
       "Pages that load quickly on real-world mobile connections",
       "Search-engine ready markup, metadata and structured data",
       "Accessible to keyboard and screen-reader users",
       "One codebase serving every screen size",
-      "Editable content — no developer needed for routine updates",
       "Built to scale from your first users to your busiest day",
     ],
     idealClients: [
       "Businesses replacing an outdated or slow website",
-      "SaaS founders launching a first product",
       "Retailers moving into e-commerce",
       "Service businesses needing bookings and customer portals",
     ],
@@ -113,12 +48,11 @@ export const CHAT_SERVICES: ServiceDetail[] = [
       "Next.js",
       "TypeScript",
       "JavaScript",
-      "HTML",
-      "CSS",
-      "TailwindCSS",
+      "Tailwind CSS",
       "Node.js",
       "PostgreSQL",
       "Supabase",
+      "Vite",
     ],
     timeline:
       "Landing pages: 1–2 weeks. Corporate sites: 3–5 weeks. Dashboards, CRM/ERP and e-commerce platforms: 6–14 weeks depending on module count.",
@@ -137,13 +71,6 @@ export const CHAT_SERVICES: ServiceDetail[] = [
         answer:
           "Yes. We audit the current site, keep what performs, and rebuild the rest with a modern design system while preserving your SEO rankings.",
       },
-      {
-        id: "web-3",
-        category: "Web Development",
-        question: "Can you connect payment gateways?",
-        answer:
-          "Yes — card payments, UPI, wallets and subscription billing, with secure server-side verification.",
-      },
     ],
   },
   {
@@ -152,8 +79,8 @@ export const CHAT_SERVICES: ServiceDetail[] = [
     emoji: "📱",
     icon: "Smartphone",
     route: "/services",
-    short: "Native-quality Android and iOS apps, built to ship and to last.",
-    long: "We build mobile apps that feel native on both platforms while keeping a single, maintainable codebase. Offline support, push notifications, secure storage and store submission are all handled end to end.",
+    short: "Native-quality iOS and Android apps from a single codebase.",
+    long: "We build cross-platform mobile applications using React Native and Flutter — delivering native performance with efficient development cycles. Offline support, push notifications, secure storage and store submission are all handled end to end.",
     offerings: [
       "Android apps",
       "iOS apps",
@@ -161,35 +88,29 @@ export const CHAT_SERVICES: ServiceDetail[] = [
       "Business apps",
       "E-Commerce apps",
       "Healthcare apps",
-      "Education apps",
       "Logistics apps",
-      "Food delivery apps",
-      "Fully custom apps",
     ],
     features: [
-      "Cross-platform delivery for Android and iOS",
-      "Native-feeling navigation, gestures and animation",
-      "Offline-first data with background sync",
-      "Push notifications and deep linking",
+      "Cross-platform iOS and Android development",
+      "Native performance and smooth animations",
+      "Offline-first architecture with background sync",
+      "Push notifications and background services",
       "Secure authentication and encrypted local storage",
-      "Payments, maps, camera and device integrations",
-      "App Store and Play Store submission support",
-      "Crash reporting and release monitoring",
+      "App Store and Play Store publishing",
+      "OTA update support",
     ],
     benefits: [
       "One codebase, both platforms — faster launches, lower cost",
       "A direct channel to your customers on their home screen",
       "Works in low-connectivity conditions",
       "Analytics on real user behaviour from day one",
-      "Straightforward update path after launch",
     ],
     idealClients: [
       "Retailers and restaurants wanting an ordering app",
       "Healthcare providers digitising appointments and records",
       "Logistics operators tracking fleets and deliveries",
-      "Education providers delivering courses on mobile",
     ],
-    stack: ["Flutter", "React Native", "TypeScript", "Node.js", "Firebase", "Supabase"],
+    stack: ["Flutter", "React Native", "TypeScript", "Node.js", "Firebase", "Expo"],
     timeline:
       "MVP apps: 6–8 weeks. Feature-complete business apps: 3–5 months. Store review adds roughly 1–2 weeks.",
     faqs: [
@@ -198,93 +119,210 @@ export const CHAT_SERVICES: ServiceDetail[] = [
         category: "Mobile Apps",
         question: "Do you develop for both Android and iOS?",
         answer:
-          "Yes. We usually build cross-platform so both stores ship from one codebase, and go fully native when a project genuinely needs it.",
+          "Yes. We use cross-platform frameworks like Flutter and React Native to build for both platforms simultaneously.",
       },
       {
         id: "mob-2",
         category: "Mobile Apps",
-        question: "Do you handle App Store and Play Store submission?",
+        question: "Will you upload the app to the app stores?",
         answer:
-          "Yes — store listings, assets, compliance checks and the submission itself are part of delivery.",
-      },
-      {
-        id: "mob-3",
-        category: "Mobile Apps",
-        question: "Can the app work offline?",
-        answer:
-          "Yes. We use offline-first storage with background sync so the app stays usable without a connection.",
+          "Yes. We handle the entire submission process for both the Apple App Store and Google Play Store.",
       },
     ],
   },
   {
-    id: "ui-ux",
+    id: "saas",
+    title: "SaaS Product Development",
+    emoji: "🏢",
+    icon: "Layers",
+    route: "/services",
+    short: "End-to-end product engineering for scalable SaaS platforms.",
+    long: "We partner with founders and product teams to design, build, and launch SaaS products — from MVP to enterprise scale. We handle the multi-tenant architecture, subscription billing, and complex access controls so you can focus on the business.",
+    offerings: [
+      "SaaS MVPs",
+      "B2B SaaS platforms",
+      "B2C SaaS products",
+      "Multi-tenant architectures",
+      "Internal products",
+    ],
+    features: [
+      "Product architecture and technical strategy",
+      "Multi-tenant data isolation",
+      "Subscription billing integrations (Stripe, etc.)",
+      "Role-based access control",
+      "Admin dashboard and analytics",
+      "Feature flagging and gradual rollouts",
+    ],
+    benefits: [
+      "Accelerated time-to-market for founders",
+      "Built to scale automatically with users",
+      "Secure data separation for enterprise clients",
+      "Revenue-ready with integrated billing systems",
+    ],
+    idealClients: [
+      "SaaS founders launching a new product",
+      "Companies scaling their existing software",
+      "Enterprises building B2B internal products",
+    ],
+    stack: ["Next.js", "Supabase", "PostgreSQL", "Stripe", "Vercel", "TypeScript", "React"],
+    timeline:
+      "MVPs are typically delivered in 6-10 weeks. Full-scale platforms require 3-6 months depending on the domain complexity.",
+    faqs: [
+      {
+        id: "saas-1",
+        category: "SaaS",
+        question: "Do you help with Stripe integration?",
+        answer:
+          "Yes, we integrate subscription billing, usage-based billing, and complex invoicing flows out of the box.",
+      },
+    ],
+  },
+  {
+    id: "design",
     title: "UI/UX Design",
     emoji: "🎨",
     icon: "Palette",
     route: "/services",
-    short: "Research-led interface design that people actually enjoy using.",
-    long: "Design at Sterova starts with the user, not the pixels. We research, map flows, wireframe, then build a high-fidelity design system with accessible components and interactive prototypes you can click through before a line of production code is written.",
+    short: "User-centered design that balances beauty with usability.",
+    long: "Our design process is research-driven and conversion-focused — creating interfaces that are intuitive, accessible, and on-brand. We don't just create pretty pictures; we design systems that can be actually implemented by engineering teams.",
     offerings: [
-      "User research",
-      "Wireframes",
-      "High-fidelity design",
-      "Design systems",
-      "Responsive design",
-      "Interactive prototypes",
-      "Accessibility",
-      "Usability testing",
+      "Wireframing and Prototyping",
+      "User Research",
+      "UI Design",
+      "Design Systems",
+      "Interaction Design",
+      "Usability Testing",
     ],
     features: [
-      "Stakeholder interviews and user research",
-      "Information architecture and user-flow mapping",
-      "Low-fidelity wireframes for fast iteration",
-      "High-fidelity visual design in Figma",
-      "Reusable design systems and component libraries",
-      "Interactive, clickable prototypes",
-      "WCAG-aligned accessibility review",
-      "Usability testing and iteration rounds",
+      "User research and persona development",
+      "Information architecture and wireframing",
+      "High-fidelity UI design in Figma",
+      "Design system creation",
+      "Usability testing and iteration",
+      "Handoff-ready developer specifications",
     ],
     benefits: [
-      "Fewer support requests because the product explains itself",
-      "Higher conversion from clearer flows",
-      "A design system that keeps future screens consistent",
-      "Usable by people with visual, motor and cognitive differences",
-      "Costly mistakes caught in prototypes, not in production",
+      "Increases user engagement and retention",
+      "Reduces development time with clear specs",
+      "Ensures accessibility compliance",
+      "Creates a consistent brand experience",
     ],
     idealClients: [
-      "Teams with a product that works but frustrates users",
-      "Founders validating an idea before development",
-      "Companies standardising design across several products",
+      "Product teams needing a UI overhaul",
+      "Startups needing a professional design system from day 1",
+      "Companies with complex workflows that confuse users",
     ],
-    stack: ["Figma", "Adobe XD", "React", "TailwindCSS", "Design tokens"],
+    stack: ["Figma", "Tailwind CSS", "shadcn/ui", "Framer Motion", "Adobe Creative Suite"],
     timeline:
-      "Research and wireframes: 1–2 weeks. Full high-fidelity design with a component system: 3–6 weeks depending on screen count.",
+      "A complete UI/UX overhaul of a medium product takes 4-6 weeks. A new app design from scratch takes 3-5 weeks.",
     faqs: [
       {
-        id: "ux-1",
+        id: "design-1",
         category: "UI/UX Design",
-        question: "Do you provide UI/UX design separately from development?",
+        question: "Do you provide Figma files?",
         answer:
-          "Yes. Design is available as a standalone engagement, and you receive the full Figma files and design system.",
+          "Yes, you own all design files and intellectual property once the project is completed.",
+      },
+    ],
+  },
+  {
+    id: "custom-software",
+    title: "Custom Software Development",
+    emoji: "🧩",
+    icon: "Code2",
+    route: "/services",
+    short: "Tailor-made software built around your exact business requirements.",
+    long: "We architect and build custom software from the ground up — shaped around your workflows rather than forcing your team into someone else's product. Discovery and technical scoping come first, then iterative delivery with automated testing.",
+    offerings: [
+      "Internal tools",
+      "Business automation",
+      "Portals and Dashboards",
+      "Legacy system modernization",
+    ],
+    features: [
+      "Requirements analysis and technical scoping",
+      "System architecture and database design",
+      "Full-stack development with modern frameworks",
+      "Automated testing and quality assurance",
+      "CI/CD pipelines and cloud deployment",
+      "Role-based access control and audit trails",
+    ],
+    benefits: [
+      "Software that matches your process exactly",
+      "Lower long-term cost than per-seat licences",
+      "You own the source code and the data",
+      "Integrates with the tools you already run",
+    ],
+    idealClients: [
+      "Businesses outgrowing spreadsheets and manual processes",
+      "Companies stuck with rigid off-the-shelf software",
+      "Enterprises needing internal tools, portals or automation",
+    ],
+    stack: ["TypeScript", "Node.js", "Express", "Python", "FastAPI", "PostgreSQL", "React"],
+    timeline:
+      "Small internal tools typically run 4–6 weeks. Mid-size platforms run 2–4 months. Large multi-module systems are delivered in phases.",
+    faqs: [
+      {
+        id: "cs-1",
+        category: "Custom Software",
+        question: "Do you build custom software from scratch?",
+        answer:
+          "Yes. We handle the full lifecycle — discovery, architecture, design, development, testing, deployment and support.",
       },
       {
-        id: "ux-2",
-        category: "UI/UX Design",
-        question: "Do you run usability testing?",
+        id: "cs-3",
+        category: "Custom Software",
+        question: "Will we own the source code?",
         answer:
-          "Yes. We test prototypes with representative users and iterate on the findings before development starts.",
+          "Yes. On final delivery the full source code, repositories and infrastructure configuration are transferred to you.",
       },
+    ],
+  },
+  {
+    id: "api-integration",
+    title: "API & Integration",
+    emoji: "🔌",
+    icon: "Plug",
+    route: "/services",
+    short: "Connect your systems and automate your workflows.",
+    long: "We build secure, scalable APIs and integrate disparate third-party systems to automate data flow across your business. No more manual data entry or disconnected silos.",
+    offerings: [
+      "REST & GraphQL API Development",
+      "Third-party software integration",
+      "Payment gateway integration",
+      "Legacy system bridges",
+      "Automated workflow engineering",
+    ],
+    features: [
+      "Custom REST and GraphQL API design",
+      "Payment gateway and ERP integration",
+      "Legacy system modernization",
+      "Secure OAuth and JWT authentication",
+      "Rate limiting and caching",
+      "Webhook architecture for real-time sync",
+    ],
+    benefits: [
+      "Eliminates manual data entry across systems",
+      "Opens new revenue streams by exposing your data",
+      "Modernizes older software without a full rewrite",
+      "Speeds up operational efficiency",
+    ],
+    idealClients: [
+      "Businesses running multiple disconnected software tools",
+      "Platforms looking to offer an API to their clients",
+      "Companies looking to integrate complex ERPs or CRMs",
+    ],
+    stack: ["Node.js", "Express", "GraphQL", "REST", "Redis", "AWS API Gateway", "Python"],
+    timeline:
+      "Simple integrations take 1-2 weeks. Complex custom APIs or legacy system bridges take 4-8 weeks.",
+    faqs: [
       {
-        id: "ux-3",
-        category: "UI/UX Design",
-        question: "Is accessibility included?",
+        id: "api-1",
+        category: "API",
+        question: "Can you connect our legacy system to modern tools?",
         answer:
-          "Accessibility is part of every design: colour contrast, focus states, keyboard paths and screen-reader semantics.",
+          "Yes, we frequently build middle-layer APIs that allow older on-premise systems to communicate safely with modern cloud software.",
       },
     ],
   },
 ];
-
-export function getChatService(id: string): ServiceDetail | undefined {
-  return CHAT_SERVICES.find((s) => s.id === id);
-}

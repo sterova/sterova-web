@@ -12,33 +12,23 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SplatRouteImport } from './routes/$'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as AllWorksRouteImport } from './routes/all-works'
 import { Route as CareersRouteImport } from './routes/careers'
-import { Route as ChangelogRouteImport } from './routes/changelog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CookiePolicyRouteImport } from './routes/cookie-policy'
-import { Route as DisclaimerRouteImport } from './routes/disclaimer'
-import { Route as DocsRouteImport } from './routes/docs'
 import { Route as EstimateRouteImport } from './routes/estimate'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as IndustriesRouteImport } from './routes/industries'
-import { Route as NewsletterRouteImport } from './routes/newsletter'
-import { Route as OpenSourceRouteImport } from './routes/open-source'
 import { Route as PortfolioRouteImport } from './routes/portfolio'
-import { Route as PressKitRouteImport } from './routes/press-kit'
-import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProcessRouteImport } from './routes/process'
 import { Route as RefundPolicyRouteImport } from './routes/refund-policy'
-import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SolutionsRouteImport } from './routes/solutions'
 import { Route as StartProjectRouteImport } from './routes/start-project'
 import { Route as SterovaAdminRouteImport } from './routes/sterova-admin'
 import { Route as TechnologiesRouteImport } from './routes/technologies'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as TestimonialsRouteImport } from './routes/testimonials'
-import { Route as WhitepapersRouteImport } from './routes/whitepapers'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 import { Route as CaseStudiesIndexRouteImport } from './routes/case-studies.index'
@@ -56,7 +46,6 @@ import { Route as SterovaAdminCmsChatAnalyticsRouteImport } from './routes/stero
 import { Route as SterovaAdminCmsChatLeadsRouteImport } from './routes/sterova-admin._cms.chat-leads'
 import { Route as SterovaAdminCmsConsultationsRouteImport } from './routes/sterova-admin._cms.consultations'
 import { Route as SterovaAdminCmsDashboardRouteImport } from './routes/sterova-admin._cms.dashboard'
-import { Route as SterovaAdminCmsEstimatesRouteImport } from './routes/sterova-admin._cms.estimates'
 import { Route as SterovaAdminCmsFaqsRouteImport } from './routes/sterova-admin._cms.faqs'
 import { Route as SterovaAdminCmsIndustriesRouteImport } from './routes/sterova-admin._cms.industries'
 import { Route as SterovaAdminCmsMediaLibraryRouteImport } from './routes/sterova-admin._cms.media-library'
@@ -90,19 +79,14 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AccessibilityRoute = AccessibilityRouteImport.update({
-  id: '/accessibility',
-  path: '/accessibility',
+const AllWorksRoute = AllWorksRouteImport.update({
+  id: '/all-works',
+  path: '/all-works',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CareersRoute = CareersRouteImport.update({
   id: '/careers',
   path: '/careers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChangelogRoute = ChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -113,16 +97,6 @@ const ContactRoute = ContactRouteImport.update({
 const CookiePolicyRoute = CookiePolicyRouteImport.update({
   id: '/cookie-policy',
   path: '/cookie-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DisclaimerRoute = DisclaimerRouteImport.update({
-  id: '/disclaimer',
-  path: '/disclaimer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DocsRoute = DocsRouteImport.update({
-  id: '/docs',
-  path: '/docs',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EstimateRoute = EstimateRouteImport.update({
@@ -140,29 +114,9 @@ const IndustriesRoute = IndustriesRouteImport.update({
   path: '/industries',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NewsletterRoute = NewsletterRouteImport.update({
-  id: '/newsletter',
-  path: '/newsletter',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OpenSourceRoute = OpenSourceRouteImport.update({
-  id: '/open-source',
-  path: '/open-source',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PortfolioRoute = PortfolioRouteImport.update({
   id: '/portfolio',
   path: '/portfolio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PressKitRoute = PressKitRouteImport.update({
-  id: '/press-kit',
-  path: '/press-kit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -180,19 +134,9 @@ const RefundPolicyRoute = RefundPolicyRouteImport.update({
   path: '/refund-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SolutionsRoute = SolutionsRouteImport.update({
-  id: '/solutions',
-  path: '/solutions',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StartProjectRoute = StartProjectRouteImport.update({
@@ -218,11 +162,6 @@ const TermsRoute = TermsRouteImport.update({
 const TestimonialsRoute = TestimonialsRouteImport.update({
   id: '/testimonials',
   path: '/testimonials',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WhitepapersRoute = WhitepapersRouteImport.update({
-  id: '/whitepapers',
-  path: '/whitepapers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -314,12 +253,6 @@ const SterovaAdminCmsDashboardRoute =
   SterovaAdminCmsDashboardRouteImport.update({
     id: '/dashboard',
     path: '/dashboard',
-    getParentRoute: () => SterovaAdminCmsRoute,
-  } as any)
-const SterovaAdminCmsEstimatesRoute =
-  SterovaAdminCmsEstimatesRouteImport.update({
-    id: '/estimates',
-    path: '/estimates',
     getParentRoute: () => SterovaAdminCmsRoute,
   } as any)
 const SterovaAdminCmsFaqsRoute = SterovaAdminCmsFaqsRouteImport.update({
@@ -418,33 +351,23 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/accessibility': typeof AccessibilityRoute
+  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
-  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
-  '/disclaimer': typeof DisclaimerRoute
-  '/docs': typeof DocsRoute
   '/estimate': typeof EstimateRoute
   '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
-  '/newsletter': typeof NewsletterRoute
-  '/open-source': typeof OpenSourceRoute
   '/portfolio': typeof PortfolioRoute
-  '/press-kit': typeof PressKitRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
   '/testimonials': typeof TestimonialsRoute
-  '/whitepapers': typeof WhitepapersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -461,7 +384,6 @@ export interface FileRoutesByFullPath {
   '/sterova-admin/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
   '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
-  '/sterova-admin/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/faqs': typeof SterovaAdminCmsFaqsRoute
   '/sterova-admin/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/media-library': typeof SterovaAdminCmsMediaLibraryRoute
@@ -484,32 +406,22 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/accessibility': typeof AccessibilityRoute
+  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
-  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
-  '/disclaimer': typeof DisclaimerRoute
-  '/docs': typeof DocsRoute
   '/estimate': typeof EstimateRoute
   '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
-  '/newsletter': typeof NewsletterRoute
-  '/open-source': typeof OpenSourceRoute
   '/portfolio': typeof PortfolioRoute
-  '/press-kit': typeof PressKitRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
   '/testimonials': typeof TestimonialsRoute
-  '/whitepapers': typeof WhitepapersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies/$slug': typeof CaseStudiesSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -526,7 +438,6 @@ export interface FileRoutesByTo {
   '/sterova-admin/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
   '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
-  '/sterova-admin/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/faqs': typeof SterovaAdminCmsFaqsRoute
   '/sterova-admin/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/media-library': typeof SterovaAdminCmsMediaLibraryRoute
@@ -550,33 +461,23 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/about': typeof AboutRoute
-  '/accessibility': typeof AccessibilityRoute
+  '/all-works': typeof AllWorksRoute
   '/careers': typeof CareersRoute
-  '/changelog': typeof ChangelogRoute
   '/contact': typeof ContactRoute
   '/cookie-policy': typeof CookiePolicyRoute
-  '/disclaimer': typeof DisclaimerRoute
-  '/docs': typeof DocsRoute
   '/estimate': typeof EstimateRoute
   '/faq': typeof FaqRoute
   '/industries': typeof IndustriesRoute
-  '/newsletter': typeof NewsletterRoute
-  '/open-source': typeof OpenSourceRoute
   '/portfolio': typeof PortfolioRoute
-  '/press-kit': typeof PressKitRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/process': typeof ProcessRoute
   '/refund-policy': typeof RefundPolicyRoute
-  '/resources': typeof ResourcesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/solutions': typeof SolutionsRoute
   '/start-project': typeof StartProjectRoute
   '/sterova-admin': typeof SterovaAdminRouteWithChildren
   '/technologies': typeof TechnologiesRoute
   '/terms': typeof TermsRoute
   '/testimonials': typeof TestimonialsRoute
-  '/whitepapers': typeof WhitepapersRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/case-studies_/$slug': typeof CaseStudiesSlugRoute
   '/services_/$slug': typeof ServicesSlugRoute
@@ -594,7 +495,6 @@ export interface FileRoutesById {
   '/sterova-admin/_cms/chat-leads': typeof SterovaAdminCmsChatLeadsRoute
   '/sterova-admin/_cms/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/_cms/dashboard': typeof SterovaAdminCmsDashboardRoute
-  '/sterova-admin/_cms/estimates': typeof SterovaAdminCmsEstimatesRoute
   '/sterova-admin/_cms/faqs': typeof SterovaAdminCmsFaqsRoute
   '/sterova-admin/_cms/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/_cms/media-library': typeof SterovaAdminCmsMediaLibraryRoute
@@ -619,33 +519,23 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/accessibility'
+    | '/all-works'
     | '/careers'
-    | '/changelog'
     | '/contact'
     | '/cookie-policy'
-    | '/disclaimer'
-    | '/docs'
     | '/estimate'
     | '/faq'
     | '/industries'
-    | '/newsletter'
-    | '/open-source'
     | '/portfolio'
-    | '/press-kit'
-    | '/pricing'
     | '/privacy'
     | '/process'
     | '/refund-policy'
-    | '/resources'
     | '/sitemap.xml'
-    | '/solutions'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
     | '/terms'
     | '/testimonials'
-    | '/whitepapers'
     | '/blog/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
@@ -662,7 +552,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/chat-leads'
     | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
-    | '/sterova-admin/estimates'
     | '/sterova-admin/faqs'
     | '/sterova-admin/industries'
     | '/sterova-admin/media-library'
@@ -685,32 +574,22 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/accessibility'
+    | '/all-works'
     | '/careers'
-    | '/changelog'
     | '/contact'
     | '/cookie-policy'
-    | '/disclaimer'
-    | '/docs'
     | '/estimate'
     | '/faq'
     | '/industries'
-    | '/newsletter'
-    | '/open-source'
     | '/portfolio'
-    | '/press-kit'
-    | '/pricing'
     | '/privacy'
     | '/process'
     | '/refund-policy'
-    | '/resources'
     | '/sitemap.xml'
-    | '/solutions'
     | '/start-project'
     | '/technologies'
     | '/terms'
     | '/testimonials'
-    | '/whitepapers'
     | '/blog/$slug'
     | '/case-studies/$slug'
     | '/services/$slug'
@@ -727,7 +606,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/chat-leads'
     | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
-    | '/sterova-admin/estimates'
     | '/sterova-admin/faqs'
     | '/sterova-admin/industries'
     | '/sterova-admin/media-library'
@@ -750,33 +628,23 @@ export interface FileRouteTypes {
     | '/'
     | '/$'
     | '/about'
-    | '/accessibility'
+    | '/all-works'
     | '/careers'
-    | '/changelog'
     | '/contact'
     | '/cookie-policy'
-    | '/disclaimer'
-    | '/docs'
     | '/estimate'
     | '/faq'
     | '/industries'
-    | '/newsletter'
-    | '/open-source'
     | '/portfolio'
-    | '/press-kit'
-    | '/pricing'
     | '/privacy'
     | '/process'
     | '/refund-policy'
-    | '/resources'
     | '/sitemap.xml'
-    | '/solutions'
     | '/start-project'
     | '/sterova-admin'
     | '/technologies'
     | '/terms'
     | '/testimonials'
-    | '/whitepapers'
     | '/blog/$slug'
     | '/case-studies_/$slug'
     | '/services_/$slug'
@@ -794,7 +662,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/_cms/chat-leads'
     | '/sterova-admin/_cms/consultations'
     | '/sterova-admin/_cms/dashboard'
-    | '/sterova-admin/_cms/estimates'
     | '/sterova-admin/_cms/faqs'
     | '/sterova-admin/_cms/industries'
     | '/sterova-admin/_cms/media-library'
@@ -818,33 +685,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
   AboutRoute: typeof AboutRoute
-  AccessibilityRoute: typeof AccessibilityRoute
+  AllWorksRoute: typeof AllWorksRoute
   CareersRoute: typeof CareersRoute
-  ChangelogRoute: typeof ChangelogRoute
   ContactRoute: typeof ContactRoute
   CookiePolicyRoute: typeof CookiePolicyRoute
-  DisclaimerRoute: typeof DisclaimerRoute
-  DocsRoute: typeof DocsRoute
   EstimateRoute: typeof EstimateRoute
   FaqRoute: typeof FaqRoute
   IndustriesRoute: typeof IndustriesRoute
-  NewsletterRoute: typeof NewsletterRoute
-  OpenSourceRoute: typeof OpenSourceRoute
   PortfolioRoute: typeof PortfolioRoute
-  PressKitRoute: typeof PressKitRoute
-  PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ProcessRoute: typeof ProcessRoute
   RefundPolicyRoute: typeof RefundPolicyRoute
-  ResourcesRoute: typeof ResourcesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  SolutionsRoute: typeof SolutionsRoute
   StartProjectRoute: typeof StartProjectRoute
   SterovaAdminRoute: typeof SterovaAdminRouteWithChildren
   TechnologiesRoute: typeof TechnologiesRoute
   TermsRoute: typeof TermsRoute
   TestimonialsRoute: typeof TestimonialsRoute
-  WhitepapersRoute: typeof WhitepapersRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CaseStudiesSlugRoute: typeof CaseStudiesSlugRoute
   ServicesSlugRoute: typeof ServicesSlugRoute
@@ -876,11 +733,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/accessibility': {
-      id: '/accessibility'
-      path: '/accessibility'
-      fullPath: '/accessibility'
-      preLoaderRoute: typeof AccessibilityRouteImport
+    '/all-works': {
+      id: '/all-works'
+      path: '/all-works'
+      fullPath: '/all-works'
+      preLoaderRoute: typeof AllWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/careers': {
@@ -888,13 +745,6 @@ declare module '@tanstack/react-router' {
       path: '/careers'
       fullPath: '/careers'
       preLoaderRoute: typeof CareersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/changelog': {
-      id: '/changelog'
-      path: '/changelog'
-      fullPath: '/changelog'
-      preLoaderRoute: typeof ChangelogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -909,20 +759,6 @@ declare module '@tanstack/react-router' {
       path: '/cookie-policy'
       fullPath: '/cookie-policy'
       preLoaderRoute: typeof CookiePolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/disclaimer': {
-      id: '/disclaimer'
-      path: '/disclaimer'
-      fullPath: '/disclaimer'
-      preLoaderRoute: typeof DisclaimerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/docs': {
-      id: '/docs'
-      path: '/docs'
-      fullPath: '/docs'
-      preLoaderRoute: typeof DocsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/estimate': {
@@ -946,39 +782,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/newsletter': {
-      id: '/newsletter'
-      path: '/newsletter'
-      fullPath: '/newsletter'
-      preLoaderRoute: typeof NewsletterRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/open-source': {
-      id: '/open-source'
-      path: '/open-source'
-      fullPath: '/open-source'
-      preLoaderRoute: typeof OpenSourceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/portfolio': {
       id: '/portfolio'
       path: '/portfolio'
       fullPath: '/portfolio'
       preLoaderRoute: typeof PortfolioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/press-kit': {
-      id: '/press-kit'
-      path: '/press-kit'
-      fullPath: '/press-kit'
-      preLoaderRoute: typeof PressKitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -1002,25 +810,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RefundPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/solutions': {
-      id: '/solutions'
-      path: '/solutions'
-      fullPath: '/solutions'
-      preLoaderRoute: typeof SolutionsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/start-project': {
@@ -1056,13 +850,6 @@ declare module '@tanstack/react-router' {
       path: '/testimonials'
       fullPath: '/testimonials'
       preLoaderRoute: typeof TestimonialsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/whitepapers': {
-      id: '/whitepapers'
-      path: '/whitepapers'
-      fullPath: '/whitepapers'
-      preLoaderRoute: typeof WhitepapersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -1182,13 +969,6 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/sterova-admin/dashboard'
       preLoaderRoute: typeof SterovaAdminCmsDashboardRouteImport
-      parentRoute: typeof SterovaAdminCmsRoute
-    }
-    '/sterova-admin/_cms/estimates': {
-      id: '/sterova-admin/_cms/estimates'
-      path: '/estimates'
-      fullPath: '/sterova-admin/estimates'
-      preLoaderRoute: typeof SterovaAdminCmsEstimatesRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
     '/sterova-admin/_cms/faqs': {
@@ -1323,7 +1103,6 @@ interface SterovaAdminCmsRouteChildren {
   SterovaAdminCmsChatLeadsRoute: typeof SterovaAdminCmsChatLeadsRoute
   SterovaAdminCmsConsultationsRoute: typeof SterovaAdminCmsConsultationsRoute
   SterovaAdminCmsDashboardRoute: typeof SterovaAdminCmsDashboardRoute
-  SterovaAdminCmsEstimatesRoute: typeof SterovaAdminCmsEstimatesRoute
   SterovaAdminCmsFaqsRoute: typeof SterovaAdminCmsFaqsRoute
   SterovaAdminCmsIndustriesRoute: typeof SterovaAdminCmsIndustriesRoute
   SterovaAdminCmsMediaLibraryRoute: typeof SterovaAdminCmsMediaLibraryRoute
@@ -1353,7 +1132,6 @@ const SterovaAdminCmsRouteChildren: SterovaAdminCmsRouteChildren = {
   SterovaAdminCmsChatLeadsRoute: SterovaAdminCmsChatLeadsRoute,
   SterovaAdminCmsConsultationsRoute: SterovaAdminCmsConsultationsRoute,
   SterovaAdminCmsDashboardRoute: SterovaAdminCmsDashboardRoute,
-  SterovaAdminCmsEstimatesRoute: SterovaAdminCmsEstimatesRoute,
   SterovaAdminCmsFaqsRoute: SterovaAdminCmsFaqsRoute,
   SterovaAdminCmsIndustriesRoute: SterovaAdminCmsIndustriesRoute,
   SterovaAdminCmsMediaLibraryRoute: SterovaAdminCmsMediaLibraryRoute,
@@ -1395,33 +1173,23 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
   AboutRoute: AboutRoute,
-  AccessibilityRoute: AccessibilityRoute,
+  AllWorksRoute: AllWorksRoute,
   CareersRoute: CareersRoute,
-  ChangelogRoute: ChangelogRoute,
   ContactRoute: ContactRoute,
   CookiePolicyRoute: CookiePolicyRoute,
-  DisclaimerRoute: DisclaimerRoute,
-  DocsRoute: DocsRoute,
   EstimateRoute: EstimateRoute,
   FaqRoute: FaqRoute,
   IndustriesRoute: IndustriesRoute,
-  NewsletterRoute: NewsletterRoute,
-  OpenSourceRoute: OpenSourceRoute,
   PortfolioRoute: PortfolioRoute,
-  PressKitRoute: PressKitRoute,
-  PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ProcessRoute: ProcessRoute,
   RefundPolicyRoute: RefundPolicyRoute,
-  ResourcesRoute: ResourcesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  SolutionsRoute: SolutionsRoute,
   StartProjectRoute: StartProjectRoute,
   SterovaAdminRoute: SterovaAdminRouteWithChildren,
   TechnologiesRoute: TechnologiesRoute,
   TermsRoute: TermsRoute,
   TestimonialsRoute: TestimonialsRoute,
-  WhitepapersRoute: WhitepapersRoute,
   BlogSlugRoute: BlogSlugRoute,
   CaseStudiesSlugRoute: CaseStudiesSlugRoute,
   ServicesSlugRoute: ServicesSlugRoute,

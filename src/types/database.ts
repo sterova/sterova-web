@@ -358,7 +358,7 @@ export interface ServiceRow {
   overview: string;
   benefits: string[];
   process: string[];
-  pricing_approach: string | null;
+
   display_order: number;
   is_active: boolean;
   created_at: string;

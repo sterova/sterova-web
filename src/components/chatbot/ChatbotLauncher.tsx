@@ -67,7 +67,8 @@ export function ChatbotLauncher() {
                 className="absolute right-[4.5rem] bottom-1 whitespace-nowrap rounded-2xl rounded-br-sm bg-background p-3 px-4 text-sm font-medium text-foreground shadow-lg border border-border pointer-events-auto cursor-pointer hover:bg-muted/50 transition-colors"
                 onClick={toggle}
               >
-                Need help? Ask the Sterova assistant 👋
+                <span className="hidden sm:inline">Need help? Ask the Sterova assistant 👋</span>
+                <span className="sm:hidden">Need help? 👋</span>
               </motion.div>
             ) : null}
           </AnimatePresence>

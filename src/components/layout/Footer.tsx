@@ -17,9 +17,9 @@ export default function Footer() {
   const year = new Date().getFullYear();
   const { whatsappDisplay, whatsappHref, address, social, contact, email } = useBrandLinks();
 
-  const hasEmail = contact.some(c => c.key === "email");
-  const hasWhatsapp = contact.some(c => c.key === "whatsapp");
-  const hasAddress = contact.some(c => c.key === "address");
+  const hasEmail = contact.some((c) => c.key === "email");
+  const hasWhatsapp = contact.some((c) => c.key === "whatsapp");
+  const hasAddress = contact.some((c) => c.key === "address");
 
   function NavLink({
     href,
@@ -66,7 +66,7 @@ export default function Footer() {
 
       <div className="container-custom relative py-16 lg:py-24">
         {/* Top section: brand + links */}
-        <div className="mb-14 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-7 lg:gap-8">
+        <div className="mb-14 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-8">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <div className="relative overflow-hidden rounded-2xl border border-border bg-background p-6 shadow-[var(--shadow-card)]">
@@ -99,7 +99,10 @@ export default function Footer() {
 
               <div className="space-y-2.5 mb-6">
                 {hasEmail && (
-                  <ObfuscatedEmail email={email} className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                  <ObfuscatedEmail
+                    email={email}
+                    className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
                     <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
                       <Mail className="h-3.5 w-3.5" />
                     </span>
@@ -130,22 +133,24 @@ export default function Footer() {
 
               {/* Social icons */}
               <div className="flex items-center gap-2 flex-wrap">
-                {social.filter((s) => s.href).map((s) => {
-                  const Icon = SOCIAL_ICONS[s.key];
-                  if (!Icon) return null;
-                  return (
-                    <a
-                      key={s.key}
-                      href={s.href || undefined}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={s.label}
-                      className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
-                    >
-                      <Icon className="h-3.5 w-3.5" />
-                    </a>
-                  );
-                })}
+                {social
+                  .filter((s) => s.href)
+                  .map((s) => {
+                    const Icon = SOCIAL_ICONS[s.key];
+                    if (!Icon) return null;
+                    return (
+                      <a
+                        key={s.key}
+                        href={s.href || undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.label}
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                      </a>
+                    );
+                  })}
               </div>
             </div>
           </div>
@@ -177,7 +182,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {year} {SITE.name}. All rights reserved. · Dindigul, Tamil Nadu, India
+            © {year} {SITE.name}. All rights reserved.
           </p>
           <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link
@@ -197,12 +202,6 @@ export default function Footer() {
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Cookies
-            </Link>
-            <Link
-              href="/accessibility"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Accessibility
             </Link>
             <Link
               href="/contact"

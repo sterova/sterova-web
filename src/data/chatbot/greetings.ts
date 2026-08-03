@@ -39,7 +39,7 @@ export const WELCOME_SCREEN = {
   emoji: "🚀",
   title: "Sterova Assistant",
   subtitle:
-    "Ask me about our services, process, portfolio, or pricing. I'll point you in the right direction.",
+    "Ask me about our services, process, or portfolio. I'll point you in the right direction.",
   question: "What would you like to explore?",
 };
 

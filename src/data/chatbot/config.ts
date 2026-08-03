@@ -49,10 +49,6 @@ export const CHATBOT_CONFIG = {
   },
 } as const;
 
-/** The pricing answer. The bot never quotes a number, anywhere. */
-export const PRICING_RESPONSE =
-  "Every project is unique.\nContact Sterova for a personalized quotation.";
-
 /** Standard call-to-action row appended to commercial nodes. */
 export const PRIMARY_CTAS: ChatAction[] = [
   { kind: "form", label: "Request Quote", form: "lead", icon: "FileText" },

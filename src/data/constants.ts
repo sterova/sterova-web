@@ -87,8 +87,8 @@ export const NAV_LINKS = [
     ],
   },
   {
-    label: "Portfolio",
-    href: "/portfolio",
+    label: "Work",
+    href: "/all-works",
     children: [
       {
         label: "Projects",
@@ -102,94 +102,17 @@ export const NAV_LINKS = [
         description: "Deep dives: problem → solution → results",
         icon_name: "FileText",
       },
-    ],
-  },
-  {
-    label: "Solutions",
-    href: "/solutions",
-    children: [
-      {
-        label: "Industries",
-        href: "/industries",
-        description: "FinTech, Health, EdTech & more",
-        icon_name: "Building2",
-      },
-      {
-        label: "Technologies",
-        href: "/technologies",
-        description: "Our full-stack technology expertise",
-        icon_name: "Cpu",
-      },
-      {
-        label: "Pricing",
-        href: "/pricing",
-        description: "Transparent packages & custom quotes",
-        icon_name: "BadgeDollarSign",
-      },
-      {
-        label: "Our Process",
-        href: "/process",
-        description: "Discovery → Launch — how we work",
-        icon_name: "GitBranch",
-      },
-    ],
-  },
-  { label: "About", href: "/about" },
-  {
-    label: "Resources",
-    href: "/resources",
-    children: [
-      {
-        label: "Blog",
-        href: "/blog",
-        description: "Engineering insights & product thinking",
-        icon_name: "PenLine",
-      },
-      {
-        label: "FAQ",
-        href: "/faq",
-        description: "Common questions answered",
-        icon_name: "HelpCircle",
-      },
       {
         label: "Testimonials",
         href: "/testimonials",
         description: "What our clients say",
         icon_name: "Star",
       },
-      {
-        label: "Whitepapers",
-        href: "/whitepapers",
-        description: "In-depth technical research",
-        icon_name: "BookOpen",
-      },
-      {
-        label: "Documentation",
-        href: "/docs",
-        description: "Integration & onboarding guides",
-        icon_name: "FileCode2",
-      },
-      {
-        label: "Changelog",
-        href: "/changelog",
-        description: "What's new at Sterova",
-        icon_name: "ListChecks",
-      },
-      {
-        label: "Press Kit",
-        href: "/press-kit",
-        description: "Logos, brand assets & media info",
-        icon_name: "Newspaper",
-      },
-      {
-        label: "Open Source",
-        href: "/open-source",
-        description: "Projects & contributions we ship",
-        icon_name: "Github",
-      },
     ],
   },
-  { label: "Contact", href: "/contact" },
+  { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
+  { label: "Process", href: "/process" },
 ];
 
 // ─────────────────────────────────────────────
@@ -434,68 +357,6 @@ export const PROCESS_STEPS = [
 // fictional and are NOT rendered anywhere on the site. Do not publish them —
 // attributing invented quotes to named companies is a credibility and legal
 // risk. Replace with real, written-permission testimonials before use.
-export const TESTIMONIALS = [
-  {
-    id: "1",
-    name: "Sarah Chen",
-    role: "CEO",
-    company: "NexaPay",
-    avatar_url: null,
-    rating: 5,
-    content:
-      "Sterova delivered our FinTech dashboard ahead of schedule and well within budget. Their technical depth is impressive — they flagged architecture risks before they became problems. Highly recommend for any serious product build.",
-    is_active: true,
-    display_order: 0,
-  },
-  {
-    id: "2",
-    name: "Marcus Okonkwo",
-    role: "CTO",
-    company: "MedBridge Health",
-    avatar_url: null,
-    rating: 5,
-    content:
-      "We've worked with multiple development agencies. Sterova stands out because they think like engineers, not just executors. The patient portal they built is rock-solid and has handled 3× projected load without issues.",
-    is_active: true,
-    display_order: 1,
-  },
-  {
-    id: "3",
-    name: "Priya Nair",
-    role: "Founder",
-    company: "CartNest",
-    avatar_url: null,
-    rating: 5,
-    content:
-      "Building a multi-vendor marketplace is complex. Sterova made it look easy. They asked the right questions, documented every decision, and delivered a platform we're proud to run. The post-launch support was equally excellent.",
-    is_active: true,
-    display_order: 2,
-  },
-  {
-    id: "4",
-    name: "James Whitfield",
-    role: "Head of Engineering",
-    company: "LogiTrack",
-    avatar_url: null,
-    rating: 5,
-    content:
-      "The Sterova team integrated into our processes seamlessly. Daily standups, clean commits, clear communication — and the quality of their TypeScript code is exceptional. We've extended the engagement twice.",
-    is_active: true,
-    display_order: 3,
-  },
-  {
-    id: "5",
-    name: "Aisha Mohammed",
-    role: "Product Lead",
-    company: "LearnSphere",
-    avatar_url: null,
-    rating: 5,
-    content:
-      "Our LMS handles 10,000+ concurrent learners with zero downtime since launch. Sterova's architecture choices are battle-tested. They are the kind of engineering partner that makes a real difference.",
-    is_active: true,
-    display_order: 4,
-  },
-];
 
 // ─────────────────────────────────────────────
 // FAQs
@@ -556,14 +417,6 @@ export const FAQS = [
       "Yes. We sign NDAs as standard before any detailed technical discussions. Your ideas and data stay confidential.",
     is_active: true,
     display_order: 5,
-  },
-  {
-    id: "7",
-    question: "How is pricing structured?",
-    answer:
-      "We offer fixed-price project quotes for well-scoped work, and monthly retainers for ongoing development and support. We discuss pricing transparently after a scoping call — no surprise invoices.",
-    is_active: true,
-    display_order: 6,
   },
   {
     id: "8",
@@ -651,9 +504,9 @@ export const FOOTER_LINKS = [
     links: [
       { label: "About", href: "/about" },
       { label: "Careers", href: "/careers" },
-      { label: "Press Kit", href: "/press-kit" },
-      { label: "Changelog", href: "/changelog" },
-      { label: "Open Source", href: "/open-source" },
+      { label: "Our Process", href: "/process" },
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
     ],
   },
   {
@@ -678,24 +531,12 @@ export const FOOTER_LINKS = [
     ],
   },
   {
-    heading: "Resources",
-    links: [
-      { label: "Blog", href: "/blog" },
-      { label: "FAQ", href: "/faq" },
-      { label: "Whitepapers", href: "/whitepapers" },
-      { label: "Documentation", href: "/docs" },
-      { label: "Newsletter", href: "/newsletter" },
-    ],
-  },
-  {
     heading: "Legal",
     links: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
       { label: "Cookie Policy", href: "/cookie-policy" },
       { label: "Refund Policy", href: "/refund-policy" },
-      { label: "Accessibility", href: "/accessibility" },
-      { label: "Disclaimer", href: "/disclaimer" },
     ],
   },
 ];

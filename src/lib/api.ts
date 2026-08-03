@@ -99,7 +99,7 @@ export async function fetchServices(): Promise<ServiceRow[]> {
       overview: s.description,
       benefits: s.features,
       process: PROCESS_STEPS.map((p) => p.title),
-      pricing_approach: "We offer fixed-price quotes based on detailed scoping, ensuring transparency and predictability.",
+
       display_order: s.display_order,
       is_active: s.is_active,
       created_at: new Date().toISOString(),
@@ -131,7 +131,7 @@ export async function fetchServiceBySlug(
       overview: s.description,
       benefits: s.features,
       process: PROCESS_STEPS.map((p) => p.title),
-      pricing_approach: "We offer fixed-price quotes based on detailed scoping, ensuring transparency and predictability.",
+
       display_order: s.display_order,
       is_active: s.is_active,
       created_at: new Date().toISOString(),
