@@ -1,0 +1,533 @@
+Build a **world-class, production-ready Sterova website** that feels premium, modern, fast, and enterprise-grade.
+
+This is **not** a basic brochure site. It must be a polished business platform that builds trust, generates leads, supports SEO, and positions Sterova as a serious software company.
+
+---
+
+# Core instruction
+
+Before writing any code, first create:
+
+1. A **clear implementation plan**
+2. A **feature-by-feature task list**
+3. A **strict execution order**
+4. A **definition of done** for each feature
+
+Then implement the website **one feature at a time**, in order, and **do not move to the next feature until the current one is fully implemented, polished, tested, and integrated properly**.
+
+Do **not** partially build multiple features at once.
+Do **not** rush through features.
+Do **not** skip quality.
+Do **not** continue to the next task until the current one is complete and best-in-class.
+
+---
+
+# Goal
+
+Create the best possible Sterova website with:
+
+* premium UI/UX
+* strong branding
+* excellent responsiveness
+* clean architecture
+* SEO-friendly structure
+* Supabase integration
+* admin-driven content where needed
+* scalable page structure
+* consistent design language
+* a professional chatbot/chatbox experience
+
+---
+
+# Required website pages and structure
+
+## 1) Home
+
+The landing page must answer these questions within 5 seconds:
+
+* What is Sterova?
+* Who do you help?
+* Why choose Sterova?
+* What should the user do next?
+
+The page should include:
+
+* Hero section
+* Trusted technologies
+* Services overview
+* Featured projects
+* Testimonials
+* Development process
+* Statistics
+* FAQ preview
+* Contact CTA
+* Strong primary CTA: **Start Your Project**
+
+---
+
+## 2) About
+
+**Do not use About as a dropdown.**
+Show **About as one top-level navbar link** only.
+
+All About content should live inside the About page itself.
+
+Include:
+
+* Company story
+* Mission
+* Vision
+* Core values
+* Why Sterova exists
+* Company timeline
+* Team section if appropriate
+* Why choose Sterova
+* A strong credibility section
+* CTA to contact or view services
+
+Make it feel complete, human, and polished in one page.
+
+---
+
+## 3) Services
+
+Create a strong overview page that displays all services as elegant cards.
+
+Each service card must link to its own dedicated SEO-friendly service page.
+
+Example services:
+
+* Web Development
+* Mobile Apps
+* UI/UX Design
+* API Development
+* Maintenance & Support
+
+The services page should feel premium, visual, and easy to scan.
+
+---
+
+## 4) Individual Service Pages
+
+Create separate SEO-friendly pages such as:
+
+* `/services/web-development`
+* `/services/mobile-development`
+* `/services/ui-ux-design`
+* `/services/api-development`
+* `/services/maintenance-support`
+
+Each service page must include:
+
+* Overview
+* Who this service is for
+* Benefits
+* Technologies used
+* Development process
+* Pricing approach
+* FAQ
+* CTA
+* Related services
+* Related projects if available
+
+Do not crowd everything onto one page.
+Each service page should feel like a proper landing page for that service.
+
+---
+
+## 5) Portfolio
+
+This must be more than a gallery of screenshots.
+
+Each project should include:
+
+* Challenge
+* Solution
+* Tech stack
+* Timeline
+* Results
+* Images
+* Live demo
+* GitHub link if available
+
+Filters must be driven by admin selection and category data.
+
+---
+
+## 6) Case Studies
+
+Create a dedicated case studies section separate from portfolio.
+
+Each case study should tell the full story:
+
+Problem → Research → Design → Development → Deployment → Business results
+
+This section must feel enterprise-grade and persuasive.
+
+---
+
+## 7) Industries
+
+Create industry pages or sections that can integrate projects from the admin panel.
+
+Industries may include:
+
+* Healthcare
+* Education
+* Retail
+* Logistics
+* Manufacturing
+* Finance
+* Startups
+
+Each industry page should be SEO-friendly and able to display linked projects from admin-managed data.
+
+---
+
+## 8) Technologies
+
+Create a strong technologies page/section that shows expertise.
+
+Include categories such as:
+
+**Frontend**
+
+* React
+* Next.js
+* Vue
+
+**Backend**
+
+* Node.js
+* FastAPI
+* Spring Boot
+
+**Database**
+
+* PostgreSQL
+* MongoDB
+* Redis
+
+Also include the technologies already shown on the homepage and keep the presentation consistent across the site.
+
+---
+
+## 9) Pricing
+
+Even if pricing is custom, create a polished pricing section.
+
+Use examples like:
+
+* Starter
+* Business
+* Enterprise
+
+Or a strong **Request a Quote** flow if that fits better.
+
+---
+
+## 10) Process
+
+Show how Sterova works.
+
+Example flow:
+
+Discovery → Planning → UI Design → Development → Testing → Deployment → Maintenance
+
+Make the process section visually strong and easy to understand.
+
+---
+
+## 11) Blog
+
+Create a SEO-ready blog structure.
+
+Blog categories should come from the admin panel.
+
+Make it scalable, searchable, and content-driven.
+
+---
+
+## 12) Careers
+
+Do **not** add this link in the navbar.
+
+Still create the page internally.
+
+Include:
+
+* Benefits
+* Culture
+* Open positions
+* Internships
+* Application form
+
+Even if there are no active jobs now, the page should still look complete and professional.
+
+---
+
+## 13) Contact
+
+Use contact and social links from Supabase, as already used in the site.
+
+Include:
+
+* Contact form
+* WhatsApp
+* Email
+* LinkedIn
+* Location
+* Interactive map
+* Business hours
+
+This page must feel trustworthy and conversion-focused.
+
+---
+
+## 14) FAQ
+
+Create a dedicated FAQ page or strong FAQ sections where relevant.
+
+Answer common customer questions clearly and concisely.
+
+---
+
+## 15) Client Testimonials
+
+This must integrate with the admin panel, similar to the current setup.
+
+Include:
+
+* Reviews
+* Ratings
+* Company logos
+* Success stories
+
+Make testimonials feel real and structured, not decorative.
+
+---
+
+# Premium pages to include
+
+These pages should make Sterova feel like a serious software company:
+
+* Solutions
+* Why Sterova
+* Our Process
+* Resources
+* Whitepapers
+* Documentation
+* API Docs
+* Open Source
+* Changelog
+* Press Kit
+* Partners
+* Certifications
+* Events
+* Community
+* Newsletter
+
+Do not create weak placeholder pages.
+If a page is included, it should be useful, styled properly, and integrated into the site architecture.
+
+---
+
+# Recommended navbar
+
+Keep the navbar lean and high-value.
+
+## Top-level links
+
+Use only these 6 to 7 links:
+
+* Home
+* Services
+* Portfolio
+* Solutions
+* About
+* Resources
+* Contact
+
+## Dropdown structure
+
+### Services dropdown
+
+* Web Development
+* Mobile Apps
+* UI/UX Design
+* API Development
+* Maintenance & Support
+
+### Portfolio dropdown
+
+* Projects
+* Case Studies
+
+### Solutions dropdown
+
+* Industries
+* Technologies
+* Pricing
+* Process
+
+### Resources dropdown
+
+Use this for content-heavy and secondary pages:
+
+* Blog
+* Documentation
+* Whitepapers
+* API Docs
+* Changelog
+* Press Kit
+* Open Source
+* Newsletter
+* FAQ
+* Testimonials
+* Legal pages
+
+### About
+
+About must be a **single link only**.
+Everything about the company should live inside the About page.
+
+### Do not show these as top-level navbar links
+
+* Careers
+* Legal pages
+* FAQ
+* Testimonials
+* Weak repeated pages
+* Any page that does not directly help lead generation, trust, or SEO
+
+---
+
+# Legal pages
+
+Required legal pages:
+
+* Privacy Policy
+* Terms & Conditions
+* Cookie Policy
+* Refund Policy
+* Accessibility Statement
+* Disclaimer
+
+Put these in the footer or under Resources, not in the main navbar.
+
+---
+
+# Admin dashboard requirements
+
+The admin dashboard must support:
+
+* SEO management
+* Media library
+* content management
+* testimonials
+* portfolio projects
+* case studies
+* industries
+* blog categories
+* service pages
+* technology items
+* social/contact links
+* project-to-industry linking
+* reusable content blocks where appropriate
+
+Admin must control the dynamic parts of the website cleanly and safely.
+
+---
+
+# Supabase integration
+
+Integrate everything needed with Supabase properly.
+
+Use Supabase for:
+
+* contact and social links
+* admin-managed content
+* testimonials
+* portfolio data
+* service data
+* case studies
+* industries
+* blog categories
+* media assets if needed
+* other dynamic website content
+
+Make sure the data flow is clean, scalable, and secure.
+
+---
+
+# Chatbox requirements
+
+Update the complete chatbox so it fits the new Sterova website properly.
+
+The chatbox must be:
+
+* professional
+* branded
+* useful
+* visually consistent
+* aligned with the website tone
+* integrated with the site structure
+* able to guide users toward services, contact, portfolio, or support
+
+It should feel like part of the Sterova product experience, not a generic widget.
+
+---
+
+# Implementation rules
+
+## Build sequentially
+
+You must:
+
+1. Create a plan
+2. Break into tasks
+3. Implement one feature fully
+4. Test and verify it
+5. Polish it
+6. Only then move to the next feature
+
+## No parallel unfinished work
+
+Do not leave multiple major features half-done.
+
+## No low-quality placeholders
+
+Do not ship weak stub pages unless absolutely necessary for scaffolding, and mark them clearly if temporary.
+
+## Keep consistency
+
+The entire site must share the same design system, spacing, typography, and branding logic.
+
+## Prioritize quality
+
+Every page should feel deliberate, premium, and production-ready.
+
+## Keep SEO in mind
+
+Use clean routes, strong metadata, semantic structure, and content that can rank.
+
+## Keep mobile-first responsiveness
+
+Everything must work beautifully on mobile, tablet, and desktop.
+
+---
+
+# Output expectation
+
+First, present:
+
+* a site plan
+* a task breakdown
+* the execution order
+* the implementation strategy
+
+Then start with the first feature and continue **only one feature at a time** until the site is complete.
+
+Do not skip ahead.
+Do not bundle unrelated work.
+Do not move to the next task until the current one is fully finished.

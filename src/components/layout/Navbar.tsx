@@ -3,11 +3,63 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, useLocation } from "@/lib/router-compat";
 import { useRouterState } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  ArrowRight,
+  Globe,
+  Smartphone,
+  Palette,
+  Plug,
+  Code2,
+  Layers,
+  FolderOpen,
+  FileText,
+  Building2,
+  Cpu,
+  BadgeDollarSign,
+  GitBranch,
+  PenLine,
+  HelpCircle,
+  Star,
+  BookOpen,
+  FileCode2,
+  ListChecks,
+  Newspaper,
+  Github,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SITE, NAV_LINKS } from "@/data/constants";
 import ThemeToggle from "@/components/shared/ThemeToggle";
+
+// Icon map for nav children
+const ICON_MAP: Record<string, React.ElementType> = {
+  Globe,
+  Smartphone,
+  Palette,
+  Plug,
+  Code2,
+  Layers,
+  FolderOpen,
+  FileText,
+  Building2,
+  Cpu,
+  BadgeDollarSign,
+  GitBranch,
+  PenLine,
+  HelpCircle,
+  Star,
+  BookOpen,
+  FileCode2,
+  ListChecks,
+  Newspaper,
+  Github,
+};
+
+type NavChild = { label: string; href: string; description?: string; icon_name?: string };
+type NavItem = { label: string; href: string; children?: NavChild[] };
 
 // Nav link that handles hash links natively
 function NavLink({
@@ -37,47 +89,244 @@ function NavLink({
   );
 }
 
-// Shared focus ring so every interactive nav element is clearly visible when
-// reached with the keyboard.
 const FOCUS_RING =
   "outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-const LEFT_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-];
-const RIGHT_LINKS = [
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Process", href: "/process" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "/contact" },
-];
-const SERVICES_LINK = NAV_LINKS.find((l) => l.label === "Services");
-const SERVICE_CHILDREN =
-  (SERVICES_LINK as { children?: { label: string; href: string }[] })?.children ?? [];
+// Determines how many columns the dropdown grid uses
+function getDropdownCols(count: number) {
+  if (count <= 2) return "grid-cols-1";
+  if (count <= 4) return "grid-cols-2";
+  return "grid-cols-2";
+}
+
+function DropdownMenu({
+  items,
+  viewAllHref,
+  viewAllLabel,
+  menuRef,
+  onClose,
+}: {
+  items: NavChild[];
+  viewAllHref: string;
+  viewAllLabel: string;
+  menuRef: React.RefObject<HTMLDivElement | null>;
+  onClose: () => void;
+}) {
+  const cols = getDropdownCols(items.length);
+  return (
+    <div
+      ref={menuRef}
+      role="menu"
+      aria-label={viewAllLabel}
+      className={cn(
+        "absolute left-1/2 top-full mt-3 -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-popover shadow-[var(--shadow-card-hover)]",
+        items.length <= 2 ? "w-56" : items.length <= 4 ? "w-[26rem]" : "w-[34rem]",
+      )}
+    >
+      <div className="p-2">
+        {/* View all link */}
+        <NavLink
+          href={viewAllHref}
+          onClick={onClose}
+          role="menuitem"
+          data-menu-item=""
+          className={cn(
+            "flex items-center justify-between px-3 py-2 text-sm font-semibold rounded-lg hover:bg-accent transition-colors mb-1",
+            FOCUS_RING,
+          )}
+        >
+          <span>{viewAllLabel}</span>
+          <ArrowRight className="h-3.5 w-3.5 text-primary" />
+        </NavLink>
+        <div className="border-t border-border/50 mb-1.5" />
+        {/* Children grid */}
+        <div className={cn("grid gap-0.5", cols)}>
+          {items.map((child) => {
+            const Icon = child.icon_name ? ICON_MAP[child.icon_name] : null;
+            return (
+              <NavLink
+                key={child.href}
+                href={child.href}
+                onClick={onClose}
+                role="menuitem"
+                data-menu-item=""
+                className={cn(
+                  "flex items-start gap-3 px-3 py-2.5 rounded-lg hover:bg-accent transition-colors group",
+                  FOCUS_RING,
+                )}
+              >
+                {Icon && (
+                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
+                    <Icon className="h-3.5 w-3.5" />
+                  </span>
+                )}
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium text-foreground leading-tight">
+                    {child.label}
+                  </span>
+                  {child.description && (
+                    <span className="block text-xs text-muted-foreground mt-0.5 leading-snug">
+                      {child.description}
+                    </span>
+                  )}
+                </span>
+              </NavLink>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DropdownItem({
+  item,
+  location,
+  isNavigating,
+}: {
+  item: NavItem;
+  location: string;
+  isNavigating: boolean;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const openedViaKeyboardRef = useRef(false);
+
+  const isActive =
+    location === item.href ||
+    (item.href !== "/" && location.startsWith(item.href)) ||
+    item.children?.some((c) => location === c.href || location.startsWith(c.href.split("#")[0]));
+
+  // Close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
+  // Escape closes dropdown
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isOpen]);
+
+  // Focus first item when opened via keyboard
+  useEffect(() => {
+    if (!isOpen || !openedViaKeyboardRef.current) return;
+    openedViaKeyboardRef.current = false;
+    const id = window.setTimeout(() => {
+      const first = menuRef.current?.querySelector<HTMLElement>("[data-menu-item]");
+      first?.focus();
+    }, 20);
+    return () => window.clearTimeout(id);
+  }, [isOpen]);
+
+  // Close when focus leaves container
+  const handleBlur = useCallback((e: React.FocusEvent<HTMLDivElement>) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+      setIsOpen(false);
+    }
+  }, []);
+
+  // Arrow key navigation
+  const onMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const items = Array.from(
+      menuRef.current?.querySelectorAll<HTMLElement>("[data-menu-item]") ?? [],
+    );
+    const current = items.indexOf(document.activeElement as HTMLElement);
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      items[(current + 1 + items.length) % items.length]?.focus();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      items[(current - 1 + items.length) % items.length]?.focus();
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      items[0]?.focus();
+    } else if (e.key === "End") {
+      e.preventDefault();
+      items[items.length - 1]?.focus();
+    } else if (e.key === "Tab") {
+      setIsOpen(false);
+    }
+  };
+
+  return (
+    <div className="relative" ref={containerRef} onBlur={handleBlur} onKeyDown={onMenuKeyDown}>
+      <button
+        ref={triggerRef}
+        type="button"
+        onClick={() => setIsOpen((v) => !v)}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            openedViaKeyboardRef.current = true;
+            setIsOpen(true);
+          }
+        }}
+        className={cn(
+          "relative flex items-center gap-1 px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
+          isActive ? "text-primary font-semibold" : "text-muted-foreground",
+          isActive && isNavigating && "opacity-70",
+        )}
+        aria-current={isActive ? "page" : undefined}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        data-active={isActive}
+      >
+        {item.label}
+        <ChevronDown
+          className={cn("h-3.5 w-3.5 transition-transform duration-200", isOpen && "rotate-180")}
+        />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6, scale: 0.96 }}
+            transition={{ duration: 0.15 }}
+          >
+            <DropdownMenu
+              items={item.children ?? []}
+              viewAllHref={item.href}
+              viewAllLabel={`All ${item.label} →`}
+              menuRef={menuRef}
+              onClose={() => setIsOpen(false)}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
 
 export default function Navbar() {
   const [location] = useLocation();
-  // `location` is the optimistic destination, so the active pill flips the
-  // instant a link is clicked. `isNavigating` layers a "loading" cue on that
-  // same link while its route is still resolving.
   const routerPending = useRouterState({ select: (s) => s.status === "pending" });
   const [hydrated, setHydrated] = useState(false);
   useEffect(() => setHydrated(true), []);
-  // During SSR the router always reports "pending", so the cue is client-only
-  // to keep the server and client markup identical.
   const isNavigating = hydrated && routerPending;
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [servicesOpen, setServicesOpen] = useState(false);
-  const servicesRef = useRef<HTMLDivElement>(null);
-  const servicesTriggerRef = useRef<HTMLButtonElement>(null);
-  const servicesMenuRef = useRef<HTMLDivElement>(null);
+  const [expandedMobile, setExpandedMobile] = useState<string | null>(null);
   const mobileToggleRef = useRef<HTMLButtonElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
-  // Only pull focus into the dropdown when it was opened from the keyboard.
-  const openedViaKeyboardRef = useRef(false);
 
   const [indicatorStyle, setIndicatorStyle] = useState<{ left: number; opacity: number } | null>(
     null,
@@ -98,11 +347,8 @@ export default function Navbar() {
         setIndicatorStyle(null);
       }
     };
-
-    // Slight delay to ensure DOM is fully laid out and fonts are loaded
     const timeoutId = setTimeout(updateIndicator, 50);
     updateIndicator();
-
     window.addEventListener("resize", updateIndicator);
     return () => {
       clearTimeout(timeoutId);
@@ -116,88 +362,20 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
+    setExpandedMobile(null);
   }, [location]);
 
-  // Close services dropdown on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) {
-        setServicesOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  // Escape closes whichever overlay is open and returns focus to its trigger.
-  useEffect(() => {
-    if (!servicesOpen && !isOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      if (servicesOpen) {
-        setServicesOpen(false);
-        servicesTriggerRef.current?.focus();
-      } else if (isOpen) {
-        setIsOpen(false);
-        mobileToggleRef.current?.focus();
-      }
-    };
-    document.addEventListener("keydown", onKeyDown);
-    return () => document.removeEventListener("keydown", onKeyDown);
-  }, [servicesOpen, isOpen]);
-
-  // Close the dropdown when focus leaves it entirely (tabbing past the menu).
-  const handleServicesBlur = useCallback((e: React.FocusEvent<HTMLDivElement>) => {
-    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
-      setServicesOpen(false);
-    }
-  }, []);
-
-  const focusMenuItem = useCallback((index: number) => {
-    const items = servicesMenuRef.current?.querySelectorAll<HTMLElement>("[data-menu-item]");
-    if (!items || items.length === 0) return;
-    const i = (index + items.length) % items.length;
-    items[i]?.focus();
-  }, []);
-
-  const onMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const items = Array.from(
-      servicesMenuRef.current?.querySelectorAll<HTMLElement>("[data-menu-item]") ?? [],
-    );
-    const current = items.indexOf(document.activeElement as HTMLElement);
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      focusMenuItem(current + 1);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      focusMenuItem(current - 1);
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      focusMenuItem(0);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      focusMenuItem(items.length - 1);
-    } else if (e.key === "Tab") {
-      setServicesOpen(false);
-    }
-  };
-
-  // Move focus into the dropdown once it opens via keyboard interaction.
-  useEffect(() => {
-    if (!servicesOpen) return;
-    if (!openedViaKeyboardRef.current) return;
-    openedViaKeyboardRef.current = false;
-    const id = window.setTimeout(() => focusMenuItem(0), 20);
-    return () => window.clearTimeout(id);
-  }, [servicesOpen, focusMenuItem]);
-
-  // Simple focus trap for the mobile menu.
+  // Mobile menu focus trap
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsOpen(false);
+        mobileToggleRef.current?.focus();
+        return;
+      }
       if (e.key !== "Tab") return;
       const focusables = mobileMenuRef.current?.querySelectorAll<HTMLElement>(
         'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
@@ -218,7 +396,9 @@ export default function Navbar() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [isOpen]);
 
-  const allFlatLinks = [...LEFT_LINKS, { label: "Services", href: "/services" }, ...RIGHT_LINKS];
+  // Flat links for mobile (non-dropdown items)
+  const flatNavItems = NAV_LINKS.filter((l) => !l.children);
+  const dropdownNavItems = NAV_LINKS.filter((l) => l.children);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
@@ -278,144 +458,53 @@ export default function Navbar() {
           {/* Desktop nav */}
           <nav
             ref={navRef}
-            className="hidden lg:flex items-center gap-2 xl:gap-4 relative"
+            className="hidden xl:flex items-center gap-0.5 relative"
             aria-label="Main navigation"
           >
-            {LEFT_LINKS.map((link) => (
-              <NavLink
-                key={link.href}
-                href={link.href}
-                aria-current={location === link.href ? "page" : undefined}
-                aria-busy={location === link.href && isNavigating ? true : undefined}
-                data-active={location === link.href}
-                className={cn(
-                  "relative px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
-                  location === link.href
-                    ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground",
-                )}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-
-            {/* Services dropdown */}
-            <div className="relative" ref={servicesRef} onBlur={handleServicesBlur}>
-              <button
-                ref={servicesTriggerRef}
-                type="button"
-                onClick={() => setServicesOpen((v) => !v)}
-                onKeyDown={(e) => {
-                  if (e.key === "ArrowDown" || e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    openedViaKeyboardRef.current = true;
-                    setServicesOpen(true);
-                  }
-                }}
-                className={cn(
-                  "relative flex items-center gap-1 px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
-                  location.startsWith("/services")
-                    ? "text-primary font-semibold"
-                    : "text-muted-foreground",
-                )}
-                aria-current={location.startsWith("/services") ? "page" : undefined}
-                aria-haspopup="menu"
-                aria-expanded={servicesOpen}
-                aria-controls="services-menu"
-                data-active={location.startsWith("/services")}
-              >
-                Services
-                <ChevronDown
+            {NAV_LINKS.map((item) => {
+              if (item.children) {
+                return (
+                  <DropdownItem
+                    key={item.href}
+                    item={item as NavItem}
+                    location={location}
+                    isNavigating={isNavigating}
+                  />
+                );
+              }
+              const isActive = location === item.href;
+              return (
+                <NavLink
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive ? "page" : undefined}
+                  aria-busy={isActive && isNavigating ? true : undefined}
+                  data-active={isActive}
                   className={cn(
-                    "h-3.5 w-3.5 transition-transform duration-200",
-                    servicesOpen && "rotate-180",
+                    "relative px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
+                    isActive
+                      ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
+                      : "text-muted-foreground",
                   )}
-                />
-              </button>
+                >
+                  {item.label}
+                </NavLink>
+              );
+            })}
 
-              <AnimatePresence>
-                {servicesOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.96 }}
-                    transition={{ duration: 0.15 }}
-                    id="services-menu"
-                    ref={servicesMenuRef}
-                    role="menu"
-                    aria-label="Services"
-                    onKeyDown={onMenuKeyDown}
-                    className="absolute left-1/2 top-full mt-3 w-64 -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-popover shadow-[var(--shadow-card-hover)]"
-                  >
-                    <div className="p-2">
-                      <NavLink
-                        href="/services"
-                        onClick={() => setServicesOpen(false)}
-                        role="menuitem"
-                        data-menu-item=""
-                        className={cn(
-                          "block px-3 py-2 text-sm font-semibold rounded-lg hover:bg-accent transition-colors",
-                          FOCUS_RING,
-                        )}
-                      >
-                        All Services →
-                      </NavLink>
-                      <div className="my-1.5 border-t border-border/50" />
-                      {SERVICE_CHILDREN.map((child) => (
-                        <NavLink
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setServicesOpen(false)}
-                          role="menuitem"
-                          data-menu-item=""
-                          className={cn(
-                            "block px-3 py-2 text-sm text-muted-foreground rounded-lg hover:text-foreground hover:bg-accent transition-colors",
-                            FOCUS_RING,
-                          )}
-                        >
-                          {child.label}
-                        </NavLink>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {RIGHT_LINKS.filter((l) => l.label !== "Contact").map((link) => (
-              <NavLink
-                key={link.href}
-                href={link.href}
-                aria-current={location === link.href ? "page" : undefined}
-                aria-busy={location === link.href && isNavigating ? true : undefined}
-                data-active={location === link.href}
-                className={cn(
-                  "relative px-3 py-2 text-[0.875rem] font-medium tracking-tight transition-colors duration-200 motion-reduce:transition-none outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-md hover:bg-accent/50 hover:text-foreground",
-                  location === link.href
-                    ? "text-primary font-semibold [&[aria-busy=true]]:opacity-70"
-                    : "text-muted-foreground",
-                )}
-              >
-                {link.label}
-              </NavLink>
-            ))}
-
-            {/* Sliding Indicator */}
+            {/* Sliding indicator */}
             {indicatorStyle && (
               <motion.span
                 className="absolute bottom-0 h-[2px] w-5 -translate-x-1/2 rounded-full bg-primary pointer-events-none"
                 initial={{ left: indicatorStyle.left, opacity: 0 }}
-                animate={{
-                  left: indicatorStyle.left,
-                  opacity: 1,
-                }}
+                animate={{ left: indicatorStyle.left, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 30 }}
               />
             )}
           </nav>
 
           {/* Right actions */}
-          <div className="hidden lg:flex items-center gap-2">
+          <div className="hidden xl:flex items-center gap-2">
             <ThemeToggle />
             <Button
               asChild
@@ -444,8 +533,8 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile */}
-          <div className="flex lg:hidden items-center gap-2">
+          {/* Mobile toggle */}
+          <div className="flex xl:hidden items-center gap-2">
             <ThemeToggle />
             <button
               ref={mobileToggleRef}
@@ -498,10 +587,11 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1, y: 0 }}
             exit={{ height: 0, opacity: 0, y: -4 }}
             transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="w-full border-b glass rounded-none shadow-[var(--shadow-card-hover)] lg:hidden"
+            className="w-full border-b glass rounded-none shadow-[var(--shadow-card-hover)] xl:hidden"
           >
             <div className="w-full py-2 flex flex-col max-h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain pb-8">
-              {allFlatLinks.map((link) => (
+              {/* Flat links */}
+              {flatNavItems.map((link) => (
                 <NavLink
                   key={link.href}
                   href={link.href}
@@ -519,29 +609,91 @@ export default function Navbar() {
                 </NavLink>
               ))}
 
-              {/* Services sub-links */}
-              <div className="px-6 py-4 mt-2 bg-surface">
-                <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground/60 mb-2">
-                  Services
-                </p>
-                <div className="flex flex-col gap-1">
-                  {SERVICE_CHILDREN.map((svc) => (
-                    <NavLink
-                      key={svc.href}
-                      href={svc.href}
-                      onClick={() => setIsOpen(false)}
+              {/* Dropdown sections */}
+              {dropdownNavItems.map((item) => (
+                <div key={item.href} className="border-t border-border/30 mt-1 pt-1">
+                  <button
+                    type="button"
+                    className={cn(
+                      "w-full flex items-center justify-between px-6 py-3.5 text-base font-medium text-muted-foreground hover:text-foreground transition-colors",
+                      FOCUS_RING,
+                    )}
+                    onClick={() =>
+                      setExpandedMobile(expandedMobile === item.label ? null : item.label)
+                    }
+                    aria-expanded={expandedMobile === item.label}
+                  >
+                    <span
                       className={cn(
-                        "block min-h-11 px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors",
-                        FOCUS_RING,
+                        item.children?.some(
+                          (c) => location === c.href || location.startsWith(c.href.split("#")[0]),
+                        ) && "text-primary font-semibold",
                       )}
                     >
-                      {svc.label}
-                    </NavLink>
-                  ))}
-                </div>
-              </div>
+                      {item.label}
+                    </span>
+                    <ChevronDown
+                      className={cn(
+                        "h-4 w-4 transition-transform duration-200",
+                        expandedMobile === item.label && "rotate-180",
+                      )}
+                    />
+                  </button>
 
-              <div className="px-6 pt-6 mt-2 flex flex-col gap-3">
+                  <AnimatePresence>
+                    {expandedMobile === item.label && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.18 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-4 pb-3 bg-surface/40">
+                          <NavLink
+                            href={item.href}
+                            onClick={() => setIsOpen(false)}
+                            className={cn(
+                              "block px-3 py-2 mb-1 text-sm font-semibold text-primary rounded-lg hover:bg-accent transition-colors",
+                              FOCUS_RING,
+                            )}
+                          >
+                            All {item.label} →
+                          </NavLink>
+                          <div className="flex flex-col gap-0.5">
+                            {item.children?.map((child) => {
+                              const Icon = child.icon_name ? ICON_MAP[child.icon_name] : null;
+                              return (
+                                <NavLink
+                                  key={child.href}
+                                  href={child.href}
+                                  onClick={() => setIsOpen(false)}
+                                  className={cn(
+                                    "flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg hover:bg-accent transition-colors",
+                                    FOCUS_RING,
+                                    location === child.href
+                                      ? "text-primary font-medium"
+                                      : "text-muted-foreground",
+                                  )}
+                                >
+                                  {Icon && (
+                                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-border bg-background text-muted-foreground">
+                                      <Icon className="h-3 w-3" />
+                                    </span>
+                                  )}
+                                  {child.label}
+                                </NavLink>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ))}
+
+              <div className="px-6 pt-5 mt-2 flex flex-col gap-3">
                 <Button
                   asChild
                   variant="outline"

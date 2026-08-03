@@ -44,21 +44,151 @@ export const POSTAL_ADDRESS = {
 // ─────────────────────────────────────────────
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
   {
     label: "Services",
     href: "/services",
     children: [
-      { label: "Custom Software", href: "/services#custom-software" },
-      { label: "Web Development", href: "/services#web-development" },
-      { label: "Mobile Apps", href: "/services#mobile-apps" },
-      { label: "SaaS Products", href: "/services#saas" },
-      { label: "UI/UX Design", href: "/services#design" },
-      { label: "API Integration", href: "/services#api-integration" },
+      {
+        label: "Web Development",
+        href: "/services/web-development",
+        description: "Fast, scalable web apps & platforms",
+        icon_name: "Globe",
+      },
+      {
+        label: "Mobile Apps",
+        href: "/services/mobile-apps",
+        description: "iOS & Android from a single codebase",
+        icon_name: "Smartphone",
+      },
+      {
+        label: "UI/UX Design",
+        href: "/services/design",
+        description: "Research-driven, conversion-focused design",
+        icon_name: "Palette",
+      },
+      {
+        label: "API Development",
+        href: "/services/api-integration",
+        description: "Clean integrations & event-driven APIs",
+        icon_name: "Plug",
+      },
+      {
+        label: "Custom Software",
+        href: "/services/custom-software",
+        description: "Tailor-made software for your exact needs",
+        icon_name: "Code2",
+      },
+      {
+        label: "SaaS Products",
+        href: "/services/saas",
+        description: "End-to-end SaaS product engineering",
+        icon_name: "Layers",
+      },
     ],
   },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Blog", href: "/blog" },
+  {
+    label: "Portfolio",
+    href: "/portfolio",
+    children: [
+      {
+        label: "Projects",
+        href: "/portfolio",
+        description: "Shipped products across every industry",
+        icon_name: "FolderOpen",
+      },
+      {
+        label: "Case Studies",
+        href: "/case-studies",
+        description: "Deep dives: problem → solution → results",
+        icon_name: "FileText",
+      },
+    ],
+  },
+  {
+    label: "Solutions",
+    href: "/industries",
+    children: [
+      {
+        label: "Industries",
+        href: "/industries",
+        description: "FinTech, Health, EdTech & more",
+        icon_name: "Building2",
+      },
+      {
+        label: "Technologies",
+        href: "/technologies",
+        description: "Our full-stack technology expertise",
+        icon_name: "Cpu",
+      },
+      {
+        label: "Pricing",
+        href: "/pricing",
+        description: "Transparent packages & custom quotes",
+        icon_name: "BadgeDollarSign",
+      },
+      {
+        label: "Our Process",
+        href: "/process",
+        description: "Discovery → Launch — how we work",
+        icon_name: "GitBranch",
+      },
+    ],
+  },
+  { label: "About", href: "/about" },
+  {
+    label: "Resources",
+    href: "/resources",
+    children: [
+      {
+        label: "Blog",
+        href: "/blog",
+        description: "Engineering insights & product thinking",
+        icon_name: "PenLine",
+      },
+      {
+        label: "FAQ",
+        href: "/faq",
+        description: "Common questions answered",
+        icon_name: "HelpCircle",
+      },
+      {
+        label: "Testimonials",
+        href: "/testimonials",
+        description: "What our clients say",
+        icon_name: "Star",
+      },
+      {
+        label: "Whitepapers",
+        href: "/whitepapers",
+        description: "In-depth technical research",
+        icon_name: "BookOpen",
+      },
+      {
+        label: "Documentation",
+        href: "/docs",
+        description: "Integration & onboarding guides",
+        icon_name: "FileCode2",
+      },
+      {
+        label: "Changelog",
+        href: "/changelog",
+        description: "What's new at Sterova",
+        icon_name: "ListChecks",
+      },
+      {
+        label: "Press Kit",
+        href: "/press-kit",
+        description: "Logos, brand assets & media info",
+        icon_name: "Newspaper",
+      },
+      {
+        label: "Open Source",
+        href: "/open-source",
+        description: "Projects & contributions we ship",
+        icon_name: "Github",
+      },
+    ],
+  },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -520,27 +650,41 @@ export const FOOTER_LINKS = [
     heading: "Company",
     links: [
       { label: "About", href: "/about" },
-      { label: "Estimate Project", href: "/estimate" },
       { label: "Careers", href: "/careers" },
-      { label: "Blog", href: "/blog" },
+      { label: "Press Kit", href: "/press-kit" },
+      { label: "Changelog", href: "/changelog" },
+      { label: "Open Source", href: "/open-source" },
     ],
   },
   {
     heading: "Services",
     links: [
-      { label: "Custom Software", href: "/services#custom-software" },
-      { label: "Web Development", href: "/services#web-development" },
-      { label: "Mobile Apps", href: "/services#mobile-apps" },
-      { label: "SaaS Products", href: "/services#saas" },
-      { label: "UI/UX Design", href: "/services#design" },
-      { label: "API Integration", href: "/services#api-integration" },
+      { label: "Web Development", href: "/services/web-development" },
+      { label: "Mobile Apps", href: "/services/mobile-apps" },
+      { label: "UI/UX Design", href: "/services/design" },
+      { label: "API Development", href: "/services/api-integration" },
+      { label: "Custom Software", href: "/services/custom-software" },
+      { label: "SaaS Products", href: "/services/saas" },
     ],
   },
   {
     heading: "Work",
     links: [
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Testimonials", href: "/#testimonials" },
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Industries", href: "/industries" },
+      { label: "Technologies", href: "/technologies" },
+    ],
+  },
+  {
+    heading: "Resources",
+    links: [
+      { label: "Blog", href: "/blog" },
+      { label: "FAQ", href: "/faq" },
+      { label: "Whitepapers", href: "/whitepapers" },
+      { label: "Documentation", href: "/docs" },
+      { label: "Newsletter", href: "/newsletter" },
     ],
   },
   {
@@ -548,6 +692,10 @@ export const FOOTER_LINKS = [
     links: [
       { label: "Privacy Policy", href: "/privacy" },
       { label: "Terms of Service", href: "/terms" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
+      { label: "Refund Policy", href: "/refund-policy" },
+      { label: "Accessibility", href: "/accessibility" },
+      { label: "Disclaimer", href: "/disclaimer" },
     ],
   },
 ];

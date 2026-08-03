@@ -2,10 +2,9 @@ import ObfuscatedEmail from "@/components/shared/ObfuscatedEmail";
 import BrandLogo from "@/components/shared/BrandLogo";
 import { Link } from "@/lib/router-compat";
 import { Mail, ArrowUpRight, MapPin } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
-import { SITE, FOOTER_LINKS } from "@/data/constants";
+import { FaWhatsapp, FaLinkedin, FaGithub, FaXTwitter, FaInstagram, FaDribbble } from "react-icons/fa6";
+import { SITE, FOOTER_LINKS, SOCIAL_LINKS } from "@/data/constants";
 import { useBrandLinks } from "@/hooks/use-brand-links";
-import { getWhatsAppUrl } from "@/lib/utils";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -34,6 +33,14 @@ export default function Footer() {
     );
   }
 
+  const SOCIAL_ICONS: Record<string, React.ElementType> = {
+    linkedin: FaLinkedin,
+    github: FaGithub,
+    x: FaXTwitter,
+    instagram: FaInstagram,
+    dribbble: FaDribbble,
+  };
+
   return (
     <footer className="relative border-t border-glass-border glass backdrop-blur-xl">
       {/* Premium gradient top border */}
@@ -47,8 +54,8 @@ export default function Footer() {
       />
 
       <div className="container-custom relative py-16 lg:py-24">
-        {/* Top */}
-        <div className="mb-14 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:grid-cols-6 lg:gap-12">
+        {/* Top section: brand + links */}
+        <div className="mb-14 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-7 lg:gap-8">
           {/* Brand */}
           <div className="col-span-2 sm:col-span-3 lg:col-span-2">
             <div className="relative overflow-hidden rounded-2xl border border-border bg-background p-6 shadow-[var(--shadow-card)]">
@@ -75,11 +82,10 @@ export default function Footer() {
                 </span>
               </Link>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6 max-w-sm">
-                {SITE.tagline} — Modern software development for startups, businesses, and
-                enterprises.
+                Custom software engineering for startups and enterprises. Built to scale, owned by you.
               </p>
 
-              <div className="space-y-2.5">
+              <div className="space-y-2.5 mb-6">
                 <ObfuscatedEmail className="group flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                   <span className="inline-flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground group-hover:border-primary/40 group-hover:text-primary transition-colors">
                     <Mail className="h-3.5 w-3.5" />
@@ -105,19 +111,39 @@ export default function Footer() {
                   </p>
                 )}
               </div>
+
+              {/* Social icons */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {SOCIAL_LINKS.filter((s) => s.href).map((social) => {
+                  const Icon = SOCIAL_ICONS[social.key];
+                  if (!Icon) return null;
+                  return (
+                    <a
+                      key={social.key}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-surface text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 
-          {/* Links */}
+          {/* Link columns */}
           {FOOTER_LINKS.map((group) => (
-            <div key={group.heading}>
+            <div key={group.heading} className="col-span-1">
               <h3 className="text-sm font-semibold mb-4 text-foreground">{group.heading}</h3>
-              <ul className="space-y-2.5">
+              <ul className="space-y-2">
                 {group.links.map((link) => (
                   <li key={link.label}>
                     <NavLink
                       href={link.href}
-                      className="group inline-flex items-center gap-1 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm"
+                      className="group inline-flex items-center gap-1 py-0.5 text-sm text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 rounded-sm"
                     >
                       <span className="relative">
                         {link.label}
@@ -132,12 +158,12 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Bottom */}
+        {/* Bottom bar */}
         <div className="border-t border-border pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-muted-foreground">
-            © {year} {SITE.name}. All rights reserved.
+            © {year} {SITE.name}. All rights reserved. · Dindigul, Tamil Nadu, India
           </p>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-4 flex-wrap justify-center">
             <Link
               href="/privacy"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -149,6 +175,18 @@ export default function Footer() {
               className="text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               Terms
+            </Link>
+            <Link
+              href="/cookie-policy"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Cookies
+            </Link>
+            <Link
+              href="/accessibility"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Accessibility
             </Link>
             <Link
               href="/contact"
