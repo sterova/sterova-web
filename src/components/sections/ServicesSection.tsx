@@ -131,7 +131,7 @@ export default function ServicesSection({ services, limit, showCta = true }: Pro
                   href={
                     featured
                       ? `/start-project?service=${service.slug}`
-                      : `/services#${service.slug}`
+                      : `/services/${service.slug}`
                   }
                   className={cn(
                     "card-premium sheen group relative flex h-full flex-col overflow-hidden p-6 ring-1 ring-transparent transition-all duration-300 xl:p-8",

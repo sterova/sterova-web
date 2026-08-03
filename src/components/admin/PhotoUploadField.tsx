@@ -20,6 +20,7 @@ export default function PhotoUploadField({
   onChange,
   hint,
   onBusyChange,
+  recommendedSize,
 }: {
   label: string;
   bucket: string;
@@ -27,6 +28,7 @@ export default function PhotoUploadField({
   onChange: (url: string | null) => void;
   hint?: string;
   onBusyChange?: (busy: boolean) => void;
+  recommendedSize?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<string | null>(null);

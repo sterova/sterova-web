@@ -1,12 +1,12 @@
-import { useLoaderData } from "@tanstack/react-router";
+import type { ElementType } from "react";
 import * as Icons from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
 import CTASection from "@/components/sections/CTASection";
 import AnimatedSection from "@/components/shared/AnimatedSection";
-import type { IndustryRow } from "@/types/database";
+import { INDUSTRY_SOLUTIONS } from "@/data/industry-solutions";
 
 export default function IndustriesPage() {
-  const industries = useLoaderData({ from: "/industries" }) as IndustryRow[];
+  const industries = INDUSTRY_SOLUTIONS;
 
   return (
     <>
@@ -23,8 +23,8 @@ export default function IndustriesPage() {
           <AnimatedSection>
             <SectionHeader
               badge="Industries"
-              title="Tailored solutions for your sector"
-              description="We understand that every industry has unique challenges, compliance requirements, and user expectations."
+              title="Digital solutions for growing businesses"
+              description="From simple websites and online stores to booking flows and business tools, we build practical digital experiences that help your business move forward."
               centered
               size="page"
             />
@@ -34,35 +34,57 @@ export default function IndustriesPage() {
 
       <section className="section-y bg-background">
         <div className="container-custom">
-          {industries.length === 0 ? (
-            <div className="text-center py-20 text-muted-foreground">
-              No industries configured yet.
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {industries.map((industry, idx) => {
-                const IconComponent =
-                  industry.icon_key &&
-                  (Icons as unknown as Record<string, React.ElementType>)[industry.icon_key]
-                    ? (Icons as unknown as Record<string, React.ElementType>)[industry.icon_key]
-                    : Icons.Briefcase;
+          <SectionHeader
+            badge="Who we help"
+            title="Built for the work you do every day"
+            description="Choose the starting point that sounds like your business. We’ll shape the site, store, or tool around your goals and budget."
+            centered
+            className="mb-14"
+          />
 
-                return (
-                  <AnimatedSection key={industry.id} delay={idx * 0.1}>
-                    <div className="card-premium h-full p-8 flex flex-col items-start transition-all hover:border-primary/50">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary mb-6">
-                        <IconComponent className="h-7 w-7" />
-                      </div>
-                      <h3 className="text-xl font-bold font-display mb-3">{industry.name}</h3>
-                      <p className="text-muted-foreground leading-relaxed flex-1">
-                        {industry.description}
-                      </p>
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {industries.map((industry, idx) => {
+              const IconComponent =
+                (Icons as unknown as Record<string, ElementType>)[industry.icon_key] ??
+                Icons.Briefcase;
+
+              return (
+                <AnimatedSection key={industry.slug} delay={Math.min(idx, 8) * 0.06}>
+                  <article className="card-premium group flex h-full flex-col p-7 transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:shadow-[var(--shadow-card-hover)]">
+                    <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface text-primary transition-colors duration-300 group-hover:border-primary/30 group-hover:bg-primary group-hover:text-primary-foreground">
+                      <IconComponent className="h-5 w-5" aria-hidden="true" />
                     </div>
-                  </AnimatedSection>
-                );
-              })}
-            </div>
-          )}
+                    <h3 className="font-display text-xl font-semibold tracking-tight text-foreground">
+                      {industry.name}
+                    </h3>
+                    <p className="mt-3 flex-1 leading-relaxed text-muted-foreground">
+                      {industry.description}
+                    </p>
+                    {industry.solutions.length > 0 && (
+                      <div className="mt-6 border-t border-border/60 pt-4">
+                        <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                          Typical solutions
+                        </p>
+                        <ul
+                          className="flex flex-wrap gap-1.5"
+                          aria-label={`Typical solutions for ${industry.name}`}
+                        >
+                          {industry.solutions.map((solution) => (
+                            <li
+                              key={solution}
+                              className="rounded-full border border-border bg-surface px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-foreground"
+                            >
+                              {solution}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </article>
+                </AnimatedSection>
+              );
+            })}
+          </div>
         </div>
       </section>
 

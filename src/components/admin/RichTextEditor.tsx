@@ -30,6 +30,8 @@ import { uploadImage } from "@/lib/api";
 import { STORAGE_BUCKETS } from "@/data/admin-constants";
 import { cn } from "@/lib/utils";
 
+type StorageBucket = (typeof STORAGE_BUCKETS)[keyof typeof STORAGE_BUCKETS];
+
 interface ToolbarButtonProps {
   onClick: () => void;
   active?: boolean;
@@ -63,7 +65,7 @@ function Divider() {
   return <span className="w-px h-5 bg-border mx-0.5" aria-hidden="true" />;
 }
 
-function Toolbar({ editor }: { editor: Editor }) {
+function Toolbar({ editor, imageBucket }: { editor: Editor; imageBucket: StorageBucket }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
@@ -72,7 +74,7 @@ function Toolbar({ editor }: { editor: Editor }) {
     setUploading(true);
     setUploadError(null);
     try {
-      const url = await uploadImage(STORAGE_BUCKETS.blog, file);
+      const url = await uploadImage(imageBucket, file);
       editor.chain().focus().setImage({ src: url, alt: file.name }).run();
     } catch (err) {
       setUploadError((err as Error).message);
@@ -251,10 +253,16 @@ export default function RichTextEditor({
   value,
   onChange,
   placeholder = "Tell the story…",
+  compact = false,
+  imageBucket = STORAGE_BUCKETS.blog,
+  ariaLabel = "Rich text editor",
 }: {
   value: string;
   onChange: (html: string) => void;
   placeholder?: string;
+  compact?: boolean;
+  imageBucket?: StorageBucket;
+  ariaLabel?: string;
 }) {
   const editor = useEditor({
     extensions: [
@@ -280,8 +288,8 @@ export default function RichTextEditor({
     content: value,
     editorProps: {
       attributes: {
-        class:
-          "prose prose-slate dark:prose-invert max-w-none min-h-[420px] px-5 py-4 focus:outline-none",
+        class: `prose prose-slate dark:prose-invert max-w-none ${compact ? "min-h-[280px]" : "min-h-[420px]"} px-5 py-4 focus:outline-none`,
+        "aria-label": ariaLabel,
       },
     },
     onUpdate: ({ editor: e }) => onChange(e.getHTML()),
@@ -301,7 +309,12 @@ export default function RichTextEditor({
 
   if (!editor) {
     return (
-      <div className="rounded-xl border bg-background min-h-[480px] flex items-center justify-center">
+      <div
+        className={cn(
+          "flex items-center justify-center rounded-xl border bg-background",
+          compact ? "min-h-[340px]" : "min-h-[480px]",
+        )}
+      >
         <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
       </div>
     );
@@ -309,7 +322,7 @@ export default function RichTextEditor({
 
   return (
     <div className="rounded-xl border bg-background overflow-hidden focus-within:border-primary/50 transition-colors">
-      <Toolbar editor={editor} />
+      <Toolbar editor={editor} imageBucket={imageBucket} />
       <EditorContent editor={editor} />
     </div>
   );

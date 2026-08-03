@@ -1,19 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import IndustriesPage from "@/pages/IndustriesPage";
 import { seo, breadcrumbSchema } from "@/lib/seo";
-import { fetchIndustries } from "@/lib/api";
 
 const description =
-  "Discover the industries we serve and the tailored software solutions we build for each sector.";
+  "Practical websites, ecommerce stores, booking flows, and business tools for local and growing companies.";
 
 export const Route = createFileRoute("/industries")({
-  loader: async () => {
-    try {
-      return await fetchIndustries();
-    } catch {
-      return [];
-    }
-  },
   head: () =>
     seo({
       title: "Industries Served | Sterova Tech",

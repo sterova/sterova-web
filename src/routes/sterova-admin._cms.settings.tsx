@@ -48,7 +48,6 @@ const FEATURE_FIELDS: { key: keyof FeatureSettings; label: string; hint: string 
   { key: "reviews", label: "Testimonials", hint: "Accept and display client testimonials" },
   { key: "blog", label: "Blog", hint: "Surface blog links across the site" },
   { key: "careers", label: "Careers", hint: "Show open roles and accept applications" },
-  { key: "industries", label: "Industries", hint: "List supported industry verticals" },
   { key: "process", label: "Process", hint: "Show our process steps" },
   { key: "technologies", label: "Technologies", hint: "Display our tech stack" },
 ];
@@ -138,7 +137,11 @@ function AdminSettingsPage() {
               </div>
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("company")}>
+              <Button
+                size="sm"
+                disabled={savingSection !== null}
+                onClick={() => save.mutate("company")}
+              >
                 {savingSection === "company" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
@@ -223,7 +226,11 @@ function AdminSettingsPage() {
               </div>
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("website")}>
+              <Button
+                size="sm"
+                disabled={savingSection !== null}
+                onClick={() => save.mutate("website")}
+              >
                 {savingSection === "website" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (
@@ -260,7 +267,11 @@ function AdminSettingsPage() {
               ))}
             </div>
             <div className="flex justify-end border-t border-border/70 px-5 py-3 bg-muted/20">
-              <Button size="sm" disabled={savingSection !== null} onClick={() => save.mutate("features")}>
+              <Button
+                size="sm"
+                disabled={savingSection !== null}
+                onClick={() => save.mutate("features")}
+              >
                 {savingSection === "features" ? (
                   <Loader2 className="h-4 w-4 mr-1.5 animate-spin" />
                 ) : (

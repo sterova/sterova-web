@@ -56,19 +56,19 @@ export const NAV_LINKS = [
       },
       {
         label: "Mobile Apps",
-        href: "/services/mobile-apps",
+        href: "/services/mobile-development",
         description: "iOS & Android from a single codebase",
         icon_name: "Smartphone",
       },
       {
         label: "UI/UX Design",
-        href: "/services/design",
+        href: "/services/ui-ux-design",
         description: "Research-driven, conversion-focused design",
         icon_name: "Palette",
       },
       {
         label: "API Development",
-        href: "/services/api-integration",
+        href: "/services/api-development",
         description: "Clean integrations & event-driven APIs",
         icon_name: "Plug",
       },
@@ -80,7 +80,7 @@ export const NAV_LINKS = [
       },
       {
         label: "SaaS Products",
-        href: "/services/saas",
+        href: "/services/saas-development",
         description: "End-to-end SaaS product engineering",
         icon_name: "Layers",
       },
@@ -90,7 +90,7 @@ export const NAV_LINKS = [
     label: "Work",
     href: "/portfolio",
   },
-  { label: "Solutions", href: "/industries", feature_key: "industries" },
+  { label: "Solutions", href: "/industries" },
   { label: "About", href: "/about" },
   {
     label: "Resources",
@@ -118,22 +118,22 @@ export const NAV_LINKS = [
 // Hero
 // ─────────────────────────────────────────────
 export const HERO = {
-  badge: "Premium Software Engineering",
-  headline: "Engineering digital products to",
-  headlineHighlight: "accelerate growth",
+  badge: "Digital products for growing businesses",
+  headline: ["Build trust.", "Win more work."],
+  headlineHighlight: ["Make daily work", "feel lighter."],
   subheadline:
-    "We engineer high-performance web and mobile apps for startups and enterprises. Shipped fast, built to scale, and delivered with zero surprises.",
+    "Sterova designs and builds websites, online stores, and custom software that turn interest into action—and take friction out of the work behind the scenes.",
   cta: {
-    primary: { label: "Start Your Project", href: "/contact" },
-    secondary: { label: "View Our Work", href: "/portfolio" },
+    primary: { label: "Start a conversation", href: "/start-project" },
+    secondary: { label: "See what we build", href: "/portfolio" },
   },
   // Commitments we can stand behind — no unverifiable metrics or invented
   // social proof. Swap in real numbers only once they can be substantiated.
   assurances: [
-    "Fixed-scope quotes before we start",
-    "Direct access to your engineers",
-    "You own the code and infrastructure",
-    "Support continues after launch",
+    "A clear plan before work begins",
+    "Direct access to the people doing the work",
+    "You own your code, accounts, and assets",
+    "Practical support after launch",
   ],
   ecosystem: [
     { icon_name: "Code2", label: "Custom Software" },
@@ -190,8 +190,8 @@ export const SERVICES = [
     is_active: true,
   },
   {
-    id: "mobile-apps",
-    slug: "mobile-apps",
+    id: "mobile-development",
+    slug: "mobile-development",
     icon_name: "Smartphone",
     title: "Mobile App Development",
     short_description: "Native-quality iOS and Android apps from a single codebase.",
@@ -210,8 +210,8 @@ export const SERVICES = [
     is_active: true,
   },
   {
-    id: "saas",
-    slug: "saas",
+    id: "saas-development",
+    slug: "saas-development",
     icon_name: "Layers",
     title: "SaaS Product Development",
     short_description: "End-to-end product engineering for scalable SaaS platforms.",
@@ -230,8 +230,8 @@ export const SERVICES = [
     is_active: true,
   },
   {
-    id: "design",
-    slug: "design",
+    id: "ui-ux-design",
+    slug: "ui-ux-design",
     icon_name: "Palette",
     title: "UI/UX Design",
     short_description: "User-centered design that balances beauty with usability.",
@@ -250,8 +250,8 @@ export const SERVICES = [
     is_active: true,
   },
   {
-    id: "api-integration",
-    slug: "api-integration",
+    id: "api-development",
+    slug: "api-development",
     icon_name: "Plug",
     title: "API Development & Integration",
     short_description: "Clean integrations that connect your systems and keep data flowing.",
@@ -267,6 +267,27 @@ export const SERVICES = [
     ],
     technologies: ["Node.js", "Express", "TypeScript", "PostgreSQL", "Redis"],
     display_order: 5,
+    is_active: true,
+  },
+  {
+    id: "maintenance-support",
+    slug: "maintenance-support",
+    icon_name: "LifeBuoy",
+    title: "Maintenance & Support",
+    short_description:
+      "Dependable ongoing care for the website or software your business relies on.",
+    description:
+      "We keep digital products healthy after launch with practical fixes, security updates, performance checks, and a steady path for improvements.",
+    features: [
+      "Bug fixes and priority issue support",
+      "Security and dependency updates",
+      "Performance monitoring and optimisation",
+      "Regular maintenance reporting",
+      "Feature enhancements and backlog planning",
+      "Documentation and knowledge transfer",
+    ],
+    technologies: ["GitHub", "Sentry", "Vercel", "Cloudflare", "Supabase"],
+    display_order: 6,
     is_active: true,
   },
 ];
@@ -510,18 +531,19 @@ export const FOOTER_LINKS = [
     heading: "Services",
     links: [
       { label: "Web Development", href: "/services/web-development" },
-      { label: "Mobile Apps", href: "/services/mobile-apps" },
-      { label: "UI/UX Design", href: "/services/design" },
-      { label: "API Development", href: "/services/api-integration" },
+      { label: "Mobile Apps", href: "/services/mobile-development" },
+      { label: "UI/UX Design", href: "/services/ui-ux-design" },
+      { label: "API Development", href: "/services/api-development" },
       { label: "Custom Software", href: "/services/custom-software" },
-      { label: "SaaS Products", href: "/services/saas" },
+      { label: "SaaS Products", href: "/services/saas-development" },
+      { label: "Maintenance & Support", href: "/services/maintenance-support" },
     ],
   },
   {
     heading: "Work",
     links: [
       { label: "Portfolio", href: "/portfolio" },
-      { label: "Solutions", href: "/industries", feature_key: "industries" },
+      { label: "Solutions", href: "/industries" },
     ],
   },
   {
@@ -538,41 +560,41 @@ export const FOOTER_LINKS = [
 // ─────────────────────────────────────────────
 export const ABOUT = {
   heroDescription:
-    "Sterova builds reliable software that solves real business problems — and scales effortlessly as you grow.",
+    "Sterova helps growing businesses turn ambitious ideas into clear, useful digital products — from confident websites and online stores to focused software.",
   mission:
-    "To engineer software that works flawlessly for end-users and drives lasting business value.",
+    "To make thoughtful, high-quality digital products accessible to the businesses doing meaningful work every day.",
   vision:
-    "Be the engineering partner people recommend by name — because the work speaks for itself.",
+    "To be the digital partner clients recommend because the work is clear, dependable, and genuinely helps them grow.",
   values: [
     {
-      title: "Innovation",
+      title: "Listen before building",
       description:
-        "We stay at the frontier of technology so our clients don't have to. We invest in learning, experimentation, and new approaches.",
+        "The best answer starts with the right question. We learn how your business works before deciding what to make.",
     },
     {
-      title: "Quality",
+      title: "Build with purpose",
       description:
-        'We set a high bar on code quality, testing, and architecture. "Good enough" is never our standard.',
+        "Every page, feature, and workflow should earn its place by making something clearer, faster, or more useful.",
     },
     {
-      title: "Trust",
+      title: "Communicate openly",
       description:
-        "We are honest about timelines, risks, and limitations. Clients trust us because we earn it — not because we oversell.",
+        "We share progress, explain decisions, and raise risks early. Good collaboration should never feel like a black box.",
     },
     {
-      title: "Transparency",
+      title: "Care about the details",
       description:
-        "Full visibility into progress, decisions, and code. No black boxes, no surprises.",
+        "Craft lives in the things people notice and the things they do not: speed, clarity, reliability, and considerate design.",
     },
     {
-      title: "Security",
+      title: "Protect what matters",
       description:
-        "Security is a first-class concern, not an afterthought. We design defensible systems from day one.",
+        "We treat your data, your customers, and your reputation with the care they deserve from the start.",
     },
     {
-      title: "Customer Success",
+      title: "Stay accountable",
       description:
-        "We measure our success by the success of our clients. We stay engaged long after launch.",
+        "We measure our work by whether it helps you move forward—and we stay close enough to make the next improvement count.",
     },
   ],
 };

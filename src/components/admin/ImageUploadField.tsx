@@ -16,12 +16,14 @@ export default function ImageUploadField({
   value,
   onChange,
   hint,
+  recommendedSize,
 }: {
   label: string;
   bucket: string;
   value: string | null;
   onChange: (url: string | null) => void;
   hint?: string;
+  recommendedSize?: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -74,6 +76,11 @@ export default function ImageUploadField({
               <ImagePlus className="h-5 w-5" />
               <span className="text-sm font-medium">Upload an image</span>
               <span className="text-xs">JPEG, PNG, WebP or AVIF · max 5MB</span>
+              {recommendedSize && (
+                <span className="text-xs mt-1 text-primary/80 font-mono bg-primary/10 px-2 py-0.5 rounded-sm">
+                  Recommended size: {recommendedSize}
+                </span>
+              )}
             </>
           )}
         </button>

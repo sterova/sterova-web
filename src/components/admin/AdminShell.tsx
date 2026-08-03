@@ -27,8 +27,6 @@ import {
   Users,
   Image,
   FolderSearch,
-  Building2,
-  Layers,
   MessageCircleQuestion,
   Search,
   X,
@@ -53,9 +51,7 @@ const NAV_GROUPS: { label: string; items: NavItem[] }[] = [
   {
     label: "Content",
     items: [
-      { href: ADMIN_ROUTES.services, label: "Services", icon: Layers },
       { href: ADMIN_ROUTES.caseStudies, label: "Case Studies", icon: FolderSearch },
-      { href: ADMIN_ROUTES.industries, label: "Industries", icon: Building2 },
       { href: ADMIN_ROUTES.posts, label: "Blog posts", icon: FileText },
       { href: ADMIN_ROUTES.categories, label: "Categories", icon: Tags },
       { href: ADMIN_ROUTES.projects, label: "Projects", icon: FolderKanban },

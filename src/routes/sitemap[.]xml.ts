@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { SITE } from "@/data/constants";
+import { SERVICE_PAGES } from "@/data/service-pages";
 import { supabase } from "@/lib/supabase";
 
 const BASE_URL = SITE.url.replace(/\/$/, "");
@@ -32,6 +33,12 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/cookie-policy", changefreq: "yearly", priority: "0.3" },
   { path: "/refund-policy", changefreq: "yearly", priority: "0.3" },
 ];
+
+const SERVICE_ENTRIES: SitemapEntry[] = SERVICE_PAGES.map((service) => ({
+  path: `/services/${service.slug}`,
+  changefreq: "monthly",
+  priority: "0.8",
+}));
 
 function escapeXml(value: string) {
   return value
@@ -73,7 +80,7 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = [...STATIC_ENTRIES, ...(await fetchPostEntries())];
+        const entries = [...STATIC_ENTRIES, ...SERVICE_ENTRIES, ...(await fetchPostEntries())];
 
         const urls = entries.map((e) =>
           [

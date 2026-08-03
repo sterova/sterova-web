@@ -44,7 +44,6 @@ import { Route as SterovaAdminCmsChatLeadsRouteImport } from './routes/sterova-a
 import { Route as SterovaAdminCmsConsultationsRouteImport } from './routes/sterova-admin._cms.consultations'
 import { Route as SterovaAdminCmsDashboardRouteImport } from './routes/sterova-admin._cms.dashboard'
 import { Route as SterovaAdminCmsFaqsRouteImport } from './routes/sterova-admin._cms.faqs'
-import { Route as SterovaAdminCmsIndustriesRouteImport } from './routes/sterova-admin._cms.industries'
 import { Route as SterovaAdminCmsMediaLibraryRouteImport } from './routes/sterova-admin._cms.media-library'
 import { Route as SterovaAdminCmsMessagesRouteImport } from './routes/sterova-admin._cms.messages'
 import { Route as SterovaAdminCmsNotificationsRouteImport } from './routes/sterova-admin._cms.notifications'
@@ -52,7 +51,6 @@ import { Route as SterovaAdminCmsProjectsRouteImport } from './routes/sterova-ad
 import { Route as SterovaAdminCmsResultsRouteImport } from './routes/sterova-admin._cms.results'
 import { Route as SterovaAdminCmsReviewsRouteImport } from './routes/sterova-admin._cms.reviews'
 import { Route as SterovaAdminCmsSeoMetadataRouteImport } from './routes/sterova-admin._cms.seo-metadata'
-import { Route as SterovaAdminCmsServicesRouteImport } from './routes/sterova-admin._cms.services'
 import { Route as SterovaAdminCmsSessionsRouteImport } from './routes/sterova-admin._cms.sessions'
 import { Route as SterovaAdminCmsSettingsRouteImport } from './routes/sterova-admin._cms.settings'
 import { Route as SterovaAdminCmsTeamRouteImport } from './routes/sterova-admin._cms.team'
@@ -242,12 +240,6 @@ const SterovaAdminCmsFaqsRoute = SterovaAdminCmsFaqsRouteImport.update({
   path: '/faqs',
   getParentRoute: () => SterovaAdminCmsRoute,
 } as any)
-const SterovaAdminCmsIndustriesRoute =
-  SterovaAdminCmsIndustriesRouteImport.update({
-    id: '/industries',
-    path: '/industries',
-    getParentRoute: () => SterovaAdminCmsRoute,
-  } as any)
 const SterovaAdminCmsMediaLibraryRoute =
   SterovaAdminCmsMediaLibraryRouteImport.update({
     id: '/media-library',
@@ -286,11 +278,6 @@ const SterovaAdminCmsSeoMetadataRoute =
     path: '/seo-metadata',
     getParentRoute: () => SterovaAdminCmsRoute,
   } as any)
-const SterovaAdminCmsServicesRoute = SterovaAdminCmsServicesRouteImport.update({
-  id: '/services',
-  path: '/services',
-  getParentRoute: () => SterovaAdminCmsRoute,
-} as any)
 const SterovaAdminCmsSessionsRoute = SterovaAdminCmsSessionsRouteImport.update({
   id: '/sessions',
   path: '/sessions',
@@ -364,7 +351,6 @@ export interface FileRoutesByFullPath {
   '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/faqs': typeof SterovaAdminCmsFaqsRoute
-  '/sterova-admin/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/media-library': typeof SterovaAdminCmsMediaLibraryRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
   '/sterova-admin/notifications': typeof SterovaAdminCmsNotificationsRoute
@@ -372,7 +358,6 @@ export interface FileRoutesByFullPath {
   '/sterova-admin/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/seo-metadata': typeof SterovaAdminCmsSeoMetadataRoute
-  '/sterova-admin/services': typeof SterovaAdminCmsServicesRoute
   '/sterova-admin/sessions': typeof SterovaAdminCmsSessionsRoute
   '/sterova-admin/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/team': typeof SterovaAdminCmsTeamRoute
@@ -415,7 +400,6 @@ export interface FileRoutesByTo {
   '/sterova-admin/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/faqs': typeof SterovaAdminCmsFaqsRoute
-  '/sterova-admin/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/media-library': typeof SterovaAdminCmsMediaLibraryRoute
   '/sterova-admin/messages': typeof SterovaAdminCmsMessagesRoute
   '/sterova-admin/notifications': typeof SterovaAdminCmsNotificationsRoute
@@ -423,7 +407,6 @@ export interface FileRoutesByTo {
   '/sterova-admin/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/seo-metadata': typeof SterovaAdminCmsSeoMetadataRoute
-  '/sterova-admin/services': typeof SterovaAdminCmsServicesRoute
   '/sterova-admin/sessions': typeof SterovaAdminCmsSessionsRoute
   '/sterova-admin/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/team': typeof SterovaAdminCmsTeamRoute
@@ -469,7 +452,6 @@ export interface FileRoutesById {
   '/sterova-admin/_cms/consultations': typeof SterovaAdminCmsConsultationsRoute
   '/sterova-admin/_cms/dashboard': typeof SterovaAdminCmsDashboardRoute
   '/sterova-admin/_cms/faqs': typeof SterovaAdminCmsFaqsRoute
-  '/sterova-admin/_cms/industries': typeof SterovaAdminCmsIndustriesRoute
   '/sterova-admin/_cms/media-library': typeof SterovaAdminCmsMediaLibraryRoute
   '/sterova-admin/_cms/messages': typeof SterovaAdminCmsMessagesRoute
   '/sterova-admin/_cms/notifications': typeof SterovaAdminCmsNotificationsRoute
@@ -477,7 +459,6 @@ export interface FileRoutesById {
   '/sterova-admin/_cms/results': typeof SterovaAdminCmsResultsRoute
   '/sterova-admin/_cms/reviews': typeof SterovaAdminCmsReviewsRoute
   '/sterova-admin/_cms/seo-metadata': typeof SterovaAdminCmsSeoMetadataRoute
-  '/sterova-admin/_cms/services': typeof SterovaAdminCmsServicesRoute
   '/sterova-admin/_cms/sessions': typeof SterovaAdminCmsSessionsRoute
   '/sterova-admin/_cms/settings': typeof SterovaAdminCmsSettingsRoute
   '/sterova-admin/_cms/team': typeof SterovaAdminCmsTeamRoute
@@ -523,7 +504,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
     | '/sterova-admin/faqs'
-    | '/sterova-admin/industries'
     | '/sterova-admin/media-library'
     | '/sterova-admin/messages'
     | '/sterova-admin/notifications'
@@ -531,7 +511,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/results'
     | '/sterova-admin/reviews'
     | '/sterova-admin/seo-metadata'
-    | '/sterova-admin/services'
     | '/sterova-admin/sessions'
     | '/sterova-admin/settings'
     | '/sterova-admin/team'
@@ -574,7 +553,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/consultations'
     | '/sterova-admin/dashboard'
     | '/sterova-admin/faqs'
-    | '/sterova-admin/industries'
     | '/sterova-admin/media-library'
     | '/sterova-admin/messages'
     | '/sterova-admin/notifications'
@@ -582,7 +560,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/results'
     | '/sterova-admin/reviews'
     | '/sterova-admin/seo-metadata'
-    | '/sterova-admin/services'
     | '/sterova-admin/sessions'
     | '/sterova-admin/settings'
     | '/sterova-admin/team'
@@ -627,7 +604,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/_cms/consultations'
     | '/sterova-admin/_cms/dashboard'
     | '/sterova-admin/_cms/faqs'
-    | '/sterova-admin/_cms/industries'
     | '/sterova-admin/_cms/media-library'
     | '/sterova-admin/_cms/messages'
     | '/sterova-admin/_cms/notifications'
@@ -635,7 +611,6 @@ export interface FileRouteTypes {
     | '/sterova-admin/_cms/results'
     | '/sterova-admin/_cms/reviews'
     | '/sterova-admin/_cms/seo-metadata'
-    | '/sterova-admin/_cms/services'
     | '/sterova-admin/_cms/sessions'
     | '/sterova-admin/_cms/settings'
     | '/sterova-admin/_cms/team'
@@ -918,13 +893,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SterovaAdminCmsFaqsRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
-    '/sterova-admin/_cms/industries': {
-      id: '/sterova-admin/_cms/industries'
-      path: '/industries'
-      fullPath: '/sterova-admin/industries'
-      preLoaderRoute: typeof SterovaAdminCmsIndustriesRouteImport
-      parentRoute: typeof SterovaAdminCmsRoute
-    }
     '/sterova-admin/_cms/media-library': {
       id: '/sterova-admin/_cms/media-library'
       path: '/media-library'
@@ -972,13 +940,6 @@ declare module '@tanstack/react-router' {
       path: '/seo-metadata'
       fullPath: '/sterova-admin/seo-metadata'
       preLoaderRoute: typeof SterovaAdminCmsSeoMetadataRouteImport
-      parentRoute: typeof SterovaAdminCmsRoute
-    }
-    '/sterova-admin/_cms/services': {
-      id: '/sterova-admin/_cms/services'
-      path: '/services'
-      fullPath: '/sterova-admin/services'
-      preLoaderRoute: typeof SterovaAdminCmsServicesRouteImport
       parentRoute: typeof SterovaAdminCmsRoute
     }
     '/sterova-admin/_cms/sessions': {
@@ -1044,7 +1005,6 @@ interface SterovaAdminCmsRouteChildren {
   SterovaAdminCmsConsultationsRoute: typeof SterovaAdminCmsConsultationsRoute
   SterovaAdminCmsDashboardRoute: typeof SterovaAdminCmsDashboardRoute
   SterovaAdminCmsFaqsRoute: typeof SterovaAdminCmsFaqsRoute
-  SterovaAdminCmsIndustriesRoute: typeof SterovaAdminCmsIndustriesRoute
   SterovaAdminCmsMediaLibraryRoute: typeof SterovaAdminCmsMediaLibraryRoute
   SterovaAdminCmsMessagesRoute: typeof SterovaAdminCmsMessagesRoute
   SterovaAdminCmsNotificationsRoute: typeof SterovaAdminCmsNotificationsRoute
@@ -1052,7 +1012,6 @@ interface SterovaAdminCmsRouteChildren {
   SterovaAdminCmsResultsRoute: typeof SterovaAdminCmsResultsRoute
   SterovaAdminCmsReviewsRoute: typeof SterovaAdminCmsReviewsRoute
   SterovaAdminCmsSeoMetadataRoute: typeof SterovaAdminCmsSeoMetadataRoute
-  SterovaAdminCmsServicesRoute: typeof SterovaAdminCmsServicesRoute
   SterovaAdminCmsSessionsRoute: typeof SterovaAdminCmsSessionsRoute
   SterovaAdminCmsSettingsRoute: typeof SterovaAdminCmsSettingsRoute
   SterovaAdminCmsTeamRoute: typeof SterovaAdminCmsTeamRoute
@@ -1073,7 +1032,6 @@ const SterovaAdminCmsRouteChildren: SterovaAdminCmsRouteChildren = {
   SterovaAdminCmsConsultationsRoute: SterovaAdminCmsConsultationsRoute,
   SterovaAdminCmsDashboardRoute: SterovaAdminCmsDashboardRoute,
   SterovaAdminCmsFaqsRoute: SterovaAdminCmsFaqsRoute,
-  SterovaAdminCmsIndustriesRoute: SterovaAdminCmsIndustriesRoute,
   SterovaAdminCmsMediaLibraryRoute: SterovaAdminCmsMediaLibraryRoute,
   SterovaAdminCmsMessagesRoute: SterovaAdminCmsMessagesRoute,
   SterovaAdminCmsNotificationsRoute: SterovaAdminCmsNotificationsRoute,
@@ -1081,7 +1039,6 @@ const SterovaAdminCmsRouteChildren: SterovaAdminCmsRouteChildren = {
   SterovaAdminCmsResultsRoute: SterovaAdminCmsResultsRoute,
   SterovaAdminCmsReviewsRoute: SterovaAdminCmsReviewsRoute,
   SterovaAdminCmsSeoMetadataRoute: SterovaAdminCmsSeoMetadataRoute,
-  SterovaAdminCmsServicesRoute: SterovaAdminCmsServicesRoute,
   SterovaAdminCmsSessionsRoute: SterovaAdminCmsSessionsRoute,
   SterovaAdminCmsSettingsRoute: SterovaAdminCmsSettingsRoute,
   SterovaAdminCmsTeamRoute: SterovaAdminCmsTeamRoute,

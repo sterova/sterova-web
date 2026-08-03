@@ -1,6 +1,5 @@
 import { supabase, isSupabaseConfigured, SUPABASE_NOT_CONFIGURED_MESSAGE } from "@/lib/supabase";
 import { ACCEPTED_IMAGE_TYPES, MAX_UPLOAD_BYTES } from "@/data/admin-constants";
-import { SERVICES, PROCESS_STEPS } from "@/data/constants";
 import type {
   BlogCategoryRow,
   BlogPostRow,
@@ -80,67 +79,6 @@ export async function fetchCategories(): Promise<BlogCategoryRow[]> {
   return unwrap(data, error);
 }
 
-export async function fetchServices(): Promise<ServiceRow[]> {
-  let data = null;
-  if (isSupabaseConfigured) {
-    const res = await supabase
-      .from("services")
-      .select("*")
-      .eq("is_active", true)
-      .order("display_order");
-    if (!res.error) data = res.data;
-  }
-
-  if (!data || data.length === 0) {
-    return SERVICES.map((s) => ({
-      id: s.id,
-      title: s.title,
-      slug: s.slug,
-      overview: s.description,
-      benefits: s.features,
-      process: PROCESS_STEPS.map((p) => p.title),
-
-      display_order: s.display_order,
-      is_active: s.is_active,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    }));
-  }
-  return data;
-}
-
-export async function fetchServiceBySlug(
-  slug: string,
-  signal?: AbortSignal,
-): Promise<ServiceRow | null> {
-  let data = null;
-  if (isSupabaseConfigured) {
-    let query = supabase.from("services").select("*").eq("slug", slug).eq("is_active", true);
-    if (signal) query = query.abortSignal(signal) as typeof query;
-    const res = await query.maybeSingle();
-    if (!res.error) data = res.data;
-  }
-
-  if (!data) {
-    const s = SERVICES.find((service) => service.slug === slug);
-    if (!s) return null;
-    return {
-      id: s.id,
-      title: s.title,
-      slug: s.slug,
-      overview: s.description,
-      benefits: s.features,
-      process: PROCESS_STEPS.map((p) => p.title),
-
-      display_order: s.display_order,
-      is_active: s.is_active,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-  }
-  return data;
-}
-
 export async function fetchCaseStudies(): Promise<CaseStudyRow[]> {
   const fallback = offlineFallback<CaseStudyRow[]>([]);
   if (fallback) return fallback;
@@ -162,17 +100,6 @@ export async function fetchCaseStudyBySlug(
   const { data, error } = await query.maybeSingle();
   if (error) throw new Error(error.message);
   return data ?? null;
-}
-
-export async function fetchIndustries(): Promise<IndustryRow[]> {
-  const fallback = offlineFallback<IndustryRow[]>([]);
-  if (fallback) return fallback;
-  const { data, error } = await supabase
-    .from("industries")
-    .select("*")
-    .eq("is_active", true)
-    .order("display_order");
-  return unwrap(data, error);
 }
 
 export async function fetchFAQs(): Promise<FAQRow[]> {
@@ -796,44 +723,11 @@ export async function adminDeleteBrandLink(id: string): Promise<void> {
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type {
-  ServiceRow,
   CaseStudyRow,
-  IndustryRow,
   FAQRow,
   MediaAssetRow,
   SEOMetadataRow,
 } from "@/types/database";
-
-// Services
-export async function adminFetchServices(): Promise<ServiceRow[]> {
-  const { data, error } = await supabase.from("services").select("*").order("display_order");
-  return unwrap(data, error);
-}
-
-export async function adminCreateService(
-  input: Partial<ServiceRow> & { title: string; slug: string; overview: string },
-): Promise<ServiceRow> {
-  const { data, error } = await supabase.from("services").insert(input).select().single();
-  return unwrap(data, error);
-}
-
-export async function adminUpdateService(
-  id: string,
-  input: Partial<ServiceRow>,
-): Promise<ServiceRow> {
-  const { data, error } = await supabase
-    .from("services")
-    .update(input)
-    .eq("id", id)
-    .select()
-    .single();
-  return unwrap(data, error);
-}
-
-export async function adminDeleteService(id: string): Promise<void> {
-  const { error } = await supabase.from("services").delete().eq("id", id);
-  if (error) throw new Error(error.message);
-}
 
 // Case Studies
 export async function adminFetchCaseStudies(): Promise<CaseStudyRow[]> {
@@ -873,37 +767,6 @@ export async function adminUpdateCaseStudy(
 
 export async function adminDeleteCaseStudy(id: string): Promise<void> {
   const { error } = await supabase.from("case_studies").delete().eq("id", id);
-  if (error) throw new Error(error.message);
-}
-
-// Industries
-export async function adminFetchIndustries(): Promise<IndustryRow[]> {
-  const { data, error } = await supabase.from("industries").select("*").order("display_order");
-  return unwrap(data, error);
-}
-
-export async function adminCreateIndustry(
-  input: Partial<IndustryRow> & { name: string; slug: string; description: string },
-): Promise<IndustryRow> {
-  const { data, error } = await supabase.from("industries").insert(input).select().single();
-  return unwrap(data, error);
-}
-
-export async function adminUpdateIndustry(
-  id: string,
-  input: Partial<IndustryRow>,
-): Promise<IndustryRow> {
-  const { data, error } = await supabase
-    .from("industries")
-    .update(input)
-    .eq("id", id)
-    .select()
-    .single();
-  return unwrap(data, error);
-}
-
-export async function adminDeleteIndustry(id: string): Promise<void> {
-  const { error } = await supabase.from("industries").delete().eq("id", id);
   if (error) throw new Error(error.message);
 }
 

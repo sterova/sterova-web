@@ -10,41 +10,66 @@ import {
   organizationSchema,
   ORG_ID,
 } from "@/lib/seo";
-import { fetchServiceBySlug } from "@/lib/api";
+import { PROCESS_STEPS, SERVICES } from "@/data/constants";
+import { getServicePage } from "@/data/service-pages";
 
 export const Route = createFileRoute("/services_/$slug")({
-  loader: async ({ params, abortController }) => {
-    try {
-      const service = await fetchServiceBySlug(params.slug, abortController.signal);
-      if (!service) return null;
-      return service;
-    } catch {
-      return null;
-    }
+  loader: ({ params }) => {
+    const service = SERVICES.find((entry) => entry.slug === params.slug);
+    if (!service) return null;
+
+    return {
+      id: service.id,
+      title: service.title,
+      slug: service.slug,
+      overview: service.description,
+      benefits: service.features,
+      process: PROCESS_STEPS.map((step) => step.title),
+      display_order: service.display_order,
+      is_active: service.is_active,
+      created_at: "",
+      updated_at: "",
+    };
   },
   head: ({ params, loaderData }) => {
     if (!loaderData) return privateSeo("Service unavailable", "noindex, follow");
 
     const path = `/services/${params.slug}`;
+    const page = getServicePage(loaderData.slug);
+    const serviceName = page?.title ?? loaderData.title;
+    const description = page?.seoDescription ?? loaderData.overview;
     return seo({
-      title: `${loaderData.title} Services`,
-      description: loaderData.overview,
+      title: page?.seoTitle ?? `${serviceName} Services`,
+      description,
       path,
-      type: "article",
+      type: "website",
       jsonLd: [
         organizationSchema(),
         {
           "@context": "https://schema.org",
           "@type": "Service",
-          name: loaderData.title,
-          description: loaderData.overview,
+          name: serviceName,
+          description,
           url: absoluteUrl(path),
-          serviceType: "Software engineering",
+          serviceType: serviceName,
           provider: { "@id": ORG_ID },
         },
+        ...(page?.faqs.length
+          ? [
+              {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                mainEntity: page.faqs.map((faq) => ({
+                  "@type": "Question",
+                  name: faq.question,
+                  acceptedAnswer: { "@type": "Answer", text: faq.answer },
+                })),
+              },
+            ]
+          : []),
         breadcrumbSchema([
           { name: "Services", path: "/services" },
-          { name: loaderData.title, path },
+          { name: serviceName, path },
         ]),
       ],
     });

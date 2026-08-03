@@ -246,9 +246,7 @@ export interface FeatureSettings {
   reviews?: boolean;
   blog?: boolean;
   careers?: boolean;
-  services?: boolean;
   portfolio?: boolean;
-  industries?: boolean;
   process?: boolean;
   technologies?: boolean;
   faq?: boolean;
@@ -354,20 +352,6 @@ export interface AuditLogRow {
 export type BlogPostWithCategory = BlogPostRow & {
   blog_categories: Pick<BlogCategoryRow, "id" | "name" | "slug"> | null;
 };
-
-export interface ServiceRow {
-  id: string;
-  title: string;
-  slug: string;
-  overview: string;
-  benefits: string[];
-  process: string[];
-
-  display_order: number;
-  is_active: boolean;
-  created_at: string;
-  updated_at: string;
-}
 
 export interface CaseStudyRow {
   id: string;
@@ -534,11 +518,6 @@ export interface Database {
         Row: UserRoleRow;
         Insert: Insertable<UserRoleRow, "user_id" | "role">;
         Update: Partial<UserRoleRow>;
-      };
-      services: {
-        Row: ServiceRow;
-        Insert: Insertable<ServiceRow, "title" | "slug" | "overview">;
-        Update: Partial<ServiceRow>;
       };
       case_studies: {
         Row: CaseStudyRow;

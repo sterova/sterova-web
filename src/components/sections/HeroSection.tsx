@@ -116,27 +116,27 @@ type Node = {
 
 const NODES: Node[] = [
   {
-    label: "Custom Software",
+    label: "Custom Systems",
     icon: Code2,
-    href: "/services#custom-software",
+    href: "/services/custom-software",
     detail: { kind: "chips", icons: [Server, Database, Shield, Braces] },
     theme: "blue",
     x: 10,
     y: -2,
   },
   {
-    label: "Web Development",
+    label: "Websites & Stores",
     icon: Globe,
-    href: "/services#web-development",
-    detail: { kind: "metric", label: "Lighthouse", value: "98/100", fill: 96 },
+    href: "/services/web-development",
+    detail: { kind: "chips", icons: [Globe, Layout, Gauge, Zap] },
     theme: "emerald",
     x: 66,
     y: -2,
   },
   {
-    label: "Mobile Apps",
+    label: "Mobile Experiences",
     icon: Smartphone,
-    href: "/services#mobile-apps",
+    href: "/services/mobile-development",
     detail: { kind: "chips", icons: [Layout, Zap, Rocket, Sparkles] },
     theme: "purple",
     x: 4,
@@ -145,7 +145,7 @@ const NODES: Node[] = [
   {
     label: "SaaS Products",
     icon: Layers,
-    href: "/services#saas",
+    href: "/services/saas-development",
     detail: { kind: "chips", icons: [Users, CreditCard, Boxes, Blocks] },
     theme: "amber",
     x: 72,
@@ -154,17 +154,17 @@ const NODES: Node[] = [
   {
     label: "UI/UX Design",
     icon: Palette,
-    href: "/services#design",
+    href: "/services/ui-ux-design",
     detail: { kind: "chips", icons: [Figma, Layout, Sparkles, Gauge] },
     theme: "pink",
     x: 10,
     y: 66,
   },
   {
-    label: "API Integration",
+    label: "API & Automation",
     icon: Plug,
-    href: "/services#api-integration",
-    detail: { kind: "metric", label: "Latency", value: "80ms", fill: 72 },
+    href: "/services/api-development",
+    detail: { kind: "chips", icons: [Webhook, Plug, Server, Database] },
     theme: "cyan",
     x: 66,
     y: 66,
@@ -272,7 +272,7 @@ function Core() {
           {SITE.name}
         </span>
         <span className="text-[0.6rem] xl:text-[0.85rem] font-medium text-muted-foreground mt-0.5">
-          Digital Solutions
+          Built around your business
         </span>
       </div>
     </div>
@@ -312,9 +312,19 @@ export default function HeroSection() {
               {HERO.badge}
             </span>
 
-            <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.02] tracking-[-0.03em]">
-              {HERO.headline}{" "}
-              <span className="animate-gradient-text">{HERO.headlineHighlight}</span>
+            <h1 className="mt-7 text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-[1.04] tracking-[-0.035em]">
+              {HERO.headline.map((line) => (
+                <span key={line} className="block whitespace-nowrap">
+                  {line}
+                </span>
+              ))}
+              <span className="mt-2 block animate-gradient-text">
+                {HERO.headlineHighlight.map((line) => (
+                  <span key={line} className="block whitespace-nowrap">
+                    {line}
+                  </span>
+                ))}
+              </span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-[1.7] text-text-secondary">

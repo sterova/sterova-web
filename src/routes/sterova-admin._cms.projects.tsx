@@ -362,7 +362,11 @@ function AdminProjectsPage() {
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <StatusBadge status={project.is_active ? "active" : "hidden"} />
                       {project.is_featured && <StatusBadge status="featured" />}
-                      {project.is_own_project && <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">Own</span>}
+                      {project.is_own_project && (
+                        <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">
+                          Own
+                        </span>
+                      )}
                     </div>
                   </td>
                   <td>
@@ -506,14 +510,24 @@ function AdminProjectsPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              <Label htmlFor="project-description">Description</Label>
+              <div className="flex items-baseline justify-between gap-4">
+                <Label htmlFor="project-description">Project description</Label>
+                <span className="text-xs text-muted-foreground">Markdown supported</span>
+              </div>
               <Textarea
                 id="project-description"
                 value={form.description}
-                onChange={(e) => set("description", e.target.value)}
-                rows={4}
-                placeholder="What the product does and the outcome it delivered."
+                onChange={(event) => set("description", event.target.value)}
+                rows={14}
+                className="min-h-72 resize-y font-mono text-sm leading-6"
+                placeholder={
+                  "## The challenge\n\nDescribe the problem.\n\n## The solution\n\n- Key capability\n- Another capability\n\n[Visit the project](https://example.com)"
+                }
               />
+              <p className="text-xs leading-relaxed text-muted-foreground">
+                Use <code>## headings</code>, <code>**bold**</code>, lists, links, and images. The
+                public preview formats this Markdown automatically.
+              </p>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -533,6 +547,7 @@ function AdminProjectsPage() {
               value={form.image_url}
               onChange={(url) => set("image_url", url)}
               hint="Shown on the portfolio grid."
+              recommendedSize="1200x600 px (2:1)"
             />
 
             <div className="grid gap-4 sm:grid-cols-2">

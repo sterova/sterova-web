@@ -7,6 +7,7 @@ import {
   Layers,
   Palette,
   Plug,
+  LifeBuoy,
   Sparkles,
 } from "lucide-react";
 import SectionHeader from "@/components/shared/SectionHeader";
@@ -22,6 +23,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Layers,
   Palette,
   Plug,
+  LifeBuoy,
 };
 
 const SERVICE_THEMES = [

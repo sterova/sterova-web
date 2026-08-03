@@ -31,11 +31,9 @@ export default function Footer() {
         if (link.label === "Our Process" && settings.features.process === false) return false;
         if (link.label === "Blog" && settings.features.blog === false) return false;
         if (link.label === "FAQ" && settings.features.faq === false) return false;
-        if (group.heading === "Services" && settings.features.services === false) return false;
         if (link.label === "Portfolio" && settings.features.portfolio === false) return false;
         if (link.label === "Case Studies" && settings.features.portfolio === false) return false;
         if (link.label === "Testimonials" && settings.features.reviews === false) return false;
-        if (link.label === "Industries" && settings.features.industries === false) return false;
         if (link.label === "Technologies" && settings.features.technologies === false) return false;
         return true;
       })
