@@ -68,6 +68,7 @@ interface FormState {
   github_url: string;
   is_featured: boolean;
   is_active: boolean;
+  is_own_project: boolean;
   display_order: number;
 }
 
@@ -82,6 +83,7 @@ const EMPTY_FORM: FormState = {
   github_url: "",
   is_featured: false,
   is_active: true,
+  is_own_project: false,
   display_order: 0,
 };
 
@@ -99,6 +101,7 @@ function toForm(project: ProjectRow): FormState {
     github_url: project.github_url ?? "",
     is_featured: project.is_featured,
     is_active: project.is_active,
+    is_own_project: project.is_own_project,
     display_order: project.display_order,
   };
 }
@@ -165,6 +168,7 @@ function AdminProjectsPage() {
         github_url: form.github_url.trim() || null,
         is_featured: form.is_featured,
         is_active: form.is_active,
+        is_own_project: form.is_own_project,
         display_order: Number(form.display_order) || 0,
       };
       return editing ? adminUpdateProject(editing.id, payload) : adminCreateProject(payload);
@@ -358,6 +362,7 @@ function AdminProjectsPage() {
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <StatusBadge status={project.is_active ? "active" : "hidden"} />
                       {project.is_featured && <StatusBadge status="featured" />}
+                      {project.is_own_project && <span className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-primary text-primary-foreground hover:bg-primary/80">Own</span>}
                     </div>
                   </td>
                   <td>
@@ -576,6 +581,14 @@ function AdminProjectsPage() {
                   onCheckedChange={(v) => set("is_featured", v)}
                 />
                 <Label htmlFor="project-featured">Featured</Label>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <Switch
+                  id="project-own"
+                  checked={form.is_own_project}
+                  onCheckedChange={(v) => set("is_own_project", v)}
+                />
+                <Label htmlFor="project-own">Own Project</Label>
               </div>
             </div>
           </div>

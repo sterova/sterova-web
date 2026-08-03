@@ -51,6 +51,7 @@ export interface ProjectRow {
   github_url: string | null;
   is_featured: boolean;
   is_active: boolean;
+  is_own_project: boolean;
   display_order: number;
   created_at: string;
   updated_at: string;

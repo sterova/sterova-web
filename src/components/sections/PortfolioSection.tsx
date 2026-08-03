@@ -100,9 +100,14 @@ export default function PortfolioSection({
                       </div>
                     </div>
                   )}
-                  {item.is_featured && (
+                  {item.is_featured && !item.is_own_project && (
                     <span className="absolute left-4 top-4 rounded-full border border-border bg-background/85 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground backdrop-blur-sm">
                       Example
+                    </span>
+                  )}
+                  {item.is_own_project && (
+                    <span className="absolute left-4 top-4 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-primary backdrop-blur-sm">
+                      Own Project
                     </span>
                   )}
                 </div>
