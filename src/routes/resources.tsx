@@ -1,15 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ResourcesPage from "@/pages/ResourcesPage";
-import { seo } from "@/lib/seo";
-import { SITE } from "@/data/constants";
+import { seo, breadcrumbSchema, webPageSchema } from "@/lib/seo";
+
+const description =
+  "Explore Sterova's technical insights, engineering guides, blog posts, and technology stack documentation.";
 
 export const Route = createFileRoute("/resources")({
   component: ResourcesPage,
-  head: () => ({
-    meta: seo({
-      title: "Resources | " + SITE.name,
-      description: "Explore our technical insights, guides, and engineering standards.",
+  head: () =>
+    seo({
+      title: "Resources — Sterova | Guides, Blog & Tech Stack",
+      description,
       path: "/resources",
-    }).meta,
-  }),
+      jsonLd: [
+        webPageSchema("Sterova Resources", description, "/resources"),
+        breadcrumbSchema([{ name: "Resources", path: "/resources" }]),
+      ],
+    }),
 });

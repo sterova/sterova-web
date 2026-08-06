@@ -3,12 +3,12 @@ import CareersPage from "@/pages/CareersPage";
 import { seo, breadcrumbSchema, webPageSchema } from "@/lib/seo";
 
 const description =
-  "Join Sterova. Open engineering and design roles for people who like owning what they ship.";
+  "Join Sterova. Open engineering and design roles for people who like owning what they ship. Remote-friendly positions in India.";
 
 export const Route = createFileRoute("/careers")({
   head: () =>
     seo({
-      title: "Careers",
+      title: "Careers at Sterova — Engineering & Design Roles",
       description,
       path: "/careers",
       jsonLd: [

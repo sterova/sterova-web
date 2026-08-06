@@ -1,4 +1,4 @@
-import { POSTAL_ADDRESS, SAME_AS, SITE } from "@/data/constants";
+import { POSTAL_ADDRESS, SAME_AS, SERVICES, SITE } from "@/data/constants";
 
 /** Absolute URL helper — crawlers require absolute og:image / @id values. */
 export function absoluteUrl(path: string) {
@@ -40,6 +40,11 @@ export function seo({
     meta: [
       { title: fullTitle },
       { name: "description", content: description },
+      // Robots: index everything and allow rich snippets
+      {
+        name: "robots",
+        content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      },
       { property: "og:title", content: fullTitle },
       { property: "og:description", content: description },
       { property: "og:type", content: type },
@@ -103,7 +108,8 @@ export function webPageSchema(name: string, description: string, path: string) {
     name,
     description,
     url: absoluteUrl(path),
-    isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+    isPartOf: { "@id": WEBSITE_ID },
+    publisher: { "@id": ORG_ID },
   };
 }
 
@@ -119,16 +125,16 @@ export function organizationSchema() {
     "@type": "Organization",
     "@id": ORG_ID,
     name: SITE.name,
-    alternateName: SITE.alternateName,
+    alternateName: SITE.alternateNames,
     url: SITE.url,
     description:
-      "Sterova Tech is a custom software engineering agency. (Note: We are not affiliated with the AI text-to-3D generator). " +
+      "SterovaTech (Sterova) is a custom software engineering agency. (Note: We are not affiliated with the AI text-to-3D generator). " +
       SITE.description,
     email: SITE.email,
     telephone: SITE.phone,
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/logo-512.png"),
+      url: absoluteUrl("/android-chrome-512x512.png"),
       width: 512,
       height: 512,
     },
@@ -143,6 +149,34 @@ export function organizationSchema() {
       availableLanguage: "English",
     },
     sameAs: SAME_AS,
+    knowsAbout: [
+      "Custom Software Development",
+      "Web Application Development",
+      "Mobile App Development",
+      "SaaS Product Engineering",
+      "UI/UX Design",
+      "API Development",
+      "Cloud Computing",
+      "Cybersecurity",
+      "Artificial Intelligence",
+      "IT Consulting",
+      "React",
+      "TypeScript",
+      "Node.js",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Sterova Software Development Services",
+      itemListElement: SERVICES.filter((s) => s.is_active).map((service) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.short_description,
+          url: absoluteUrl(`/services/${service.slug}`),
+        },
+      })),
+    },
   };
 }
 
@@ -153,10 +187,18 @@ export function websiteSchema() {
     "@id": WEBSITE_ID,
     url: SITE.url,
     name: SITE.name,
-    alternateName: SITE.alternateName,
+    alternateName: SITE.alternateNames,
     description: SITE.description,
     publisher: { "@id": ORG_ID },
     inLanguage: "en",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE.url}/blog?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   };
 }
 
@@ -167,6 +209,7 @@ export function localBusinessSchema() {
     "@type": "ProfessionalService",
     "@id": LOCAL_BUSINESS_ID,
     name: SITE.name,
+    alternateName: SITE.alternateNames,
     url: SITE.url,
     description: SITE.description,
     image: absoluteUrl(SITE.ogImage),

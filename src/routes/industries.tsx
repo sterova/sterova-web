@@ -1,17 +1,20 @@
 import { createFileRoute } from "@tanstack/react-router";
 import IndustriesPage from "@/pages/IndustriesPage";
-import { seo, breadcrumbSchema } from "@/lib/seo";
+import { seo, breadcrumbSchema, webPageSchema } from "@/lib/seo";
 
 const description =
-  "Practical websites, ecommerce stores, booking flows, and business tools for local and growing companies.";
+  "Sterova builds custom software for FinTech, Healthcare, E-commerce, EdTech, Logistics, Real Estate, and more. Industry-specific digital solutions.";
 
 export const Route = createFileRoute("/industries")({
   head: () =>
     seo({
-      title: "Industries Served | Sterova Tech",
+      title: "Industries We Serve — Sterova | FinTech, Healthcare, E-commerce & More",
       description,
       path: "/industries",
-      jsonLd: [breadcrumbSchema([{ name: "Industries", path: "/industries" }])],
+      jsonLd: [
+        webPageSchema("Industries Served by Sterova", description, "/industries"),
+        breadcrumbSchema([{ name: "Industries", path: "/industries" }]),
+      ],
     }),
   component: IndustriesPage,
 });

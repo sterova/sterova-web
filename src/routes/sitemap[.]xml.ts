@@ -3,6 +3,7 @@ import type {} from "@tanstack/react-start";
 import { SITE } from "@/data/constants";
 import { SERVICE_PAGES } from "@/data/service-pages";
 import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured } from "@/lib/supabase";
 
 const BASE_URL = SITE.url.replace(/\/$/, "");
 
@@ -21,12 +22,12 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/about", changefreq: "monthly", priority: "0.7" },
   { path: "/resources", changefreq: "weekly", priority: "0.8" },
   { path: "/blog", changefreq: "weekly", priority: "0.8" },
-  { path: "/pricing", changefreq: "monthly", priority: "0.7" },
   { path: "/industries", changefreq: "monthly", priority: "0.6" },
   { path: "/technologies", changefreq: "monthly", priority: "0.6" },
   { path: "/process", changefreq: "monthly", priority: "0.5" },
   { path: "/careers", changefreq: "monthly", priority: "0.6" },
   { path: "/contact", changefreq: "monthly", priority: "0.7" },
+  { path: "/start-project", changefreq: "monthly", priority: "0.7" },
   { path: "/estimate", changefreq: "monthly", priority: "0.6" },
   { path: "/privacy", changefreq: "yearly", priority: "0.3" },
   { path: "/terms", changefreq: "yearly", priority: "0.3" },
@@ -76,11 +77,39 @@ async function fetchPostEntries(): Promise<SitemapEntry[]> {
   }
 }
 
+/** Published case studies. */
+async function fetchCaseStudyEntries(): Promise<SitemapEntry[]> {
+  if (!isSupabaseConfigured) return [];
+  try {
+    const { data, error } = await supabase
+      .from("case_studies")
+      .select("slug, updated_at, created_at")
+      .eq("published", true)
+      .order("created_at", { ascending: false, nullsFirst: false });
+    if (error || !data) return [];
+    return (data as { slug: string; updated_at?: string | null; created_at?: string | null }[])
+      .filter((cs) => Boolean(cs.slug))
+      .map((cs) => ({
+        path: `/case-studies/${cs.slug}`,
+        lastmod: toIsoDate(cs.updated_at ?? cs.created_at),
+        changefreq: "monthly" as const,
+        priority: "0.7",
+      }));
+  } catch {
+    return [];
+  }
+}
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const entries = [...STATIC_ENTRIES, ...SERVICE_ENTRIES, ...(await fetchPostEntries())];
+        const entries = [
+          ...STATIC_ENTRIES,
+          ...SERVICE_ENTRIES,
+          ...(await fetchPostEntries()),
+          ...(await fetchCaseStudyEntries()),
+        ];
 
         const urls = entries.map((e) =>
           [

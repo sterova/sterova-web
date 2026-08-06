@@ -3,7 +3,9 @@
 // ─────────────────────────────────────────────
 export const SITE = {
   name: "Sterova",
-  alternateName: "Sterova Tech",
+  alternateName: "SterovaTech",
+  /** All known alternate brand spellings — used in schema.org `alternateName`. */
+  alternateNames: ["SterovaTech", "Sterova Tech", "Sterova Technologies"],
   tagline: "Custom Software & Web App Development Agency",
   description:
     "Sterova is a premier software engineering agency specializing in custom web platforms, native mobile apps, and SaaS product development. Built to scale.",

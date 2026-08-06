@@ -1,6 +1,10 @@
 {
-  "name": "Sterova",
+  "name": "Sterova — Custom Software & Web App Development",
   "short_name": "Sterova",
+  "description": "Sterova (SterovaTech) is a premier software engineering agency specializing in custom web platforms, mobile apps, and SaaS product development.",
+  "start_url": "/",
+  "scope": "/",
+  "id": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -11,9 +15,18 @@
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "theme_color": "#0F172A",
   "background_color": "#0F172A",
-  "display": "standalone"
+  "display": "standalone",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "en",
+  "dir": "ltr"
 }

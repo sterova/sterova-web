@@ -3,6 +3,10 @@ Allow: /
 Disallow: /sterova-admin/
 Disallow: /google24ca960b1782b429.html
 
+# Preferred domain
+Host: https://sterova.tech
+
+# AI and LLM crawlers — welcome
 User-agent: GPTBot
 Allow: /
 User-agent: ClaudeBot
@@ -10,6 +14,8 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
 Allow: /
 
 Sitemap: https://sterova.tech/sitemap.xml

@@ -10,7 +10,7 @@ import {
   organizationSchema,
   ORG_ID,
 } from "@/lib/seo";
-import { PROCESS_STEPS, SERVICES } from "@/data/constants";
+import { PROCESS_STEPS, SERVICES, SITE } from "@/data/constants";
 import { getServicePage } from "@/data/service-pages";
 
 export const Route = createFileRoute("/services_/$slug")({
@@ -53,6 +53,15 @@ export const Route = createFileRoute("/services_/$slug")({
           url: absoluteUrl(path),
           serviceType: serviceName,
           provider: { "@id": ORG_ID },
+          areaServed: [
+            { "@type": "Country", name: "India" },
+            { "@type": "Place", name: "Worldwide" },
+          ],
+          availableChannel: {
+            "@type": "ServiceChannel",
+            serviceUrl: absoluteUrl("/start-project"),
+            serviceSmsNumber: SITE.phone,
+          },
         },
         ...(page?.faqs.length
           ? [

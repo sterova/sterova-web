@@ -4,7 +4,7 @@ import { fetchSiteSettings } from "@/lib/settings-api";
 import { seo, webPageSchema, breadcrumbSchema } from "@/lib/seo";
 
 const description =
-  "Get an instant, interactive cost and timeline estimate for your custom software project.";
+  "Get an instant, interactive cost and timeline estimate for your custom software project from Sterova. No commitment required.";
 
 export const Route = createFileRoute("/estimate")({
   beforeLoad: async () => {
@@ -15,11 +15,11 @@ export const Route = createFileRoute("/estimate")({
   },
   head: () =>
     seo({
-      title: "Project Estimator",
+      title: "Project Estimator — Sterova | Get an Instant Cost Estimate",
       description,
       path: "/estimate",
       jsonLd: [
-        webPageSchema("Project Estimator", description, "/estimate"),
+        webPageSchema("Sterova Project Estimator", description, "/estimate"),
         breadcrumbSchema([{ name: "Estimate", path: "/estimate" }]),
       ],
     }),

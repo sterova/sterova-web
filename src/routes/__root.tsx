@@ -44,14 +44,26 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: `${SITE.name} — ${SITE.tagline}` },
       { name: "description", content: SITE.description },
       { name: "author", content: SITE.name },
+      // Robots: allow rich snippets and large image previews
+      {
+        name: "robots",
+        content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1",
+      },
+      // Brand signals
       { property: "og:site_name", content: SITE.name },
       { name: "theme-color", content: "#0F172A" },
+      // Social cards
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: "/twitter-image.png" },
+      { name: "twitter:image", content: `${SITE.url}/twitter-image.png` },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.png" },
+      { property: "og:image", content: `${SITE.url}/og-image.png` },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
+      // Search console & analytics verification
+      // Google Search Console (HTML file method already present)
+      { name: "google-site-verification", content: "google24ca960b1782b429" },
+      // Bing Webmaster Tools — replace with your actual code
+      // { name: "msvalidate.01", content: "YOUR_BING_CODE" },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -60,6 +72,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.gstatic.com",
         crossOrigin: "anonymous",
       },
+      // DNS-prefetch for Supabase API (non-blocking hint)
+      { rel: "dns-prefetch", href: "https://mbotlbnymdqscnrqahfz.supabase.co" },
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=IBM+Plex+Mono:wght@400;500&display=swap",
