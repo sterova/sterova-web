@@ -451,17 +451,17 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className={cn("group flex items-center gap-2 rounded-lg", FOCUS_RING)}
+            className={cn("group flex items-center gap-1.5 rounded-lg", FOCUS_RING)}
             aria-label={`${SITE.name} — home`}
             aria-current={location === "/" ? "page" : undefined}
           >
             <BrandLogo
-              size={28}
+              size={32}
               priority
               alt=""
-              className="h-7 w-7 object-contain transition-opacity duration-300 group-hover:opacity-80"
+              className="h-8 w-8 object-contain transition-transform duration-500 ease-out group-hover:scale-110"
             />
-            <span className="gradient-text font-display font-black text-[1.35rem] md:text-[1.5rem] tracking-tighter transition-opacity duration-300 group-hover:opacity-80">
+            <span className="text-foreground font-display font-black text-[1.35rem] sm:text-[1.5rem] md:text-[1.75rem] leading-none tracking-tight transition-colors duration-300 group-hover:text-primary">
               {SITE.name}
             </span>
           </Link>

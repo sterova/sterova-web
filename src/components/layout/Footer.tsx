@@ -95,7 +95,7 @@ export default function Footer() {
               />
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 mb-4 group"
+                className="inline-flex items-center gap-1.5 mb-4 group"
                 onClick={() => {
                   if (window.location.pathname === "/") {
                     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -103,11 +103,12 @@ export default function Footer() {
                 }}
               >
                 <BrandLogo
-                  size={28}
+                  size={36}
                   alt=""
-                  className="h-7 w-7 object-contain transition-opacity duration-300 group-hover:opacity-80"
+                  className="h-9 w-9 object-contain transition-transform duration-500 ease-out group-hover:scale-110"
                 />
-                <span className="gradient-text font-display font-black text-2xl md:text-3xl tracking-tighter drop-shadow-sm transition-opacity duration-300 group-hover:opacity-80">
+                <span className="h-6 w-px bg-border/60 hidden sm:block" />
+                <span className="text-foreground font-display font-black text-3xl md:text-4xl leading-none tracking-tight transition-colors duration-300 group-hover:text-primary">
                   {SITE.name}
                 </span>
               </Link>

@@ -64,3 +64,5 @@ Thumbs.db
 .agents/tools/*/*
 .vscode
 .lovable
+
+.other-assets

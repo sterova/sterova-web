@@ -14,8 +14,8 @@ export const Route = createFileRoute("/")({
         {
           rel: "preload",
           as: "image",
-          href: "/logo-128.webp",
-          type: "image/webp",
+          href: "/favicon.svg",
+          type: "image/svg+xml",
           fetchPriority: "high",
         },
       ],

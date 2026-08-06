@@ -11,9 +11,7 @@ interface BrandLogoProps {
 }
 
 /**
- * Single source for the brand mark. Serves a 128px WebP with a PNG fallback so
- * the 512px master never ships to the browser, and always declares intrinsic
- * dimensions so the surrounding layout cannot shift.
+ * Single source for the brand mark. Serves a scalable SVG logo.
  */
 export default function BrandLogo({
   size = 32,
@@ -22,18 +20,15 @@ export default function BrandLogo({
   priority = false,
 }: BrandLogoProps) {
   return (
-    <picture>
-      <source srcSet="/logo-128.webp" type="image/webp" />
-      <img
-        src="/logo-128.png"
-        alt={alt}
-        width={size}
-        height={size}
-        decoding={priority ? "sync" : "async"}
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
-        className={className}
-      />
-    </picture>
+    <img
+      src="/favicon.svg"
+      alt={alt}
+      width={size}
+      height={size}
+      decoding={priority ? "sync" : "async"}
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
+      className={className}
+    />
   );
 }

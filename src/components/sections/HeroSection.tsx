@@ -248,31 +248,28 @@ function NodeCard({ node, compact = false }: { node: Node; compact?: boolean }) 
   );
 }
 
-/** Central node: the Sterova core every capability connects back to. */
 function Core() {
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full group">
       <span
-        className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-primary/25 blur-3xl"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-[2rem] bg-primary/25 blur-3xl transition-all duration-500 group-hover:bg-primary/40 group-hover:blur-2xl"
         aria-hidden="true"
       />
-      <div className="glass relative flex h-full w-full flex-col items-center justify-center gap-1 xl:gap-2 p-3 xl:p-5 text-center rounded-2xl xl:rounded-[2.5rem] shadow-2xl shadow-primary/20 border border-glass-border">
-        <span className="relative flex h-16 w-16 xl:h-24 xl:w-24 items-center justify-center mb-1 xl:mb-2">
-          <span className="absolute inset-0 rounded-[1rem] xl:rounded-[1.5rem] bg-gradient-to-br from-slate-700 to-slate-900 dark:from-slate-600 dark:to-slate-800 shadow-xl" />
-          <span className="relative flex items-center justify-center">
-            <BrandLogo
-              size={48}
-              priority
-              alt=""
-              className="h-8 w-8 xl:h-12 xl:w-12 object-contain brightness-0 invert"
-            />
-          </span>
+      <div className="glass relative flex h-full w-full flex-col items-center justify-center p-2.5 xl:p-4 text-center rounded-[2.5rem] shadow-2xl shadow-primary/20 border border-glass-border transition-transform duration-500 hover:scale-[1.02]">
+        <span className="relative flex items-center justify-center transition-transform duration-500 hover:scale-110 mb-1 xl:mb-1.5">
+          <span className="absolute -inset-4 bg-primary/20 blur-xl rounded-full mix-blend-screen" />
+          <BrandLogo
+            size={72}
+            priority
+            alt=""
+            className="h-12 w-12 xl:h-16 xl:w-16 object-contain relative z-10"
+          />
         </span>
-        <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-1">
+        <span className="font-display text-lg xl:text-xl min-[1400px]:text-2xl font-black tracking-tight leading-none text-foreground mt-0.5 xl:mt-1">
           {SITE.name}
         </span>
         <span className="text-[0.6rem] xl:text-[0.85rem] font-medium text-muted-foreground mt-0.5">
-          Built around your business
+          Engineering excellence
         </span>
       </div>
     </div>
