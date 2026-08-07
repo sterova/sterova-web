@@ -52,7 +52,7 @@ export function getArticleSchema(
       name: SITE.name,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE.url}/logo-512.png`,
+        url: `${SITE.url}/android-chrome-512x512.png`,
         width: 512,
         height: 512,
       },
